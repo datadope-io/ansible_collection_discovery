@@ -1,0 +1,58 @@
+---
+- name: Gather Databases
+  block:
+    - name: Get hostname
+      run_module:
+        ansible.windows.win_shell:
+         _raw_params: "hostname"
+      register: result
+    - name: Format hostname
+      set_instance_fact:
+        _hostname: "<< result.stdout_lines | first >>"
+      when: result is not failed
+    - name: Get installed instances
+      run_module:
+        ansible.windows.win_shell:
+         _raw_params: "(Get-ItemProperty 'HKLM:\\SOFTWARE\\Microsoft\\Microsoft SQL Server').InstalledInstances"
+      register: result
+    - name: Format instances
+      set_instance_fact:
+        _instances: "<< result.stdout_lines >>"
+      when: result is not failed
+    - name: Add instances to extra data
+      set_instance_fact:
+        extra_data: "<< __instance__.extra_data | default({}) | combine({
+              'instances' : __instance__._instances
+            }) >>"
+      when: result is not failed
+    - name: Get databases for each instance
+      block:
+        - name: Get databases of instance
+          run_module:
+            ansible.windows.win_shell:
+              _raw_params: "Get-SqlDatabase -ServerInstance '<< __instance__._hostname >>\\<< __bd_instance__ >>'  | Select -ExpandProperty Name"
+          register: result
+        - name: Add databases if needed
+          block:
+            - name: Add databases
+              set_instance_fact:
+                _databases_per_instance: >-
+                  << _databases_per_instance | default({}) | combine({__bd_instance__: __databases__}) >>
+          vars:
+            __databases__: << result.stdout_lines | default([]) | difference(ignore_databases | default([])) >>
+          when:
+            - result is not failed
+      loop: "<< __instance__._instances | default([]) >>"
+      loop_control:
+        loop_var: __bd_instance__
+    - name: Add databases to extra data
+      set_instance_fact:
+        extra_data: "<< __instance__.extra_data | default({}) | combine({
+          'databases_per_instance': __instance__._databases_per_instance
+        }) >>"
+      when: __instance__._databases_per_instance is defined
+    - name: Remove temporary variables
+      del_instance_fact:
+        - _hostname
+        - _instances
+        - _databases_per_instance

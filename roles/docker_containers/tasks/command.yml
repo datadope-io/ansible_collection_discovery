@@ -1,0 +1,24 @@
+---
+- name: Check whether docker is installed and on system path
+  command: 'which docker'
+  register: docker_installed
+  ignore_errors: yes
+
+- name: Get Docker container info
+  block:
+    - name: Read containers IDs
+      command: docker ps {% if docker_containers__docker_ps_all == true %}-a{% endif %} --format {% raw %}{{.ID}}{% endraw %}
+      when: docker_installed.rc == 0
+      register: psoutput
+
+    - name: Read containers information
+      command: docker inspect {{ psoutput.stdout_lines | join(' ') }}
+      when: psoutput.stdout_lines|length > 0
+      register: inspectoutput
+
+    - name: Dockers result
+      set_fact:
+        dockers: {'containers': "{{ (inspectoutput.stdout|default('[]')) | from_json }}"}
+  when:
+    - docker_installed is not failed
+    - docker_installed.rc == 0

@@ -1,0 +1,287 @@
+---
+- name: Read process environment
+  read_environment_for_process:
+    pid: << __instance__.process.pid >>
+  register: env_vars
+  ignore_errors: yes
+
+- name: Get nginx bin file
+  set_instance_fact:
+    _bin_file: "<< __instance__.process.cmdline | regex_search('master\\s+process\\s+(?:(/\\S+/nginx|nginx))','\\1' ,  ignorecase=True ) | first >>"
+  ignore_errors: yes
+- name: Look for executable
+  block:
+    - name: Run which
+      which:
+        name: << __instance__._bin_file >>
+        paths: << env_vars.parsed.PATH | datadope.discovery.split(':') >>
+      register: result
+      when:
+        - env_vars.parsed.PATH is defined
+        - __instance__._bin_file | length > 0
+    - name: Store bin_file
+      set_instance_fact:
+        _bin_file: << result.file.path >>
+      when:
+        - result is not failed
+        - result is not skipped
+  when:
+    - "'/' not in __instance__._bin_file"
+    - __instance__._bin_file is defined
+
+- name: Add bin_file to files
+  add_file_info:
+    path: "<< __instance__._bin_file | dirname >>"
+    name: "<< __instance__._bin_file | basename >>"
+    type: binary
+    subtype: generic
+  when: __instance__._bin_file is defined
+
+- name: Stat bin file
+  stat:
+    path: "<< __instance__._bin_file >>"
+  register: bin_info
+  when: __instance__._bin_file is defined
+
+- name: Extract Nginx environment
+  block:
+    - name: Get nginx version
+      block:
+        - name: Run version command
+          run_command:
+            argv:
+              - "<< __instance__._bin_file >>"
+              - "-V"
+          register: version_command
+        - name: Version command result operations
+          block:
+            - name: Filter command and set versions
+              block:
+                - name: Filter command result
+                  set_instance_fact:
+                    _versions: "<< version_command.stderr | regex_findall('nginx/(\\d+(?:\\.\\d+)*)', multiline=true) >>"
+                - name: Set versions
+                  add_version_info:
+                    version_type: active
+                    version_number: "<< __item__ >>"
+                  loop: "<< __instance__._versions >>"
+              ignore_errors: true
+            - name: Filter stderr and set stub status
+              block:
+                - name: Filter stderr
+                  set_instance_fact:
+                    _stub_status: "<< version_command.stderr | regex_findall('.*(--with-http_stub_status_module).*', multiline=True) >>"
+                - name: Update compiled stub status
+                  set_instance_fact:
+                    _stub_status: "<< __instance__._stub_status | length > 0 >>"
+              ignore_errors: true
+            - name: Set config file
+              set_instance_fact:
+                _conf_file: "<<version_command.stderr | regex_findall('--conf-path=(.*?) --.*', multiline=True) | first | default('')>>"
+              ignore_errors: true
+          when: version_command is not failed
+    - name: Store config vars
+      block:
+        - name: Set config name
+          set_instance_fact:
+            _config_file_name: "<< __instance__._conf_file | basename >>"
+        - name: Set config path
+          set_instance_fact:
+            _config_path: "<< __instance__._conf_file | dirname >>"
+        - name: Set config parent path
+          set_instance_fact:
+            _parent_config_path: "<< __instance__._config_path | dirname >>"
+        - name: Add conf file to files
+          add_file_info:
+            path: "<< __instance__._config_path >>"
+            name: "<< __instance__._conf_file | basename>>"
+            type: config
+            subtype: generic
+      when: __instance__._conf_file is defined
+    - name: Parse config file
+      block:
+      - name: Read config file
+        read_remote_file:
+          file_path: "<< __instance__._conf_file >>"
+          delegate_reading: yes
+          parser: "custom"
+          parser_params:
+            module_name: "file_parser"
+            module_args:
+              parser: "nginx"
+              env_vars: "<< env_vars.parsed >>"
+        register: config_file_parsed
+      - name: Register parsed config file
+        set_instance_fact:
+          configuration: << config_file_parsed.parsed >>
+        when: config_file_parsed is not failed
+      when:
+        - __instance__._conf_file is defined
+        - env_vars is defined
+
+    - name: Add instance name to extra data
+      set_instance_fact:
+        extra_data: "<< (__instance__.extra_data | default({})) | combine({
+        'name': __instance__._config_file_name | regex_search('(.*).conf', '\\1', ignorecase=True ) | first | default('default')
+        }) >>"
+      when: __instance__._config_file_name is defined
+
+    - name: Get Ports
+      block:
+        - name: Find listen ports
+          find_in_dict:
+            item: "listen"
+            source: "<< __instance__.configuration >>"
+          register: _raw_listen_ports
+        - name: Set ports dict
+          set_instance_fact:
+            _listen_ports: []
+        - name: Loop raw ports
+          block:
+            - name: Set port with ':'
+              block:
+                - name: Set port
+                  set_instance_fact:
+                    _ip: "<< (__item__.rsplit(':', 1))[0] >>"
+                    _portr: "<< (__item__.rsplit(':', 1))[1] >>"
+              when:  "':' in __item__"
+            - name: Set port without ':'
+              set_instance_fact:
+                _ip: "0.0.0.0"
+                _portr: "<< __item__ >>"
+              when:  "':' not in __item__"
+            - name: Port number and protocol
+              set_instance_fact:
+                _portn: "<< (__instance__._portr | regex_findall('([0-9]+) ?([a-zA-Z]+)?') | first )[0] >>"
+                _protocol: "<< (__instance__._portr | regex_findall('([0-9]+) ?([a-zA-Z]+)?') | first )[1] >>"
+            - name: Set protocol https
+              set_instance_fact:
+                _protocol: "https"
+              when:
+              - __instance__._portn == '443'
+              - __instance__._protocol | length == 0 or __instance__._protocol == 'ssl'
+            - name: Set protocol http
+              set_instance_fact:
+                _protocol: "http"
+              when:
+                - __instance__._protocol | length == 0 or __instance__._protocol == 'default'
+            - name: Set port info
+              set_instance_fact:
+                _port_info:
+                  ip: "<< __instance__._ip >>"
+                  port: "<< __instance__._portn | int >>"
+                  protocol: "<< __instance__._protocol >>"
+            - name: Append port info
+              set_instance_fact:
+                _listen_ports: "<< __instance__._listen_ports | default([]) + [ __instance__._port_info ]>>"
+              when: __instance__._port_info not in __instance__._listen_ports
+          loop: << _raw_listen_ports.result | default([]) >>
+      ignore_errors: yes
+      when:
+        - __instance__._listen_ports is not defined
+        - __instance__.configuration is defined
+    - name: Test ports
+      block:
+        - name: Set test_ports
+          set_instance_fact:
+            _test_ports: []
+        - name: Test ports
+          block:
+            - name: Set testing address
+              set_instance_fact:
+                _address: "<< ((__item__.ip == '0.0.0.0' or __item__.ip == '::') | ternary('127.0.0.1', __item__.ip)) >>"
+            - name: Set endpoints
+              set_instance_fact:
+                _endpoints: [ '<<__item__.protocol>>://<<__instance__._address>>:<<__item__.port>>/status',
+                  '<<__item__.protocol>>://<<__instance__._address>>:<<__item__.port>>/nginx_status' ]
+            - name: Loop endpoints
+              block:
+                - name: Request information from endpoint
+                  run_module:
+                    uri:
+                      url: "<< __endpoint__ >>"
+                      method: "GET"
+                      body_format: "json"
+                      body:
+                        operation: "read-resource"
+                  register: response
+                - name: Add tested ports to bindings
+                  add_binding_info:
+                    address: "<< __item__.ip >>"
+                    port: "<< __item__.port >>"
+                    class: service
+                    extra_data:
+                      status: "<< response.status >>"
+                      protocol: "<< __item__.protocol >>"
+                - name: Set stub status
+                  block:
+                    - name: Nginx plus
+                      set_instance_fact:
+                        _stub_status_config: "present"
+                        _stub_status_endpoint: "<< __endpoint__ >>"
+                        _nginx_build: "nginx-plus"
+                      when: response.msg | regex_search('.*nginx-plus.*', ignorecase=True) | string | length > 0
+                    - name: Nginx standard
+                      set_instance_fact:
+                        _stub_status_config: "present"
+                        _stub_status_endpoint: "<< __endpoint__ >>"
+                        _nginx_build: "nginx-standard"
+                      when: response.msg | regex_search('.*Active connections.*', ignorecase=True) | string | length > 0
+                  when: response.status == 200
+              loop: "<< __instance__._endpoints >>"
+              loop_control:
+                loop_var: __endpoint__
+          loop: "<< __instance__._listen_ports >>"
+      when: __instance__._listen_ports is defined
+    - name: Set stub status config
+      set_instance_fact:
+        _stub_status_config: 'absent'
+      when: _stub_status_config is not defined
+    - name: Add stubs to extra data
+      block:
+        - name: Add stub status
+          set_instance_fact:
+            extra_data: "<< (__instance__.extra_data | default({})) | combine({
+            'stub_status': __instance__._stub_status}) >>"
+          when: __instance__._stub_status is defined
+        - name: Add stub status config
+          set_instance_fact:
+            extra_data: "<< (__instance__.extra_data | default({})) | combine({
+            'stub_status_config': __instance__._stub_status_config }) >>"
+          when: __instance__._stub_status_config is defined
+        - name: Add stub status endpoint
+          add_endpoint_info:
+            uri: "<< __instance__._stub_status_endpoint >>"
+          when: __instance__._stub_status_endpoint is defined
+        - name: Add nginx build
+          set_instance_fact:
+            extra_data: "<< (__instance__.extra_data | default({})) | combine({
+            'nginx_build': __instance__._nginx_build }) >>"
+          when: __instance__._nginx_build is defined
+    - name: Del temp facts
+      del_instance_fact:
+        - _config_file_name
+        - _config_path
+        - _versions
+        - _address
+        - _ip
+        - _parent_config_path
+        - _port_info
+        - _port
+        - _portn
+        - _portr
+        - _protocol
+        - _endpoints
+        - _bin_file
+        - _conf_file
+        - _listen_ports
+        - _test_ports
+        - _stub_status
+        - _stub_status_config
+        - _stub_status_endpoint
+        - _nginx_build
+  when:
+    - __instance__._bin_file is defined
+    - bin_info is not failed
+    - bin_info.stat is defined
+    - bin_info.stat.executable

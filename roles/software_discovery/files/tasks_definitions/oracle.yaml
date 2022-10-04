@@ -1,0 +1,416 @@
+---
+- name: Get instancereg
+  set_instance_fact:
+    _instance:
+      name: << _name >>
+      name_normalized: << _name | replace('+', '') >>
+      service_names: []
+  vars:
+    _name: << __instance__.process.cmdline | regex_search('(?:ora|xe|asm)_pmon_(\S+)', '\1', ignorecase=True) | first >>
+  ignore_errors: true
+  register: result
+- name: Abort if not found
+  set_instance_fact:
+    NOT_A_REAL_SOFTWARE_REMOVE_FROM_LIST: yes
+  when: __instance__._instance is not defined
+- name: Rest of tasks
+  block:
+    - name: Get listeners
+      block:
+        - name: Get listener processes
+          set_instance_fact:
+            _list_procs: << __instance__._list_procs | default([]) + [__item__] >>
+          when: __item__.cmdline | regex_findall('.*tnslsnr.*', multiline=True, ignorecase=True) | length > 0
+          loop: "{{ processes }}"
+        - name: Process listeners
+          block:
+            - name: Get ORAHOME for each listener
+              block:
+                - name: Get ORAHOME from env vars
+                  block:
+                    - name: Read env from listener
+                      read_environment_for_process:
+                        pid: << _listener.pid >>
+                      register: env_listener
+                    - name: Set ORAHOME from env
+                      update_instance_fact:
+                        updates:
+                          - path: _list_procs.<<_listener_index>>.ORACLE_HOME
+                            value: << env_listener.parsed.ORACLE_HOME >>
+                          - path: _list_procs.<<_listener_index>>.instances
+                            value: {}
+                          - path: _list_procs.<<_listener_index>>.ports
+                            value: []
+                      when:
+                        - env_listener is not failed
+                        - env_listener.parsed.ORACLE_HOME is defined
+                - name: Get ORAHOME from path
+                  block:
+                    - name: Set ORAHOME from env
+                      update_instance_fact:
+                        updates:
+                          - path: _list_procs.<<_listener_index>>.ORACLE_HOME
+                            value: << orahomereg >>
+                      vars:
+                        orahomereg: << _listener.cmdline | regex_search('(\/.*)/bin/\S*', '\1') | first >>
+                      ignore_errors: yes
+                  when: __instance__._list_procs[_listener_index].ORACLE_HOME is not defined
+            - name: Add name
+              update_instance_fact:
+                updates:
+                  - path: _list_procs.<<_listener_index>>.name
+                    value: << __instance__._list_procs[_listener_index].cmdline | regex_findall('.*tnslsnr\s([\w_-]*)\s*.*') | first >>
+              ignore_errors: yes
+              when: __instance__._list_procs[_listener_index].ORACLE_HOME is defined
+            - name: Block to execute command lsnrctl
+              block:
+                - name: Create lsnrctl temp file
+                  run_module:
+                    ansible.builtin.blockinfile:
+                      create: yes
+                      path: /tmp/os_facts_oracledb
+                      block: |
+                        SET DISPLAYMODE raw
+                        status << __instance__._list_procs[_listener_index].name >>
+                      insertbefore: BOF
+                  register: result_create_file
+                - name: Execute lsnrctl
+                  run_command:
+                    cmd: "<< __instance__._list_procs[_listener_index].ORACLE_HOME >>/bin/lsnrctl @/tmp/os_facts_oracledb"
+                  environment:
+                    ORACLE_HOME: "<< __instance__._list_procs[_listener_index].ORACLE_HOME >>"
+                    TNS_ADMIN: "<< __instance__._list_procs[_listener_index].ORACLE_HOME >>/network/admin"
+                  register: result
+                  when: result_create_file is not failed
+                - name: Extract ports and instances
+                  block:
+                    - name: Extract ports
+                      update_instance_fact:
+                        updates:
+                          - path: _list_procs.<< _listener_index >>.ports
+                            value: >-
+                              << (__instance__._list_procs[_listener_index].ports + __item__ 
+                              | regex_findall('PORT=(.*?)\)', ignorecase=True)) | unique  >>
+                      when:
+                        - "'PORT=' in (__item__ | upper)"
+                        - "'HTTP' not in (__item__ | upper)"
+                      loop: << result.stdout_lines >>
+                    - name: Extract instances and service names
+                      set_instance_fact:
+                        _instance_and_names: >-
+                          << (__instance__._instance_and_names | default([]) + __item__ | regex_findall('SERVICE_NAME=(.*?)\).*INSTANCE_NAME=(.*?)\)', ignorecase=True)) | unique >>
+                      when:
+                        - "(__item__ | upper).startswith('(SERVICE')"
+                      loop: << result.stdout_lines >>
+                    - name: Generate dict of instances
+                      update_instance_fact:
+                        updates:
+                          - path: _list_procs.<< _listener_index >>.instances.<< __item__[1] | replace('+', '') >>
+                            value: << __instance__._list_procs[_listener_index].instances[__item__[1]] | default([]) + [__item__[0]] >>
+                      loop: << __instance__._instance_and_names >>
+                      when: __instance__._instance_and_names is defined
+                  when: result is not failed
+                - name: Remove temporary vars
+                  del_instance_fact:
+                    - _instance_and_names
+              when: __instance__._list_procs[_listener_index].name is defined
+          loop: << __instance__._list_procs >>
+          loop_control:
+            loop_var: _listener
+            index_var: _listener_index
+    - name: Process discovered listeners
+      block:
+        - name: Add ports from listeners to instance
+          set_instance_fact:
+            listening_ports: << (__instance__.listening_ports + (_listener.ports | map('int') | list)) | unique >>
+          when:
+            - _listener.ports is defined and _listener.ports | length > 0
+            - __instance__['_instance']['name_normalized'] in _listener.instances
+        - name: Get connection_sid and services
+          block:
+            - name: Check no service
+              update_instance_fact:
+                updates:
+                  - path: _instance.connection_sid
+                    value: << __instance__._instance.name >>
+              when: _listener.instances[__instance__._instance.name_normalized] | length == 0
+            - name: Check with services
+              update_instance_fact:
+                updates:
+                  - path: _instance.service_names
+                    value: << (__instance__._instance.service_names + _listener.instances[__instance__._instance.name_normalized]) | unique >>
+              when: _listener.instances[__instance__._instance.name_normalized] | length > 0
+            - name: Check with services
+              update_instance_fact:
+                updates:
+                  - path: _instance.connection_sid
+                    value: << __instance__._instance.name >>
+              when:
+                - _listener.instances[__instance__._instance.name_normalized] | length > 0
+                - __instance__._instance.name in __instance__._instance.service_names
+          when:
+            - __instance__._instance.name_normalized is defined
+            - _listener.instances is defined
+            - __instance__._instance.name_normalized in _listener.instances
+      loop: << __instance__._list_procs >>
+      loop_control:
+        loop_var: _listener
+    - name: Ensure connection_sid
+      update_instance_fact:
+        updates:
+          - path: _instance.connection_sid
+            value: << __instance__._instance.service_names[0] >>
+      when:
+        - __instance__._instance.connection_sid is not defined
+        - __instance__._instance.service_names | length > 0
+    - name: Databases
+      set_instance_fact:
+        extra_data: "<< (__instance__.extra_data | default({})) | combine({
+          'databases': __instance__._instance.name
+      }) >>"
+    - name: Get ORACLE_HOME
+      block:
+        - name: Read env from process
+          read_environment_for_process:
+            pid: << __instance__.process.pid >>
+          register: environment
+        - name: Store ORACLE_HOME
+          set_instance_fact:
+            _ORACLE_HOME: << environment.parsed.ORACLE_HOME >>
+          when:
+            - environment is not failed
+            - environment.parsed.ORACLE_HOME is defined
+        - name: Get ORAHOME from path
+          block:
+            - name: Set ORAHOME from env
+              set_instance_fact:
+                _ORACLE_HOME: << orahomereg >>
+              vars:
+                orahomereg: << __instance__.process.cmdline | regex_search('(\/.*)/bin/\S*', '\1') | first >>
+              ignore_errors: yes
+          when: __instance__._ORACLE_HOME is not defined
+        - name: Get ORAHOME from oratab
+          block:
+            - name: Iterate files
+              block:
+                - name: Read oratab file
+                  read_remote_file:
+                    file_path: << __item__ >>
+                  register: result
+                - name: Extract oracle_home
+                  set_instance_fact:
+                    _ORACLE_HOME: << result.content | regex_search(regex, '\1', multiline=True) | first >>
+                  vars:
+                    regex: '^\s*<< __instance__._instance.name >>:(.+?)(?::|$)'
+                  ignore_errors: yes
+                  when: result is not failed
+              loop:
+                - /etc/oratab
+                - /etc/oracle/oratab
+                - /etc/opt/oracle/oratab
+                - /var/opt/oracle/oratab
+                - /var/opt/unix/oratab
+                - /shared/opt/oracle/oratab
+          when:
+            - __instance__._ORACLE_HOME is not defined
+            - __instance__._instance.name is defined
+        - name: Get version from ORACLE_HOME
+          add_version_info:
+            version_type: file
+            version_number: << __instance__._ORACLE_HOME | regex_findall('/(1?\d\.?\d?\.?\d?\.?\d?.*)/') | first >>
+          ignore_errors: yes
+          when: __instance__._ORACLE_HOME is defined
+    - name: Get version using command
+      block:
+        - name: Run command to get version
+          run_command:
+            cmd: << __instance__._ORACLE_HOME >>/bin/sqlplus -V
+          environment:
+            ORACLE_HOME: << __instance__._ORACLE_HOME >>
+          register: result
+        - name: Store version
+          set_instance_fact:
+            _version: << _version >>
+            _version_major: << _version | datadope.discovery.split('.') | first >>
+          vars:
+            _version: << result.stdout | regex_search('.*Release\s+([\d+\.]*).*', '\1', multiline=True) | first >>
+          ignore_errors: yes
+          when: result is not failed
+        - name: Add version
+          add_version_info:
+            version_type: active
+            version_number: << __instance__._version >>
+          ignore_errors: yes
+          when: __instance__.version is defined
+      when: __instance__._ORACLE_HOME is defined
+    - name: Get alert_log and role
+      block:
+        - name: Prepare query
+          set_instance_fact:
+            _query: select value from v$diag_info where name = 'Diag Trace';
+          when:
+            - __instance__._version_major | int > 10
+        - name: Prepare query
+          set_instance_fact:
+            _query: select value from v$parameter where name = 'background_dump_dest';
+          when:
+            - __instance__._version_major | int <= 10
+        - name: Set ASM role
+          set_instance_fact:
+            _role: ASM NODE
+          when: __instance__._instance.connection_sid == '+ASM'
+        - name: Loop endpoints
+          block:
+            - name: Loop ports
+              block:
+                - name: Loop users
+                  block:
+                    - name: Get log dir
+                      block:
+                        - name: Run command to get log dir
+                          run_command:
+                            cmd: << __instance__._ORACLE_HOME >>/bin/sqlplus -silent << dsn >>
+                            stdin: "SET PAGESIZE 0 FEEDBACK OFF VERIFY OFF HEADING OFF ECHO OFF;\n<< __instance__._query >>"
+                          vars:
+                            dsn: << __user__.username >>/<< __user__.password >>@<< __endpoint__ >>:<< __port__ >>/<< __instance__._instance.connection_sid >><< (__instance__._instance.connection_sid == '+ASM') | ternary(' as sysasm', '') >>
+                          environment:
+                            ORACLE_HOME: << __instance__._ORACLE_HOME >>
+                          register: result
+                        - name: Store log dir data
+                          set_instance_fact:
+                            _alert_log_dir: << result.stdout | trim >>
+                          when: result is not failed
+                      when:
+                        - __instance__._query is defined
+                        - __instance__._alert_log_dir is not defined
+                    - name: Get role
+                      block:
+                        - name: Run command to get role
+                          run_command:
+                            cmd: << __instance__._ORACLE_HOME >>/bin/sqlplus -silent << dsn >>
+                            stdin: "SET PAGESIZE 0 FEEDBACK OFF VERIFY OFF HEADING OFF ECHO OFF;\nselect database_role from v$database;"
+                          vars:
+                            dsn: << __user__.username >>/<< __user__.password >>@<< __endpoint__ >>:<< __port__ >>/<< __instance__._instance.connection_sid >>
+                          environment:
+                            ORACLE_HOME: << __instance__._ORACLE_HOME >>
+                          register: result
+                        - name: Store role data
+                          set_instance_fact:
+                            _role: << result.stdout | trim >>
+                          when: result is not failed
+                      when:
+                        - __instance__._role is not defined
+                  when: __instance__._alert_log_dir is not defined or __instance__._role is not defined
+                  loop: << connect_with_users >>
+                  loop_control:
+                    loop_var: __user__
+              when: __instance__._alert_log_dir is not defined or __instance__._role is not defined
+              loop: << __instance__.listening_ports >>
+              loop_control:
+                loop_var: __port__
+          when: __instance__._alert_log_dir is not defined or __instance__._role is not defined
+          loop: << ['localhost', ansible_hostname | default('localhost') , monitor_cluster_hostname] | unique >>
+          loop_control:
+            loop_var: __endpoint__
+        - name: Add alert_log_dir to files
+          add_file_info:
+            path: "<< __instance__._alert_log_dir >>"
+            type: log
+            subtype: generic
+          when: __instance__._alert_log_dir is defined
+        - name: Store unknown role
+          set_instance_fact:
+            _role: UNKNOWN
+          when: __instance__._role is not defined
+      when:
+        - __instance__._version_major is defined
+        - __instance__._instance.connection_sid is defined
+    - name: Get config parameters
+      block:
+        - name: Get parameters from database
+          block:
+            - name: Run command to get parameters from DB
+              run_command:
+                cmd: << __instance__._ORACLE_HOME >>/bin/sqlplus -silent << dsn >>
+                stdin: "SET PAGESIZE 0 FEEDBACK OFF VERIFY OFF HEADING OFF ECHO OFF LINESIZE 10000;\nselect name||'='||value from v$parameter where value is not null;"
+              vars:
+                dsn: << __user__.username >>/<< __user__.password >>@<< __endpoint__ >>:<< __port__ >>/<< __instance__._instance.connection_sid >><< (__instance__._instance.connection_sid == '+ASM') | ternary(' as sysasm', '') >>
+              environment:
+                ORACLE_HOME: << __instance__._ORACLE_HOME >>
+              register: result
+            - name: Process result
+              parse:
+                content: << result.stdout >>
+                parser: key_value
+                parser_params:
+                  separators: '='
+              register: result
+              when: result is not failed
+            - name: Store result
+              set_instance_fact:
+                configuration: << result.parsed >>
+              when:
+                - result is not failed
+        - name: Get config file
+          block:
+            - name: Loop possible config files
+              block:
+                - name: Read config file
+                  read_remote_file:
+                    file_path: << __instance__._ORACLE_HOME>>/dbs/<< __item__ >>
+                    parser: key_value
+                  register:
+                    result
+                - name: Store configuration
+                  set_instance_fact:
+                    configuration: << result.parsed >>
+                  when: result is not failed
+              when: __instance__.configuration is not defined
+              loop:
+                - spfile<< __instance__._instance.name >>.ora
+                - init<< __instance__._instance.name >>.ora
+          when: __instance__.configuration is not defined
+        - name: Default empty config
+          set_instance_fact:
+            configuration: {}
+          when: __instance__.configuration is not defined
+      when:
+        - read_configuration
+        - __instance__._ORACLE_HOME is defined
+        - __instance__._instance.name is defined
+
+    - name: Add instance to extra data
+      set_instance_fact:
+        extra_data: "<< (__instance__.extra_data | default({})) | combine({
+          'instance': __instance__._instance
+      }) >>"
+      when: __instance__._instance is defined
+    - name: Add ORACLE_HOME to extra data
+      set_instance_fact:
+        extra_data: "<< (__instance__.extra_data | default({})) | combine({
+          'ORACLE_HOME': __instance__._ORACLE_HOME,
+      }) >>"
+      when: __instance__._ORACLE_HOME is defined
+    - name: Add ROLE to extra data
+      set_instance_fact:
+        extra_data: "<< (__instance__.extra_data | default({})) | combine({
+          'role': __instance__._role
+      }) >>"
+      when: __instance__._role is defined
+
+    - name: Add oracle home to files
+      add_file_info:
+        path: "<< __instance__._ORACLE_HOME >>"
+        type: home
+        subtype: generic
+    - name: Remove temporary vars
+      del_instance_fact:
+        - _query
+        - _list_procs
+        - _version
+        - _version_major
+        - _alert_log_dir
+        - _instance
+        - _ORACLE_HOME
+        - _role
+  when: __instance__.NOT_A_REAL_SOFTWARE_REMOVE_FROM_LIST is not defined

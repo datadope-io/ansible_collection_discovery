@@ -1,0 +1,29 @@
+---
+- name: Get docker bin file
+  set_instance_fact:
+    _bin_file: "<< __instance__.process.cmdline | regex_search('^(.*dockerd?)','\\1' ,  ignorecase=True ) | first >>"
+  ignore_errors: yes
+
+- name: Extract version
+  block:
+    - name: Run version command
+      run_command:
+        argv:
+          - "<< __instance__._bin_file >>"
+          - "-v"
+      register: version_command
+    - name: Add version info
+      add_version_info:
+        version_type: 'active'
+        version_number: "<< version_command.stdout | regex_search('([0-9].*?),','\\1',  ignorecase=True ) | first >>"
+      when: version_command is not failed
+    - name: Add bin to files dict
+      add_file_info:
+        path: "<< __instance__._bin_file >>"
+        type: binary
+        subtype: generic
+  when: __instance__._bin_file is defined
+
+- name: Remove tmp vars
+  del_instance_fact:
+    - _bin_file

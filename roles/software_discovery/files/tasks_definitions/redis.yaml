@@ -1,0 +1,82 @@
+---
+- name: Get environment
+  read_environment_for_process:
+    pid: << __instance__.process.pid >>
+  register: environment
+
+# Disabled since listening_ports already gives the same information, allowing us to avoid port 0 problems
+#- name: Block to get port from command line
+#  block:
+#    - name: Get port from command line
+#      set_instance_fact:
+#        _cmd_port: "<< __instance__.process.cmdline | regex_search('redis-server .*:(\\w*)', '\\1', ignorecase=True) | first >>"
+#      ignore_errors: yes
+#
+#    - name: Insert port in list
+#      set_instance_fact:
+#        listening_ports: << __instance__.listening_ports + [__instance__._cmd_port | int] >>
+#      when:
+#        - __instance__._cmd_port is defined
+#        - __instance__._cmd_port | int not in __instance__.listening_ports
+#        - __instance__._cmd_port | int > 0
+#
+#    - name: Remove temporary vars
+#      del_instance_fact:
+#        - _cmd_port
+#      when: __instance__._cmd_port is defined
+#  when: __instance__.process.cmdline is defined
+
+- name: Block to get bin_file
+  block:
+    - name: Get executable from command line
+      set_instance_fact:
+        _bin_file: "<< __instance__.process.cmdline | regex_search('^\\s*(\\S*)\\s*', '\\1', ignorecase=True) | first >>"
+      ignore_errors: yes
+    - name: Look for executable
+      block:
+        - name: Run which
+          which:
+            name: << __instance__._bin_file >>
+            paths: << environment.parsed.PATH | datadope.discovery.split(':') >>
+          register: result
+          when:
+            - environment.parsed.PATH is defined
+            - __instance__._bin_file | length > 0
+        - name: Store bin_file
+          set_instance_fact:
+            _bin_file: "<< result.file.path >>"
+          when:
+            - result is not failed
+            - result is not skipped
+      when: "'/' not in __instance__._bin_file"
+  when: __instance__.process.cmdline is defined
+
+- name: Add bin_file to files dict
+  add_file_info:
+    path: "<< __instance__._bin_file | dirname>>"
+    name: "<< __instance__._bin_file | basename >>"
+    type:  binary
+    subtype: generic
+  when: __instance__._bin_file is defined
+
+- name: Get version from command
+  block:
+    - name: Run version command
+      run_command:
+        cmd: "<< __instance__._bin_file >> --version"
+      register: result
+    - name: Get version from result
+      set_instance_fact:
+        _tmp_version: "<< result.stdout | regex_search('^.*v=(\\S*)', '\\1', ignorecase=True) | first >>"
+      ignore_errors: yes
+      when: result is not failed
+    - name: Add version
+      add_version_info:
+        version_type: 'command'
+        version_number: << __instance__._tmp_version >>
+      when: __instance__._tmp_version is defined
+    - name: Remove temporary vars
+      del_instance_fact:
+        - _tmp_version
+        - _bin_file
+  when: __instance__._bin_file is defined

@@ -1,0 +1,6633 @@
+expected_result:
+  - bindings:
+      - address: '0.0.0.0'
+        class: 'service'
+        port: 10051
+        protocol: 'tcp'
+      - address: '::'
+        class: 'service'
+        port: 10051
+        protocol: 'tcp'
+    discovery_time: '2022-07-04T15:06:31+02:00'
+    listening_ports:
+      - 10051
+    packages:
+      - arch: x86_64
+        epoch: null
+        name: zabbix-server-pgsql
+        release: 1.el7
+        source: rpm
+        version: 4.0.20
+    process:
+      children:
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: configuration syncer [synced configuration in 1.574989 sec, idle 60 sec]'
+          pid: '1178'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: housekeeper [deleted 0 hist/trends, 0 items/triggers, 69 events, 2 sessions, 0 alarms, 2 audit items in 1.195076 sec, idle for 1 hour(s)]'
+          pid: '1255'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: timer #1 [updated 0 hosts, suppressed 0 events in 0.001907 sec, idle 59 sec]'
+          pid: '1256'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: timer #2 [suppressed 0 events in 0.035586 sec, idle 58 sec]'
+          pid: '1257'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: timer #3 [suppressed 0 events in 0.032545 sec, idle 58 sec]'
+          pid: '1258'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: timer #4 [suppressed 0 events in 0.043363 sec, idle 58 sec]'
+          pid: '1259'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: timer #5 [suppressed 0 events in 0.066465 sec, idle 58 sec]'
+          pid: '1260'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: timer #6 [suppressed 0 events in 0.064149 sec, idle 58 sec]'
+          pid: '1261'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: timer #7 [suppressed 0 events in 0.044135 sec, idle 58 sec]'
+          pid: '1262'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: timer #8 [suppressed 0 events in 0.066614 sec, idle 58 sec]'
+          pid: '1263'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: timer #9 [suppressed 0 events in 0.070274 sec, idle 58 sec]'
+          pid: '1264'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: timer #10 [suppressed 0 events in 0.033935 sec, idle 58 sec]'
+          pid: '1265'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: timer #11 [suppressed 0 events in 0.033549 sec, idle 59 sec]'
+          pid: '1266'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: timer #12 [suppressed 0 events in 0.056936 sec, idle 58 sec]'
+          pid: '1267'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: timer #13 [suppressed 0 events in 0.060405 sec, idle 58 sec]'
+          pid: '1268'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: timer #14 [suppressed 0 events in 0.045167 sec, idle 58 sec]'
+          pid: '1269'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: timer #15 [suppressed 0 events in 0.038825 sec, idle 58 sec]'
+          pid: '1270'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: http poller #1 [got 0 values in 0.001601 sec, idle 5 sec]'
+          pid: '1271'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: http poller #2 [got 0 values in 0.001186 sec, idle 5 sec]'
+          pid: '1272'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: http poller #3 [got 0 values in 0.001257 sec, idle 5 sec]'
+          pid: '1273'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: http poller #4 [got 0 values in 0.001622 sec, idle 5 sec]'
+          pid: '1274'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: http poller #5 [got 0 values in 0.001709 sec, idle 5 sec]'
+          pid: '1275'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: http poller #6 [got 0 values in 0.001607 sec, idle 5 sec]'
+          pid: '1276'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: http poller #7 [got 0 values in 0.001650 sec, idle 5 sec]'
+          pid: '1277'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: http poller #8 [got 0 values in 0.001241 sec, idle 5 sec]'
+          pid: '1278'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: http poller #9 [got 0 values in 0.001343 sec, idle 5 sec]'
+          pid: '1279'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: http poller #10 [got 0 values in 0.001719 sec, idle 5 sec]'
+          pid: '1280'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: http poller #11 [got 0 values in 0.002388 sec, idle 5 sec]'
+          pid: '1281'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: http poller #12 [got 0 values in 0.001564 sec, idle 5 sec]'
+          pid: '1282'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: discoverer #1 [processed 0 rules in 0.001910 sec, idle 60 sec]'
+          pid: '1283'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: discoverer #2 [processed 0 rules in 0.002141 sec, idle 60 sec]'
+          pid: '1284'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: discoverer #3 [processed 0 rules in 0.002326 sec, idle 60 sec]'
+          pid: '1285'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: discoverer #4 [processed 0 rules in 0.001887 sec, idle 60 sec]'
+          pid: '1286'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: discoverer #5 [processed 0 rules in 0.001595 sec, idle 60 sec]'
+          pid: '1287'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: discoverer #6 [processed 0 rules in 0.001633 sec, idle 60 sec]'
+          pid: '1288'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: history syncer #1 [processed 0 values, 0 triggers in 0.000042 sec, idle 1 sec]'
+          pid: '1289'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: history syncer #2 [processed 22 values, 15 triggers in 0.017126 sec, idle 1 sec]'
+          pid: '1290'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: history syncer #3 [processed 0 values, 0 triggers in 0.000042 sec, idle 1 sec]'
+          pid: '1291'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: history syncer #4 [processed 0 values, 0 triggers in 0.000037 sec, idle 1 sec]'
+          pid: '1292'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: history syncer #5 [processed 0 values, 0 triggers in 0.000041 sec, idle 1 sec]'
+          pid: '1293'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: history syncer #6 [processed 0 values, 0 triggers in 0.000051 sec, idle 1 sec]'
+          pid: '1294'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: history syncer #7 [processed 0 values, 11 triggers in 0.002103 sec, idle 1 sec]'
+          pid: '1295'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: history syncer #8 [processed 0 values, 0 triggers in 0.000052 sec, idle 1 sec]'
+          pid: '1296'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: history syncer #9 [processed 0 values, 0 triggers in 0.000042 sec, idle 1 sec]'
+          pid: '1297'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: history syncer #10 [processed 0 values, 0 triggers in 0.000050 sec, idle 1 sec]'
+          pid: '1298'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: escalator #1 [processed 0 escalations in 0.002789 sec, idle 3 sec]'
+          pid: '1299'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: escalator #2 [processed 0 escalations in 0.003336 sec, idle 3 sec]'
+          pid: '1300'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: escalator #3 [processed 0 escalations in 0.003633 sec, idle 3 sec]'
+          pid: '1301'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: snmp trapper [processed data in 0.000042 sec, idle 1 sec]'
+          pid: '1302'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: self-monitoring [processed data in 0.000065 sec, idle 1 sec]'
+          pid: '1303'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: task manager [processed 0 task(s) in 0.001448 sec, idle 5 sec]'
+          pid: '1304'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #1 [got 0 values in 0.000092 sec, idle 1 sec]'
+          pid: '1305'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #2 [got 0 values in 0.000065 sec, idle 1 sec]'
+          pid: '1306'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #3 [got 0 values in 0.000042 sec, idle 1 sec]'
+          pid: '1307'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #4 [got 0 values in 0.000110 sec, idle 1 sec]'
+          pid: '1308'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #5 [got 0 values in 0.000333 sec, idle 1 sec]'
+          pid: '1309'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #6 [got 0 values in 0.000057 sec, idle 1 sec]'
+          pid: '1310'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #7 [got 0 values in 0.000043 sec, idle 1 sec]'
+          pid: '1311'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #8 [got 0 values in 0.000052 sec, idle 1 sec]'
+          pid: '1312'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #9 [got 0 values in 0.000204 sec, idle 1 sec]'
+          pid: '1313'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #10 [got 5 values in 0.001876 sec, idle 1 sec]'
+          pid: '1314'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #11 [got 0 values in 0.000029 sec, idle 1 sec]'
+          pid: '1315'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #12 [got 0 values in 0.000033 sec, idle 1 sec]'
+          pid: '1316'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #13 [got 0 values in 0.000040 sec, idle 1 sec]'
+          pid: '1317'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #14 [got 0 values in 0.000040 sec, idle 1 sec]'
+          pid: '1318'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #15 [got 0 values in 0.000023 sec, idle 1 sec]'
+          pid: '1319'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #16 [got 0 values in 0.000037 sec, idle 1 sec]'
+          pid: '1320'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #17 [got 0 values in 0.000046 sec, idle 1 sec]'
+          pid: '1321'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #18 [got 0 values in 0.000031 sec, idle 1 sec]'
+          pid: '1322'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #19 [got 0 values in 0.000022 sec, idle 1 sec]'
+          pid: '1323'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #20 [got 0 values in 0.000106 sec, idle 1 sec]'
+          pid: '1324'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #21 [got 0 values in 0.000057 sec, idle 1 sec]'
+          pid: '1325'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #22 [got 0 values in 0.000043 sec, idle 1 sec]'
+          pid: '1326'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #23 [got 0 values in 0.000079 sec, idle 1 sec]'
+          pid: '1327'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #24 [got 0 values in 0.000032 sec, idle 1 sec]'
+          pid: '1328'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #25 [got 0 values in 0.000051 sec, idle 1 sec]'
+          pid: '1329'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #26 [got 0 values in 0.000048 sec, idle 1 sec]'
+          pid: '1330'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #27 [got 0 values in 0.000056 sec, idle 1 sec]'
+          pid: '1331'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #28 [got 0 values in 0.000050 sec, idle 1 sec]'
+          pid: '1332'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #29 [got 0 values in 0.000057 sec, idle 1 sec]'
+          pid: '1333'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #30 [got 0 values in 0.000066 sec, idle 1 sec]'
+          pid: '1334'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #31 [got 0 values in 0.000034 sec, idle 1 sec]'
+          pid: '1335'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #32 [got 0 values in 0.000032 sec, idle 1 sec]'
+          pid: '1336'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #33 [got 0 values in 0.000627 sec, idle 1 sec]'
+          pid: '1337'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #34 [got 0 values in 0.000171 sec, idle 1 sec]'
+          pid: '1338'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #35 [got 0 values in 0.000042 sec, idle 1 sec]'
+          pid: '1339'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #36 [got 0 values in 0.000063 sec, idle 1 sec]'
+          pid: '1340'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #37 [got 0 values in 0.000028 sec, idle 1 sec]'
+          pid: '1341'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #38 [got 0 values in 0.000063 sec, idle 1 sec]'
+          pid: '1342'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #39 [got 0 values in 0.000039 sec, idle 1 sec]'
+          pid: '1343'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #40 [got 0 values in 0.000035 sec, idle 1 sec]'
+          pid: '1344'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #41 [got 0 values in 0.000044 sec, idle 1 sec]'
+          pid: '1345'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #42 [got 0 values in 0.000211 sec, idle 1 sec]'
+          pid: '1346'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #43 [got 0 values in 0.000033 sec, idle 1 sec]'
+          pid: '1347'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #44 [got 0 values in 0.000047 sec, idle 1 sec]'
+          pid: '1348'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #45 [got 0 values in 0.000039 sec, idle 1 sec]'
+          pid: '1349'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #46 [got 0 values in 0.000046 sec, idle 1 sec]'
+          pid: '1350'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #47 [got 0 values in 0.000120 sec, idle 1 sec]'
+          pid: '1351'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #48 [got 0 values in 0.000022 sec, idle 1 sec]'
+          pid: '1352'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #49 [got 0 values in 0.000054 sec, idle 1 sec]'
+          pid: '1353'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #50 [got 0 values in 0.000040 sec, idle 1 sec]'
+          pid: '1354'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #51 [got 0 values in 0.000031 sec, idle 1 sec]'
+          pid: '1355'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #52 [got 0 values in 0.000046 sec, idle 1 sec]'
+          pid: '1356'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #53 [got 1 values in 15.000692 sec, getting values]'
+          pid: '1357'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #54 [got 0 values in 0.000068 sec, idle 1 sec]'
+          pid: '1358'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #55 [got 0 values in 0.000088 sec, idle 1 sec]'
+          pid: '1359'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #56 [got 0 values in 0.000046 sec, idle 1 sec]'
+          pid: '1360'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #57 [got 0 values in 0.000116 sec, idle 1 sec]'
+          pid: '1361'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #58 [got 0 values in 0.000031 sec, idle 1 sec]'
+          pid: '1362'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #59 [got 3 values in 0.024509 sec, idle 1 sec]'
+          pid: '1363'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #60 [got 0 values in 0.000029 sec, idle 1 sec]'
+          pid: '1364'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #61 [got 0 values in 0.000092 sec, idle 1 sec]'
+          pid: '1365'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #62 [got 8 values in 0.001505 sec, idle 1 sec]'
+          pid: '1366'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #63 [got 0 values in 0.000047 sec, idle 1 sec]'
+          pid: '1367'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #64 [got 0 values in 0.000096 sec, idle 1 sec]'
+          pid: '1368'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #65 [got 0 values in 0.000035 sec, idle 1 sec]'
+          pid: '1369'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #66 [got 0 values in 0.000087 sec, idle 1 sec]'
+          pid: '1370'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #67 [got 0 values in 0.000108 sec, idle 1 sec]'
+          pid: '1371'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #68 [got 0 values in 0.000145 sec, idle 1 sec]'
+          pid: '1372'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #69 [got 1 values in 0.001306 sec, getting values]'
+          pid: '1373'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #70 [got 0 values in 0.000046 sec, idle 1 sec]'
+          pid: '1376'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #71 [got 0 values in 0.000023 sec, idle 1 sec]'
+          pid: '1377'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #72 [got 0 values in 0.000023 sec, idle 1 sec]'
+          pid: '1380'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #73 [got 0 values in 0.000084 sec, idle 1 sec]'
+          pid: '1381'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #74 [got 0 values in 0.000029 sec, idle 1 sec]'
+          pid: '1382'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #75 [got 0 values in 0.000365 sec, idle 1 sec]'
+          pid: '1383'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #76 [got 0 values in 0.000044 sec, idle 1 sec]'
+          pid: '1384'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #77 [got 0 values in 0.000034 sec, idle 1 sec]'
+          pid: '1385'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #78 [got 0 values in 0.000022 sec, idle 1 sec]'
+          pid: '1386'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #79 [got 0 values in 0.000052 sec, idle 1 sec]'
+          pid: '1387'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #80 [got 0 values in 0.000053 sec, idle 1 sec]'
+          pid: '1388'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #81 [got 0 values in 0.000030 sec, idle 1 sec]'
+          pid: '1389'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #82 [got 0 values in 0.000078 sec, idle 1 sec]'
+          pid: '1390'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #83 [got 0 values in 0.000036 sec, idle 1 sec]'
+          pid: '1391'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #84 [got 0 values in 0.000035 sec, idle 1 sec]'
+          pid: '1392'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #85 [got 0 values in 0.000042 sec, idle 1 sec]'
+          pid: '1393'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #86 [got 0 values in 0.000078 sec, idle 1 sec]'
+          pid: '1394'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #87 [got 0 values in 0.000045 sec, idle 1 sec]'
+          pid: '1395'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #88 [got 6 values in 0.001313 sec, idle 1 sec]'
+          pid: '1396'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #89 [got 0 values in 0.000021 sec, idle 1 sec]'
+          pid: '1397'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #90 [got 0 values in 0.000029 sec, idle 1 sec]'
+          pid: '1398'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #91 [got 0 values in 0.000061 sec, idle 1 sec]'
+          pid: '1399'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #92 [got 0 values in 0.000042 sec, idle 1 sec]'
+          pid: '1400'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #93 [got 0 values in 0.000040 sec, idle 1 sec]'
+          pid: '1401'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #94 [got 0 values in 0.000047 sec, idle 1 sec]'
+          pid: '1402'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #95 [got 0 values in 0.000045 sec, idle 1 sec]'
+          pid: '1403'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #96 [got 0 values in 0.000037 sec, idle 1 sec]'
+          pid: '1404'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #97 [got 0 values in 0.000068 sec, idle 1 sec]'
+          pid: '1405'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #98 [got 0 values in 0.000065 sec, idle 1 sec]'
+          pid: '1406'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #99 [got 0 values in 0.000043 sec, idle 1 sec]'
+          pid: '1407'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: poller #100 [got 0 values in 0.000172 sec, idle 1 sec]'
+          pid: '1408'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: unreachable poller #1 [got 0 values in 0.000057 sec, idle 5 sec]'
+          pid: '1409'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: unreachable poller #2 [got 0 values in 0.000104 sec, idle 5 sec]'
+          pid: '1410'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: unreachable poller #3 [got 0 values in 0.000080 sec, idle 5 sec]'
+          pid: '1411'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: unreachable poller #4 [got 0 values in 0.000064 sec, idle 5 sec]'
+          pid: '1412'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: unreachable poller #5 [got 0 values in 0.000054 sec, idle 5 sec]'
+          pid: '1413'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: unreachable poller #6 [got 0 values in 0.000042 sec, idle 5 sec]'
+          pid: '1414'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: unreachable poller #7 [got 0 values in 0.000060 sec, idle 5 sec]'
+          pid: '1415'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: unreachable poller #8 [got 0 values in 0.000076 sec, idle 5 sec]'
+          pid: '1416'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: unreachable poller #9 [got 0 values in 0.000088 sec, idle 5 sec]'
+          pid: '1417'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: unreachable poller #10 [got 0 values in 0.000056 sec, idle 5 sec]'
+          pid: '1418'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: trapper #1 [processed data in 0.000230 sec, waiting for connection]'
+          pid: '1419'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: trapper #2 [processed data in 0.006015 sec, waiting for connection]'
+          pid: '1420'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: trapper #3 [processed data in 0.016559 sec, waiting for connection]'
+          pid: '1421'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: trapper #4 [processed data in 0.000297 sec, waiting for connection]'
+          pid: '1422'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: trapper #5 [processed data in 0.000145 sec, waiting for connection]'
+          pid: '1423'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: trapper #6 [processed data in 0.002896 sec, waiting for connection]'
+          pid: '1424'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: trapper #7 [processed data in 0.002574 sec, waiting for connection]'
+          pid: '1425'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: trapper #8 [processed data in 0.000330 sec, waiting for connection]'
+          pid: '1426'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: trapper #9 [processed data in 0.006360 sec, waiting for connection]'
+          pid: '1427'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: trapper #10 [processed data in 0.000253 sec, waiting for connection]'
+          pid: '1428'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: trapper #11 [processed data in 0.000470 sec, waiting for connection]'
+          pid: '1429'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: trapper #12 [processed data in 0.000152 sec, waiting for connection]'
+          pid: '1430'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: trapper #13 [processed data in 0.003929 sec, waiting for connection]'
+          pid: '1431'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: trapper #14 [processed data in 0.000218 sec, waiting for connection]'
+          pid: '1432'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: trapper #15 [processed data in 0.002176 sec, waiting for connection]'
+          pid: '1433'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: trapper #16 [processed data in 0.002160 sec, waiting for connection]'
+          pid: '1434'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: trapper #17 [processed data in 0.000222 sec, waiting for connection]'
+          pid: '1435'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: trapper #18 [processed data in 0.000175 sec, waiting for connection]'
+          pid: '1436'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: trapper #19 [processed data in 0.001193 sec, waiting for connection]'
+          pid: '1437'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: trapper #20 [processed data in 0.001956 sec, waiting for connection]'
+          pid: '1438'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: trapper #21 [processed data in 0.000201 sec, waiting for connection]'
+          pid: '1439'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: trapper #22 [processed data in 0.000260 sec, waiting for connection]'
+          pid: '1440'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: trapper #23 [processed data in 0.008046 sec, waiting for connection]'
+          pid: '1441'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: trapper #24 [processed data in 0.000204 sec, waiting for connection]'
+          pid: '1442'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: trapper #25 [processed data in 0.009377 sec, waiting for connection]'
+          pid: '1443'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: trapper #26 [processed data in 0.002651 sec, waiting for connection]'
+          pid: '1444'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: trapper #27 [processed data in 0.006057 sec, waiting for connection]'
+          pid: '1445'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: trapper #28 [processed data in 0.002465 sec, waiting for connection]'
+          pid: '1446'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: trapper #29 [processed data in 0.002373 sec, waiting for connection]'
+          pid: '1447'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: trapper #30 [processed data in 0.000944 sec, waiting for connection]'
+          pid: '1448'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: trapper #31 [processed data in 0.001482 sec, waiting for connection]'
+          pid: '1449'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: trapper #32 [processed data in 0.000197 sec, waiting for connection]'
+          pid: '1450'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: trapper #33 [processed data in 0.002447 sec, waiting for connection]'
+          pid: '1451'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: trapper #34 [processed data in 0.002830 sec, waiting for connection]'
+          pid: '1452'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: trapper #35 [processed data in 0.002116 sec, waiting for connection]'
+          pid: '1453'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: trapper #36 [processed data in 0.005720 sec, waiting for connection]'
+          pid: '1454'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: trapper #37 [processed data in 0.002188 sec, waiting for connection]'
+          pid: '1455'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: trapper #38 [processed data in 0.008311 sec, waiting for connection]'
+          pid: '1456'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: trapper #39 [processed data in 0.003236 sec, waiting for connection]'
+          pid: '1457'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: trapper #40 [processed data in 0.002259 sec, waiting for connection]'
+          pid: '1458'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: trapper #41 [processed data in 0.013718 sec, waiting for connection]'
+          pid: '1459'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: trapper #42 [processed data in 0.003235 sec, waiting for connection]'
+          pid: '1460'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: trapper #43 [processed data in 0.000191 sec, waiting for connection]'
+          pid: '1461'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: trapper #44 [processed data in 0.000305 sec, waiting for connection]'
+          pid: '1462'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: trapper #45 [processed data in 0.000219 sec, waiting for connection]'
+          pid: '1463'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: trapper #46 [processed data in 0.000209 sec, waiting for connection]'
+          pid: '1464'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: trapper #47 [processed data in 0.006524 sec, waiting for connection]'
+          pid: '1465'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: trapper #48 [processed data in 0.000222 sec, waiting for connection]'
+          pid: '1466'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: trapper #49 [processed data in 0.000214 sec, waiting for connection]'
+          pid: '1467'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: trapper #50 [processed data in 0.003061 sec, waiting for connection]'
+          pid: '1468'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: icmp pinger #1 [got 0 values in 0.000049 sec, idle 5 sec]'
+          pid: '1469'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: icmp pinger #2 [got 0 values in 0.000058 sec, idle 5 sec]'
+          pid: '1470'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: icmp pinger #3 [got 0 values in 0.000057 sec, idle 5 sec]'
+          pid: '1471'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: icmp pinger #4 [got 0 values in 0.000034 sec, idle 5 sec]'
+          pid: '1472'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: icmp pinger #5 [got 0 values in 0.000051 sec, idle 5 sec]'
+          pid: '1473'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: icmp pinger #6 [got 0 values in 0.000033 sec, idle 5 sec]'
+          pid: '1474'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: icmp pinger #7 [got 0 values in 0.000028 sec, idle 5 sec]'
+          pid: '1475'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: icmp pinger #8 [got 0 values in 0.000031 sec, idle 5 sec]'
+          pid: '1476'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: icmp pinger #9 [got 0 values in 0.000059 sec, idle 5 sec]'
+          pid: '1477'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: icmp pinger #10 [got 0 values in 0.000050 sec, idle 5 sec]'
+          pid: '1478'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: alert manager #1 [sent 2, failed 0 alerts, idle 5.322796 sec during 5.322978 sec]'
+          pid: '1479'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: alerter #1 [sent 0, failed 0 alerts, idle 178.024568 sec during 180.357522 sec]'
+          pid: '1480'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: alerter #2 [sent 0, failed 0 alerts, idle 118.623005 sec during 119.766001 sec]'
+          pid: '1481'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: alerter #3 [sent 0, failed 0 alerts, idle 59.250622 sec during 60.530660 sec]'
+          pid: '1482'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: preprocessing manager #1 [queued 1, processed 560 values, idle 5.033828 sec during 5.041462 sec]'
+          pid: '1483'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: preprocessing worker #1 started'
+          pid: '1484'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: preprocessing worker #2 started'
+          pid: '1485'
+          ppid: '1173'
+          user: zabbix
+        - children: [ ]
+          cmdline: '/usr/sbin/zabbix_server: preprocessing worker #3 started'
+          pid: '1486'
+          ppid: '1173'
+          user: zabbix
+      cmdline: /usr/sbin/zabbix_server -c /etc/zabbix/zabbix_server.conf
+      listening_ports:
+        - 10051
+      pid: '1173'
+      ppid: '1'
+      user: zabbix
+    type: Zabbix Server
+    version:
+      - number: 4.0.20
+        type: package
+
+software_list:
+  - name: Zabbix Server
+    cmd_regexp: /usr/sbin/zabbix_server -c
+    pkg_regexp: zabbix-server.*
+    process_type: parent
+    return_children: true
+    return_packages: true
+dockers:
+  containers:
+    - AppArmorProfile: ''
+      Args:
+        - infinity
+      Config:
+        AttachStderr: false
+        AttachStdin: false
+        AttachStdout: false
+        Cmd:
+          - infinity
+        Domainname: ''
+        Entrypoint:
+          - sleep
+        Env:
+          - TZ=Europe/Madrid
+          - PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+          - LANG=C.UTF-8
+          - PYTHONIOENCODING=UTF-8
+          - GPG_KEY=C01E1CAD5EA2C4F0B8E3571504C367C218ADD4FF
+          - PYTHON_VERSION=2.7.18
+          - PYTHON_PIP_VERSION=20.0.2
+          - PYTHON_GET_PIP_URL=https://github.com/pypa/get-pip/raw/d59197a3c169cef378a22428a3fa99d33e080a5d/get-pip.py
+          - PYTHON_GET_PIP_SHA256=421ac1d44c0cf9730a088e337867d974b91bdce4ea2636099275071878cc189e
+        Hostname: zabbix-server01.novalocal
+        Image: iometrics-zbxalerter-opsgenie:latest
+        Labels: { }
+        OnBuild: null
+        OpenStdin: false
+        StdinOnce: false
+        Tty: false
+        User: ''
+        Volumes: null
+        WorkingDir: /usr/src/app
+      Created: '2022-06-21T15:07:29.216720661Z'
+      Driver: overlay2
+      ExecIDs: null
+      GraphDriver:
+        Data:
+          LowerDir: /var/lib/docker/overlay2/d142a42a4085cd5488c0bb9bab718b3ec2e26c4db12ed1cb424fc022caf5c133-init/diff:/var/lib/docker/overlay2/0760b00019c5fc5127be0639a3494eefb001a53d8cf67ff29f3da0ca36c5b125/diff:/var/lib/docker/overlay2/4ddf7dbf9857dade530cd2dc4311d2e2196b86e08b3c5a8276b7419ea91b6f3b/diff:/var/lib/docker/overlay2/3a677a29ce4a1c9daa84d4eeed899a76b7587ab41939b3b7ac24d71f1f663907/diff:/var/lib/docker/overlay2/72d0fe8ed739c2afd20b70857b49934c9e06772c2bc6b5496560743b1bc42522/diff:/var/lib/docker/overlay2/2f403a162d7d3b36f2ea6859b73d670c2dbfd5fde14bb765fdc12f2b1a94afc6/diff:/var/lib/docker/overlay2/fa00ba8e60b981bc4c3876ff27a4d7b0078543c1ddf2f663b997c4853c736597/diff:/var/lib/docker/overlay2/5b96a361fd9927a8fbafbdeae618452a18abfc3f387249e152e59ff78dd7e9ec/diff:/var/lib/docker/overlay2/76cdc5ad4b417a7566dea5b0d72216fd59f1d02a098ed68aec6545661852c26c/diff:/var/lib/docker/overlay2/a0cec3f1f3357690638b3322540463d377275f996c53a5cbc61a9640363a7b7f/diff:/var/lib/docker/overlay2/be79b1ee8a51a9ec0704a675288a657a26a54a17ff3d90b4ced38c1807f63249/diff
+          MergedDir: /var/lib/docker/overlay2/d142a42a4085cd5488c0bb9bab718b3ec2e26c4db12ed1cb424fc022caf5c133/merged
+          UpperDir: /var/lib/docker/overlay2/d142a42a4085cd5488c0bb9bab718b3ec2e26c4db12ed1cb424fc022caf5c133/diff
+          WorkDir: /var/lib/docker/overlay2/d142a42a4085cd5488c0bb9bab718b3ec2e26c4db12ed1cb424fc022caf5c133/work
+        Name: overlay2
+      HostConfig:
+        AutoRemove: true
+        Binds:
+          - /home/centos/opsgenie_config:/etc/opensolutions
+        BlkioDeviceReadBps: null
+        BlkioDeviceReadIOps: null
+        BlkioDeviceWriteBps: null
+        BlkioDeviceWriteIOps: null
+        BlkioWeight: 0
+        BlkioWeightDevice: [ ]
+        CapAdd: null
+        CapDrop: null
+        Capabilities: null
+        Cgroup: ''
+        CgroupParent: ''
+        ConsoleSize:
+          - 0
+          - 0
+        ContainerIDFile: ''
+        CpuCount: 0
+        CpuPercent: 0
+        CpuPeriod: 0
+        CpuQuota: 0
+        CpuRealtimePeriod: 0
+        CpuRealtimeRuntime: 0
+        CpuShares: 0
+        CpusetCpus: ''
+        CpusetMems: ''
+        DeviceCgroupRules: null
+        DeviceRequests: null
+        Devices: [ ]
+        Dns: [ ]
+        DnsOptions: [ ]
+        DnsSearch: [ ]
+        ExtraHosts: null
+        GroupAdd: null
+        IOMaximumBandwidth: 0
+        IOMaximumIOps: 0
+        IpcMode: private
+        Isolation: ''
+        KernelMemory: 0
+        KernelMemoryTCP: 0
+        Links: null
+        LogConfig:
+          Config: { }
+          Type: json-file
+        MaskedPaths:
+          - /proc/asound
+          - /proc/acpi
+          - /proc/kcore
+          - /proc/keys
+          - /proc/latency_stats
+          - /proc/timer_list
+          - /proc/timer_stats
+          - /proc/sched_debug
+          - /proc/scsi
+          - /sys/firmware
+        Memory: 0
+        MemoryReservation: 0
+        MemorySwap: 0
+        MemorySwappiness: null
+        NanoCpus: 0
+        NetworkMode: host
+        OomKillDisable: false
+        OomScoreAdj: 0
+        PidMode: ''
+        PidsLimit: null
+        PortBindings: { }
+        Privileged: false
+        PublishAllPorts: false
+        ReadonlyPaths:
+          - /proc/bus
+          - /proc/fs
+          - /proc/irq
+          - /proc/sys
+          - /proc/sysrq-trigger
+        ReadonlyRootfs: false
+        RestartPolicy:
+          MaximumRetryCount: 0
+          Name: 'no'
+        Runtime: runc
+        SecurityOpt: null
+        ShmSize: 67108864
+        UTSMode: ''
+        Ulimits: null
+        UsernsMode: ''
+        VolumeDriver: ''
+        VolumesFrom: null
+      HostnamePath: /var/lib/docker/containers/e27ae43f180f0e122a8f9bc251903e059891a79db853a477f72ab26440a3a69f/hostname
+      HostsPath: /var/lib/docker/containers/e27ae43f180f0e122a8f9bc251903e059891a79db853a477f72ab26440a3a69f/hosts
+      Id: e27ae43f180f0e122a8f9bc251903e059891a79db853a477f72ab26440a3a69f
+      Image: sha256:9cbb876bf01372b8efb8c5c80665231e6c4b522228320bd12ff3370589881cf1
+      LogPath: /var/lib/docker/containers/e27ae43f180f0e122a8f9bc251903e059891a79db853a477f72ab26440a3a69f/e27ae43f180f0e122a8f9bc251903e059891a79db853a477f72ab26440a3a69f-json.log
+      MountLabel: ''
+      Mounts:
+        - Destination: /etc/opensolutions
+          Mode: ''
+          Propagation: rprivate
+          RW: true
+          Source: /home/centos/opsgenie_config
+          Type: bind
+      Name: /iometrics-zbxalerter-opsgenie
+      NetworkSettings:
+        Bridge: ''
+        EndpointID: ''
+        Gateway: ''
+        GlobalIPv6Address: ''
+        GlobalIPv6PrefixLen: 0
+        HairpinMode: false
+        IPAddress: ''
+        IPPrefixLen: 0
+        IPv6Gateway: ''
+        LinkLocalIPv6Address: ''
+        LinkLocalIPv6PrefixLen: 0
+        MacAddress: ''
+        Networks:
+          host:
+            Aliases: null
+            DriverOpts: null
+            EndpointID: e7ecf77b8907f4f7382521e356104116405eaa9750480440ae7720b1c01e840c
+            Gateway: ''
+            GlobalIPv6Address: ''
+            GlobalIPv6PrefixLen: 0
+            IPAMConfig: null
+            IPAddress: ''
+            IPPrefixLen: 0
+            IPv6Gateway: ''
+            Links: null
+            MacAddress: ''
+            NetworkID: 9a6482fb028630d923e263f547c71899691e767c4f763aa7c3604f8af8455f60
+        Ports: { }
+        SandboxID: b118a37e9e43122f3275b3e946d5c55b49f0d12d1a8f88ddf7c156bd1c6b7298
+        SandboxKey: /var/run/docker/netns/default
+        SecondaryIPAddresses: null
+        SecondaryIPv6Addresses: null
+      Path: sleep
+      Platform: linux
+      ProcessLabel: ''
+      ResolvConfPath: /var/lib/docker/containers/e27ae43f180f0e122a8f9bc251903e059891a79db853a477f72ab26440a3a69f/resolv.conf
+      RestartCount: 0
+      State:
+        Dead: false
+        Error: ''
+        ExitCode: 0
+        FinishedAt: '0001-01-01T00:00:00Z'
+        OOMKilled: false
+        Paused: false
+        Pid: 12017
+        Restarting: false
+        Running: true
+        StartedAt: '2022-06-21T15:07:29.559096539Z'
+        Status: running
+    - AppArmorProfile: ''
+      Args:
+        - infinity
+      Config:
+        AttachStderr: false
+        AttachStdin: false
+        AttachStdout: false
+        Cmd:
+          - infinity
+        Domainname: ''
+        Entrypoint:
+          - sleep
+        Env:
+          - TZ=Europe/Madrid
+          - PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+          - LANG=C.UTF-8
+          - PYTHONIOENCODING=UTF-8
+          - GPG_KEY=C01E1CAD5EA2C4F0B8E3571504C367C218ADD4FF
+          - PYTHON_VERSION=2.7.18
+          - PYTHON_PIP_VERSION=20.0.2
+          - PYTHON_GET_PIP_URL=https://github.com/pypa/get-pip/raw/d59197a3c169cef378a22428a3fa99d33e080a5d/get-pip.py
+          - PYTHON_GET_PIP_SHA256=421ac1d44c0cf9730a088e337867d974b91bdce4ea2636099275071878cc189e
+        Hostname: zabbix-server01.novalocal
+        Image: nexusregistry.opensolutions.cloud/iometrics-zbxalerter:3.23.0-67087ca
+        Labels: { }
+        OnBuild: null
+        OpenStdin: false
+        StdinOnce: false
+        Tty: false
+        User: ''
+        Volumes:
+          /etc/opensolutions: { }
+        WorkingDir: /usr/src/app
+      Created: '2021-11-17T15:07:06.322256934Z'
+      Driver: overlay2
+      ExecIDs: null
+      GraphDriver:
+        Data:
+          LowerDir: /var/lib/docker/overlay2/1da7dc74b62fa36687b5d3679d6500e22da2098bd9f38a699643e638d0e43c6a-init/diff:/var/lib/docker/overlay2/18aa9049df61d3a7fec135ff1e0d4c1f1df3c0a5a8f05733be4289efa1c05fe9/diff:/var/lib/docker/overlay2/d2ffc7bb5192bf6a1955701921984fc7eec4eda30ad28a3273c4be15562a9f9a/diff:/var/lib/docker/overlay2/53fe70537b1df7cb38abc1f5003b498fe8b9c1a6bb137ce1423f524cb37e9e59/diff:/var/lib/docker/overlay2/8bb897262c98858214599a1523ce91667b8bc458ae8b88645d46d2bf6adc8874/diff:/var/lib/docker/overlay2/d41c7d061c4c1976cb6dbc19a82555470b21e6fc18b61a4aa158815a192ee250/diff:/var/lib/docker/overlay2/49252bf4476e2d61c0d082293eba7dc81741293cc5782ff1044486f7836564c7/diff:/var/lib/docker/overlay2/5b96a361fd9927a8fbafbdeae618452a18abfc3f387249e152e59ff78dd7e9ec/diff:/var/lib/docker/overlay2/76cdc5ad4b417a7566dea5b0d72216fd59f1d02a098ed68aec6545661852c26c/diff:/var/lib/docker/overlay2/a0cec3f1f3357690638b3322540463d377275f996c53a5cbc61a9640363a7b7f/diff:/var/lib/docker/overlay2/be79b1ee8a51a9ec0704a675288a657a26a54a17ff3d90b4ced38c1807f63249/diff
+          MergedDir: /var/lib/docker/overlay2/1da7dc74b62fa36687b5d3679d6500e22da2098bd9f38a699643e638d0e43c6a/merged
+          UpperDir: /var/lib/docker/overlay2/1da7dc74b62fa36687b5d3679d6500e22da2098bd9f38a699643e638d0e43c6a/diff
+          WorkDir: /var/lib/docker/overlay2/1da7dc74b62fa36687b5d3679d6500e22da2098bd9f38a699643e638d0e43c6a/work
+        Name: overlay2
+      HostConfig:
+        AutoRemove: false
+        Binds:
+          - /etc/datadope/iometrics:/etc/opensolutions:rw
+        BlkioDeviceReadBps: null
+        BlkioDeviceReadIOps: null
+        BlkioDeviceWriteBps: null
+        BlkioDeviceWriteIOps: null
+        BlkioWeight: 0
+        BlkioWeightDevice: null
+        CapAdd: null
+        CapDrop: null
+        Capabilities: null
+        Cgroup: ''
+        CgroupParent: ''
+        ConsoleSize:
+          - 0
+          - 0
+        ContainerIDFile: ''
+        CpuCount: 0
+        CpuPercent: 0
+        CpuPeriod: 0
+        CpuQuota: 0
+        CpuRealtimePeriod: 0
+        CpuRealtimeRuntime: 0
+        CpuShares: 0
+        CpusetCpus: ''
+        CpusetMems: ''
+        DeviceCgroupRules: null
+        DeviceRequests: null
+        Devices: null
+        Dns: [ ]
+        DnsOptions: [ ]
+        DnsSearch: [ ]
+        ExtraHosts: null
+        GroupAdd: null
+        IOMaximumBandwidth: 0
+        IOMaximumIOps: 0
+        IpcMode: private
+        Isolation: ''
+        KernelMemory: 0
+        KernelMemoryTCP: 0
+        Links: null
+        LogConfig:
+          Config:
+            max-file: '1'
+            max-size: 100M
+          Type: json-file
+        MaskedPaths:
+          - /proc/asound
+          - /proc/acpi
+          - /proc/kcore
+          - /proc/keys
+          - /proc/latency_stats
+          - /proc/timer_list
+          - /proc/timer_stats
+          - /proc/sched_debug
+          - /proc/scsi
+          - /sys/firmware
+        Memory: 0
+        MemoryReservation: 0
+        MemorySwap: 0
+        MemorySwappiness: null
+        NanoCpus: 0
+        NetworkMode: host
+        OomKillDisable: false
+        OomScoreAdj: 0
+        PidMode: ''
+        PidsLimit: null
+        PortBindings: null
+        Privileged: false
+        PublishAllPorts: false
+        ReadonlyPaths:
+          - /proc/bus
+          - /proc/fs
+          - /proc/irq
+          - /proc/sys
+          - /proc/sysrq-trigger
+        ReadonlyRootfs: false
+        RestartPolicy:
+          MaximumRetryCount: 0
+          Name: always
+        Runtime: runc
+        SecurityOpt: null
+        ShmSize: 67108864
+        UTSMode: ''
+        Ulimits: null
+        UsernsMode: ''
+        VolumeDriver: ''
+        VolumesFrom: null
+      HostnamePath: /var/lib/docker/containers/65ec5fad03e7484c919b367317eab61b361c2037ef4d8f1cbfbb4bf92ab9cc66/hostname
+      HostsPath: /var/lib/docker/containers/65ec5fad03e7484c919b367317eab61b361c2037ef4d8f1cbfbb4bf92ab9cc66/hosts
+      Id: 65ec5fad03e7484c919b367317eab61b361c2037ef4d8f1cbfbb4bf92ab9cc66
+      Image: sha256:2dd1f257368290b30d3f60583a57d32d083743ebe4f563df8733aed0fca3d88b
+      LogPath: /var/lib/docker/containers/65ec5fad03e7484c919b367317eab61b361c2037ef4d8f1cbfbb4bf92ab9cc66/65ec5fad03e7484c919b367317eab61b361c2037ef4d8f1cbfbb4bf92ab9cc66-json.log
+      MountLabel: ''
+      Mounts:
+        - Destination: /etc/opensolutions
+          Mode: rw
+          Propagation: rprivate
+          RW: true
+          Source: /etc/datadope/iometrics
+          Type: bind
+      Name: /iometrics-zbxalerter
+      NetworkSettings:
+        Bridge: ''
+        EndpointID: ''
+        Gateway: ''
+        GlobalIPv6Address: ''
+        GlobalIPv6PrefixLen: 0
+        HairpinMode: false
+        IPAddress: ''
+        IPPrefixLen: 0
+        IPv6Gateway: ''
+        LinkLocalIPv6Address: ''
+        LinkLocalIPv6PrefixLen: 0
+        MacAddress: ''
+        Networks:
+          host:
+            Aliases: null
+            DriverOpts: null
+            EndpointID: 78f457a0393810723e8898b847d2b181d11c11aece7f564859f8abfa40b310c8
+            Gateway: ''
+            GlobalIPv6Address: ''
+            GlobalIPv6PrefixLen: 0
+            IPAMConfig: null
+            IPAddress: ''
+            IPPrefixLen: 0
+            IPv6Gateway: ''
+            Links: null
+            MacAddress: ''
+            NetworkID: 9a6482fb028630d923e263f547c71899691e767c4f763aa7c3604f8af8455f60
+        Ports: { }
+        SandboxID: 27ed44dd8018d4181a73083d96459b242df554d7ed9b92b588c1853d11b88bd4
+        SandboxKey: /var/run/docker/netns/default
+        SecondaryIPAddresses: null
+        SecondaryIPv6Addresses: null
+      Path: sleep
+      Platform: linux
+      ProcessLabel: ''
+      ResolvConfPath: /var/lib/docker/containers/65ec5fad03e7484c919b367317eab61b361c2037ef4d8f1cbfbb4bf92ab9cc66/resolv.conf
+      RestartCount: 0
+      State:
+        Dead: false
+        Error: ''
+        ExitCode: 0
+        FinishedAt: '2022-04-26T15:56:37.128955515Z'
+        OOMKilled: false
+        Paused: false
+        Pid: 9828
+        Restarting: false
+        Running: true
+        StartedAt: '2022-04-26T15:56:49.445977061Z'
+        Status: running
+    - AppArmorProfile: ''
+      Args: [ ]
+      Config:
+        AttachStderr: false
+        AttachStdin: false
+        AttachStdout: false
+        Cmd: null
+        Domainname: ''
+        Entrypoint:
+          - /sbin/entrypoint.sh
+        Env:
+          - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+          - SQUID_VERSION=3.5.27
+          - SQUID_CACHE_DIR=/var/spool/squid
+          - SQUID_LOG_DIR=/var/log/squid
+          - SQUID_USER=proxy
+        ExposedPorts:
+          3128/tcp: { }
+        Hostname: 5c81ff097d1a
+        Image: sameersbn/squid:3.5.27-2
+        Labels:
+          maintainer: sameer@damagehead.com
+        OnBuild: null
+        OpenStdin: false
+        StdinOnce: false
+        Tty: false
+        User: ''
+        Volumes: null
+        WorkingDir: ''
+      Created: '2021-09-27T13:52:37.213315567Z'
+      Driver: overlay2
+      ExecIDs: null
+      GraphDriver:
+        Data:
+          LowerDir: /var/lib/docker/overlay2/3037a38d5893b90e7d1b27fc24bcf68eaaf90054886e7f2ec471dcca73e31ec4-init/diff:/var/lib/docker/overlay2/6e810111e9b469ce02f389fba5e9d945707a281c7c5f157ed2deb8d37d556e73/diff:/var/lib/docker/overlay2/04ee3a860acd774a7cd197b0bb28b4a368c6835846ffec6eee4ea4a30bc5c23b/diff:/var/lib/docker/overlay2/747f43a685d2f38c212e70ef49e7e59730b4f4cabd5e63ae46807858fb7416c2/diff:/var/lib/docker/overlay2/e3dd7ce6b7619d404a8016452c1339ac3a8b5ff6d74721cf74dd2610aeecaf24/diff:/var/lib/docker/overlay2/9832c9080b6a09fe7cee301be3214fa21d1f77c0019c15be1efb714308c42797/diff:/var/lib/docker/overlay2/abc16a6903a70a34b5812745700fcbda9be050b9a8a26de93bedfc47906ffcb1/diff:/var/lib/docker/overlay2/0acb42218e17061c02faef3cce0d2ad9c464f99d4e7457e3a7767ba9cb6bb4dc/diff
+          MergedDir: /var/lib/docker/overlay2/3037a38d5893b90e7d1b27fc24bcf68eaaf90054886e7f2ec471dcca73e31ec4/merged
+          UpperDir: /var/lib/docker/overlay2/3037a38d5893b90e7d1b27fc24bcf68eaaf90054886e7f2ec471dcca73e31ec4/diff
+          WorkDir: /var/lib/docker/overlay2/3037a38d5893b90e7d1b27fc24bcf68eaaf90054886e7f2ec471dcca73e31ec4/work
+        Name: overlay2
+      HostConfig:
+        AutoRemove: false
+        Binds:
+          - /etc/squid/squid.conf:/etc/squid/squid.conf
+        BlkioDeviceReadBps: null
+        BlkioDeviceReadIOps: null
+        BlkioDeviceWriteBps: null
+        BlkioDeviceWriteIOps: null
+        BlkioWeight: 0
+        BlkioWeightDevice: [ ]
+        CapAdd: null
+        CapDrop: null
+        Capabilities: null
+        Cgroup: ''
+        CgroupParent: ''
+        ConsoleSize:
+          - 0
+          - 0
+        ContainerIDFile: ''
+        CpuCount: 0
+        CpuPercent: 0
+        CpuPeriod: 0
+        CpuQuota: 0
+        CpuRealtimePeriod: 0
+        CpuRealtimeRuntime: 0
+        CpuShares: 0
+        CpusetCpus: ''
+        CpusetMems: ''
+        DeviceCgroupRules: null
+        DeviceRequests: null
+        Devices: [ ]
+        Dns: [ ]
+        DnsOptions: [ ]
+        DnsSearch: [ ]
+        ExtraHosts: null
+        GroupAdd: null
+        IOMaximumBandwidth: 0
+        IOMaximumIOps: 0
+        IpcMode: private
+        Isolation: ''
+        KernelMemory: 0
+        KernelMemoryTCP: 0
+        Links: null
+        LogConfig:
+          Config: { }
+          Type: json-file
+        MaskedPaths:
+          - /proc/asound
+          - /proc/acpi
+          - /proc/kcore
+          - /proc/keys
+          - /proc/latency_stats
+          - /proc/timer_list
+          - /proc/timer_stats
+          - /proc/sched_debug
+          - /proc/scsi
+          - /sys/firmware
+        Memory: 0
+        MemoryReservation: 0
+        MemorySwap: 0
+        MemorySwappiness: null
+        NanoCpus: 0
+        NetworkMode: default
+        OomKillDisable: false
+        OomScoreAdj: 0
+        PidMode: ''
+        PidsLimit: null
+        PortBindings:
+          3128/tcp:
+            - HostIp: ''
+              HostPort: '3128'
+        Privileged: false
+        PublishAllPorts: false
+        ReadonlyPaths:
+          - /proc/bus
+          - /proc/fs
+          - /proc/irq
+          - /proc/sys
+          - /proc/sysrq-trigger
+        ReadonlyRootfs: false
+        RestartPolicy:
+          MaximumRetryCount: 0
+          Name: always
+        Runtime: runc
+        SecurityOpt: null
+        ShmSize: 67108864
+        UTSMode: ''
+        Ulimits: null
+        UsernsMode: ''
+        VolumeDriver: ''
+        VolumesFrom: null
+      HostnamePath: /var/lib/docker/containers/5c81ff097d1aa2f0041f9a1add658c50ea19ef0ce9fb6e412e4c319a1fd6212e/hostname
+      HostsPath: /var/lib/docker/containers/5c81ff097d1aa2f0041f9a1add658c50ea19ef0ce9fb6e412e4c319a1fd6212e/hosts
+      Id: 5c81ff097d1aa2f0041f9a1add658c50ea19ef0ce9fb6e412e4c319a1fd6212e
+      Image: sha256:d279b4072846e89af1dfeb2982addf8c4f2125ad929bb536875e3a32700b86ec
+      LogPath: /var/lib/docker/containers/5c81ff097d1aa2f0041f9a1add658c50ea19ef0ce9fb6e412e4c319a1fd6212e/5c81ff097d1aa2f0041f9a1add658c50ea19ef0ce9fb6e412e4c319a1fd6212e-json.log
+      MountLabel: ''
+      Mounts:
+        - Destination: /etc/squid/squid.conf
+          Mode: ''
+          Propagation: rprivate
+          RW: true
+          Source: /etc/squid/squid.conf
+          Type: bind
+      Name: /squid
+      NetworkSettings:
+        Bridge: ''
+        EndpointID: 21076edcedd5a281fdfdcea20ceb0deebd79c8f9b7acd6dbf63d6bc43df60753
+        Gateway: 192.168.1.1
+        GlobalIPv6Address: ''
+        GlobalIPv6PrefixLen: 0
+        HairpinMode: false
+        IPAddress: 192.168.1.2
+        IPPrefixLen: 16
+        IPv6Gateway: ''
+        LinkLocalIPv6Address: ''
+        LinkLocalIPv6PrefixLen: 0
+        MacAddress: 02:42:ac:11:00:02
+        Networks:
+          bridge:
+            Aliases: null
+            DriverOpts: null
+            EndpointID: 21076edcedd5a281fdfdcea20ceb0deebd79c8f9b7acd6dbf63d6bc43df60753
+            Gateway: 192.168.1.1
+            GlobalIPv6Address: ''
+            GlobalIPv6PrefixLen: 0
+            IPAMConfig: null
+            IPAddress: 192.168.1.2
+            IPPrefixLen: 16
+            IPv6Gateway: ''
+            Links: null
+            MacAddress: 02:42:ac:11:00:02
+            NetworkID: 94f751abfb7f44970711b48f26ac62cd3f35c5a6d761bd7dd3415260d57e36cd
+        Ports:
+          3128/tcp:
+            - HostIp: 0.0.0.0
+              HostPort: '3128'
+        SandboxID: f1a2a9a59d7c9b5e5b585c4dacb0e4b19fc39bc4c6e689d20ab35cb7ac2a73f0
+        SandboxKey: /var/run/docker/netns/f1a2a9a59d7c
+        SecondaryIPAddresses: null
+        SecondaryIPv6Addresses: null
+      Path: /sbin/entrypoint.sh
+      Platform: linux
+      ProcessLabel: ''
+      ResolvConfPath: /var/lib/docker/containers/5c81ff097d1aa2f0041f9a1add658c50ea19ef0ce9fb6e412e4c319a1fd6212e/resolv.conf
+      RestartCount: 0
+      State:
+        Dead: false
+        Error: ''
+        ExitCode: 0
+        FinishedAt: '2022-04-26T15:56:37.130445221Z'
+        OOMKilled: false
+        Paused: false
+        Pid: 9821
+        Restarting: false
+        Running: true
+        StartedAt: '2022-04-26T15:56:49.700085318Z'
+        Status: running
+    - AppArmorProfile: ''
+      Args:
+        - redis-server
+      Config:
+        AttachStderr: false
+        AttachStdin: false
+        AttachStdout: false
+        Cmd:
+          - redis-server
+        Domainname: ''
+        Entrypoint:
+          - docker-entrypoint.sh
+        Env:
+          - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+          - GOSU_VERSION=1.12
+          - REDIS_VERSION=6.2.1
+          - REDIS_DOWNLOAD_URL=http://download.redis.io/releases/redis-6.2.1.tar.gz
+          - REDIS_DOWNLOAD_SHA=cd222505012cce20b25682fca931ec93bd21ae92cb4abfe742cf7b76aa907520
+        ExposedPorts:
+          6379/tcp: { }
+        Hostname: zabbix-server01.novalocal
+        Image: redis
+        Labels: { }
+        OnBuild: null
+        OpenStdin: false
+        StdinOnce: false
+        Tty: false
+        User: ''
+        Volumes:
+          /data: { }
+        WorkingDir: /data
+      Created: '2021-04-13T16:51:14.696486729Z'
+      Driver: overlay2
+      ExecIDs: null
+      GraphDriver:
+        Data:
+          LowerDir: /var/lib/docker/overlay2/db1baf9db7316e0a9b7b03491cd978b0dda7c9aec2eebf4e9829a0a2056bfabe-init/diff:/var/lib/docker/overlay2/104ab6f68facae3a8373b17a6e76b45b955d675613fdade90336b3a7ab2d6db1/diff:/var/lib/docker/overlay2/2b8e77996e65bddfc2da5936f6c4095e78b462f343e876ba50490df00f611686/diff:/var/lib/docker/overlay2/6e9aefc02aa3077dae6431f68b8433839640499e4e8f25c6f7321e99dc792adb/diff:/var/lib/docker/overlay2/6b43154b4a0421bb0f66e0a5bf5c2c5b3f426796dd186da6f68f850efeecbba3/diff:/var/lib/docker/overlay2/f84f191d7dfb84eb8054dda24ae77c8bf5e0e175e4a71a0698fe27fb15f1ce97/diff:/var/lib/docker/overlay2/be15ae743da5ceb540af0fe8675f7fda6066ccf617f62472415601770c67ffd5/diff
+          MergedDir: /var/lib/docker/overlay2/db1baf9db7316e0a9b7b03491cd978b0dda7c9aec2eebf4e9829a0a2056bfabe/merged
+          UpperDir: /var/lib/docker/overlay2/db1baf9db7316e0a9b7b03491cd978b0dda7c9aec2eebf4e9829a0a2056bfabe/diff
+          WorkDir: /var/lib/docker/overlay2/db1baf9db7316e0a9b7b03491cd978b0dda7c9aec2eebf4e9829a0a2056bfabe/work
+        Name: overlay2
+      HostConfig:
+        AutoRemove: false
+        Binds: null
+        BlkioDeviceReadBps: null
+        BlkioDeviceReadIOps: null
+        BlkioDeviceWriteBps: null
+        BlkioDeviceWriteIOps: null
+        BlkioWeight: 0
+        BlkioWeightDevice: [ ]
+        CapAdd: null
+        CapDrop: null
+        Capabilities: null
+        Cgroup: ''
+        CgroupParent: ''
+        ConsoleSize:
+          - 0
+          - 0
+        ContainerIDFile: ''
+        CpuCount: 0
+        CpuPercent: 0
+        CpuPeriod: 0
+        CpuQuota: 0
+        CpuRealtimePeriod: 0
+        CpuRealtimeRuntime: 0
+        CpuShares: 0
+        CpusetCpus: ''
+        CpusetMems: ''
+        DeviceCgroupRules: null
+        DeviceRequests: null
+        Devices: [ ]
+        Dns: [ ]
+        DnsOptions: [ ]
+        DnsSearch: [ ]
+        ExtraHosts: null
+        GroupAdd: null
+        IOMaximumBandwidth: 0
+        IOMaximumIOps: 0
+        IpcMode: private
+        Isolation: ''
+        KernelMemory: 0
+        KernelMemoryTCP: 0
+        Links: null
+        LogConfig:
+          Config: { }
+          Type: json-file
+        MaskedPaths:
+          - /proc/asound
+          - /proc/acpi
+          - /proc/kcore
+          - /proc/keys
+          - /proc/latency_stats
+          - /proc/timer_list
+          - /proc/timer_stats
+          - /proc/sched_debug
+          - /proc/scsi
+          - /sys/firmware
+        Memory: 0
+        MemoryReservation: 0
+        MemorySwap: 0
+        MemorySwappiness: null
+        NanoCpus: 0
+        NetworkMode: host
+        OomKillDisable: false
+        OomScoreAdj: 0
+        PidMode: ''
+        PidsLimit: null
+        PortBindings: { }
+        Privileged: false
+        PublishAllPorts: false
+        ReadonlyPaths:
+          - /proc/bus
+          - /proc/fs
+          - /proc/irq
+          - /proc/sys
+          - /proc/sysrq-trigger
+        ReadonlyRootfs: false
+        RestartPolicy:
+          MaximumRetryCount: 0
+          Name: 'no'
+        Runtime: runc
+        SecurityOpt: null
+        ShmSize: 67108864
+        UTSMode: ''
+        Ulimits: null
+        UsernsMode: ''
+        VolumeDriver: ''
+        VolumesFrom: null
+      HostnamePath: /var/lib/docker/containers/7dac0edef9dae20cb5f7759a19e75bef5fbbcb8d4e2ac5ec7613a5d4fdcc7c2c/hostname
+      HostsPath: /var/lib/docker/containers/7dac0edef9dae20cb5f7759a19e75bef5fbbcb8d4e2ac5ec7613a5d4fdcc7c2c/hosts
+      Id: 7dac0edef9dae20cb5f7759a19e75bef5fbbcb8d4e2ac5ec7613a5d4fdcc7c2c
+      Image: sha256:de974760ddb2f32dbddb74b7bb8cff4c1eee06d43d36d11bbca1dc815173916e
+      LogPath: /var/lib/docker/containers/7dac0edef9dae20cb5f7759a19e75bef5fbbcb8d4e2ac5ec7613a5d4fdcc7c2c/7dac0edef9dae20cb5f7759a19e75bef5fbbcb8d4e2ac5ec7613a5d4fdcc7c2c-json.log
+      MountLabel: ''
+      Mounts:
+        - Destination: /data
+          Driver: local
+          Mode: ''
+          Name: d9e6b17123459d77464f45d119e05a218e42452871dc9f23ce0a91c3c12ae574
+          Propagation: ''
+          RW: true
+          Source: /var/lib/docker/volumes/d9e6b17123459d77464f45d119e05a218e42452871dc9f23ce0a91c3c12ae574/_data
+          Type: volume
+      Name: /redis
+      NetworkSettings:
+        Bridge: ''
+        EndpointID: ''
+        Gateway: ''
+        GlobalIPv6Address: ''
+        GlobalIPv6PrefixLen: 0
+        HairpinMode: false
+        IPAddress: ''
+        IPPrefixLen: 0
+        IPv6Gateway: ''
+        LinkLocalIPv6Address: ''
+        LinkLocalIPv6PrefixLen: 0
+        MacAddress: ''
+        Networks:
+          host:
+            Aliases: null
+            DriverOpts: null
+            EndpointID: f7047ee19829d4b30ceee6f72a8ca0f6bc086a7e987f5fcfda7bea12c2395063
+            Gateway: ''
+            GlobalIPv6Address: ''
+            GlobalIPv6PrefixLen: 0
+            IPAMConfig: null
+            IPAddress: ''
+            IPPrefixLen: 0
+            IPv6Gateway: ''
+            Links: null
+            MacAddress: ''
+            NetworkID: 9a6482fb028630d923e263f547c71899691e767c4f763aa7c3604f8af8455f60
+        Ports: { }
+        SandboxID: 28523b7d414aed5bc7a0836b88a64593c701e30afac590439500eb76acae14ac
+        SandboxKey: /var/run/docker/netns/default
+        SecondaryIPAddresses: null
+        SecondaryIPv6Addresses: null
+      Path: docker-entrypoint.sh
+      Platform: linux
+      ProcessLabel: ''
+      ResolvConfPath: /var/lib/docker/containers/7dac0edef9dae20cb5f7759a19e75bef5fbbcb8d4e2ac5ec7613a5d4fdcc7c2c/resolv.conf
+      RestartCount: 0
+      State:
+        Dead: false
+        Error: ''
+        ExitCode: 0
+        FinishedAt: '2022-04-26T15:56:37.12926956Z'
+        OOMKilled: false
+        Paused: false
+        Pid: 4355
+        Restarting: false
+        Running: true
+        StartedAt: '2022-05-29T05:29:55.40255942Z'
+        Status: running
+packages:
+  GeoIP:
+    - arch: x86_64
+      epoch: null
+      name: GeoIP
+      release: 13.el7
+      source: rpm
+      version: 1.5.0
+  OpenIPMI:
+    - arch: x86_64
+      epoch: null
+      name: OpenIPMI
+      release: 1.el7
+      source: rpm
+      version: 2.0.27
+  OpenIPMI-libs:
+    - arch: x86_64
+      epoch: null
+      name: OpenIPMI-libs
+      release: 1.el7
+      source: rpm
+      version: 2.0.27
+  OpenIPMI-modalias:
+    - arch: x86_64
+      epoch: null
+      name: OpenIPMI-modalias
+      release: 1.el7
+      source: rpm
+      version: 2.0.27
+  PyYAML:
+    - arch: x86_64
+      epoch: null
+      name: PyYAML
+      release: 11.el7
+      source: rpm
+      version: '3.10'
+  acl:
+    - arch: x86_64
+      epoch: null
+      name: acl
+      release: 14.el7
+      source: rpm
+      version: 2.2.51
+  atomic-registries:
+    - arch: x86_64
+      epoch: 1
+      name: atomic-registries
+      release: 33.gitb507039.el7_8
+      source: rpm
+      version: 1.22.1
+  audit:
+    - arch: x86_64
+      epoch: null
+      name: audit
+      release: 4.el7
+      source: rpm
+      version: 2.8.4
+  audit-libs:
+    - arch: x86_64
+      epoch: null
+      name: audit-libs
+      release: 4.el7
+      source: rpm
+      version: 2.8.4
+  audit-libs-python:
+    - arch: x86_64
+      epoch: null
+      name: audit-libs-python
+      release: 4.el7
+      source: rpm
+      version: 2.8.4
+  authconfig:
+    - arch: x86_64
+      epoch: null
+      name: authconfig
+      release: 30.el7
+      source: rpm
+      version: 6.2.8
+  autogen-libopts:
+    - arch: x86_64
+      epoch: null
+      name: autogen-libopts
+      release: 5.el7
+      source: rpm
+      version: '5.18'
+  basesystem:
+    - arch: noarch
+      epoch: null
+      name: basesystem
+      release: 7.el7.centos
+      source: rpm
+      version: '10.0'
+  bash:
+    - arch: x86_64
+      epoch: null
+      name: bash
+      release: 31.el7
+      source: rpm
+      version: 4.2.46
+  bind-export-libs:
+    - arch: x86_64
+      epoch: 32
+      name: bind-export-libs
+      release: 26.P2.el7_9.3
+      source: rpm
+      version: 9.11.4
+  bind-libs:
+    - arch: x86_64
+      epoch: 32
+      name: bind-libs
+      release: 26.P2.el7_9.3
+      source: rpm
+      version: 9.11.4
+  bind-libs-lite:
+    - arch: x86_64
+      epoch: 32
+      name: bind-libs-lite
+      release: 26.P2.el7_9.3
+      source: rpm
+      version: 9.11.4
+  bind-license:
+    - arch: noarch
+      epoch: 32
+      name: bind-license
+      release: 26.P2.el7_9.3
+      source: rpm
+      version: 9.11.4
+  bind-utils:
+    - arch: x86_64
+      epoch: 32
+      name: bind-utils
+      release: 26.P2.el7_9.3
+      source: rpm
+      version: 9.11.4
+  binutils:
+    - arch: x86_64
+      epoch: null
+      name: binutils
+      release: 34.base.el7
+      source: rpm
+      version: '2.27'
+  btrfs-progs:
+    - arch: x86_64
+      epoch: null
+      name: btrfs-progs
+      release: 1.el7
+      source: rpm
+      version: 4.9.1
+  bzip2-libs:
+    - arch: x86_64
+      epoch: null
+      name: bzip2-libs
+      release: 13.el7
+      source: rpm
+      version: 1.0.6
+  ca-certificates:
+    - arch: noarch
+      epoch: null
+      name: ca-certificates
+      release: 70.0.el7_5
+      source: rpm
+      version: 2018.2.22
+  centos-release:
+    - arch: x86_64
+      epoch: null
+      name: centos-release
+      release: 6.1810.2.el7.centos
+      source: rpm
+      version: '7'
+  checkpolicy:
+    - arch: x86_64
+      epoch: null
+      name: checkpolicy
+      release: 8.el7
+      source: rpm
+      version: '2.5'
+  chkconfig:
+    - arch: x86_64
+      epoch: null
+      name: chkconfig
+      release: 1.el7
+      source: rpm
+      version: 1.7.4
+  chrony:
+    - arch: x86_64
+      epoch: null
+      name: chrony
+      release: 2.el7
+      source: rpm
+      version: '3.2'
+  cloud-init:
+    - arch: x86_64
+      epoch: null
+      name: cloud-init
+      release: 1.el7.centos.2
+      source: rpm
+      version: '18.2'
+  cloud-utils-growpart:
+    - arch: noarch
+      epoch: null
+      name: cloud-utils-growpart
+      release: 2.el7_6.2
+      source: rpm
+      version: '0.29'
+  conmon:
+    - arch: x86_64
+      epoch: 2
+      name: conmon
+      release: 1.el7
+      source: rpm
+      version: 2.0.8
+  container-selinux:
+    - arch: noarch
+      epoch: 2
+      name: container-selinux
+      release: 1.c57a6f9.el7
+      source: rpm
+      version: 2.119.1
+  container-storage-setup:
+    - arch: noarch
+      epoch: null
+      name: container-storage-setup
+      release: 2.git5eaf76c.el7
+      source: rpm
+      version: 0.11.0
+  containerd.io:
+    - arch: x86_64
+      epoch: null
+      name: containerd.io
+      release: 3.1.el7
+      source: rpm
+      version: 1.3.7
+  containernetworking-plugins:
+    - arch: x86_64
+      epoch: null
+      name: containernetworking-plugins
+      release: 4.el7.centos
+      source: rpm
+      version: 0.8.1
+  containers-common:
+    - arch: x86_64
+      epoch: 1
+      name: containers-common
+      release: 7.el7_8
+      source: rpm
+      version: 0.1.40
+  coreutils:
+    - arch: x86_64
+      epoch: null
+      name: coreutils
+      release: 23.el7
+      source: rpm
+      version: '8.22'
+  cpio:
+    - arch: x86_64
+      epoch: null
+      name: cpio
+      release: 27.el7
+      source: rpm
+      version: '2.11'
+  cracklib:
+    - arch: x86_64
+      epoch: null
+      name: cracklib
+      release: 11.el7
+      source: rpm
+      version: 2.9.0
+  cracklib-dicts:
+    - arch: x86_64
+      epoch: null
+      name: cracklib-dicts
+      release: 11.el7
+      source: rpm
+      version: 2.9.0
+  criu:
+    - arch: x86_64
+      epoch: null
+      name: criu
+      release: 2.el7
+      source: rpm
+      version: '3.12'
+  cronie:
+    - arch: x86_64
+      epoch: null
+      name: cronie
+      release: 20.el7_6
+      source: rpm
+      version: 1.4.11
+  cronie-anacron:
+    - arch: x86_64
+      epoch: null
+      name: cronie-anacron
+      release: 20.el7_6
+      source: rpm
+      version: 1.4.11
+  crontabs:
+    - arch: noarch
+      epoch: null
+      name: crontabs
+      release: 6.20121102git.el7
+      source: rpm
+      version: '1.11'
+  cryptsetup-libs:
+    - arch: x86_64
+      epoch: null
+      name: cryptsetup-libs
+      release: 3.el7
+      source: rpm
+      version: 2.0.3
+  curl:
+    - arch: x86_64
+      epoch: null
+      name: curl
+      release: 51.el7_6.3
+      source: rpm
+      version: 7.29.0
+  cyrus-sasl-lib:
+    - arch: x86_64
+      epoch: null
+      name: cyrus-sasl-lib
+      release: 23.el7
+      source: rpm
+      version: 2.1.26
+  dbus:
+    - arch: x86_64
+      epoch: 1
+      name: dbus
+      release: 13.el7_6
+      source: rpm
+      version: 1.10.24
+  dbus-glib:
+    - arch: x86_64
+      epoch: null
+      name: dbus-glib
+      release: 7.el7
+      source: rpm
+      version: '0.100'
+  dbus-libs:
+    - arch: x86_64
+      epoch: 1
+      name: dbus-libs
+      release: 13.el7_6
+      source: rpm
+      version: 1.10.24
+  dbus-python:
+    - arch: x86_64
+      epoch: null
+      name: dbus-python
+      release: 9.el7
+      source: rpm
+      version: 1.1.1
+  device-mapper:
+    - arch: x86_64
+      epoch: 7
+      name: device-mapper
+      release: 7.el7_8.2
+      source: rpm
+      version: 1.02.164
+  device-mapper-event:
+    - arch: x86_64
+      epoch: 7
+      name: device-mapper-event
+      release: 7.el7_8.2
+      source: rpm
+      version: 1.02.164
+  device-mapper-event-libs:
+    - arch: x86_64
+      epoch: 7
+      name: device-mapper-event-libs
+      release: 7.el7_8.2
+      source: rpm
+      version: 1.02.164
+  device-mapper-libs:
+    - arch: x86_64
+      epoch: 7
+      name: device-mapper-libs
+      release: 7.el7_8.2
+      source: rpm
+      version: 1.02.164
+  device-mapper-persistent-data:
+    - arch: x86_64
+      epoch: null
+      name: device-mapper-persistent-data
+      release: 2.el7
+      source: rpm
+      version: 0.8.5
+  dhclient:
+    - arch: x86_64
+      epoch: 12
+      name: dhclient
+      release: 82.el7.centos
+      source: rpm
+      version: 4.2.5
+  dhcp-common:
+    - arch: x86_64
+      epoch: 12
+      name: dhcp-common
+      release: 82.el7.centos
+      source: rpm
+      version: 4.2.5
+  dhcp-libs:
+    - arch: x86_64
+      epoch: 12
+      name: dhcp-libs
+      release: 82.el7.centos
+      source: rpm
+      version: 4.2.5
+  diffutils:
+    - arch: x86_64
+      epoch: null
+      name: diffutils
+      release: 4.el7
+      source: rpm
+      version: '3.3'
+  dmidecode:
+    - arch: x86_64
+      epoch: 1
+      name: dmidecode
+      release: 2.el7
+      source: rpm
+      version: '3.1'
+  docker-ce:
+    - arch: x86_64
+      epoch: 3
+      name: docker-ce
+      release: 3.el7
+      source: rpm
+      version: 19.03.13
+  docker-ce-cli:
+    - arch: x86_64
+      epoch: 1
+      name: docker-ce-cli
+      release: 3.el7
+      source: rpm
+      version: 19.03.13
+  dracut:
+    - arch: x86_64
+      epoch: null
+      name: dracut
+      release: 554.el7
+      source: rpm
+      version: '033'
+  dracut-config-generic:
+    - arch: x86_64
+      epoch: null
+      name: dracut-config-generic
+      release: 554.el7
+      source: rpm
+      version: '033'
+  dracut-config-rescue:
+    - arch: x86_64
+      epoch: null
+      name: dracut-config-rescue
+      release: 554.el7
+      source: rpm
+      version: '033'
+  dracut-network:
+    - arch: x86_64
+      epoch: null
+      name: dracut-network
+      release: 554.el7
+      source: rpm
+      version: '033'
+  e2fsprogs:
+    - arch: x86_64
+      epoch: null
+      name: e2fsprogs
+      release: 13.el7
+      source: rpm
+      version: 1.42.9
+  e2fsprogs-libs:
+    - arch: x86_64
+      epoch: null
+      name: e2fsprogs-libs
+      release: 13.el7
+      source: rpm
+      version: 1.42.9
+  elfutils-default-yama-scope:
+    - arch: noarch
+      epoch: null
+      name: elfutils-default-yama-scope
+      release: 2.el7
+      source: rpm
+      version: '0.172'
+  elfutils-libelf:
+    - arch: x86_64
+      epoch: null
+      name: elfutils-libelf
+      release: 2.el7
+      source: rpm
+      version: '0.172'
+  elfutils-libs:
+    - arch: x86_64
+      epoch: null
+      name: elfutils-libs
+      release: 2.el7
+      source: rpm
+      version: '0.172'
+  epel-release:
+    - arch: noarch
+      epoch: null
+      name: epel-release
+      release: '11'
+      source: rpm
+      version: '7'
+  ethtool:
+    - arch: x86_64
+      epoch: 2
+      name: ethtool
+      release: 9.el7
+      source: rpm
+      version: '4.8'
+  expat:
+    - arch: x86_64
+      epoch: null
+      name: expat
+      release: 10.el7_3
+      source: rpm
+      version: 2.1.0
+  file:
+    - arch: x86_64
+      epoch: null
+      name: file
+      release: 35.el7
+      source: rpm
+      version: '5.11'
+  file-libs:
+    - arch: x86_64
+      epoch: null
+      name: file-libs
+      release: 35.el7
+      source: rpm
+      version: '5.11'
+  filebeat:
+    - arch: x86_64
+      epoch: null
+      name: filebeat
+      release: '1'
+      source: rpm
+      version: 7.4.2
+  filesystem:
+    - arch: x86_64
+      epoch: null
+      name: filesystem
+      release: 25.el7
+      source: rpm
+      version: '3.2'
+  findutils:
+    - arch: x86_64
+      epoch: 1
+      name: findutils
+      release: 6.el7
+      source: rpm
+      version: 4.5.11
+  fipscheck:
+    - arch: x86_64
+      epoch: null
+      name: fipscheck
+      release: 6.el7
+      source: rpm
+      version: 1.4.1
+  fipscheck-lib:
+    - arch: x86_64
+      epoch: null
+      name: fipscheck-lib
+      release: 6.el7
+      source: rpm
+      version: 1.4.1
+  forkstat:
+    - arch: x86_64
+      epoch: null
+      name: forkstat
+      release: '1.1'
+      source: rpm
+      version: 0.02.12
+  fping:
+    - arch: x86_64
+      epoch: null
+      name: fping
+      release: 4.el7
+      source: rpm
+      version: '3.10'
+  freetype:
+    - arch: x86_64
+      epoch: null
+      name: freetype
+      release: 12.el7_6.1
+      source: rpm
+      version: '2.8'
+  fuse-overlayfs:
+    - arch: x86_64
+      epoch: null
+      name: fuse-overlayfs
+      release: 6.el7_8
+      source: rpm
+      version: 0.7.2
+  fuse3-libs:
+    - arch: x86_64
+      epoch: null
+      name: fuse3-libs
+      release: 4.el7
+      source: rpm
+      version: 3.6.1
+  gawk:
+    - arch: x86_64
+      epoch: null
+      name: gawk
+      release: 4.el7_3.1
+      source: rpm
+      version: 4.0.2
+  gdbm:
+    - arch: x86_64
+      epoch: null
+      name: gdbm
+      release: 8.el7
+      source: rpm
+      version: '1.10'
+  gettext:
+    - arch: x86_64
+      epoch: null
+      name: gettext
+      release: 2.el7
+      source: rpm
+      version: 0.19.8.1
+  gettext-libs:
+    - arch: x86_64
+      epoch: null
+      name: gettext-libs
+      release: 2.el7
+      source: rpm
+      version: 0.19.8.1
+  git:
+    - arch: x86_64
+      epoch: null
+      name: git
+      release: 23.el7_8
+      source: rpm
+      version: 1.8.3.1
+  glib2:
+    - arch: x86_64
+      epoch: null
+      name: glib2
+      release: 4.el7_6
+      source: rpm
+      version: 2.56.1
+  glibc:
+    - arch: x86_64
+      epoch: null
+      name: glibc
+      release: 260.el7_6.6
+      source: rpm
+      version: '2.17'
+  glibc-common:
+    - arch: x86_64
+      epoch: null
+      name: glibc-common
+      release: 260.el7_6.6
+      source: rpm
+      version: '2.17'
+  gmp:
+    - arch: x86_64
+      epoch: 1
+      name: gmp
+      release: 15.el7
+      source: rpm
+      version: 6.0.0
+  gnupg2:
+    - arch: x86_64
+      epoch: null
+      name: gnupg2
+      release: 5.el7_5
+      source: rpm
+      version: 2.0.22
+  gnutls:
+    - arch: x86_64
+      epoch: null
+      name: gnutls
+      release: 9.el7_6
+      source: rpm
+      version: 3.3.29
+  gobject-introspection:
+    - arch: x86_64
+      epoch: null
+      name: gobject-introspection
+      release: 1.el7
+      source: rpm
+      version: 1.56.1
+  gpg-pubkey:
+    - arch: null
+      epoch: null
+      name: gpg-pubkey
+      release: 58adea78
+      source: rpm
+      version: 621e9f35
+    - arch: null
+      epoch: null
+      name: gpg-pubkey
+      release: 53a7ff4b
+      source: rpm
+      version: f4a80eb5
+    - arch: null
+      epoch: null
+      name: gpg-pubkey
+      release: 52ae6884
+      source: rpm
+      version: 352c64e5
+  gpgme:
+    - arch: x86_64
+      epoch: null
+      name: gpgme
+      release: 5.el7
+      source: rpm
+      version: 1.3.2
+  gpm-libs:
+    - arch: x86_64
+      epoch: null
+      name: gpm-libs
+      release: 6.el7
+      source: rpm
+      version: 1.20.7
+  grep:
+    - arch: x86_64
+      epoch: null
+      name: grep
+      release: 3.el7
+      source: rpm
+      version: '2.20'
+  groff-base:
+    - arch: x86_64
+      epoch: null
+      name: groff-base
+      release: 8.el7
+      source: rpm
+      version: 1.22.2
+  grub2:
+    - arch: x86_64
+      epoch: 1
+      name: grub2
+      release: 0.76.el7.centos.1
+      source: rpm
+      version: '2.02'
+  grub2-common:
+    - arch: noarch
+      epoch: 1
+      name: grub2-common
+      release: 0.76.el7.centos.1
+      source: rpm
+      version: '2.02'
+  grub2-pc:
+    - arch: x86_64
+      epoch: 1
+      name: grub2-pc
+      release: 0.76.el7.centos.1
+      source: rpm
+      version: '2.02'
+  grub2-pc-modules:
+    - arch: noarch
+      epoch: 1
+      name: grub2-pc-modules
+      release: 0.76.el7.centos.1
+      source: rpm
+      version: '2.02'
+  grub2-tools:
+    - arch: x86_64
+      epoch: 1
+      name: grub2-tools
+      release: 0.76.el7.centos.1
+      source: rpm
+      version: '2.02'
+  grub2-tools-extra:
+    - arch: x86_64
+      epoch: 1
+      name: grub2-tools-extra
+      release: 0.76.el7.centos.1
+      source: rpm
+      version: '2.02'
+  grub2-tools-minimal:
+    - arch: x86_64
+      epoch: 1
+      name: grub2-tools-minimal
+      release: 0.76.el7.centos.1
+      source: rpm
+      version: '2.02'
+  grubby:
+    - arch: x86_64
+      epoch: null
+      name: grubby
+      release: 25.el7
+      source: rpm
+      version: '8.28'
+  gssproxy:
+    - arch: x86_64
+      epoch: null
+      name: gssproxy
+      release: 21.el7
+      source: rpm
+      version: 0.7.0
+  gzip:
+    - arch: x86_64
+      epoch: null
+      name: gzip
+      release: 10.el7
+      source: rpm
+      version: '1.5'
+  hardlink:
+    - arch: x86_64
+      epoch: 1
+      name: hardlink
+      release: 19.el7
+      source: rpm
+      version: '1.0'
+  hostname:
+    - arch: x86_64
+      epoch: null
+      name: hostname
+      release: 3.el7
+      source: rpm
+      version: '3.13'
+  hwdata:
+    - arch: x86_64
+      epoch: null
+      name: hwdata
+      release: 9.1.el7
+      source: rpm
+      version: '0.252'
+  iksemel:
+    - arch: x86_64
+      epoch: null
+      name: iksemel
+      release: 2.el7.centos
+      source: rpm
+      version: '1.4'
+  info:
+    - arch: x86_64
+      epoch: null
+      name: info
+      release: 5.el7
+      source: rpm
+      version: '5.1'
+  initscripts:
+    - arch: x86_64
+      epoch: null
+      name: initscripts
+      release: 1.el7
+      source: rpm
+      version: 9.49.46
+  iometrics-agent:
+    - arch: x86_64
+      epoch: null
+      name: iometrics-agent
+      release: '27'
+      source: rpm
+      version: 1.11.3
+  iotop:
+    - arch: noarch
+      epoch: null
+      name: iotop
+      release: 4.el7
+      source: rpm
+      version: '0.6'
+  iproute:
+    - arch: x86_64
+      epoch: null
+      name: iproute
+      release: 14.el7_6.2
+      source: rpm
+      version: 4.11.0
+  iptables:
+    - arch: x86_64
+      epoch: null
+      name: iptables
+      release: 28.el7
+      source: rpm
+      version: 1.4.21
+  iputils:
+    - arch: x86_64
+      epoch: null
+      name: iputils
+      release: 10.el7
+      source: rpm
+      version: '20160308'
+  irqbalance:
+    - arch: x86_64
+      epoch: 3
+      name: irqbalance
+      release: 11.el7
+      source: rpm
+      version: 1.0.7
+  iwl7265-firmware:
+    - arch: noarch
+      epoch: null
+      name: iwl7265-firmware
+      release: 69.el7
+      source: rpm
+      version: 22.0.7.0
+  jansson:
+    - arch: x86_64
+      epoch: null
+      name: jansson
+      release: 1.el7
+      source: rpm
+      version: '2.10'
+  jq:
+    - arch: x86_64
+      epoch: null
+      name: jq
+      release: 2.el7
+      source: rpm
+      version: '1.6'
+  json-c:
+    - arch: x86_64
+      epoch: null
+      name: json-c
+      release: 4.el7_0
+      source: rpm
+      version: '0.11'
+  kbd:
+    - arch: x86_64
+      epoch: null
+      name: kbd
+      release: 15.el7
+      source: rpm
+      version: 1.15.5
+  kbd-legacy:
+    - arch: noarch
+      epoch: null
+      name: kbd-legacy
+      release: 15.el7
+      source: rpm
+      version: 1.15.5
+  kbd-misc:
+    - arch: noarch
+      epoch: null
+      name: kbd-misc
+      release: 15.el7
+      source: rpm
+      version: 1.15.5
+  kernel:
+    - arch: x86_64
+      epoch: null
+      name: kernel
+      release: 957.27.2.el7
+      source: rpm
+      version: 3.10.0
+  kernel-tools:
+    - arch: x86_64
+      epoch: null
+      name: kernel-tools
+      release: 957.27.2.el7
+      source: rpm
+      version: 3.10.0
+  kernel-tools-libs:
+    - arch: x86_64
+      epoch: null
+      name: kernel-tools-libs
+      release: 957.27.2.el7
+      source: rpm
+      version: 3.10.0
+  kexec-tools:
+    - arch: x86_64
+      epoch: null
+      name: kexec-tools
+      release: 21.el7_6.4
+      source: rpm
+      version: 2.0.15
+  keyutils:
+    - arch: x86_64
+      epoch: null
+      name: keyutils
+      release: 3.el7
+      source: rpm
+      version: 1.5.8
+  keyutils-libs:
+    - arch: x86_64
+      epoch: null
+      name: keyutils-libs
+      release: 3.el7
+      source: rpm
+      version: 1.5.8
+  kmod:
+    - arch: x86_64
+      epoch: null
+      name: kmod
+      release: 23.el7
+      source: rpm
+      version: '20'
+  kmod-libs:
+    - arch: x86_64
+      epoch: null
+      name: kmod-libs
+      release: 23.el7
+      source: rpm
+      version: '20'
+  kpartx:
+    - arch: x86_64
+      epoch: null
+      name: kpartx
+      release: 123.el7
+      source: rpm
+      version: 0.4.9
+  krb5-libs:
+    - arch: x86_64
+      epoch: null
+      name: krb5-libs
+      release: 37.el7_6
+      source: rpm
+      version: 1.15.1
+  less:
+    - arch: x86_64
+      epoch: null
+      name: less
+      release: 9.el7
+      source: rpm
+      version: '458'
+  libacl:
+    - arch: x86_64
+      epoch: null
+      name: libacl
+      release: 14.el7
+      source: rpm
+      version: 2.2.51
+  libaio:
+    - arch: x86_64
+      epoch: null
+      name: libaio
+      release: 13.el7
+      source: rpm
+      version: 0.3.109
+  libassuan:
+    - arch: x86_64
+      epoch: null
+      name: libassuan
+      release: 3.el7
+      source: rpm
+      version: 2.1.0
+  libattr:
+    - arch: x86_64
+      epoch: null
+      name: libattr
+      release: 13.el7
+      source: rpm
+      version: 2.4.46
+  libbasicobjects:
+    - arch: x86_64
+      epoch: null
+      name: libbasicobjects
+      release: 32.el7
+      source: rpm
+      version: 0.1.1
+  libblkid:
+    - arch: x86_64
+      epoch: null
+      name: libblkid
+      release: 59.el7_6.1
+      source: rpm
+      version: 2.23.2
+  libcap:
+    - arch: x86_64
+      epoch: null
+      name: libcap
+      release: 9.el7
+      source: rpm
+      version: '2.22'
+  libcap-ng:
+    - arch: x86_64
+      epoch: null
+      name: libcap-ng
+      release: 4.el7
+      source: rpm
+      version: 0.7.5
+  libcgroup:
+    - arch: x86_64
+      epoch: null
+      name: libcgroup
+      release: 20.el7
+      source: rpm
+      version: '0.41'
+  libcollection:
+    - arch: x86_64
+      epoch: null
+      name: libcollection
+      release: 32.el7
+      source: rpm
+      version: 0.7.0
+  libcom_err:
+    - arch: x86_64
+      epoch: null
+      name: libcom_err
+      release: 13.el7
+      source: rpm
+      version: 1.42.9
+  libcroco:
+    - arch: x86_64
+      epoch: null
+      name: libcroco
+      release: 4.el7
+      source: rpm
+      version: 0.6.12
+  libcurl:
+    - arch: x86_64
+      epoch: null
+      name: libcurl
+      release: 51.el7_6.3
+      source: rpm
+      version: 7.29.0
+  libdaemon:
+    - arch: x86_64
+      epoch: null
+      name: libdaemon
+      release: 7.el7
+      source: rpm
+      version: '0.14'
+  libdb:
+    - arch: x86_64
+      epoch: null
+      name: libdb
+      release: 24.el7
+      source: rpm
+      version: 5.3.21
+  libdb-utils:
+    - arch: x86_64
+      epoch: null
+      name: libdb-utils
+      release: 24.el7
+      source: rpm
+      version: 5.3.21
+  libedit:
+    - arch: x86_64
+      epoch: null
+      name: libedit
+      release: 12.20121213cvs.el7
+      source: rpm
+      version: '3.0'
+  libestr:
+    - arch: x86_64
+      epoch: null
+      name: libestr
+      release: 2.el7
+      source: rpm
+      version: 0.1.9
+  libevent:
+    - arch: x86_64
+      epoch: null
+      name: libevent
+      release: 4.el7
+      source: rpm
+      version: 2.0.21
+  libfastjson:
+    - arch: x86_64
+      epoch: null
+      name: libfastjson
+      release: 3.el7
+      source: rpm
+      version: 0.99.4
+  libffi:
+    - arch: x86_64
+      epoch: null
+      name: libffi
+      release: 18.el7
+      source: rpm
+      version: 3.0.13
+  libgcc:
+    - arch: x86_64
+      epoch: null
+      name: libgcc
+      release: 36.el7_6.2
+      source: rpm
+      version: 4.8.5
+  libgcrypt:
+    - arch: x86_64
+      epoch: null
+      name: libgcrypt
+      release: 14.el7
+      source: rpm
+      version: 1.5.3
+  libgomp:
+    - arch: x86_64
+      epoch: null
+      name: libgomp
+      release: 36.el7_6.2
+      source: rpm
+      version: 4.8.5
+  libgpg-error:
+    - arch: x86_64
+      epoch: null
+      name: libgpg-error
+      release: 3.el7
+      source: rpm
+      version: '1.12'
+  libidn:
+    - arch: x86_64
+      epoch: null
+      name: libidn
+      release: 4.el7
+      source: rpm
+      version: '1.28'
+  libini_config:
+    - arch: x86_64
+      epoch: null
+      name: libini_config
+      release: 32.el7
+      source: rpm
+      version: 1.3.1
+  libmnl:
+    - arch: x86_64
+      epoch: null
+      name: libmnl
+      release: 7.el7
+      source: rpm
+      version: 1.0.3
+  libmount:
+    - arch: x86_64
+      epoch: null
+      name: libmount
+      release: 59.el7_6.1
+      source: rpm
+      version: 2.23.2
+  libndp:
+    - arch: x86_64
+      epoch: null
+      name: libndp
+      release: 7.el7
+      source: rpm
+      version: '1.2'
+  libnet:
+    - arch: x86_64
+      epoch: null
+      name: libnet
+      release: 7.el7
+      source: rpm
+      version: 1.1.6
+  libnetfilter_conntrack:
+    - arch: x86_64
+      epoch: null
+      name: libnetfilter_conntrack
+      release: 1.el7_3
+      source: rpm
+      version: 1.0.6
+  libnfnetlink:
+    - arch: x86_64
+      epoch: null
+      name: libnfnetlink
+      release: 4.el7
+      source: rpm
+      version: 1.0.1
+  libnfsidmap:
+    - arch: x86_64
+      epoch: null
+      name: libnfsidmap
+      release: 19.el7
+      source: rpm
+      version: '0.25'
+  libnftnl:
+    - arch: x86_64
+      epoch: null
+      name: libnftnl
+      release: 3.el7
+      source: rpm
+      version: 1.0.8
+  libnl:
+    - arch: x86_64
+      epoch: null
+      name: libnl
+      release: 3.el7
+      source: rpm
+      version: 1.1.4
+  libnl3:
+    - arch: x86_64
+      epoch: null
+      name: libnl3
+      release: 4.el7
+      source: rpm
+      version: 3.2.28
+  libnl3-cli:
+    - arch: x86_64
+      epoch: null
+      name: libnl3-cli
+      release: 4.el7
+      source: rpm
+      version: 3.2.28
+  libpath_utils:
+    - arch: x86_64
+      epoch: null
+      name: libpath_utils
+      release: 32.el7
+      source: rpm
+      version: 0.2.1
+  libpcap:
+    - arch: x86_64
+      epoch: 14
+      name: libpcap
+      release: 12.el7
+      source: rpm
+      version: 1.5.3
+  libpipeline:
+    - arch: x86_64
+      epoch: null
+      name: libpipeline
+      release: 3.el7
+      source: rpm
+      version: 1.2.3
+  libpng:
+    - arch: x86_64
+      epoch: 2
+      name: libpng
+      release: 7.el7_2
+      source: rpm
+      version: 1.5.13
+  libpwquality:
+    - arch: x86_64
+      epoch: null
+      name: libpwquality
+      release: 5.el7
+      source: rpm
+      version: 1.2.3
+  libref_array:
+    - arch: x86_64
+      epoch: null
+      name: libref_array
+      release: 32.el7
+      source: rpm
+      version: 0.1.5
+  libseccomp:
+    - arch: x86_64
+      epoch: null
+      name: libseccomp
+      release: 3.el7
+      source: rpm
+      version: 2.3.1
+  libselinux:
+    - arch: x86_64
+      epoch: null
+      name: libselinux
+      release: 15.el7
+      source: rpm
+      version: '2.5'
+  libselinux-python:
+    - arch: x86_64
+      epoch: null
+      name: libselinux-python
+      release: 15.el7
+      source: rpm
+      version: '2.5'
+  libselinux-python3:
+    - arch: x86_64
+      epoch: null
+      name: libselinux-python3
+      release: 15.el7
+      source: rpm
+      version: '2.5'
+  libselinux-utils:
+    - arch: x86_64
+      epoch: null
+      name: libselinux-utils
+      release: 15.el7
+      source: rpm
+      version: '2.5'
+  libsemanage:
+    - arch: x86_64
+      epoch: null
+      name: libsemanage
+      release: 14.el7
+      source: rpm
+      version: '2.5'
+  libsemanage-python:
+    - arch: x86_64
+      epoch: null
+      name: libsemanage-python
+      release: 14.el7
+      source: rpm
+      version: '2.5'
+  libsepol:
+    - arch: x86_64
+      epoch: null
+      name: libsepol
+      release: 10.el7
+      source: rpm
+      version: '2.5'
+  libsmartcols:
+    - arch: x86_64
+      epoch: null
+      name: libsmartcols
+      release: 59.el7_6.1
+      source: rpm
+      version: 2.23.2
+  libss:
+    - arch: x86_64
+      epoch: null
+      name: libss
+      release: 13.el7
+      source: rpm
+      version: 1.42.9
+  libssh2:
+    - arch: x86_64
+      epoch: null
+      name: libssh2
+      release: 12.el7_6.3
+      source: rpm
+      version: 1.4.3
+  libstdc++:
+    - arch: x86_64
+      epoch: null
+      name: libstdc++
+      release: 36.el7_6.2
+      source: rpm
+      version: 4.8.5
+  libsysfs:
+    - arch: x86_64
+      epoch: null
+      name: libsysfs
+      release: 16.el7
+      source: rpm
+      version: 2.1.0
+  libtasn1:
+    - arch: x86_64
+      epoch: null
+      name: libtasn1
+      release: 1.el7
+      source: rpm
+      version: '4.10'
+  libteam:
+    - arch: x86_64
+      epoch: null
+      name: libteam
+      release: 6.el7_6.1
+      source: rpm
+      version: '1.27'
+  libtirpc:
+    - arch: x86_64
+      epoch: null
+      name: libtirpc
+      release: 0.15.el7
+      source: rpm
+      version: 0.2.4
+  libtool-ltdl:
+    - arch: x86_64
+      epoch: null
+      name: libtool-ltdl
+      release: 22.el7_3
+      source: rpm
+      version: 2.4.2
+  libunistring:
+    - arch: x86_64
+      epoch: null
+      name: libunistring
+      release: 9.el7
+      source: rpm
+      version: 0.9.3
+  libuser:
+    - arch: x86_64
+      epoch: null
+      name: libuser
+      release: 9.el7
+      source: rpm
+      version: '0.60'
+  libutempter:
+    - arch: x86_64
+      epoch: null
+      name: libutempter
+      release: 4.el7
+      source: rpm
+      version: 1.1.6
+  libuuid:
+    - arch: x86_64
+      epoch: null
+      name: libuuid
+      release: 59.el7_6.1
+      source: rpm
+      version: 2.23.2
+  libverto:
+    - arch: x86_64
+      epoch: null
+      name: libverto
+      release: 4.el7
+      source: rpm
+      version: 0.2.5
+  libverto-libevent:
+    - arch: x86_64
+      epoch: null
+      name: libverto-libevent
+      release: 4.el7
+      source: rpm
+      version: 0.2.5
+  libxml2:
+    - arch: x86_64
+      epoch: null
+      name: libxml2
+      release: 6.el7_2.3
+      source: rpm
+      version: 2.9.1
+  libxml2-python:
+    - arch: x86_64
+      epoch: null
+      name: libxml2-python
+      release: 6.el7_2.3
+      source: rpm
+      version: 2.9.1
+  libyaml:
+    - arch: x86_64
+      epoch: null
+      name: libyaml
+      release: 11.el7_0
+      source: rpm
+      version: 0.1.4
+  lm_sensors-libs:
+    - arch: x86_64
+      epoch: null
+      name: lm_sensors-libs
+      release: 8.20160601gitf9185e5.el7
+      source: rpm
+      version: 3.4.0
+  logrotate:
+    - arch: x86_64
+      epoch: null
+      name: logrotate
+      release: 17.el7
+      source: rpm
+      version: 3.8.6
+  lshw:
+    - arch: x86_64
+      epoch: null
+      name: lshw
+      release: 12.el7
+      source: rpm
+      version: B.02.18
+  lua:
+    - arch: x86_64
+      epoch: null
+      name: lua
+      release: 15.el7
+      source: rpm
+      version: 5.1.4
+  lvm2:
+    - arch: x86_64
+      epoch: 7
+      name: lvm2
+      release: 7.el7_8.2
+      source: rpm
+      version: 2.02.186
+  lvm2-libs:
+    - arch: x86_64
+      epoch: 7
+      name: lvm2-libs
+      release: 7.el7_8.2
+      source: rpm
+      version: 2.02.186
+  lz4:
+    - arch: x86_64
+      epoch: null
+      name: lz4
+      release: 2.el7
+      source: rpm
+      version: 1.7.5
+  lzo:
+    - arch: x86_64
+      epoch: null
+      name: lzo
+      release: 8.el7
+      source: rpm
+      version: '2.06'
+  make:
+    - arch: x86_64
+      epoch: 1
+      name: make
+      release: 23.el7
+      source: rpm
+      version: '3.82'
+  man-db:
+    - arch: x86_64
+      epoch: null
+      name: man-db
+      release: 11.el7
+      source: rpm
+      version: 2.6.3
+  mariadb-libs:
+    - arch: x86_64
+      epoch: 1
+      name: mariadb-libs
+      release: 1.el7_5
+      source: rpm
+      version: 5.5.60
+  microcode_ctl:
+    - arch: x86_64
+      epoch: 2
+      name: microcode_ctl
+      release: 47.5.el7_6
+      source: rpm
+      version: '2.1'
+  mozjs17:
+    - arch: x86_64
+      epoch: null
+      name: mozjs17
+      release: 20.el7
+      source: rpm
+      version: 17.0.0
+  ncurses:
+    - arch: x86_64
+      epoch: null
+      name: ncurses
+      release: 14.20130511.el7_4
+      source: rpm
+      version: '5.9'
+  ncurses-base:
+    - arch: noarch
+      epoch: null
+      name: ncurses-base
+      release: 14.20130511.el7_4
+      source: rpm
+      version: '5.9'
+  ncurses-libs:
+    - arch: x86_64
+      epoch: null
+      name: ncurses-libs
+      release: 14.20130511.el7_4
+      source: rpm
+      version: '5.9'
+  net-snmp-libs:
+    - arch: x86_64
+      epoch: 1
+      name: net-snmp-libs
+      release: 48.el7_8
+      source: rpm
+      version: 5.7.2
+  net-tools:
+    - arch: x86_64
+      epoch: null
+      name: net-tools
+      release: 0.24.20131004git.el7
+      source: rpm
+      version: '2.0'
+  nettle:
+    - arch: x86_64
+      epoch: null
+      name: nettle
+      release: 8.el7
+      source: rpm
+      version: 2.7.1
+  newt:
+    - arch: x86_64
+      epoch: null
+      name: newt
+      release: 4.el7
+      source: rpm
+      version: 0.52.15
+  newt-python:
+    - arch: x86_64
+      epoch: null
+      name: newt-python
+      release: 4.el7
+      source: rpm
+      version: 0.52.15
+  nfs-utils:
+    - arch: x86_64
+      epoch: 1
+      name: nfs-utils
+      release: 0.61.el7
+      source: rpm
+      version: 1.3.0
+  nftables:
+    - arch: x86_64
+      epoch: 1
+      name: nftables
+      release: 14.el7
+      source: rpm
+      version: '0.8'
+  ngrep:
+    - arch: x86_64
+      epoch: null
+      name: ngrep
+      release: 1.1.20180101git9b59468.el7
+      source: rpm
+      version: '1.47'
+  nmap-ncat:
+    - arch: x86_64
+      epoch: 2
+      name: nmap-ncat
+      release: 19.el7
+      source: rpm
+      version: '6.40'
+  nspr:
+    - arch: x86_64
+      epoch: null
+      name: nspr
+      release: 1.el7_5
+      source: rpm
+      version: 4.19.0
+  nss:
+    - arch: x86_64
+      epoch: null
+      name: nss
+      release: 7.1.el7_6
+      source: rpm
+      version: 3.36.0
+  nss-pem:
+    - arch: x86_64
+      epoch: null
+      name: nss-pem
+      release: 5.el7_6.1
+      source: rpm
+      version: 1.0.3
+  nss-softokn:
+    - arch: x86_64
+      epoch: null
+      name: nss-softokn
+      release: 5.el7_5
+      source: rpm
+      version: 3.36.0
+  nss-softokn-freebl:
+    - arch: x86_64
+      epoch: null
+      name: nss-softokn-freebl
+      release: 5.el7_5
+      source: rpm
+      version: 3.36.0
+  nss-sysinit:
+    - arch: x86_64
+      epoch: null
+      name: nss-sysinit
+      release: 7.1.el7_6
+      source: rpm
+      version: 3.36.0
+  nss-tools:
+    - arch: x86_64
+      epoch: null
+      name: nss-tools
+      release: 7.1.el7_6
+      source: rpm
+      version: 3.36.0
+  nss-util:
+    - arch: x86_64
+      epoch: null
+      name: nss-util
+      release: 1.1.el7_6
+      source: rpm
+      version: 3.36.0
+  ntp:
+    - arch: x86_64
+      epoch: null
+      name: ntp
+      release: 29.el7.centos.2
+      source: rpm
+      version: 4.2.6p5
+  ntpdate:
+    - arch: x86_64
+      epoch: null
+      name: ntpdate
+      release: 29.el7.centos.2
+      source: rpm
+      version: 4.2.6p5
+  numactl-libs:
+    - arch: x86_64
+      epoch: null
+      name: numactl-libs
+      release: 7.el7
+      source: rpm
+      version: 2.0.9
+  oci-register-machine:
+    - arch: x86_64
+      epoch: 1
+      name: oci-register-machine
+      release: 6.git2b44233.el7
+      source: rpm
+      version: '0'
+  oci-systemd-hook:
+    - arch: x86_64
+      epoch: 1
+      name: oci-systemd-hook
+      release: 1.git05e6923.el7_6
+      source: rpm
+      version: 0.2.0
+  oci-umount:
+    - arch: x86_64
+      epoch: 2
+      name: oci-umount
+      release: 3.el7
+      source: rpm
+      version: '2.5'
+  oniguruma:
+    - arch: x86_64
+      epoch: null
+      name: oniguruma
+      release: 1.el7
+      source: rpm
+      version: 6.8.2
+  openldap:
+    - arch: x86_64
+      epoch: null
+      name: openldap
+      release: 21.el7_6
+      source: rpm
+      version: 2.4.44
+  openssh:
+    - arch: x86_64
+      epoch: null
+      name: openssh
+      release: 16.el7
+      source: rpm
+      version: 7.4p1
+  openssh-clients:
+    - arch: x86_64
+      epoch: null
+      name: openssh-clients
+      release: 16.el7
+      source: rpm
+      version: 7.4p1
+  openssh-server:
+    - arch: x86_64
+      epoch: null
+      name: openssh-server
+      release: 16.el7
+      source: rpm
+      version: 7.4p1
+  openssl:
+    - arch: x86_64
+      epoch: 1
+      name: openssl
+      release: 16.el7_6.1
+      source: rpm
+      version: 1.0.2k
+  openssl-libs:
+    - arch: x86_64
+      epoch: 1
+      name: openssl-libs
+      release: 16.el7_6.1
+      source: rpm
+      version: 1.0.2k
+  os-prober:
+    - arch: x86_64
+      epoch: null
+      name: os-prober
+      release: 9.el7
+      source: rpm
+      version: '1.58'
+  p11-kit:
+    - arch: x86_64
+      epoch: null
+      name: p11-kit
+      release: 3.el7
+      source: rpm
+      version: 0.23.5
+  p11-kit-trust:
+    - arch: x86_64
+      epoch: null
+      name: p11-kit-trust
+      release: 3.el7
+      source: rpm
+      version: 0.23.5
+  pam:
+    - arch: x86_64
+      epoch: null
+      name: pam
+      release: 22.el7
+      source: rpm
+      version: 1.1.8
+  parted:
+    - arch: x86_64
+      epoch: null
+      name: parted
+      release: 29.el7
+      source: rpm
+      version: '3.1'
+  passwd:
+    - arch: x86_64
+      epoch: null
+      name: passwd
+      release: 4.el7
+      source: rpm
+      version: '0.79'
+  pciutils-libs:
+    - arch: x86_64
+      epoch: null
+      name: pciutils-libs
+      release: 3.el7
+      source: rpm
+      version: 3.5.1
+  pcre:
+    - arch: x86_64
+      epoch: null
+      name: pcre
+      release: 17.el7
+      source: rpm
+      version: '8.32'
+  perl:
+    - arch: x86_64
+      epoch: 4
+      name: perl
+      release: 295.el7
+      source: rpm
+      version: 5.16.3
+  perl-Carp:
+    - arch: noarch
+      epoch: null
+      name: perl-Carp
+      release: 244.el7
+      source: rpm
+      version: '1.26'
+  perl-Encode:
+    - arch: x86_64
+      epoch: null
+      name: perl-Encode
+      release: 7.el7
+      source: rpm
+      version: '2.51'
+  perl-Error:
+    - arch: noarch
+      epoch: 1
+      name: perl-Error
+      release: 2.el7
+      source: rpm
+      version: '0.17020'
+  perl-Exporter:
+    - arch: noarch
+      epoch: null
+      name: perl-Exporter
+      release: 3.el7
+      source: rpm
+      version: '5.68'
+  perl-File-Path:
+    - arch: noarch
+      epoch: null
+      name: perl-File-Path
+      release: 2.el7
+      source: rpm
+      version: '2.09'
+  perl-File-Temp:
+    - arch: noarch
+      epoch: null
+      name: perl-File-Temp
+      release: 3.el7
+      source: rpm
+      version: 0.23.01
+  perl-Filter:
+    - arch: x86_64
+      epoch: null
+      name: perl-Filter
+      release: 3.el7
+      source: rpm
+      version: '1.49'
+  perl-Getopt-Long:
+    - arch: noarch
+      epoch: null
+      name: perl-Getopt-Long
+      release: 3.el7
+      source: rpm
+      version: '2.40'
+  perl-Git:
+    - arch: noarch
+      epoch: null
+      name: perl-Git
+      release: 23.el7_8
+      source: rpm
+      version: 1.8.3.1
+  perl-HTTP-Tiny:
+    - arch: noarch
+      epoch: null
+      name: perl-HTTP-Tiny
+      release: 3.el7
+      source: rpm
+      version: '0.033'
+  perl-PathTools:
+    - arch: x86_64
+      epoch: null
+      name: perl-PathTools
+      release: 5.el7
+      source: rpm
+      version: '3.40'
+  perl-Pod-Escapes:
+    - arch: noarch
+      epoch: 1
+      name: perl-Pod-Escapes
+      release: 295.el7
+      source: rpm
+      version: '1.04'
+  perl-Pod-Perldoc:
+    - arch: noarch
+      epoch: null
+      name: perl-Pod-Perldoc
+      release: 4.el7
+      source: rpm
+      version: '3.20'
+  perl-Pod-Simple:
+    - arch: noarch
+      epoch: 1
+      name: perl-Pod-Simple
+      release: 4.el7
+      source: rpm
+      version: '3.28'
+  perl-Pod-Usage:
+    - arch: noarch
+      epoch: null
+      name: perl-Pod-Usage
+      release: 3.el7
+      source: rpm
+      version: '1.63'
+  perl-Scalar-List-Utils:
+    - arch: x86_64
+      epoch: null
+      name: perl-Scalar-List-Utils
+      release: 248.el7
+      source: rpm
+      version: '1.27'
+  perl-Socket:
+    - arch: x86_64
+      epoch: null
+      name: perl-Socket
+      release: 5.el7
+      source: rpm
+      version: '2.010'
+  perl-Storable:
+    - arch: x86_64
+      epoch: null
+      name: perl-Storable
+      release: 3.el7
+      source: rpm
+      version: '2.45'
+  perl-TermReadKey:
+    - arch: x86_64
+      epoch: null
+      name: perl-TermReadKey
+      release: 20.el7
+      source: rpm
+      version: '2.30'
+  perl-Text-ParseWords:
+    - arch: noarch
+      epoch: null
+      name: perl-Text-ParseWords
+      release: 4.el7
+      source: rpm
+      version: '3.29'
+  perl-Time-HiRes:
+    - arch: x86_64
+      epoch: 4
+      name: perl-Time-HiRes
+      release: 3.el7
+      source: rpm
+      version: '1.9725'
+  perl-Time-Local:
+    - arch: noarch
+      epoch: null
+      name: perl-Time-Local
+      release: 2.el7
+      source: rpm
+      version: '1.2300'
+  perl-constant:
+    - arch: noarch
+      epoch: null
+      name: perl-constant
+      release: 2.el7
+      source: rpm
+      version: '1.27'
+  perl-libs:
+    - arch: x86_64
+      epoch: 4
+      name: perl-libs
+      release: 295.el7
+      source: rpm
+      version: 5.16.3
+  perl-macros:
+    - arch: x86_64
+      epoch: 4
+      name: perl-macros
+      release: 295.el7
+      source: rpm
+      version: 5.16.3
+  perl-parent:
+    - arch: noarch
+      epoch: 1
+      name: perl-parent
+      release: 244.el7
+      source: rpm
+      version: '0.225'
+  perl-podlators:
+    - arch: noarch
+      epoch: null
+      name: perl-podlators
+      release: 3.el7
+      source: rpm
+      version: 2.5.1
+  perl-threads:
+    - arch: x86_64
+      epoch: null
+      name: perl-threads
+      release: 4.el7
+      source: rpm
+      version: '1.87'
+  perl-threads-shared:
+    - arch: x86_64
+      epoch: null
+      name: perl-threads-shared
+      release: 6.el7
+      source: rpm
+      version: '1.43'
+  pinentry:
+    - arch: x86_64
+      epoch: null
+      name: pinentry
+      release: 17.el7
+      source: rpm
+      version: 0.8.1
+  pkgconfig:
+    - arch: x86_64
+      epoch: 1
+      name: pkgconfig
+      release: 4.el7
+      source: rpm
+      version: 0.27.1
+  podman:
+    - arch: x86_64
+      epoch: null
+      name: podman
+      release: 16.el7_8
+      source: rpm
+      version: 1.6.4
+  policycoreutils:
+    - arch: x86_64
+      epoch: null
+      name: policycoreutils
+      release: 29.el7_6.1
+      source: rpm
+      version: '2.5'
+  policycoreutils-python:
+    - arch: x86_64
+      epoch: null
+      name: policycoreutils-python
+      release: 29.el7_6.1
+      source: rpm
+      version: '2.5'
+  polkit:
+    - arch: x86_64
+      epoch: null
+      name: polkit
+      release: 18.el7_6.1
+      source: rpm
+      version: '0.112'
+  polkit-pkla-compat:
+    - arch: x86_64
+      epoch: null
+      name: polkit-pkla-compat
+      release: 4.el7
+      source: rpm
+      version: '0.1'
+  popt:
+    - arch: x86_64
+      epoch: null
+      name: popt
+      release: 16.el7
+      source: rpm
+      version: '1.13'
+  postfix:
+    - arch: x86_64
+      epoch: 2
+      name: postfix
+      release: 7.el7
+      source: rpm
+      version: 2.10.1
+  postgresql:
+    - arch: x86_64
+      epoch: null
+      name: postgresql
+      release: 4.el7_8
+      source: rpm
+      version: 9.2.24
+  postgresql-libs:
+    - arch: x86_64
+      epoch: null
+      name: postgresql-libs
+      release: 4.el7_8
+      source: rpm
+      version: 9.2.24
+  postgresql-odbc:
+    - arch: x86_64
+      epoch: null
+      name: postgresql-odbc
+      release: 2.el7
+      source: rpm
+      version: 09.03.0100
+  procps-ng:
+    - arch: x86_64
+      epoch: null
+      name: procps-ng
+      release: 23.el7
+      source: rpm
+      version: 3.3.10
+  protobuf-c:
+    - arch: x86_64
+      epoch: null
+      name: protobuf-c
+      release: 3.el7
+      source: rpm
+      version: 1.0.2
+  pth:
+    - arch: x86_64
+      epoch: null
+      name: pth
+      release: 23.el7
+      source: rpm
+      version: 2.0.7
+  pygpgme:
+    - arch: x86_64
+      epoch: null
+      name: pygpgme
+      release: 9.el7
+      source: rpm
+      version: '0.3'
+  pyliblzma:
+    - arch: x86_64
+      epoch: null
+      name: pyliblzma
+      release: 11.el7
+      source: rpm
+      version: 0.5.3
+  pyserial:
+    - arch: noarch
+      epoch: null
+      name: pyserial
+      release: 6.el7
+      source: rpm
+      version: '2.6'
+  python:
+    - arch: x86_64
+      epoch: null
+      name: python
+      release: 88.el7
+      source: rpm
+      version: 2.7.5
+  python-IPy:
+    - arch: noarch
+      epoch: null
+      name: python-IPy
+      release: 6.el7
+      source: rpm
+      version: '0.75'
+  python-babel:
+    - arch: noarch
+      epoch: null
+      name: python-babel
+      release: 8.el7
+      source: rpm
+      version: 0.9.6
+  python-backports:
+    - arch: x86_64
+      epoch: null
+      name: python-backports
+      release: 8.el7
+      source: rpm
+      version: '1.0'
+  python-backports-ssl_match_hostname:
+    - arch: noarch
+      epoch: null
+      name: python-backports-ssl_match_hostname
+      release: 1.el7
+      source: rpm
+      version: 3.5.0.1
+  python-chardet:
+    - arch: noarch
+      epoch: null
+      name: python-chardet
+      release: 1.el7_1
+      source: rpm
+      version: 2.2.1
+  python-configobj:
+    - arch: noarch
+      epoch: null
+      name: python-configobj
+      release: 7.el7
+      source: rpm
+      version: 4.7.2
+  python-dateutil:
+    - arch: noarch
+      epoch: null
+      name: python-dateutil
+      release: 7.el7
+      source: rpm
+      version: '1.5'
+  python-decorator:
+    - arch: noarch
+      epoch: null
+      name: python-decorator
+      release: 3.el7
+      source: rpm
+      version: 3.4.0
+  python-devel:
+    - arch: x86_64
+      epoch: null
+      name: python-devel
+      release: 88.el7
+      source: rpm
+      version: 2.7.5
+  python-dmidecode:
+    - arch: x86_64
+      epoch: null
+      name: python-dmidecode
+      release: 4.el7
+      source: rpm
+      version: 3.12.2
+  python-docker-py:
+    - arch: noarch
+      epoch: 1
+      name: python-docker-py
+      release: 11.el7
+      source: rpm
+      version: 1.10.6
+  python-docker-pycreds:
+    - arch: noarch
+      epoch: 1
+      name: python-docker-pycreds
+      release: 11.el7
+      source: rpm
+      version: 0.3.0
+  python-ethtool:
+    - arch: x86_64
+      epoch: null
+      name: python-ethtool
+      release: 8.el7
+      source: rpm
+      version: '0.8'
+  python-gobject-base:
+    - arch: x86_64
+      epoch: null
+      name: python-gobject-base
+      release: 1.el7_4.1
+      source: rpm
+      version: 3.22.0
+  python-iniparse:
+    - arch: noarch
+      epoch: null
+      name: python-iniparse
+      release: 9.el7
+      source: rpm
+      version: '0.4'
+  python-inotify:
+    - arch: noarch
+      epoch: null
+      name: python-inotify
+      release: 4.el7
+      source: rpm
+      version: 0.9.4
+  python-ipaddress:
+    - arch: noarch
+      epoch: null
+      name: python-ipaddress
+      release: 2.el7
+      source: rpm
+      version: 1.0.16
+  python-jinja2:
+    - arch: noarch
+      epoch: null
+      name: python-jinja2
+      release: 3.el7_6
+      source: rpm
+      version: 2.7.2
+  python-jsonpatch:
+    - arch: noarch
+      epoch: null
+      name: python-jsonpatch
+      release: 4.el7
+      source: rpm
+      version: '1.2'
+  python-jsonpointer:
+    - arch: noarch
+      epoch: null
+      name: python-jsonpointer
+      release: 2.el7
+      source: rpm
+      version: '1.9'
+  python-kitchen:
+    - arch: noarch
+      epoch: null
+      name: python-kitchen
+      release: 5.el7
+      source: rpm
+      version: 1.1.1
+  python-libs:
+    - arch: x86_64
+      epoch: null
+      name: python-libs
+      release: 88.el7
+      source: rpm
+      version: 2.7.5
+  python-linux-procfs:
+    - arch: noarch
+      epoch: null
+      name: python-linux-procfs
+      release: 4.el7
+      source: rpm
+      version: 0.4.9
+  python-markupsafe:
+    - arch: x86_64
+      epoch: null
+      name: python-markupsafe
+      release: 10.el7
+      source: rpm
+      version: '0.11'
+  python-perf:
+    - arch: x86_64
+      epoch: null
+      name: python-perf
+      release: 957.27.2.el7
+      source: rpm
+      version: 3.10.0
+  python-prettytable:
+    - arch: noarch
+      epoch: null
+      name: python-prettytable
+      release: 3.el7
+      source: rpm
+      version: 0.7.2
+  python-pycurl:
+    - arch: x86_64
+      epoch: null
+      name: python-pycurl
+      release: 19.el7
+      source: rpm
+      version: 7.19.0
+  python-pytoml:
+    - arch: noarch
+      epoch: null
+      name: python-pytoml
+      release: 1.git7dea353.el7
+      source: rpm
+      version: 0.1.14
+  python-pyudev:
+    - arch: noarch
+      epoch: null
+      name: python-pyudev
+      release: 9.el7
+      source: rpm
+      version: '0.15'
+  python-requests:
+    - arch: noarch
+      epoch: null
+      name: python-requests
+      release: 1.el7_1
+      source: rpm
+      version: 2.6.0
+  python-rpm-macros:
+    - arch: noarch
+      epoch: null
+      name: python-rpm-macros
+      release: 32.el7
+      source: rpm
+      version: '3'
+  python-schedutils:
+    - arch: x86_64
+      epoch: null
+      name: python-schedutils
+      release: 6.el7
+      source: rpm
+      version: '0.4'
+  python-setuptools:
+    - arch: noarch
+      epoch: null
+      name: python-setuptools
+      release: 7.el7
+      source: rpm
+      version: 0.9.8
+  python-six:
+    - arch: noarch
+      epoch: null
+      name: python-six
+      release: 2.el7
+      source: rpm
+      version: 1.9.0
+  python-srpm-macros:
+    - arch: noarch
+      epoch: null
+      name: python-srpm-macros
+      release: 32.el7
+      source: rpm
+      version: '3'
+  python-syspurpose:
+    - arch: x86_64
+      epoch: null
+      name: python-syspurpose
+      release: 3.el7.centos
+      source: rpm
+      version: 1.24.26
+  python-urlgrabber:
+    - arch: noarch
+      epoch: null
+      name: python-urlgrabber
+      release: 9.el7
+      source: rpm
+      version: '3.10'
+  python-urllib3:
+    - arch: noarch
+      epoch: null
+      name: python-urllib3
+      release: 5.el7
+      source: rpm
+      version: 1.10.2
+  python-virtualenv:
+    - arch: noarch
+      epoch: null
+      name: python-virtualenv
+      release: 4.el7_7
+      source: rpm
+      version: 15.1.0
+  python-websocket-client:
+    - arch: noarch
+      epoch: null
+      name: python-websocket-client
+      release: 3.git3c25814.el7
+      source: rpm
+      version: 0.56.0
+  python2-pip:
+    - arch: noarch
+      epoch: null
+      name: python2-pip
+      release: 14.el7
+      source: rpm
+      version: 8.1.2
+  python2-rpm-macros:
+    - arch: noarch
+      epoch: null
+      name: python2-rpm-macros
+      release: 32.el7
+      source: rpm
+      version: '3'
+  python3:
+    - arch: x86_64
+      epoch: null
+      name: python3
+      release: 13.el7
+      source: rpm
+      version: 3.6.8
+  python3-libs:
+    - arch: x86_64
+      epoch: null
+      name: python3-libs
+      release: 13.el7
+      source: rpm
+      version: 3.6.8
+  python3-pip:
+    - arch: noarch
+      epoch: null
+      name: python3-pip
+      release: 7.el7_7
+      source: rpm
+      version: 9.0.3
+  python3-setuptools:
+    - arch: noarch
+      epoch: null
+      name: python3-setuptools
+      release: 10.el7
+      source: rpm
+      version: 39.2.0
+  pyxattr:
+    - arch: x86_64
+      epoch: null
+      name: pyxattr
+      release: 5.el7
+      source: rpm
+      version: 0.5.1
+  qemu-guest-agent:
+    - arch: x86_64
+      epoch: 10
+      name: qemu-guest-agent
+      release: 2.el7
+      source: rpm
+      version: 2.12.0
+  qrencode-libs:
+    - arch: x86_64
+      epoch: null
+      name: qrencode-libs
+      release: 3.el7
+      source: rpm
+      version: 3.4.1
+  quota:
+    - arch: x86_64
+      epoch: 1
+      name: quota
+      release: 17.el7
+      source: rpm
+      version: '4.01'
+  quota-nls:
+    - arch: noarch
+      epoch: 1
+      name: quota-nls
+      release: 17.el7
+      source: rpm
+      version: '4.01'
+  readline:
+    - arch: x86_64
+      epoch: null
+      name: readline
+      release: 10.el7
+      source: rpm
+      version: '6.2'
+  rootfiles:
+    - arch: noarch
+      epoch: null
+      name: rootfiles
+      release: 11.el7
+      source: rpm
+      version: '8.1'
+  rpcbind:
+    - arch: x86_64
+      epoch: null
+      name: rpcbind
+      release: 47.el7
+      source: rpm
+      version: 0.2.0
+  rpm:
+    - arch: x86_64
+      epoch: null
+      name: rpm
+      release: 35.el7
+      source: rpm
+      version: 4.11.3
+  rpm-build-libs:
+    - arch: x86_64
+      epoch: null
+      name: rpm-build-libs
+      release: 35.el7
+      source: rpm
+      version: 4.11.3
+  rpm-libs:
+    - arch: x86_64
+      epoch: null
+      name: rpm-libs
+      release: 35.el7
+      source: rpm
+      version: 4.11.3
+  rpm-python:
+    - arch: x86_64
+      epoch: null
+      name: rpm-python
+      release: 35.el7
+      source: rpm
+      version: 4.11.3
+  rsync:
+    - arch: x86_64
+      epoch: null
+      name: rsync
+      release: 6.el7_6.1
+      source: rpm
+      version: 3.1.2
+  rsyslog:
+    - arch: x86_64
+      epoch: null
+      name: rsyslog
+      release: 34.el7
+      source: rpm
+      version: 8.24.0
+  screen:
+    - arch: x86_64
+      epoch: null
+      name: screen
+      release: 0.25.20120314git3c2946.el7
+      source: rpm
+      version: 4.1.0
+  sed:
+    - arch: x86_64
+      epoch: null
+      name: sed
+      release: 5.el7
+      source: rpm
+      version: 4.2.2
+  selinux-policy:
+    - arch: noarch
+      epoch: null
+      name: selinux-policy
+      release: 229.el7_6.15
+      source: rpm
+      version: 3.13.1
+  selinux-policy-targeted:
+    - arch: noarch
+      epoch: null
+      name: selinux-policy-targeted
+      release: 229.el7_6.15
+      source: rpm
+      version: 3.13.1
+  setools-libs:
+    - arch: x86_64
+      epoch: null
+      name: setools-libs
+      release: 4.el7
+      source: rpm
+      version: 3.3.8
+  setup:
+    - arch: noarch
+      epoch: null
+      name: setup
+      release: 10.el7
+      source: rpm
+      version: 2.8.71
+  sg3_utils:
+    - arch: x86_64
+      epoch: null
+      name: sg3_utils
+      release: 17.el7
+      source: rpm
+      version: '1.37'
+  sg3_utils-libs:
+    - arch: x86_64
+      epoch: null
+      name: sg3_utils-libs
+      release: 17.el7
+      source: rpm
+      version: '1.37'
+  shadow-utils:
+    - arch: x86_64
+      epoch: 2
+      name: shadow-utils
+      release: 25.el7_6.1
+      source: rpm
+      version: 4.1.5.1
+  shared-mime-info:
+    - arch: x86_64
+      epoch: null
+      name: shared-mime-info
+      release: 4.el7
+      source: rpm
+      version: '1.8'
+  slang:
+    - arch: x86_64
+      epoch: null
+      name: slang
+      release: 11.el7
+      source: rpm
+      version: 2.2.4
+  slirp4netns:
+    - arch: x86_64
+      epoch: null
+      name: slirp4netns
+      release: 4.el7_8
+      source: rpm
+      version: 0.4.3
+  smem:
+    - arch: noarch
+      epoch: null
+      name: smem
+      release: 1.el7
+      source: rpm
+      version: '1.4'
+  snappy:
+    - arch: x86_64
+      epoch: null
+      name: snappy
+      release: 3.el7
+      source: rpm
+      version: 1.1.0
+  sqlite:
+    - arch: x86_64
+      epoch: null
+      name: sqlite
+      release: 8.el7
+      source: rpm
+      version: 3.7.17
+  strace:
+    - arch: x86_64
+      epoch: null
+      name: strace
+      release: 4.el7
+      source: rpm
+      version: '4.24'
+  subscription-manager:
+    - arch: x86_64
+      epoch: null
+      name: subscription-manager
+      release: 3.el7.centos
+      source: rpm
+      version: 1.24.26
+  subscription-manager-rhsm:
+    - arch: x86_64
+      epoch: null
+      name: subscription-manager-rhsm
+      release: 3.el7.centos
+      source: rpm
+      version: 1.24.26
+  subscription-manager-rhsm-certificates:
+    - arch: x86_64
+      epoch: null
+      name: subscription-manager-rhsm-certificates
+      release: 3.el7.centos
+      source: rpm
+      version: 1.24.26
+  sudo:
+    - arch: x86_64
+      epoch: null
+      name: sudo
+      release: 3.el7
+      source: rpm
+      version: 1.8.23
+  sysstat:
+    - arch: x86_64
+      epoch: null
+      name: sysstat
+      release: 19.el7
+      source: rpm
+      version: 10.1.5
+  systemd:
+    - arch: x86_64
+      epoch: null
+      name: systemd
+      release: 62.el7_6.9
+      source: rpm
+      version: '219'
+  systemd-libs:
+    - arch: x86_64
+      epoch: null
+      name: systemd-libs
+      release: 62.el7_6.9
+      source: rpm
+      version: '219'
+  systemd-sysv:
+    - arch: x86_64
+      epoch: null
+      name: systemd-sysv
+      release: 62.el7_6.9
+      source: rpm
+      version: '219'
+  sysvinit-tools:
+    - arch: x86_64
+      epoch: null
+      name: sysvinit-tools
+      release: 14.dsf.el7
+      source: rpm
+      version: '2.88'
+  tar:
+    - arch: x86_64
+      epoch: 2
+      name: tar
+      release: 35.el7
+      source: rpm
+      version: '1.26'
+  tcp_wrappers:
+    - arch: x86_64
+      epoch: null
+      name: tcp_wrappers
+      release: 77.el7
+      source: rpm
+      version: '7.6'
+  tcp_wrappers-libs:
+    - arch: x86_64
+      epoch: null
+      name: tcp_wrappers-libs
+      release: 77.el7
+      source: rpm
+      version: '7.6'
+  tcpdump:
+    - arch: x86_64
+      epoch: 14
+      name: tcpdump
+      release: 4.el7_7.1
+      source: rpm
+      version: 4.9.2
+  teamd:
+    - arch: x86_64
+      epoch: null
+      name: teamd
+      release: 6.el7_6.1
+      source: rpm
+      version: '1.27'
+  telnet:
+    - arch: x86_64
+      epoch: 1
+      name: telnet
+      release: 66.el7
+      source: rpm
+      version: '0.17'
+  trousers:
+    - arch: x86_64
+      epoch: null
+      name: trousers
+      release: 2.el7
+      source: rpm
+      version: 0.3.14
+  tuned:
+    - arch: noarch
+      epoch: null
+      name: tuned
+      release: 6.el7_6.4
+      source: rpm
+      version: 2.10.0
+  tzdata:
+    - arch: noarch
+      epoch: null
+      name: tzdata
+      release: 1.el7
+      source: rpm
+      version: 2019b
+  unixODBC:
+    - arch: x86_64
+      epoch: null
+      name: unixODBC
+      release: 14.el7
+      source: rpm
+      version: 2.3.1
+  usermode:
+    - arch: x86_64
+      epoch: null
+      name: usermode
+      release: 6.el7
+      source: rpm
+      version: '1.111'
+  ustr:
+    - arch: x86_64
+      epoch: null
+      name: ustr
+      release: 16.el7
+      source: rpm
+      version: 1.0.4
+  util-linux:
+    - arch: x86_64
+      epoch: null
+      name: util-linux
+      release: 59.el7_6.1
+      source: rpm
+      version: 2.23.2
+  vim-common:
+    - arch: x86_64
+      epoch: 2
+      name: vim-common
+      release: 8.el7_9
+      source: rpm
+      version: 7.4.629
+  vim-enhanced:
+    - arch: x86_64
+      epoch: 2
+      name: vim-enhanced
+      release: 8.el7_9
+      source: rpm
+      version: 7.4.629
+  vim-filesystem:
+    - arch: x86_64
+      epoch: 2
+      name: vim-filesystem
+      release: 8.el7_9
+      source: rpm
+      version: 7.4.629
+  vim-minimal:
+    - arch: x86_64
+      epoch: 2
+      name: vim-minimal
+      release: 6.el7_6
+      source: rpm
+      version: 7.4.160
+  virt-what:
+    - arch: x86_64
+      epoch: null
+      name: virt-what
+      release: 4.el7
+      source: rpm
+      version: '1.18'
+  which:
+    - arch: x86_64
+      epoch: null
+      name: which
+      release: 7.el7
+      source: rpm
+      version: '2.20'
+  wpa_supplicant:
+    - arch: x86_64
+      epoch: 1
+      name: wpa_supplicant
+      release: 12.el7
+      source: rpm
+      version: '2.6'
+  xfsprogs:
+    - arch: x86_64
+      epoch: null
+      name: xfsprogs
+      release: 19.el7_6
+      source: rpm
+      version: 4.5.0
+  xz:
+    - arch: x86_64
+      epoch: null
+      name: xz
+      release: 1.el7
+      source: rpm
+      version: 5.2.2
+  xz-libs:
+    - arch: x86_64
+      epoch: null
+      name: xz-libs
+      release: 1.el7
+      source: rpm
+      version: 5.2.2
+  yajl:
+    - arch: x86_64
+      epoch: null
+      name: yajl
+      release: 4.el7
+      source: rpm
+      version: 2.0.4
+  yum:
+    - arch: noarch
+      epoch: null
+      name: yum
+      release: 161.el7.centos
+      source: rpm
+      version: 3.4.3
+  yum-metadata-parser:
+    - arch: x86_64
+      epoch: null
+      name: yum-metadata-parser
+      release: 10.el7
+      source: rpm
+      version: 1.1.4
+  yum-plugin-fastestmirror:
+    - arch: noarch
+      epoch: null
+      name: yum-plugin-fastestmirror
+      release: 50.el7
+      source: rpm
+      version: 1.1.31
+  yum-utils:
+    - arch: noarch
+      epoch: null
+      name: yum-utils
+      release: 50.el7
+      source: rpm
+      version: 1.1.31
+  zabbix-agent:
+    - arch: x86_64
+      epoch: null
+      name: zabbix-agent
+      release: 2.el7
+      source: rpm
+      version: 4.0.21
+  zabbix-get:
+    - arch: x86_64
+      epoch: null
+      name: zabbix-get
+      release: 1.el7
+      source: rpm
+      version: 4.0.20
+  zabbix-sender:
+    - arch: x86_64
+      epoch: null
+      name: zabbix-sender
+      release: 1.el7
+      source: rpm
+      version: 4.0.20
+  zabbix-server-pgsql:
+    - arch: x86_64
+      epoch: null
+      name: zabbix-server-pgsql
+      release: 1.el7
+      source: rpm
+      version: 4.0.20
+  zlib:
+    - arch: x86_64
+      epoch: null
+      name: zlib
+      release: 18.el7
+      source: rpm
+      version: 1.2.7
+processes:
+  - cmdline: /usr/lib/systemd/systemd --switched-root --system --deserialize 21
+    pid: '1'
+    ppid: '0'
+    user: root
+  - cmdline: ''
+    pid: '2'
+    ppid: '0'
+    user: root
+  - cmdline: ''
+    pid: '3'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '5'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '7'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '8'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '9'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '10'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '11'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '12'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '13'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '14'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '16'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '17'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '18'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '19'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '21'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '22'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '23'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '24'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '26'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '28'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '29'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '30'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '31'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '32'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '33'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '34'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '35'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '36'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '37'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '38'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '39'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '42'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '43'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '44'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '45'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '53'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '55'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '56'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '57'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '58'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '72'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '115'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '191'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '192'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '291'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '333'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '334'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '335'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '336'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '337'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '351'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '352'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '353'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '354'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '355'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '356'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '357'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '358'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '359'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '360'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '361'
+    ppid: '2'
+    user: root
+  - cmdline: /usr/lib/systemd/systemd-journald
+    pid: '441'
+    ppid: '1'
+    user: root
+  - cmdline: /usr/sbin/lvmetad -f
+    pid: '478'
+    ppid: '1'
+    user: root
+  - cmdline: /usr/lib/systemd/systemd-udevd
+    pid: '480'
+    ppid: '1'
+    user: root
+  - cmdline: ''
+    pid: '572'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '586'
+    ppid: '2'
+    user: root
+  - cmdline: /sbin/auditd
+    pid: '609'
+    ppid: '1'
+    user: root
+  - cmdline: ''
+    pid: '612'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '632'
+    ppid: '2'
+    user: root
+  - cmdline: /sbin/rpcbind -w
+    pid: '641'
+    ppid: '1'
+    user: rpc
+  - cmdline: /usr/sbin/irqbalance --foreground
+    pid: '646'
+    ppid: '1'
+    user: root
+  - cmdline: /usr/lib/polkit-1/polkitd --no-debug
+    pid: '647'
+    ppid: '1'
+    user: polkitd
+  - cmdline: '/usr/bin/dbus-daemon --system --address=systemd: --nofork --nopidfile --systemd-activation'
+    pid: '648'
+    ppid: '1'
+    user: dbus
+  - cmdline: /usr/lib/systemd/systemd-logind
+    pid: '653'
+    ppid: '1'
+    user: root
+  - cmdline: /usr/sbin/gssproxy -D
+    pid: '679'
+    ppid: '1'
+    user: root
+  - cmdline: ''
+    pid: '692'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '853'
+    ppid: '2'
+    user: root
+  - cmdline: /sbin/dhclient -1 -q -lf /var/lib/dhclient/dhclient--eth0.lease -pf /var/run/dhclient-eth0.pid -H zabbix-server01 eth0
+    pid: '994'
+    ppid: '1'
+    user: root
+  - cmdline: /usr/bin/telegraf -config /etc/telegraf/telegraf.conf -config-directory /etc/telegraf/telegraf.d
+    pid: '1055'
+    ppid: '1'
+    user: root
+  - cmdline: /usr/bin/python2 -Es /usr/sbin/tuned -l -P
+    pid: '1057'
+    ppid: '1'
+    user: root
+  - cmdline: /usr/bin/containerd
+    pid: '1064'
+    ppid: '1'
+    user: root
+  - cmdline: /usr/bin/rhsmcertd
+    pid: '1070'
+    ppid: '1'
+    user: root
+  - cmdline: /usr/sbin/zabbix_agentd -c /etc/zabbix/zabbix_agentd.conf
+    pid: '1105'
+    ppid: '1'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_agentd: collector [idle 1 sec]'
+    pid: '1108'
+    ppid: '1105'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_agentd: listener #1 [waiting for connection]'
+    pid: '1109'
+    ppid: '1105'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_agentd: listener #2 [waiting for connection]'
+    pid: '1110'
+    ppid: '1105'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_agentd: listener #3 [waiting for connection]'
+    pid: '1111'
+    ppid: '1105'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_agentd: active checks #1 [idle 1 sec]'
+    pid: '1112'
+    ppid: '1105'
+    user: zabbix
+  - cmdline: /usr/sbin/zabbix_server -c /etc/zabbix/zabbix_server.conf
+    pid: '1173'
+    ppid: '1'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: configuration syncer [synced configuration in 1.574989 sec, idle 60 sec]'
+    pid: '1178'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: /usr/sbin/rsyslogd -n
+    pid: '1179'
+    ppid: '1'
+    user: root
+  - cmdline: /usr/sbin/sshd -D
+    pid: '1187'
+    ppid: '1'
+    user: root
+  - cmdline: /usr/sbin/crond -n
+    pid: '1216'
+    ppid: '1'
+    user: root
+  - cmdline: /sbin/agetty --noclear tty1 linux
+    pid: '1217'
+    ppid: '1'
+    user: root
+  - cmdline: /sbin/agetty --keep-baud 115200,38400,9600 ttyS0 vt220
+    pid: '1218'
+    ppid: '1'
+    user: root
+  - cmdline: /usr/libexec/postfix/master -w
+    pid: '1245'
+    ppid: '1'
+    user: root
+  - cmdline: '/usr/sbin/zabbix_server: housekeeper [deleted 0 hist/trends, 0 items/triggers, 69 events, 2 sessions, 0 alarms, 2 audit items in 1.195076 sec, idle for 1 hour(s)]'
+    pid: '1255'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: timer #1 [updated 0 hosts, suppressed 0 events in 0.001907 sec, idle 59 sec]'
+    pid: '1256'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: timer #2 [suppressed 0 events in 0.035586 sec, idle 58 sec]'
+    pid: '1257'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: timer #3 [suppressed 0 events in 0.032545 sec, idle 58 sec]'
+    pid: '1258'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: timer #4 [suppressed 0 events in 0.043363 sec, idle 58 sec]'
+    pid: '1259'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: timer #5 [suppressed 0 events in 0.066465 sec, idle 58 sec]'
+    pid: '1260'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: timer #6 [suppressed 0 events in 0.064149 sec, idle 58 sec]'
+    pid: '1261'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: timer #7 [suppressed 0 events in 0.044135 sec, idle 58 sec]'
+    pid: '1262'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: timer #8 [suppressed 0 events in 0.066614 sec, idle 58 sec]'
+    pid: '1263'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: timer #9 [suppressed 0 events in 0.070274 sec, idle 58 sec]'
+    pid: '1264'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: timer #10 [suppressed 0 events in 0.033935 sec, idle 58 sec]'
+    pid: '1265'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: timer #11 [suppressed 0 events in 0.033549 sec, idle 59 sec]'
+    pid: '1266'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: timer #12 [suppressed 0 events in 0.056936 sec, idle 58 sec]'
+    pid: '1267'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: timer #13 [suppressed 0 events in 0.060405 sec, idle 58 sec]'
+    pid: '1268'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: timer #14 [suppressed 0 events in 0.045167 sec, idle 58 sec]'
+    pid: '1269'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: timer #15 [suppressed 0 events in 0.038825 sec, idle 58 sec]'
+    pid: '1270'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: http poller #1 [got 0 values in 0.001601 sec, idle 5 sec]'
+    pid: '1271'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: http poller #2 [got 0 values in 0.001186 sec, idle 5 sec]'
+    pid: '1272'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: http poller #3 [got 0 values in 0.001257 sec, idle 5 sec]'
+    pid: '1273'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: http poller #4 [got 0 values in 0.001622 sec, idle 5 sec]'
+    pid: '1274'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: http poller #5 [got 0 values in 0.001709 sec, idle 5 sec]'
+    pid: '1275'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: http poller #6 [got 0 values in 0.001607 sec, idle 5 sec]'
+    pid: '1276'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: http poller #7 [got 0 values in 0.001650 sec, idle 5 sec]'
+    pid: '1277'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: http poller #8 [got 0 values in 0.001241 sec, idle 5 sec]'
+    pid: '1278'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: http poller #9 [got 0 values in 0.001343 sec, idle 5 sec]'
+    pid: '1279'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: http poller #10 [got 0 values in 0.001719 sec, idle 5 sec]'
+    pid: '1280'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: http poller #11 [got 0 values in 0.002388 sec, idle 5 sec]'
+    pid: '1281'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: http poller #12 [got 0 values in 0.001564 sec, idle 5 sec]'
+    pid: '1282'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: discoverer #1 [processed 0 rules in 0.001910 sec, idle 60 sec]'
+    pid: '1283'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: discoverer #2 [processed 0 rules in 0.002141 sec, idle 60 sec]'
+    pid: '1284'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: discoverer #3 [processed 0 rules in 0.002326 sec, idle 60 sec]'
+    pid: '1285'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: discoverer #4 [processed 0 rules in 0.001887 sec, idle 60 sec]'
+    pid: '1286'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: discoverer #5 [processed 0 rules in 0.001595 sec, idle 60 sec]'
+    pid: '1287'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: discoverer #6 [processed 0 rules in 0.001633 sec, idle 60 sec]'
+    pid: '1288'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: history syncer #1 [processed 0 values, 0 triggers in 0.000042 sec, idle 1 sec]'
+    pid: '1289'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: history syncer #2 [processed 22 values, 15 triggers in 0.017126 sec, idle 1 sec]'
+    pid: '1290'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: history syncer #3 [processed 0 values, 0 triggers in 0.000042 sec, idle 1 sec]'
+    pid: '1291'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: history syncer #4 [processed 0 values, 0 triggers in 0.000037 sec, idle 1 sec]'
+    pid: '1292'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: history syncer #5 [processed 0 values, 0 triggers in 0.000041 sec, idle 1 sec]'
+    pid: '1293'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: history syncer #6 [processed 0 values, 0 triggers in 0.000051 sec, idle 1 sec]'
+    pid: '1294'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: history syncer #7 [processed 0 values, 11 triggers in 0.002103 sec, idle 1 sec]'
+    pid: '1295'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: history syncer #8 [processed 0 values, 0 triggers in 0.000052 sec, idle 1 sec]'
+    pid: '1296'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: history syncer #9 [processed 0 values, 0 triggers in 0.000042 sec, idle 1 sec]'
+    pid: '1297'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: history syncer #10 [processed 0 values, 0 triggers in 0.000050 sec, idle 1 sec]'
+    pid: '1298'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: escalator #1 [processed 0 escalations in 0.002789 sec, idle 3 sec]'
+    pid: '1299'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: escalator #2 [processed 0 escalations in 0.003336 sec, idle 3 sec]'
+    pid: '1300'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: escalator #3 [processed 0 escalations in 0.003633 sec, idle 3 sec]'
+    pid: '1301'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: snmp trapper [processed data in 0.000042 sec, idle 1 sec]'
+    pid: '1302'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: self-monitoring [processed data in 0.000065 sec, idle 1 sec]'
+    pid: '1303'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: task manager [processed 0 task(s) in 0.001448 sec, idle 5 sec]'
+    pid: '1304'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #1 [got 0 values in 0.000092 sec, idle 1 sec]'
+    pid: '1305'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #2 [got 0 values in 0.000065 sec, idle 1 sec]'
+    pid: '1306'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #3 [got 0 values in 0.000042 sec, idle 1 sec]'
+    pid: '1307'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #4 [got 0 values in 0.000110 sec, idle 1 sec]'
+    pid: '1308'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #5 [got 0 values in 0.000333 sec, idle 1 sec]'
+    pid: '1309'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #6 [got 0 values in 0.000057 sec, idle 1 sec]'
+    pid: '1310'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #7 [got 0 values in 0.000043 sec, idle 1 sec]'
+    pid: '1311'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #8 [got 0 values in 0.000052 sec, idle 1 sec]'
+    pid: '1312'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #9 [got 0 values in 0.000204 sec, idle 1 sec]'
+    pid: '1313'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #10 [got 5 values in 0.001876 sec, idle 1 sec]'
+    pid: '1314'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #11 [got 0 values in 0.000029 sec, idle 1 sec]'
+    pid: '1315'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #12 [got 0 values in 0.000033 sec, idle 1 sec]'
+    pid: '1316'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #13 [got 0 values in 0.000040 sec, idle 1 sec]'
+    pid: '1317'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #14 [got 0 values in 0.000040 sec, idle 1 sec]'
+    pid: '1318'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #15 [got 0 values in 0.000023 sec, idle 1 sec]'
+    pid: '1319'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #16 [got 0 values in 0.000037 sec, idle 1 sec]'
+    pid: '1320'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #17 [got 0 values in 0.000046 sec, idle 1 sec]'
+    pid: '1321'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #18 [got 0 values in 0.000031 sec, idle 1 sec]'
+    pid: '1322'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #19 [got 0 values in 0.000022 sec, idle 1 sec]'
+    pid: '1323'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #20 [got 0 values in 0.000106 sec, idle 1 sec]'
+    pid: '1324'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #21 [got 0 values in 0.000057 sec, idle 1 sec]'
+    pid: '1325'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #22 [got 0 values in 0.000043 sec, idle 1 sec]'
+    pid: '1326'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #23 [got 0 values in 0.000079 sec, idle 1 sec]'
+    pid: '1327'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #24 [got 0 values in 0.000032 sec, idle 1 sec]'
+    pid: '1328'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #25 [got 0 values in 0.000051 sec, idle 1 sec]'
+    pid: '1329'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #26 [got 0 values in 0.000048 sec, idle 1 sec]'
+    pid: '1330'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #27 [got 0 values in 0.000056 sec, idle 1 sec]'
+    pid: '1331'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #28 [got 0 values in 0.000050 sec, idle 1 sec]'
+    pid: '1332'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #29 [got 0 values in 0.000057 sec, idle 1 sec]'
+    pid: '1333'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #30 [got 0 values in 0.000066 sec, idle 1 sec]'
+    pid: '1334'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #31 [got 0 values in 0.000034 sec, idle 1 sec]'
+    pid: '1335'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #32 [got 0 values in 0.000032 sec, idle 1 sec]'
+    pid: '1336'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #33 [got 0 values in 0.000627 sec, idle 1 sec]'
+    pid: '1337'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #34 [got 0 values in 0.000171 sec, idle 1 sec]'
+    pid: '1338'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #35 [got 0 values in 0.000042 sec, idle 1 sec]'
+    pid: '1339'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #36 [got 0 values in 0.000063 sec, idle 1 sec]'
+    pid: '1340'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #37 [got 0 values in 0.000028 sec, idle 1 sec]'
+    pid: '1341'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #38 [got 0 values in 0.000063 sec, idle 1 sec]'
+    pid: '1342'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #39 [got 0 values in 0.000039 sec, idle 1 sec]'
+    pid: '1343'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #40 [got 0 values in 0.000035 sec, idle 1 sec]'
+    pid: '1344'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #41 [got 0 values in 0.000044 sec, idle 1 sec]'
+    pid: '1345'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #42 [got 0 values in 0.000211 sec, idle 1 sec]'
+    pid: '1346'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #43 [got 0 values in 0.000033 sec, idle 1 sec]'
+    pid: '1347'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #44 [got 0 values in 0.000047 sec, idle 1 sec]'
+    pid: '1348'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #45 [got 0 values in 0.000039 sec, idle 1 sec]'
+    pid: '1349'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #46 [got 0 values in 0.000046 sec, idle 1 sec]'
+    pid: '1350'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #47 [got 0 values in 0.000120 sec, idle 1 sec]'
+    pid: '1351'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #48 [got 0 values in 0.000022 sec, idle 1 sec]'
+    pid: '1352'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #49 [got 0 values in 0.000054 sec, idle 1 sec]'
+    pid: '1353'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #50 [got 0 values in 0.000040 sec, idle 1 sec]'
+    pid: '1354'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #51 [got 0 values in 0.000031 sec, idle 1 sec]'
+    pid: '1355'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #52 [got 0 values in 0.000046 sec, idle 1 sec]'
+    pid: '1356'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #53 [got 1 values in 15.000692 sec, getting values]'
+    pid: '1357'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #54 [got 0 values in 0.000068 sec, idle 1 sec]'
+    pid: '1358'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #55 [got 0 values in 0.000088 sec, idle 1 sec]'
+    pid: '1359'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #56 [got 0 values in 0.000046 sec, idle 1 sec]'
+    pid: '1360'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #57 [got 0 values in 0.000116 sec, idle 1 sec]'
+    pid: '1361'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #58 [got 0 values in 0.000031 sec, idle 1 sec]'
+    pid: '1362'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #59 [got 3 values in 0.024509 sec, idle 1 sec]'
+    pid: '1363'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #60 [got 0 values in 0.000029 sec, idle 1 sec]'
+    pid: '1364'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #61 [got 0 values in 0.000092 sec, idle 1 sec]'
+    pid: '1365'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #62 [got 8 values in 0.001505 sec, idle 1 sec]'
+    pid: '1366'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #63 [got 0 values in 0.000047 sec, idle 1 sec]'
+    pid: '1367'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #64 [got 0 values in 0.000096 sec, idle 1 sec]'
+    pid: '1368'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #65 [got 0 values in 0.000035 sec, idle 1 sec]'
+    pid: '1369'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #66 [got 0 values in 0.000087 sec, idle 1 sec]'
+    pid: '1370'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #67 [got 0 values in 0.000108 sec, idle 1 sec]'
+    pid: '1371'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #68 [got 0 values in 0.000145 sec, idle 1 sec]'
+    pid: '1372'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #69 [got 1 values in 0.001306 sec, getting values]'
+    pid: '1373'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #70 [got 0 values in 0.000046 sec, idle 1 sec]'
+    pid: '1376'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #71 [got 0 values in 0.000023 sec, idle 1 sec]'
+    pid: '1377'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: qmgr -l -t unix -u
+    pid: '1379'
+    ppid: '1245'
+    user: postfix
+  - cmdline: '/usr/sbin/zabbix_server: poller #72 [got 0 values in 0.000023 sec, idle 1 sec]'
+    pid: '1380'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #73 [got 0 values in 0.000084 sec, idle 1 sec]'
+    pid: '1381'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #74 [got 0 values in 0.000029 sec, idle 1 sec]'
+    pid: '1382'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #75 [got 0 values in 0.000365 sec, idle 1 sec]'
+    pid: '1383'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #76 [got 0 values in 0.000044 sec, idle 1 sec]'
+    pid: '1384'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #77 [got 0 values in 0.000034 sec, idle 1 sec]'
+    pid: '1385'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #78 [got 0 values in 0.000022 sec, idle 1 sec]'
+    pid: '1386'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #79 [got 0 values in 0.000052 sec, idle 1 sec]'
+    pid: '1387'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #80 [got 0 values in 0.000053 sec, idle 1 sec]'
+    pid: '1388'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #81 [got 0 values in 0.000030 sec, idle 1 sec]'
+    pid: '1389'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #82 [got 0 values in 0.000078 sec, idle 1 sec]'
+    pid: '1390'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #83 [got 0 values in 0.000036 sec, idle 1 sec]'
+    pid: '1391'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #84 [got 0 values in 0.000035 sec, idle 1 sec]'
+    pid: '1392'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #85 [got 0 values in 0.000042 sec, idle 1 sec]'
+    pid: '1393'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #86 [got 0 values in 0.000078 sec, idle 1 sec]'
+    pid: '1394'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #87 [got 0 values in 0.000045 sec, idle 1 sec]'
+    pid: '1395'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #88 [got 6 values in 0.001313 sec, idle 1 sec]'
+    pid: '1396'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #89 [got 0 values in 0.000021 sec, idle 1 sec]'
+    pid: '1397'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #90 [got 0 values in 0.000029 sec, idle 1 sec]'
+    pid: '1398'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #91 [got 0 values in 0.000061 sec, idle 1 sec]'
+    pid: '1399'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #92 [got 0 values in 0.000042 sec, idle 1 sec]'
+    pid: '1400'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #93 [got 0 values in 0.000040 sec, idle 1 sec]'
+    pid: '1401'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #94 [got 0 values in 0.000047 sec, idle 1 sec]'
+    pid: '1402'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #95 [got 0 values in 0.000045 sec, idle 1 sec]'
+    pid: '1403'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #96 [got 0 values in 0.000037 sec, idle 1 sec]'
+    pid: '1404'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #97 [got 0 values in 0.000068 sec, idle 1 sec]'
+    pid: '1405'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #98 [got 0 values in 0.000065 sec, idle 1 sec]'
+    pid: '1406'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #99 [got 0 values in 0.000043 sec, idle 1 sec]'
+    pid: '1407'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: poller #100 [got 0 values in 0.000172 sec, idle 1 sec]'
+    pid: '1408'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: unreachable poller #1 [got 0 values in 0.000057 sec, idle 5 sec]'
+    pid: '1409'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: unreachable poller #2 [got 0 values in 0.000104 sec, idle 5 sec]'
+    pid: '1410'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: unreachable poller #3 [got 0 values in 0.000080 sec, idle 5 sec]'
+    pid: '1411'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: unreachable poller #4 [got 0 values in 0.000064 sec, idle 5 sec]'
+    pid: '1412'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: unreachable poller #5 [got 0 values in 0.000054 sec, idle 5 sec]'
+    pid: '1413'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: unreachable poller #6 [got 0 values in 0.000042 sec, idle 5 sec]'
+    pid: '1414'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: unreachable poller #7 [got 0 values in 0.000060 sec, idle 5 sec]'
+    pid: '1415'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: unreachable poller #8 [got 0 values in 0.000076 sec, idle 5 sec]'
+    pid: '1416'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: unreachable poller #9 [got 0 values in 0.000088 sec, idle 5 sec]'
+    pid: '1417'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: unreachable poller #10 [got 0 values in 0.000056 sec, idle 5 sec]'
+    pid: '1418'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: trapper #1 [processed data in 0.000230 sec, waiting for connection]'
+    pid: '1419'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: trapper #2 [processed data in 0.006015 sec, waiting for connection]'
+    pid: '1420'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: trapper #3 [processed data in 0.016559 sec, waiting for connection]'
+    pid: '1421'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: trapper #4 [processed data in 0.000297 sec, waiting for connection]'
+    pid: '1422'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: trapper #5 [processed data in 0.000145 sec, waiting for connection]'
+    pid: '1423'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: trapper #6 [processed data in 0.002896 sec, waiting for connection]'
+    pid: '1424'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: trapper #7 [processed data in 0.002574 sec, waiting for connection]'
+    pid: '1425'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: trapper #8 [processed data in 0.000330 sec, waiting for connection]'
+    pid: '1426'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: trapper #9 [processed data in 0.006360 sec, waiting for connection]'
+    pid: '1427'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: trapper #10 [processed data in 0.000253 sec, waiting for connection]'
+    pid: '1428'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: trapper #11 [processed data in 0.000470 sec, waiting for connection]'
+    pid: '1429'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: trapper #12 [processed data in 0.000152 sec, waiting for connection]'
+    pid: '1430'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: trapper #13 [processed data in 0.003929 sec, waiting for connection]'
+    pid: '1431'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: trapper #14 [processed data in 0.000218 sec, waiting for connection]'
+    pid: '1432'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: trapper #15 [processed data in 0.002176 sec, waiting for connection]'
+    pid: '1433'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: trapper #16 [processed data in 0.002160 sec, waiting for connection]'
+    pid: '1434'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: trapper #17 [processed data in 0.000222 sec, waiting for connection]'
+    pid: '1435'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: trapper #18 [processed data in 0.000175 sec, waiting for connection]'
+    pid: '1436'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: trapper #19 [processed data in 0.001193 sec, waiting for connection]'
+    pid: '1437'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: trapper #20 [processed data in 0.001956 sec, waiting for connection]'
+    pid: '1438'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: trapper #21 [processed data in 0.000201 sec, waiting for connection]'
+    pid: '1439'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: trapper #22 [processed data in 0.000260 sec, waiting for connection]'
+    pid: '1440'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: trapper #23 [processed data in 0.008046 sec, waiting for connection]'
+    pid: '1441'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: trapper #24 [processed data in 0.000204 sec, waiting for connection]'
+    pid: '1442'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: trapper #25 [processed data in 0.009377 sec, waiting for connection]'
+    pid: '1443'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: trapper #26 [processed data in 0.002651 sec, waiting for connection]'
+    pid: '1444'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: trapper #27 [processed data in 0.006057 sec, waiting for connection]'
+    pid: '1445'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: trapper #28 [processed data in 0.002465 sec, waiting for connection]'
+    pid: '1446'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: trapper #29 [processed data in 0.002373 sec, waiting for connection]'
+    pid: '1447'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: trapper #30 [processed data in 0.000944 sec, waiting for connection]'
+    pid: '1448'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: trapper #31 [processed data in 0.001482 sec, waiting for connection]'
+    pid: '1449'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: trapper #32 [processed data in 0.000197 sec, waiting for connection]'
+    pid: '1450'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: trapper #33 [processed data in 0.002447 sec, waiting for connection]'
+    pid: '1451'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: trapper #34 [processed data in 0.002830 sec, waiting for connection]'
+    pid: '1452'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: trapper #35 [processed data in 0.002116 sec, waiting for connection]'
+    pid: '1453'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: trapper #36 [processed data in 0.005720 sec, waiting for connection]'
+    pid: '1454'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: trapper #37 [processed data in 0.002188 sec, waiting for connection]'
+    pid: '1455'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: trapper #38 [processed data in 0.008311 sec, waiting for connection]'
+    pid: '1456'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: trapper #39 [processed data in 0.003236 sec, waiting for connection]'
+    pid: '1457'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: trapper #40 [processed data in 0.002259 sec, waiting for connection]'
+    pid: '1458'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: trapper #41 [processed data in 0.013718 sec, waiting for connection]'
+    pid: '1459'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: trapper #42 [processed data in 0.003235 sec, waiting for connection]'
+    pid: '1460'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: trapper #43 [processed data in 0.000191 sec, waiting for connection]'
+    pid: '1461'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: trapper #44 [processed data in 0.000305 sec, waiting for connection]'
+    pid: '1462'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: trapper #45 [processed data in 0.000219 sec, waiting for connection]'
+    pid: '1463'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: trapper #46 [processed data in 0.000209 sec, waiting for connection]'
+    pid: '1464'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: trapper #47 [processed data in 0.006524 sec, waiting for connection]'
+    pid: '1465'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: trapper #48 [processed data in 0.000222 sec, waiting for connection]'
+    pid: '1466'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: trapper #49 [processed data in 0.000214 sec, waiting for connection]'
+    pid: '1467'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: trapper #50 [processed data in 0.003061 sec, waiting for connection]'
+    pid: '1468'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: icmp pinger #1 [got 0 values in 0.000049 sec, idle 5 sec]'
+    pid: '1469'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: icmp pinger #2 [got 0 values in 0.000058 sec, idle 5 sec]'
+    pid: '1470'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: icmp pinger #3 [got 0 values in 0.000057 sec, idle 5 sec]'
+    pid: '1471'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: icmp pinger #4 [got 0 values in 0.000034 sec, idle 5 sec]'
+    pid: '1472'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: icmp pinger #5 [got 0 values in 0.000051 sec, idle 5 sec]'
+    pid: '1473'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: icmp pinger #6 [got 0 values in 0.000033 sec, idle 5 sec]'
+    pid: '1474'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: icmp pinger #7 [got 0 values in 0.000028 sec, idle 5 sec]'
+    pid: '1475'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: icmp pinger #8 [got 0 values in 0.000031 sec, idle 5 sec]'
+    pid: '1476'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: icmp pinger #9 [got 0 values in 0.000059 sec, idle 5 sec]'
+    pid: '1477'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: icmp pinger #10 [got 0 values in 0.000050 sec, idle 5 sec]'
+    pid: '1478'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: alert manager #1 [sent 2, failed 0 alerts, idle 5.322796 sec during 5.322978 sec]'
+    pid: '1479'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: alerter #1 [sent 0, failed 0 alerts, idle 178.024568 sec during 180.357522 sec]'
+    pid: '1480'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: alerter #2 [sent 0, failed 0 alerts, idle 118.623005 sec during 119.766001 sec]'
+    pid: '1481'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: alerter #3 [sent 0, failed 0 alerts, idle 59.250622 sec during 60.530660 sec]'
+    pid: '1482'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: preprocessing manager #1 [queued 1, processed 560 values, idle 5.033828 sec during 5.041462 sec]'
+    pid: '1483'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: preprocessing worker #1 started'
+    pid: '1484'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: preprocessing worker #2 started'
+    pid: '1485'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: '/usr/sbin/zabbix_server: preprocessing worker #3 started'
+    pid: '1486'
+    ppid: '1173'
+    user: zabbix
+  - cmdline: /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
+    pid: '2832'
+    ppid: '1'
+    user: root
+  - cmdline: containerd-shim -namespace moby -workdir /var/lib/containerd/io.containerd.runtime.v1.linux/moby/7dac0edef9dae20cb5f7759a19e75bef5fbbcb8d4e2ac5ec7613a5d4fdcc7c2c -address /run/containerd/containerd.sock -containerd-binary /usr/bin/containerd -runtime-root /var/run/docker/runtime-runc
+    pid: '4337'
+    ppid: '1064'
+    user: root
+  - cmdline: redis-server *:6379
+    pid: '4355'
+    ppid: '4337'
+    user: polkitd
+  - cmdline: /usr/sbin/ntpd -u ntp:ntp -g
+    pid: '5125'
+    ppid: '1'
+    user: ntp
+  - cmdline: ''
+    pid: '5378'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '5768'
+    ppid: '2'
+    user: root
+  - cmdline: pickup -l -t unix -u
+    pid: '7143'
+    ppid: '1245'
+    user: postfix
+  - cmdline: /usr/bin/docker-proxy -proto tcp -host-ip 0.0.0.0 -host-port 3128 -container-ip 192.168.1.2 -container-port 3128
+    pid: '9781'
+    ppid: '2832'
+    user: root
+  - cmdline: containerd-shim -namespace moby -workdir /var/lib/containerd/io.containerd.runtime.v1.linux/moby/5c81ff097d1aa2f0041f9a1add658c50ea19ef0ce9fb6e412e4c319a1fd6212e -address /run/containerd/containerd.sock -containerd-binary /usr/bin/containerd -runtime-root /var/run/docker/runtime-runc
+    pid: '9787'
+    ppid: '1064'
+    user: root
+  - cmdline: containerd-shim -namespace moby -workdir /var/lib/containerd/io.containerd.runtime.v1.linux/moby/65ec5fad03e7484c919b367317eab61b361c2037ef4d8f1cbfbb4bf92ab9cc66 -address /run/containerd/containerd.sock -containerd-binary /usr/bin/containerd -runtime-root /var/run/docker/runtime-runc
+    pid: '9788'
+    ppid: '1064'
+    user: root
+  - cmdline: /usr/sbin/squid -f /etc/squid/squid.conf -NYCd 1
+    pid: '9821'
+    ppid: '9787'
+    user: '13'
+  - cmdline: sleep infinity
+    pid: '9828'
+    ppid: '9788'
+    user: root
+  - cmdline: /usr/bin/docker start -a iometrics-zbxalerter
+    pid: '10092'
+    ppid: '1'
+    user: root
+  - cmdline: ''
+    pid: '10453'
+    ppid: '2'
+    user: root
+  - cmdline: (logfile-daemon) /var/log/squid/access.log
+    pid: '11141'
+    ppid: '9821'
+    user: '13'
+  - cmdline: containerd-shim -namespace moby -workdir /var/lib/containerd/io.containerd.runtime.v1.linux/moby/e27ae43f180f0e122a8f9bc251903e059891a79db853a477f72ab26440a3a69f -address /run/containerd/containerd.sock -containerd-binary /usr/bin/containerd -runtime-root /var/run/docker/runtime-runc
+    pid: '12000'
+    ppid: '1064'
+    user: root
+  - cmdline: sleep infinity
+    pid: '12017'
+    ppid: '12000'
+    user: root
+  - cmdline: ''
+    pid: '15906'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '17037'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '18132'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '18294'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '18813'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '18843'
+    ppid: '2'
+    user: root
+  - cmdline: 'sshd: centos [priv]'
+    pid: '19792'
+    ppid: '1187'
+    user: root
+  - cmdline: 'sshd: centos@pts/0'
+    pid: '19794'
+    ppid: '19792'
+    user: centos
+  - cmdline: ''
+    pid: '19893'
+    ppid: '2'
+    user: root
+  - cmdline: /bin/sh -c sudo -H -S -n  -u root /bin/sh -c 'echo BECOME-SUCCESS-ljmwpbpxwppcelxemgoiqstuyhrdwuub ; /usr/bin/python /home/centos/.ansible/tmp/ansible-tmp-1656939967.7641401-31444-106387829396686/AnsiballZ_process_facts.py' && sleep 0
+    pid: '20076'
+    ppid: '19794'
+    user: centos
+  - cmdline: sudo -H -S -n -u root /bin/sh -c echo BECOME-SUCCESS-ljmwpbpxwppcelxemgoiqstuyhrdwuub ; /usr/bin/python /home/centos/.ansible/tmp/ansible-tmp-1656939967.7641401-31444-106387829396686/AnsiballZ_process_facts.py
+    pid: '20091'
+    ppid: '20076'
+    user: root
+  - cmdline: /bin/sh -c echo BECOME-SUCCESS-ljmwpbpxwppcelxemgoiqstuyhrdwuub ; /usr/bin/python /home/centos/.ansible/tmp/ansible-tmp-1656939967.7641401-31444-106387829396686/AnsiballZ_process_facts.py
+    pid: '20092'
+    ppid: '20091'
+    user: root
+  - cmdline: /usr/bin/python /home/centos/.ansible/tmp/ansible-tmp-1656939967.7641401-31444-106387829396686/AnsiballZ_process_facts.py
+    pid: '20093'
+    ppid: '20092'
+    user: root
+tcp_listen:
+  - address: 127.0.0.1
+    name: master
+    pid: 1245
+    port: 25
+    protocol: tcp
+    stime: Fri May 20 00:43:56 2022
+    user: root
+  - address: 0.0.0.0
+    name: zabbix_agentd
+    pid: 1105
+    port: 10050
+    protocol: tcp
+    stime: Fri May 20 00:43:49 2022
+    user: zabbix
+  - address: 0.0.0.0
+    name: zabbix_server
+    pid: 1173
+    port: 10051
+    protocol: tcp
+    stime: Fri May 20 00:43:53 2022
+    user: zabbix
+  - address: 0.0.0.0
+    name: redis-server
+    pid: 4355
+    port: 6379
+    protocol: tcp
+    stime: Tue Jun 21 14:18:11 2022
+    user: polkitd
+  - address: 0.0.0.0
+    name: systemd
+    pid: 1
+    port: 111
+    protocol: tcp
+    stime: Fri May 20 00:43:02 2022
+    user: root
+  - address: 0.0.0.0
+    name: sshd
+    pid: 1187
+    port: 22
+    protocol: tcp
+    stime: Fri May 20 00:43:55 2022
+    user: root
+  - address: ::1
+    name: master
+    pid: 1245
+    port: 25
+    protocol: tcp
+    stime: Fri May 20 00:43:56 2022
+    user: root
+  - address: '::'
+    name: zabbix_server
+    pid: 1173
+    port: 10051
+    protocol: tcp
+    stime: Fri May 20 00:43:53 2022
+    user: zabbix
+  - address: '::'
+    name: redis-server
+    pid: 4355
+    port: 6379
+    protocol: tcp
+    stime: Tue Jun 21 14:18:11 2022
+    user: polkitd
+  - address: '::'
+    name: systemd
+    pid: 1
+    port: 111
+    protocol: tcp
+    stime: Fri May 20 00:43:02 2022
+    user: root
+  - address: '::'
+    name: sshd
+    pid: 1187
+    port: 22
+    protocol: tcp
+    stime: Fri May 20 00:43:55 2022
+    user: root
+  - address: '::'
+    name: docker-proxy
+    pid: 9781
+    port: 3128
+    protocol: tcp
+    stime: Fri May 20 00:45:03 2022
+    user: root
+udp_listen:
+  - address: 0.0.0.0
+    name: dhclient
+    pid: 994
+    port: 68
+    protocol: udp
+    stime: Fri May 20 00:43:47 2022
+    user: root
+  - address: 0.0.0.0
+    name: systemd
+    pid: 1
+    port: 111
+    protocol: udp
+    stime: Fri May 20 00:43:02 2022
+    user: root
+  - address: 192.168.0.88
+    name: ntpd
+    pid: 5125
+    port: 123
+    protocol: udp
+    stime: Tue Jun 21 14:20:29 2022
+    user: ntp
+  - address: 192.168.1.1
+    name: ntpd
+    pid: 5125
+    port: 123
+    protocol: udp
+    stime: Tue Jun 21 14:20:29 2022
+    user: ntp
+  - address: 127.0.0.1
+    name: ntpd
+    pid: 5125
+    port: 123
+    protocol: udp
+    stime: Tue Jun 21 14:20:29 2022
+    user: ntp
+  - address: 0.0.0.0
+    name: ntpd
+    pid: 5125
+    port: 123
+    protocol: udp
+    stime: Tue Jun 21 14:20:29 2022
+    user: ntp
+  - address: 0.0.0.0
+    name: rpcbind
+    pid: 641
+    port: 813
+    protocol: udp
+    stime: Fri May 20 00:43:29 2022
+    user: rpc
+  - address: '::'
+    name: systemd
+    pid: 1
+    port: 111
+    protocol: udp
+    stime: Fri May 20 00:43:02 2022
+    user: root
+  - address: fe80::f816:3eff:fee
+    name: ntpd
+    pid: 5125
+    port: 123
+    protocol: udp
+    stime: Tue Jun 21 14:20:29 2022
+    user: ntp
+  - address: 'fe80::42:95ff:fe82:'
+    name: ntpd
+    pid: 5125
+    port: 123
+    protocol: udp
+    stime: Tue Jun 21 14:20:29 2022
+    user: ntp
+  - address: fe80::90e2:35ff:fe6
+    name: ntpd
+    pid: 5125
+    port: 123
+    protocol: udp
+    stime: Tue Jun 21 14:20:29 2022
+    user: ntp
+  - address: ::1
+    name: ntpd
+    pid: 5125
+    port: 123
+    protocol: udp
+    stime: Tue Jun 21 14:20:29 2022
+    user: ntp
+  - address: '::'
+    name: ntpd
+    pid: 5125
+    port: 123
+    protocol: udp
+    stime: Tue Jun 21 14:20:29 2022
+    user: ntp
+  - address: '::'
+    name: rpcbind
+    pid: 641
+    port: 813
+    protocol: udp
+    stime: Fri May 20 00:43:29 2022
+    user: rpc

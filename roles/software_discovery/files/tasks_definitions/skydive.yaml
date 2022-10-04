@@ -1,0 +1,48 @@
+---
+- name: Loop ports
+  block:
+    - name: Check socket from a port
+      run_module:
+        check_connection:
+          address: "localhost"
+          port: "<<port>>"
+      register: result_port
+    - name: If check socket is ok
+      block:
+        - name: Request information from api port
+          run_module:
+            uri:
+              url: "http://localhost:<<port>>/api?validate_certs=False"
+              method: "GET"
+              timeout: 2
+              return_content:  yes
+          register: response
+        - name: Check if status is 406
+          add_binding_info:
+            port: '<<port>>'
+            class: 'proccon_port'
+          when: response.status == 406
+        - name: Check if in content have graphql-playground
+          add_binding_info:
+            port: '<<port>>'
+            class: 'graphql_port'
+          when:
+            - response.content is defined
+            - "'graphql-playground' in response.content"
+        - name: Check if exists json version and save it
+          block:
+            - name: Save port if json is defined
+              add_binding_info:
+                port: '<<port>>'
+                class: 'api_port'
+            - name: Check if exists version and save it
+              add_version_info:
+                version_type: 'request'
+                version_number: "<<response.json.Version>>"
+          when:
+            - response.json is defined
+      when:
+        - result_port is not failed
+  loop: "<<__instance__.listening_ports>>"
+  loop_control:
+    loop_var: port

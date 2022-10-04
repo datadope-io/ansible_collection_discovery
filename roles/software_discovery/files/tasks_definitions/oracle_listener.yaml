@@ -1,0 +1,130 @@
+---
+- name: Get ORACLE_HOME
+  block:
+    - name: Read env from process
+      read_environment_for_process:
+        pid: << __instance__.process.pid >>
+      register: environment
+    - name: Store ORACLE_HOME
+      set_instance_fact:
+        _ORACLE_HOME: << environment.parsed.ORACLE_HOME >>
+      when:
+        - environment is not failed
+        - environment.parsed.ORACLE_HOME is defined
+    - name: Get ORAHOME from path
+      block:
+        - name: Set ORAHOME from env
+          set_instance_fact:
+            _ORACLE_HOME: << orahomereg >>
+          vars:
+            orahomereg: << __instance__.process.cmdline | regex_search('(\/.*)/bin/\S*', '\1') | first >>
+          ignore_errors: yes
+      when: __instance__._ORACLE_HOME is not defined
+- name: Manage oracle home
+  block:
+    - name: Add oracle home to extra data
+      set_instance_fact:
+        extra_data: "<< (__instance__.extra_data | default({})) | combine({
+          'ORACLE_HOME': __instance__._ORACLE_HOME
+          }) >>"
+    - name: Add oracle home to files
+      add_file_info:
+        path: "<< __instance__._ORACLE_HOME >>"
+        type: home
+        subtype: generic
+  when: __instance__._ORACLE_HOME is defined
+- name: Store bin file
+  set_instance_fact:
+    _bin_file: << __instance__._ORACLE_HOME >>/bin/lsnrctl
+    _name: << __instance__.process.cmdline | regex_findall('.*tnslsnr\s([\w_-]*)\s*.*') | first >>
+  ignore_errors: yes
+  when: __instance__._ORACLE_HOME is defined
+- name: Add name to extra data
+  set_instance_fact:
+    extra_data: "<< (__instance__.extra_data | default({})) | combine({
+      'name': __instance__._name
+      }) >>"
+- name: Add bin file to files
+  add_file_info:
+    path: "<< __instance__._bin_file >>"
+    type: binary
+    subtype: generic
+- name: Block to execute command lsnrctl
+  block:
+    - name: Execute lsnrctl
+      run_command:
+        cmd: "<< __instance__._bin_file >> status << __instance__._name >>"
+      environment:
+        ORACLE_HOME: "<< __instance__._ORACLE_HOME >>"
+        TNS_ADMIN: "<< __instance__._ORACLE_HOME >>/network/admin"
+      register: result
+      when: __instance__._bin_file is defined
+    - name: Extract ports and instances
+      block:
+        - name: Extract ports
+          set_instance_fact:
+            _listening_ports: >-
+                  << (__instance__._listening_ports | default([]) + __item__
+                  | regex_findall('PORT=(.*?)\)', ignorecase=True) | map('int')) | unique >>
+          when:
+            - "'PORT=' in (__item__ | upper)"
+            - "'HTTP' not in (__item__ | upper)"
+          loop: << result.stdout_lines >>
+        - name: Replace ports
+          set_instance_fact:
+            listening_ports: << __instance__._listening_ports >>
+          when: __instance__._listening_ports is defined
+        - name: Extract instances
+          set_instance_fact:
+            _instances: >-
+              << (__instance__._instances | default([]) + result.stdout 
+              | regex_findall('Instance\s\"(.*?)\"', ignorecase=True, multiline=True)) | unique  >>
+        - name: Add instances to extra data
+          set_instance_fact:
+            extra_data: "<< (__instance__.extra_data | default({})) | combine({
+              'instances': __instance__._instances
+              }) >>"
+        - name: Extract log dir
+          set_instance_fact:
+            _log_file: << _log_file >>
+            _log_dir: << _log_file | dirname >>
+          vars:
+            _log_file: << result.stdout | regex_search('Listener Log File\s+(.*)', '\1', ignorecase=True, multiline=True) | first  >>
+          ignore_errors: yes
+        - name: Adjust log dir
+          set_instance_fact:
+            _log_dir: << (__instance__._log_dir | dirname, 'trace') | datadope.discovery.path_join >>
+          when:
+            - __instance__._log_file is defined
+            - "__instance__._log_file.endswith('.xml')"
+        - name: Add log dir to files
+          add_file_info:
+            path: "<< __instance__._log_dir >>"
+            name: "<< __instance__._log_file | basename >>"
+            type: log
+            subtype: generic
+        - name: Check log_dir is a dir
+          stat:
+            path: << __instance__._log_dir >>
+          register: stat_result
+          when:
+            - __instance__._log_dir is defined
+        - name: Remove _log_dir if not a dir
+          del_instance_fact:
+            - _log_dir
+          when:
+            - __instance__._log_dir is defined
+            - stat_result is failed or not stat_result.stat.exists or not stat_result.stat.isdir
+      when: result is not failed
+    - name: Remove temporary vars
+      del_instance_fact:
+        - _listening_ports
+        - _log_file
+        - _bin_file
+        - _instances
+        - _ORACLE_HOME
+        - _log_dir
+        - _name
+  when:
+    - __instance__._ORACLE_HOME is defined
+    - __instance__._name is defined

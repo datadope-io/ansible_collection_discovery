@@ -1,0 +1,111 @@
+# This file is part of Ansible
+
+# Copyright: (c) 2022, DataDope (@datadope-io)
+# GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
+---
+# Gather information needed to run the tests
+
+- name: Get inputs from host
+  block:
+    - name: get listen_ports
+      community.general.listen_ports_facts: {}
+
+    - name: get process_facts
+      process_facts: {}
+  when: data_from_host
+
+# General tests
+
+- name: Get inputs from vars
+  set_fact:
+    processes: "{{ postgres_processes }}"
+    tcp_listen: "{{ postgres_ports }}"
+    udp_listen: []
+  when: not data_from_host
+
+- name: Gather software facts with no data
+  software_facts:
+    software_list: []
+    processes: []
+    tcp_listen: []
+    udp_listen: []
+  register: check_empty_data
+  ignore_errors: True
+
+- name: Gather software facts with no software list
+  software_facts:
+    software_list: []
+    processes: "{{ processes }} "
+    tcp_listen: "{{ tcp_listen }}"
+    udp_listen: "{{ udp_listen }}"
+  register: check_no_software_list
+  ignore_errors: True
+
+- name: Give invalid parameters
+  software_facts:
+    software_list: {'ERROR'}
+    processes: {'ERROR': 'ERROR'}
+    tcp_listen: ERROR
+    udp_listen: ERROR
+  register: check_invalid_input
+  ignore_errors: True
+
+- name: Gather software facts
+  software_facts:
+    software_list: "{{ postgres_software_list }}"
+    processes: "{{ processes }} "
+    tcp_listen: "{{ tcp_listen }}"
+    udp_listen: "{{ udp_listen }}"
+  register: check_gather_software
+  ignore_errors: True
+
+
+# Check execution
+- debug:
+    var: software[0]
+
+- assert:
+    that:
+    - check_empty_data.failed is not defined or not check_empty_data.failed
+    - check_no_software_list.failed is not defined or not check_no_software_list.failed
+    - check_invalid_input.failed is defined and check_invalid_input.failed
+    - check_gather_software.failed is not defined or not check_gather_software.failed
+    - software is defined
+    - software[0].loop_output.port_5432.file == "Prueba\n"
+    - software[0].should_exist == "A value"
+    - software[0].should_exist_as_list == "A value"
+
+# Check output
+
+- assert:
+    that:
+      - item.type is defined
+      - item.process is defined
+      - item.process.pid is defined
+      - item.process.ppid is defined
+      - item.process.cmdline is defined
+      - item.process.children is defined
+      - item.process.listening_ports is defined
+      - item.listening_ports is defined
+      - item.listening_ports | length == 1
+    fail_msg: Missing required software information
+  loop: "{{ software }}"
+
+# Check plugins
+
+- name: Assert plugins
+  assert:
+    that:
+    - software[0].loop_output.port_5432.file == "Prueba\n"
+    - software[0].should_exist == "A value"
+    - software[0].should_exist_as_list == "A value"
+    - software[0].should_not_exist is not defined
+    - software[0].block_with_loop is defined
+    - software[0].block_with_loop.outer_1_inner_1 is defined
+    - software[0].block_with_loop.outer_1_inner_2 is defined
+    - software[0].block_with_loop.outer_2_inner_1 is defined
+    - software[0].block_with_loop.outer_2_inner_2 is defined
+    - software[0].block_with_when.index_1 is defined
+    - software[0].block_with_when.index_2 is defined
+    - software[0].block_with_when.index_3 is not defined
+    - software[0].var_from_include_tasks | int == 5432

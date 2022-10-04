@@ -1,0 +1,146 @@
+---
+- name: Read process environment
+  read_environment_for_process:
+    pid: << __instance__.process.pid >>
+  register: env_vars
+  ignore_errors: yes
+- name: Get home regex
+  set_instance_fact:
+    _home_regex: "<< __instance__.process.cmdline | regex_search('-Dactivemq\\.home=\"*?(.+?)\"*?\\ ', '\\1' ,ignorecase=True) | first  >>"
+  ignore_errors: yes
+- name: Get home
+  block:
+    - name: Save home 1
+      set_instance_fact:
+        _home: "<<__instance__._home_regex>>"
+      when:
+        - "__instance__._home_regex[0] == '/'"
+    - name: Save home 2
+      set_instance_fact:
+        _home: "<< (env_vars.parsed.PWD, __instance__._home_regex) | datadope.discovery.path_join | realpath >>"
+      when:
+        - "__instance__._home_regex[0] != '/'"
+        - env_vars.parsed.PWD is defined
+  when:
+    - __instance__._home_regex is defined
+
+- name: Get version
+  block:
+    - name: Set activemq_bin
+      set_instance_fact:
+        _activemq_bin: "<< (__instance__._home, 'bin/activemq') | datadope.discovery.path_join >>"
+      ignore_errors: yes
+    - name: Check if bin/activemq is accessible
+      stat:
+        path: "<< __instance__._activemq_bin>>"
+      register: result_activemq_bin
+      when: __instance__._activemq_bin is defined
+    - name: Execute command and save version
+      block:
+        - name: Run version command
+          run_command:
+            cmd: "<< __instance__._activemq_bin >> --version"
+          register: result
+        - name: Get version from result
+          set_instance_fact:
+            _active_version: "<< result.stdout | regex_search('ActiveMQ (\\d+(?:\\.\\d+)*)', '\\1', i=True, multiline=True, dotall=True) | first >>"
+          ignore_errors: yes
+          when: result is not failed
+        - name: Add version from command
+          add_version_info:
+            version_type: 'active'
+            version_number: << __instance__._active_version >>
+          when: __instance__._active_version is defined
+      when:
+        - result_activemq_bin is not failed
+    - name: Get version from file if dont have version from command
+      block:
+        - name: Ger version from cmdline
+          set_instance_fact:
+            _file_version: "<< __instance__.process.cmdline | regex_search('activemq[-/](\\d+(?:\\.\\d+)*)', '\\1', i=True) | first >>"
+          ignore_errors: yes
+        - name: Add version from file
+          add_version_info:
+            version_type: 'file'
+            version_number: << __instance__._file_version >>
+          when:
+            - __instance__._file_version is defined
+      when:
+        - __instance__._active_version is not defined
+  when:
+    - __instance__._home is defined
+
+- name: Parse config
+  block:
+    - name: Set jetty_config
+      set_instance_fact:
+        _jetty_config: "<< (__instance__._home, 'conf/jetty.xml') | datadope.discovery.path_join >>"
+    - name: Check if jetty_config is accessible
+      stat:
+        path: "<< __instance__._jetty_config>>"
+      register: result_xml
+    - name: Access and process XML file
+      block:
+        - name: Access XML file
+          read_remote_file:
+            file_path: "<< __instance__._jetty_config>>"
+            parser: "xml"
+          register: _xml_file
+        - name: Save config file
+          set_instance_fact:
+            _config_file_xml: "<<_xml_file.parsed>>"
+        - name: Find beans node
+          find_in_dict:
+            item: "beans"
+            source: "<< __instance__._config_file_xml>>"
+          register: _beans_node
+        - name: Iterate over beans
+          block:
+            - name: Process bean properties
+              block:
+                - name: Process property host
+                  set_instance_fact:
+                    _host: "<< __property__['attr-value'] >>"
+                  when: __property__['attr-name'] == 'host'
+                - name: Process property port
+                  set_instance_fact:
+                    _port: "<< __property__['attr-value'] >>"
+                  when: __property__['attr-name'] == 'port'
+              loop: "<< __bean__.property | default([]) >>"
+              loop_control:
+                loop_var: __property__
+          when: __bean__['attr-id'] == 'jettyPort'
+          loop: "<< (_beans_node.result | first | default({}))['bean'] | default([]) >>"
+          loop_control:
+            loop_var: __bean__
+      ignore_errors: yes
+      when:
+        - result_xml is not failed
+  when:
+    - __instance__._home is defined
+
+- name: Set home in files
+  add_file_info:
+    path: <<__instance__._home>>
+    type: 'config'
+    subtype: 'home'
+  when: __instance__._home is defined
+
+- name: Set host and port in bindings
+  add_binding_info:
+    address: <<__instance__._host>>
+    port: <<__instance__._port>>
+  when: "__instance__._host is defined or __instance__._port is defined"
+
+- name: Remove temporary vars
+  del_instance_fact:
+    - _home_regex
+    - _active_version
+    - _file_version
+    - _activemq_bin
+    - _config_file_xml
+    - _jetty_config
+    - _jettyport
+    - _home
+    - _port
+    - _host

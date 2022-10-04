@@ -1,0 +1,45 @@
+---
+- name: Get ORACLE_HOME
+  block:
+    - name: Read env from process
+      read_environment_for_process:
+        pid: << __instance__.process.pid >>
+      register: environment
+    - name: Store ORACLE_HOME
+      set_instance_fact:
+        _ORACLE_HOME: << environment.parsed.ORACLE_HOME >>
+      when:
+        - environment is not failed
+        - environment.parsed.ORACLE_HOME is defined
+    - name: Get ORAHOME from path
+      block:
+        - name: Set ORAHOME from env
+          set_instance_fact:
+            _ORACLE_HOME: << orahomereg >>
+          vars:
+            orahomereg: << __instance__.process.cmdline | regex_search('(\/.*)/bin/\S*', '\1') | first >>
+          ignore_errors: yes
+      when: __instance__._ORACLE_HOME is not defined
+- name: Add oracle home to extra data and files
+  block:
+    - name: Add oracle home to extra data
+      set_instance_fact:
+        extra_data: "<< (__instance__.extra_data | default({})) | combine({
+        'ORACLE_HOME': __instance__._ORACLE_HOME
+        }) >>"
+    - name: Add oracle home to files
+      add_file_info:
+        path: "<< __instance__._ORACLE_HOME >>"
+        type: home
+        subtype: generic
+  when: __instance__._ORACLE_HOME is defined
+- name: Add version info
+  add_version_info:
+    version_type: file
+    version_number: << version | replace('/', '') >>
+  vars:
+    version: << __instance__._ORACLE_HOME | regex_findall('/*\d+?\.?\d+?\.?\d+?\.?\d+?\.?\d+?$') | first>>
+  when: __instance__._ORACLE_HOME is defined
+- name: Remove tmp vars
+  del_instance_fact:
+    - _ORACLE_HOME

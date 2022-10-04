@@ -1,0 +1,51 @@
+---
+galaxy_info:
+  role_name: software_discovery
+  author: Datadope
+  description: Role to discover installed software from list
+  company: Datadope
+  license: GPL-3.0-or-later
+  min_ansible_version: 2.9.8
+  platforms:
+    - name: EL
+      versions:
+        - 5
+        - 6
+        - 7
+    - name: Ubuntu
+      versions:
+        - lucid
+        - precise
+        - trusty
+        - xenial
+        - bionic
+    - name: Debian
+      versions:
+        - squeeze
+        - wheezy
+        - jessie
+        - stretch
+        - buster
+    - name: opensuse
+      versions:
+        - 12.1
+        - 12.2
+        - 12.3
+        - 13.1
+        - 13.2
+    - name: Windows
+      versions:
+        - all
+    - name: Solaris
+      versions:
+        - 10
+        - 11.0
+        - 11.1
+        - 11.2
+        - 11.3
+
+  galaxy_tags:
+    - discovery
+    - software
+
+dependencies: []

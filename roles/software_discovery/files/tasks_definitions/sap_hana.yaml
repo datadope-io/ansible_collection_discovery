@@ -1,0 +1,24 @@
+---
+- name: Find ports SQL Communication
+  find_ports:
+    filter:
+      protocol: "udp"
+      port: "3[0-9][0-9]15"
+  register: ports_com
+
+- name: Add address and port to bindings
+  add_binding_info:
+    address: "<<port_var.address>>"
+    port: "<<port_var.port>>"
+    class: "service"
+  when:
+    - port_var.address is defined
+    - port_var.port is defined
+  loop: "<<ports_com.result | default([])>>"
+  loop_control:
+    loop_var: port_var
+
+- name: Abort if not found
+  set_instance_fact:
+    NOT_A_REAL_SOFTWARE_REMOVE_FROM_LIST: yes
+  when: ports_com.result | default([]) | length == 0

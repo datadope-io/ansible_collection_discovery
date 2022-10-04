@@ -1,0 +1,73 @@
+---
+- name: Search ports
+  find_ports:
+    filter:
+      pid: "<< __instance__.process.pid >>"
+      port: "33[0-9][0-9]"
+  register: ports
+
+- name: Loop ports
+  block:
+    - name: Add host to bindings
+      add_binding_info:
+        address: "<< __item__.address >>"
+        port: "<< __item__.port >>"
+        class: service
+        extra_data:
+          sysnr: "<< (__item__.port | string)[2:4] >>"
+  loop: "<< ports.result | default([]) >>"
+
+- name: Abort if no port was found in sysnr range
+  set_instance_fact:
+    NOT_A_REAL_SOFTWARE_REMOVE_FROM_LIST: yes
+  when: ports.result | default([]) | length == 0
+
+- name: Continue processing if necessary
+  block:
+  - name: Search for icman processes
+    find_processes:
+      filter:
+        cmdline: ".*icman.*|.*ms\\.sap.*"
+    register: processes
+  - name: Loop processes
+    block:
+      - name: Get process ports
+        find_ports:
+          filter:
+            pid: "<< __item__.pid >>"
+        register: ports
+      - name: Loop ports
+        block:
+          - name: Check http or https
+            run_module:
+              check_connection:
+                address: "<< ((__port__.address == '0.0.0.0') | ternary('127.0.0.1', __item__.address)) >>"
+                port: "<< __port__.port >>"
+            register: response
+          - name: Set icman type
+            set_instance_fact:
+              _type: icman
+            when: __item__.cmdline | regex_search('.*icman.*',ignorecase=True)
+          - name: Set msg_server type
+            set_instance_fact:
+              _type: msg_server
+            when: __item__.cmdline | regex_search('.*ms\\.sap.*',ignorecase=True)
+          - name: Extend port info
+            add_endpoint_info:
+              uri: "<<__port__.address + ':' + __port__.port | string>>"
+              type: "<<__instance__._type>>"
+              extra_data:
+                tls: "<<response.identified_as>>"
+            when: response.identified_as != None
+        loop: "<< ports.result | default([])>>"
+        loop_control:
+          loop_var: __port__
+    loop: "<< processes.result | default([]) >>"
+  when: __instance__.NOT_A_REAL_SOFTWARE_REMOVE_FROM_LIST is not defined
+
+- name: Remove tmp vars
+  del_instance_fact:
+    - _host
+    - _sysnr
+    - _type
+...
