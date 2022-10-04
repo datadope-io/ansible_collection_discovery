@@ -1,0 +1,48 @@
+---
+name: repo-sanity
+on:
+  push:
+  pull_request:
+
+jobs:
+
+  sanity:
+    name: Sanity (${{ matrix.ansible }}+py${{ matrix.python }})
+    strategy:
+      matrix:
+        ansible:
+          # It's important that Sanity is tested against all stable-X.Y branches
+          # Testing against `devel` may fail as new tests are added.
+
+          # https://docs.ansible.com/ansible/latest/reference_appendices/release_and_maintenance.html#ansible-core-changelogs
+          - stable-2.12
+          - stable-2.13
+          - stable-2.14
+          - devel
+        python:
+          - 3.9
+    runs-on: ubuntu-latest
+    steps:
+      # ansible-test requires the collection to be in a directory in the form
+      # .../ansible_collections/NAMESPACE/COLLECTION_NAME/
+
+      - name: Check out code
+        uses: actions/checkout@v2
+        with:
+          path: ansible_collections/datadope/discovery
+
+      - name: Set up Python ${{ matrix.ansible }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python }}
+
+      # Install the head of the given branch (devel, stable-2.10)
+      - name: Install ansible-base (${{ matrix.ansible }})
+        run: pip install https://github.com/ansible/ansible/archive/${{ matrix.ansible }}.tar.gz --disable-pip-version-check
+
+      # run ansible-test sanity inside of Docker.
+      # The docker container has all the pinned dependencies that are required.
+      # Explicity specify the version of Python we want to test
+      - name: Run sanity tests
+        run: ansible-test sanity --docker --color --exclude tests/ --python ${{ matrix.python }} -v
+        working-directory: ./ansible_collections/datadope/discovery

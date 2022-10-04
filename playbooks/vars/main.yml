@@ -1,0 +1,13 @@
+---
+# (bool) If true, the playbook will generate a
+#  file as prototype to generate a test for each processed host.
+software_discovery__copy_input_data: false
+
+# (string) Generated file location.
+software_discovery__copy_input_data_dest_path: '/var/tmp'
+
+# (string) Generated file name.
+software_discovery__copy_input_data_file_name: "{{ inventory_hostname }}_input_data"
+
+# (string) Format of the generated file (json or yaml)
+software_discovery__copy_input_data_file_format: 'json'

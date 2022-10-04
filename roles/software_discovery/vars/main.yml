@@ -1,0 +1,3 @@
+---
+# (string) Path where the definition of tasks to perform on each type of software is located
+software_discovery__custom_tasks_definition_files_path: "{{ role_path }}/files/tasks_definitions"

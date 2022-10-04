@@ -1,0 +1,458 @@
+---
+# (list) List of types of software to be discovered from the global list defined in `software_list` variable.
+# Each element of the list must much the `name` field of the `software_list`element to include.
+# Use `all` to use the whole list.
+
+software_discovery__include_software: ['all']
+
+# (list) List of types of software to exclude from being discovered from the global list defined in `software_list` variable
+# Each element of the list must much the `name` field of the `software_list`element to include.
+software_discovery__exclude_software: []
+
+# (list) Definition of tasks to be executed on every discovered software before custom tasks for each software type are executed
+software_discovery__pre_tasks: []
+
+# (list) Definition of tasks to be executed on every discovered software after custom tasks for each software type are executed
+software_discovery__post_tasks: []
+
+# (list) Definition of the types of software that will be tried to be discovered in the target hosts.
+software_discovery__software_list:
+  - name: PostgreSQL Database
+    cmd_regexp: 'postgres:'
+    pkg_regexp: 'postgresql.*-server|postgresql-\d'
+    process_type: child
+    return_children: true
+    return_packages: true
+    vars:
+      connect_with_users: "{{ postgresql_monitor_users_info 
+        | default([{'username': postgresql_monitor_user | default('postgres'), 
+        'password': postgresql_monitor_pass | default('postgres')}]) }}"
+      ignore_databases:
+        - postgres
+        - template0
+        - template1
+      sql_connection_extra_params: "{{ postgresql_sql_connection_extra_params | default('-h 127.0.0.1') }}"
+    custom_tasks:
+      - name: Include postgres specific plugins
+        include_tasks:
+          file: "{{ software_discovery__custom_tasks_definition_files_path }}/postgresql.yaml"
+
+  - name: Microsoft SQL Server
+    cmd_regexp: 'Microsoft.SQL.Server.*sqlservr\.exe'
+    pkg_regexp: '^SQL.Server.\d{4}.Database.Engine'
+    process_type: single
+    return_children: false
+    return_packages: false
+    vars:
+      ignore_databases:
+        - tempdb
+    custom_tasks:
+      - name: Include SQL Server specific plugins
+        include_tasks:
+          file: "{{ software_discovery__custom_tasks_definition_files_path }}/sql_server.yaml"
+
+  - name: IIS
+    cmd_regexp: 'w3wp.exe'  # Service iissvcs
+    process_type: single
+    return_children: false
+    return_packages: false
+    custom_tasks:
+      - name: Include IIS specific plugins
+        include_tasks:
+          file: "{{ software_discovery__custom_tasks_definition_files_path }}/iis.yaml"
+
+  - name: Apache WebServer
+    cmd_regexp: 'apache[^ ]*/(sbin|bin)/[^ ]*\bhttpd$|/usr/sbin/httpd.*|apache/jbcs-httpd2.*|\bapps/apache[^ ]*/(sbin|bin)/httpd$|\bapache[^ ]*/(sbin|bin)/[^ ]*\bhttpd[-_]prefork$|/usr/sbin/httpd[-_\.](prefork|worker)$|/usr/sbin/httpd\d$|/usr/sbin/apache2'
+    pkg_regexp: 'apache2|^httpd$'
+    process_type: parent
+    return_children: true
+    return_packages: true
+    custom_tasks:
+      - name: Include Apache Webserver specific plugins
+        include_tasks:
+          file: "{{ software_discovery__custom_tasks_definition_files_path }}/apache_webserver.yaml"
+
+  - name: Redis
+    cmd_regexp: redis-serve
+    pkg_regexp: ^redis
+    process_type: parent
+    return_children: false
+    return_packages: true
+    vars: {}
+    custom_tasks:
+      - name: Include redis specific plugins
+        include_tasks:
+          file: "{{ software_discovery__custom_tasks_definition_files_path }}/redis.yaml"
+
+  - name: Oracle DatabaseServer
+    cmd_regexp: _pmon_
+    process_type: parent
+    return_children: false
+    return_packages: false
+    vars:
+      connect_with_users: "{{ oracle_monitor_users_info 
+        | default([{'username': oracle_monitor_user | default('oracle'), 
+        'password': oracle_monitor_pass | default('oracle')}]) }}"
+      monitor_cluster_hostname: "{{ oracle_monitor_cluster_hostname | default('localhost') }}"
+      read_configuration: "{{ oracle_monitor_read_configuration | default(False) }}"
+    custom_tasks:
+      - name: Include Oracle specific plugins
+        include_tasks:
+          file: "{{ software_discovery__custom_tasks_definition_files_path }}/oracle.yaml"
+
+  - name: Oracle Listener
+    cmd_regexp: "tnslsnr"
+    process_type: parent
+    return_children: false
+    return_packages: true
+    vars: { }
+    custom_tasks:
+      - name: Include Oracle Listener specific plugins
+        include_tasks:
+          file: "{{ software_discovery__custom_tasks_definition_files_path }}/oracle_listener.yaml"
+
+  - name: Oracle Management Agent
+    cmd_regexp: "emwd.pl agent"
+    process_type: parent
+    return_children: false
+    return_packages: true
+    vars: { }
+    custom_tasks:
+      - name: Include Oracle Management Agent specific plugins
+        include_tasks:
+          file: "{{ software_discovery__custom_tasks_definition_files_path }}/oracle_management_agent.yaml"
+
+  - name: MariaDB DatabaseServer
+    cmd_regexp: '/mariadbd(\s|$)'
+    pkg_regexp: 'mariadb-serve'
+    process_type: parent
+    return_children: false
+    return_packages: true
+    vars:
+      ignore_databases:
+        - information_schema
+        - mysql
+        - test
+        - performance_schema
+      connect_with_users: "{{ mariadb_monitor_users_info 
+        | default(mysql_monitor_users_info 
+          | default([{'username': mariadb_monitor_user | default(mysql_monitor_user | default('mysql')), 
+                    'password': mariadb_monitor_pass | default(mysql_monitor_pass | default('mysql'))}])) }}"
+    custom_tasks:
+      - name: Include MariaDB specific plugins
+        include_tasks:
+          file: "{{ software_discovery__custom_tasks_definition_files_path }}/mysql_mariadb.yaml"
+        vars:
+          default_server_file: mariadbd
+          default_client_file: mariadb
+
+  - name: MySQL DatabaseServer
+    cmd_regexp: '/mysqld(\s|$)'
+    pkg_regexp: 'mysql-serve'
+    process_type: parent
+    return_children: false
+    return_packages: true
+    vars:
+      ignore_databases:
+        - information_schema
+        - mysql
+        - test
+        - performance_schema
+      connect_with_users: "{{ mysql_monitor_users_info 
+        | default([{'username': mysql_monitor_user | default('mysql'), 
+                    'password': mysql_monitor_pass | default('mysql')}]) }}"
+    custom_tasks:
+      - name: Include MariaDB specific plugins
+        include_tasks:
+          file: "{{ software_discovery__custom_tasks_definition_files_path }}/mysql_mariadb.yaml"
+        vars:
+          default_server_file: mysqld
+          default_client_file: mysql
+
+  - name: Apache Tomcat Servlet Engine
+    cmd_regexp: \.apache\.tomcat\.startup|\.apache\.catalina\.startup
+    pkg_regexp: tomcat
+    process_type: parent
+    return_children: true
+    return_packages: true
+    custom_tasks:
+      - name: Include Apache Tomcat Servlet Engine specific plugins
+        include_tasks:
+          file: "{{ software_discovery__custom_tasks_definition_files_path }}/tomcat.yaml"
+
+  - name: Nginx WebServer
+    cmd_regexp: 'nginx\:?\s*master.*(nginx)?'
+    pkg_regexp: 'nginx'
+    process_type: parent
+    return_children: true
+    return_packages: true
+    custom_tasks:
+      - name: Include nginx specific plugins
+        include_tasks:
+          file: "{{ software_discovery__custom_tasks_definition_files_path }}/nginx.yaml"
+
+  - name: KeepAliveD
+    cmd_regexp: 'keepalived.*'
+    pkg_regexp: 'keepalived'
+    process_type: parent
+    return_children: false
+    return_packages: true
+    custom_tasks:
+      - name: Include keepalived specific plugins
+        include_tasks:
+          file: "{{ software_discovery__custom_tasks_definition_files_path }}/keepalived.yaml"
+
+  - name: Grafana
+    cmd_regexp: 'grafana-server'
+    pkg_regexp: '^grafana'
+    process_type: parent
+    return_children: false
+    return_packages: true
+    custom_tasks:
+      - name: Include Grafana specific plugins
+        include_tasks:
+          file: "{{ software_discovery__custom_tasks_definition_files_path }}/grafana.yaml"
+
+  - name: JBoss Application Server
+    cmd_regexp: 'org\.jboss\.Main|org\.jboss\.(?:Main|as\.(?:standalone|server))'
+    pkg_regexp: 'jboss'
+    process_type: parent
+    return_children: false
+    return_packages: true
+    vars:
+      credentials:
+        management_user: "{{ jboss_admin_user | default('admin') }}"
+        management_password: "{{ jboss_admin_pass | default('admin') }}"
+      default_management_port: "{{ jboss_management_port | default('9990') }}"
+    custom_tasks:
+      - name: Include JBoss specific plugins
+        include_tasks:
+          file: "{{ software_discovery__custom_tasks_definition_files_path }}/jboss.yaml"
+
+  - name: HAProxy
+    cmd_regexp: 'haproxy .*'
+    pkg_regexp: 'haproxy'
+    process_type: parent
+    return_children: true
+    return_packages: true
+    custom_tasks:
+      - name: Include HAProxy specific plugins
+        include_tasks:
+          file: "{{ software_discovery__custom_tasks_definition_files_path }}/haproxy.yaml"
+
+  - name: Patrol Agent
+    cmd_regexp: PatrolAgent
+    pkg_regexp: patrol
+    process_type: parent
+    return_children: false
+    return_packages: true
+
+  - name: Skydive Analyzer
+    cmd_regexp: skydive analyzer
+    process_type: parent
+    return_children: false
+    return_packages: true
+    custom_tasks:
+      - name: Include skydive specific plugins
+        include_tasks:
+          file: "{{ software_discovery__custom_tasks_definition_files_path }}/skydive.yaml"
+
+  - name: AWX Task
+    cmd_regexp: launch_awx_task.sh
+    process_type: parent
+    return_children: false
+    return_packages: true
+
+  - name: AWX Web
+    cmd_regexp: launch_awx.sh
+    process_type: parent
+    return_children: false
+    return_packages: true
+
+  - name: MuleSoft AppServer
+    cmd_regexp: MuleContainerBootstrap
+    process_type: parent
+    return_children: false
+    return_packages: false
+
+  - name: SAP HANA DatabaseServer
+    cmd_regexp: hdbindexserver
+    process_type: parent
+    return_children: false
+    return_packages: true
+    custom_tasks:
+      - name: Include skydive specific plugins
+        include_tasks:
+          file: "{{ software_discovery__custom_tasks_definition_files_path }}/sap_hana.yaml"
+
+  - name: Xymon
+    cmd_regexp: xymonlaunch
+    pkg_regexp: xymon
+    process_type: parent
+    return_children: false
+    return_packages: false
+
+  - name: HPE Data Protector
+    cmd_regexp: bomni
+    pkg_regexp: DATA-PROTECTOR|HP Data Protector|OmniBack|OpenView Storage Data Protector|OB2-CORE|OB2-DAP
+    process_type: parent
+    return_children: false
+    return_packages: true
+
+  - name: SAP CCMS
+    cmd_regexp: gwrd
+    process_type: parent
+    return_children: false
+    custom_tasks:
+      - name: Include sap ccms specific plugins
+        include_tasks:
+          file: "{{ software_discovery__custom_tasks_definition_files_path }}/sap_ccms.yaml"
+
+  - name: SAPcontrol
+    cmd_regexp: sapstartsrv
+    process_type: parent
+    return_children: false
+    return_packages: false
+    custom_tasks:
+      - name: Include sap control specific plugins
+        include_tasks:
+          file: "{{ software_discovery__custom_tasks_definition_files_path }}/sap_control.yaml"
+
+  - name: Zabbix Server
+    cmd_regexp: "/usr/sbin/zabbix_server\ -c"
+    pkg_regexp: "zabbix-server.*"
+    process_type: parent
+    return_children: true
+    return_packages: true
+
+  - name: IOMetrics Visualizer API
+    cmd_regexp: "python ./main.py"
+    process_type: parent
+    return_children: false
+    return_packages: false
+    custom_tasks:
+      - name: Include IOMetrics Visualizer API specific plugins
+        include_tasks:
+          file: "{{ software_discovery__custom_tasks_definition_files_path }}/iometrics_visualizer_api.yaml"
+
+  - name: IOMetrics SLAtor
+    cmd_regexp: "/iometrics-slator"
+    process_type: parent
+    return_children: true
+    return_packages: false
+
+  - name: Dynatrace Server
+    cmd_regexp: dtserve
+    process_type: parent
+    return_children: false
+    return_packages: false
+
+  - name: ElasticSearch
+    cmd_regexp: 'org\.elasticsearch\.bootstrap\.Elasticsearch'
+    pkg_regexp: '^elasticsearch'
+    process_type: parent
+    return_children: true
+    return_packages: true
+
+  - name: InfluxDB
+    cmd_regexp: '^influxd'
+    pkg_regexp: '^influxdb'
+    process_type: parent
+    return_children: false
+    return_packages: true
+
+  - name: Logstash
+    cmd_regexp: 'org\.logstash\.Logstash'
+    pkg_regexp: 'logstash'
+    process_type: parent
+    return_children: false
+    return_packages: true
+
+  - name: Memcached
+    cmd_regexp: '^memcached'
+    pkg_regexp: '^memcached'
+    process_type: parent
+    return_children: false
+    return_packages: true
+
+  - name: Telegraf
+    cmd_regexp: '/usr/bin/telegraf'
+    pkg_regexp: 'telegraf|iometrics-agent'
+    process_type: parent
+    return_children: false
+    return_packages: true
+
+  - name: Nagios NRPE
+    cmd_regexp: nagios/nrpe
+    process_type: parent
+    pkg_regexp: nagios
+    return_children: false
+    return_packages: true
+
+  - name: Hobbit
+    cmd_regexp: hobbitlaunch
+    pkg_regexp: hobbit
+    process_type: parent
+    return_children: false
+    return_packages: true
+
+  - name: MongoDB
+    cmd_regexp: mongod
+    pkg_regexp: mongodb-org-server$
+    process_type: parent
+    return_children: false
+    return_packages: true
+
+  - name: chrony ntp service
+    cmd_regexp: chronyd
+    pkg_regexp: ^chrony
+    process_type: parent
+    return_children: false
+    return_packages: true
+
+  - name: Apache ActiveMQ
+    cmd_regexp: activemq\.ja
+    pkg_regexp: activemq
+    process_type: parent
+    return_children: false
+    return_packages: true
+    custom_tasks:
+      - name: Include Apache ActiveMQ specific plugins
+        include_tasks:
+          file: "{{ software_discovery__custom_tasks_definition_files_path }}/apache_activemq.yaml"
+
+  - name: Docker
+    cmd_regexp: dockerd
+    pkg_regexp: docker
+    process_type: parent
+    return_children: false
+    return_packages: true
+    custom_tasks:
+      - name: Include Docker specific plugins
+        include_tasks:
+          file: "{{ software_discovery__custom_tasks_definition_files_path }}/docker.yaml"
+
+  - name: Panda Security Protection
+    cmd_regexp: ".*PSUAService.exe"
+    pkg_regexp: "Panda"
+    process_type: parent
+    return_children: false
+    return_packages: false
+
+  - name: Sybase IQ
+    cmd_regexp: "iqsrv"
+    process_type: parent
+    return_children: false
+    return_packages: false
+
+  - name: Sybase Replication Server
+    cmd_regexp: "repserver"
+    process_type: parent
+    return_children: false
+    return_packages: false
+
+  - name: Sybase ASE
+    cmd_regexp: "dataserver"
+    process_type: parent
+    return_children: false
+    return_packages: false

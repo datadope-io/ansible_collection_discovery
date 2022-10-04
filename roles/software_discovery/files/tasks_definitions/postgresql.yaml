@@ -1,0 +1,350 @@
+#
+# Fields added/modified from standard fields using this plugins file
+# ------------------------------------------------------------------
+# listening_ports: Obtained from processes and ports, also from command line and configuration
+# bin_file: path to the postgres executable file. Obtained from command line
+# conf_file: path to the postresql.conf file. Obtained form command line
+# conf_path: configuration files location obtained from command line
+# data_path: path to postgres data directory. Obtained from data_directory configuration with fallback to conf_path.
+# configuration: contents of configuration file as dict(str, str)
+# version:
+#   - added file type using PG_VERSION file in data directory
+#   - added active type executing bin_file --version
+# active_databases: list of databases obtained from child processes.
+# databases: list of databases obtained connecting to database and querying for database list.
+#
+# Input vars
+# ----------
+# connect_with_users: List of dicts with user information to try to connect to postgres.
+#   Each dict must have a key 'username' and may have a key 'password'.
+# ignore_databases: list of databases that will not be included in active_databases or databases fields.
+# sql_connection_extra_params: parameters to add to the psql connection string
+#
+# Notes
+# -----
+# Connection to database will be tried with:
+#   - user in pg_user var,
+#   - user from pg_hba.conf file
+#   - user 'postgres'
+#   - postgres process user using su
+#   - user 'postgres' using su
+#
+---
+- name: Read process environment
+  read_environment_for_process:
+    pid: << __instance__.process.pid >>
+  register: environment
+- name: Run cmdline related tasks
+  block:
+    - name: Attempt to extract conf path
+      set_instance_fact:
+        _conf_path: "<< __instance__.process.cmdline | regex_search('-D\\s+\"?([^\\s\"]+)', '\\1') | first >>"
+      ignore_errors: yes
+    - name: Extract binary file
+      block:
+        - name: Attempt to extract binary file
+          set_instance_fact:
+            _raw_bin_file: "<< __instance__.process.cmdline | regex_search('^\\s*(.+/bin/\\w+)', ignorecase=True) >>"
+        - name: Other try to extract binary file
+          block:
+            - name: Try other expression for binary file
+              set_instance_fact:
+                _bin_file: << __instance__.process.cmdline | regex_search('^\s*(\S+)', ignorecase=True) >>
+            - name: Look for executable
+              block:
+                - name: Run which
+                  which:
+                    name: << __instance__._bin_file >>
+                    paths: << environment.parsed.PATH | datadope.discovery.split(':') >>
+                  register: result
+                  when:
+                    - environment.parsed.PATH is defined
+                    - __instance__._bin_file | length > 0
+                - name: Store bin_file
+                  set_instance_fact:
+                    _raw_bin_file: << result.file.path >>
+                  when: result is not failed
+              when: "'/' not in __instance__._bin_file"
+            - name: Check if it is executable
+              block:
+                - name: Get file permissions
+                  stat:
+                    path: << __instance__._bin_file >>
+                  register: result
+                - name: Store bin_file
+                  set_instance_fact:
+                    _raw_bin_file: << result.stat.path >>
+                  when:
+                    - result is not failed
+                    - result.stat.exists
+                    - result.stat.executable
+              when: "'/' in __instance__._bin_file"
+            - del_instance_fact:
+                - _bin_file
+          when: __instance__._raw_bin_file | length == 0
+    - name: Add bin file to files dict
+      add_file_info:
+        path: "<< __instance__._bin_file | default(__instance__._raw_bin_file) >>"
+        type: binary
+        subtype: generic
+    - name: Run port extraction (1/2)
+      block:
+        - name: Extract port
+          set_instance_fact:
+            _port: "<< __instance__.process.cmdline | regex_search('-p\\s+(\\d+)', '\\1') | first >>"
+        - name: Register extracted port if needed
+          set_instance_fact:
+            listening_ports: "<< __instance__.listening_ports + [__instance__._port | int] >> "
+          when:
+            - __instance__._port is defined
+            - __instance__._port | int not in __instance__.listening_ports
+        - name: Remove temporary variables
+          del_instance_fact:
+            - _port
+      ignore_errors: yes
+    - name: Run port extraction (2/2)
+      block:
+        - name: Extract port
+          set_instance_fact:
+            _port: "<< __instance__.process.cmdline | regex_search('c\\s+port=(\\d+)', '\\1') | first >>"
+          ignore_errors: yes
+        - name: Register extracted port if needed
+          set_instance_fact:
+            listening_ports: "<< __instance__.listening_ports + [__instance__._port | int] >> "
+          when:
+            - __instance__._port is defined
+            - __instance__._port | int not in __instance__.listening_ports
+        - name: Remove temporary variables
+          del_instance_fact:
+            - _port
+- name: Read conf_path from environment var PGDATA
+  block:
+    - name: store PGDATA
+      set_instance_fact:
+        _conf_path: << environment.parsed.PGDATA >>
+      when:
+        - environment is not failed
+        - environment.parsed.PGDATA is defined
+  when:
+    - __instance__._conf_path is not defined
+    - __instance__.process.pid is defined
+- name: Read config file from conf path and store relevant information
+  block:
+    - name: Set configuration file path
+      set_instance_fact:
+        _conf_file: "<< (__instance__._conf_path, 'postgresql.conf') | datadope.discovery.path_join >>"
+    - name: Add conf file to files dict
+      add_file_info:
+        path: "<< __instance__._conf_path >>"
+        name: "<< __instance__._conf_file | basename>>"
+        type: conf
+        subtype: generic
+    - name: Read configuration file as dict
+      read_remote_file:
+        file_path: "<< __instance__._conf_file >>"
+        parser: key_value
+        parser_params:
+          separators:
+            - '='
+            - ' '
+      register: result
+    - name: Store configuration
+      set_instance_fact:
+        configuration: "<< result.parsed >>"
+      when:
+        - result is not failed
+    - name: Register port if available
+      set_instance_fact:
+        listening_ports: "<< __instance__.listening_ports + [result.parsed.port | int] >> "
+      when:
+        - result is not failed
+        - result.parsed.port is defined
+        - result.parsed.port | int not in __instance__.listening_ports
+    - name: Update data_path using configuration data_directory value
+      set_instance_fact:
+        _data_path: "<< result.parsed.data_directory | default(__instance__._conf_path)>>"
+    - name: Add data path to files
+      add_file_info:
+        path: "<< __instance__._data_path >>"
+        type: data
+        subtype: generic
+  ignore_errors: yes
+  when: __instance__._conf_path is defined
+- name: Get Postgres version
+  block:
+    - name: Extract from file
+      block:
+        - name: Add Version from file
+          block:
+            - name: Read VERSION file from path
+              read_remote_file:
+                file_path: >-
+                  << (__instance__._data_path, 'PG_VERSION') | datadope.discovery.path_join >>
+              register: result
+            - name: Add version from file to the instance
+              add_version_info:
+                version_type: "file"
+                version_number: "<< result.content | regex_search('(\\d+(?:\\.\\d+)*)', '\\1') | first >>"
+              when: result is not failed
+              ignore_errors: yes
+      when: __instance__._data_path is defined
+    - name: Extract from binary
+      block:
+        - name: Run command version
+          run_command:
+            argv:
+              - << __instance__._raw_bin_file >>
+              - --version
+          register: result
+        - name: Add version to the instance data
+          add_version_info:
+            version_type: "active"
+            version_number: "<< result.stdout | regex_search('\\(PostgreSQL\\)\\s+(\\d+\\.\\d+(?:\\.\\d+)*)', '\\1') | first >>"
+          when: result is not failed
+          ignore_errors: yes
+      when:
+        - __instance__._raw_bin_file is defined
+- name: Get active databases
+  block:
+    - name: Get from child processes cmdline
+      set_instance_fact:
+        _database: "<< __item__.cmdline | regex_search(\"postgres: (?:data: )?\\S+ (.*?) .*(active|idle|idle in transaction|fastpath function call|disabled|idle in transaction \\(aborted\\))$\", '\\1') | first >>"
+      ignore_errors: true
+    - name: Store active database if needed
+      set_instance_fact:
+        _active_databases: "<< __instance__._active_databases | default([]) + [__instance__._database] >>"
+      when:
+        - __instance__._database is defined
+        - __instance__._database not in  __instance__._active_databases | default([])
+    - name: Remove temporary variables
+      del_instance_fact:
+        - _database
+  loop: "<< __instance__.process.children >>"
+- name: Remove ignored active databases
+  set_instance_fact:
+    _active_databases: "<< __instance__._active_databases | default([]) | difference(ignore_databases) >>"
+- name: Add active databases to extra data
+  set_instance_fact:
+    extra_data: "<< (__instance__.extra_data | default({})) | combine({
+    'active_databases': __instance__._active_databases
+    }) >>"
+- name: Get postgres user
+  block:
+    - name: Get from pg_hba
+      block:
+        - name: Set pg_hba file path
+          set_instance_fact:
+            _pg_hba_path: "<< (__instance__._conf_path, 'pg_hba.conf') | datadope.discovery.path_join >>"
+        - name: Read pg_hba file from path
+          read_remote_file:
+            file_path: "<< __instance__._pg_hba_path >>"
+          register: result
+        - name: Get user if available
+          set_instance_fact:
+            _hba_user: >-
+              << result.content | regex_search('^\s*local\s+all\s+(\S+)\s+(?:\S+\s+)?trust', '\1', multiline=True) | first >>
+          when: result is not failed
+          ignore_errors: yes
+        - name: Add user if needed
+          set_instance_fact:
+            _pg_hba_user: "<< __instance__._hba_user >>"
+          when:
+            - __instance__._hba_user is defined
+            - __instance__._hba_user != "all"
+        - name: Remove temporary variables
+          del_instance_fact:
+            - _pg_hba_path
+            - _hba_user
+      ignore_errors: yes
+      when: __instance__._data_path is defined
+    - name: Get from process owner
+      set_instance_fact:
+        _pg_process_user: "<< __instance__.process.user >>"
+      ignore_errors: True
+- name: Get postgres databases
+  block:
+    - name: Prepare users to connect
+      block:
+        - name: Copy provided users
+          set_instance_fact:
+            _connect_with_users: << connect_with_users >>
+        - name: Add user from environment
+          set_instance_fact:
+            _connect_with_users: "<< __instance__._connect_with_users + [{'username': environment.parsed.POSTGRES_USER, 'password': environment.parsed.POSTGRES_PASSWORD | default('')}] >>"
+          when: environment.parsed.POSTGRES_USER is defined
+        - name: Add users from pg_hba, pg process and 'postgres'
+          set_instance_fact:
+            _connect_with_users: >-
+              << __instance__._connect_with_users + [_user_info] >>
+          when:
+            - _user_info.username != 'ignore'
+            - __instance__._connect_with_users | selectattr('username', 'equalto', _user_info.username) | list | count == 0
+          loop:
+            - username: << __instance__._pg_hba_user | default('ignore') >>
+            - username: << ((__instance__._pg_process_user | default(1) | int) == 0) | ternary(__instance__._pg_process_user, 'ignore') >>
+            - username: 'postgres'
+              password: 'postgres'
+          loop_control:
+            loop_var: _user_info
+    - name: Iterate databases
+      block:
+        - name: Iterate users
+          block:
+            - name: Iterate commands
+              block:
+                - name: Run command to get databases
+                  run_command:
+                    cmd: << __db_command__ >>
+                  register: result
+                  timeout: 5
+                  environment:
+                    PGPASSWORD: << __user_info__.password | default('') >>
+                  ignore_errors: yes
+                - name: Store databases
+                  set_instance_fact:
+                    _databases: '<< result.stdout_lines >>'
+                  when: result is defined and result is not failed
+              when: __instance__._databases is not defined
+              loop:
+                - >-
+                    psql -U << __user_info__.username >> -d << __db_instance__ >> -w -t -A
+                    -c 'select datname from pg_database;' -p << pg_port >>
+                    << sql_connection_extra_params | default('') >>
+                - >-
+                    su - << __user_info__.username >>
+                    -c 'psql -d << __db_instance__ >> -w -t -A -c "select datname from pg_database;" -p << pg_port >>
+                    << sql_connection_extra_params | default('') >>'
+              loop_control:
+                loop_var: __db_command__
+          when: __instance__._databases is not defined
+          loop: << __instance__._connect_with_users >>
+          loop_control:
+            loop_var: __user_info__
+      when: __instance__._databases is not defined
+      loop: << ['postgres'] + __instance__._active_databases | default([]) >>
+      loop_control:
+        loop_var: __db_instance__
+    - name: Remove temporary variables
+      del_instance_fact:
+        - _pg_hba_user
+        - _pg_process_user
+        - _connect_with_users
+        - _active_databases
+        - _raw_bin_file
+        - _conf_file
+        - _conf_path
+        - _data_path
+  loop: "<< (__instance__.listening_ports | length == 0) | ternary([5432], __instance__.listening_ports) >>"
+  loop_control:
+    loop_var: pg_port
+- name: Remove ignored databases
+  set_instance_fact:
+    _databases: "<< __instance__._databases | default([]) | difference(ignore_databases) >>"
+- name: Add databases to extra data
+  set_instance_fact:
+    extra_data: "<< (__instance__.extra_data | default({})) | combine({
+    'databases': __instance__._databases
+    }) >>"
+- name: Remove databases tmp var
+  del_instance_fact:
+  - _databases

@@ -1,0 +1,132 @@
+# This file is part of Ansible
+
+# Copyright: (c) 2022, DataDope (@datadope-io)
+# GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
+---
+data_from_host: no
+
+postgres_software_list:
+  - name: PostgreSQL Database
+    cmd_regexp: "postgres:"
+    pkg_regexp: postgresql.*-server|postgresql-\d
+    docker_regexp: "postgres:"
+    process_type: child
+    return_children: true
+    custom_tasks:
+      - name: read file
+        read_remote_file:
+          file_path: /anything/test.txt
+        loop: "<< __instance__.listening_ports >>"
+        register: loop_output_port_<< __item__ >>_file
+      - print_var:
+          var: loop_output_port_<< __item__ >>_file
+      - name: If error, set fact
+        set_instance_fact:
+          loop_output:
+            port_5432:
+              file: "Prueba\n"
+        when: loop_output_port_5432_file.results[0] is failed
+      - name: set_instance_fact condition false
+        set_instance_fact:
+          should_not_exist: "A value"
+        when: 5433 in __instance__.listening_ports
+      - name: set_instance_fact condition true
+        set_instance_fact:
+          should_exist: "A value"
+        when: 5432 in __instance__.listening_ports
+      - name: set_instance_fact condition list true
+        set_instance_fact:
+          should_exist_as_list: "A value"
+        when:
+          - 5432 in __instance__.listening_ports
+          - __instance__.process.ppid == '1'
+      - name: get postgres version
+        block:
+          - name: get version using command
+            run_module:
+              command:
+                argv:
+                  - psql
+                  - '--version'
+            register: _temp_command
+          - name: adjust_version
+            add_version_info:
+              version_type: command
+              version_number: "<< __instance__._temp_command.stdout | regex_search('\\b([\\w|.-]+)$') >>"
+            when: _temp_command is not failed
+          - name: clean
+            del_instance_fact:
+              - _temp_command
+            when: __instance__._temp_command is defined
+        ignore_errors: yes
+      - name: block with loop
+        block:
+          - name: Add data using both loops
+            set_instance_fact:
+              block_with_loop: >
+                << (__instance__.block_with_loop | default({}) | combine({__outer__ + '_' + __inner__: 'the_value'})) >>
+            loop:
+              - inner_1
+              - inner_2
+            loop_control:
+              loop_var: __inner__
+        loop:
+          - outer_1
+          - outer_2
+        loop_control:
+          loop_var: __outer__
+      - name: block with when
+        block:
+          - name: Add data using both loops
+            set_instance_fact:
+              block_with_when: >
+                << (__instance__.block_with_when | default({}) | combine({'index_'+(__outer__ | string): 'the_value'})) >>
+        loop:
+          - 1
+          - 2
+          - 3
+        loop_control:
+          loop_var: __outer__
+        when: __outer__ < 3
+      - name: test include_tasks
+        include_tasks:
+          file: "{{ role_path }}/tasks/test_include_tasks.yaml"
+
+
+postgres_processes:
+  - cmdline: /usr/lib/systemd/systemd --switched-root --system --deserialize 21
+    pid: '1'
+    ppid: '0'
+  - cmdline: /usr/pgsql-11/bin/postmaster -D /var/lib/pgsql/11/data/
+    pid: '24895'
+    ppid: '1'
+  - cmdline: 'postgres: logger'
+    pid: '24898'
+    ppid: '24895'
+  - cmdline: 'postgres: checkpointer'
+    pid: '24900'
+    ppid: '24895'
+  - cmdline: 'postgres: background writer'
+    pid: '24901'
+    ppid: '24895'
+  - cmdline: 'postgres: walwriter'
+    pid: '24902'
+    ppid: '24895'
+  - cmdline: 'postgres: autovacuum launcher'
+    pid: '24903'
+    ppid: '24895'
+  - cmdline: 'postgres: stats collector'
+    pid: '24904'
+    ppid: '24895'
+  - cmdline: 'postgres: logical replication launcher'
+    pid: '24905'
+    ppid: '24895'
+
+postgres_ports:
+  - address: 127.0.0.1
+    name: postmaster
+    pid: 24895
+    port: 5432
+    protocol: tcp
+    stime: 'Fri Apr  8 01:14:02 2022'
+    user: postgres

@@ -1,0 +1,70 @@
+---
+- name: Load Distro and OS specific variables
+  include_vars: "{{ lookup('first_found', params) }}"
+  vars:
+    params:
+      files:
+        - "os/{{ ansible_distribution|lower }}.yml"
+        - "os/{{ ansible_os_family|lower }}.yml"
+        - main.yml
+      paths:
+        - 'vars'
+
+- name: Gather information for Unix-like systems
+  block:
+    - name: Read processes
+      datadope.discovery.process_facts: {}
+
+    - name: Read ports info for Linux systems
+      listen_ports_facts: {}
+      ignore_errors: yes
+      when: ansible_os_family | lower == 'linux'
+
+    - name: Read ports info for SunOS systems
+      datadope.discovery.sunos_listen_ports_facts: {}
+      ignore_errors: yes
+      when: ansible_os_family | lower == 'solaris'
+
+    - name: Read packages for Linux systems
+      package_facts: {}
+      ignore_errors: yes
+      when: ansible_os_family | lower == 'linux'
+
+    - name: Read dockers for Linux systems
+      include_role:
+        name: datadope.discovery.docker_containers
+      when: ansible_os_family | lower == 'linux'
+
+  become: yes
+  when: ansible_os_family | lower != 'windows'
+
+- name: Gather information for Windows systems
+  block:
+    - name: Read processes
+      datadope.discovery.win_process_facts: {}
+    - name: Read ports info
+      community.windows.win_listen_ports_facts: {}
+      ignore_errors: yes
+    - name: Read packages
+      datadope.discovery.win_package_facts: {}
+      ignore_errors: yes
+  when: ansible_os_family | lower == 'windows'
+
+# We need to include in ansible_facts software_list to be able to use it later with role_path var already replaced.
+- name: Store software definition
+  set_fact:
+    software_definitions: "{{ software_discovery__software_list }}"
+
+- name: Execute discovery
+  datadope.discovery.software_facts:
+    software_list: "{{ software_discovery__software_list }}"
+    include_software: "{{ software_discovery__include_software }}"
+    exclude_software: "{{ software_discovery__exclude_software }}"
+    processes: "{{ processes }}"
+    tcp_listen: "{{ tcp_listen | default([]) }}"
+    udp_listen: "{{ udp_listen | default([]) }}"
+    packages: "{{ packages | default({}) }}"
+    dockers: "{{ dockers | default({}) }}"
+    pre_tasks: "{{ software_discovery__pre_tasks }}"
+    post_tasks: "{{ software_discovery__post_tasks }}"
+...

@@ -1,0 +1,357 @@
+{
+  "tcp_listen": [
+    {
+      "address": "0.0.0.0",
+      "name": "sshd",
+      "pid": 1005,
+      "port": 22,
+      "protocol": "tcp",
+      "stime": "Fri May 21 08:55:20 2021",
+      "user": "root"
+    },
+    {
+      "address": "0.0.0.0",
+      "name": "postmaster",
+      "pid": 28694,
+      "port": 5432,
+      "protocol": "tcp",
+      "stime": "Mon Apr 18 15:03:42 2022",
+      "user": "postgres"
+    },
+    {
+      "address": "127.0.0.1",
+      "name": "master",
+      "pid": 1186,
+      "port": 25,
+      "protocol": "tcp",
+      "stime": "Fri May 21 08:55:20 2021",
+      "user": "root"
+    },
+    {
+      "address": "0.0.0.0",
+      "name": "docker-proxy",
+      "pid": 30674,
+      "port": 8443,
+      "protocol": "tcp",
+      "stime": "Mon Apr 18 15:33:41 2022",
+      "user": "root"
+    },
+    {
+      "address": "0.0.0.0",
+      "name": "",
+      "pid": 0,
+      "port": 46171,
+      "protocol": "tcp",
+      "stime": "",
+      "user": ""
+    },
+    {
+      "address": "0.0.0.0",
+      "name": "nginx:",
+      "pid": 23339,
+      "port": 443,
+      "protocol": "tcp",
+      "stime": "Tue Jun  1 17:04:40 2021",
+      "user": "root"
+    },
+    {
+      "address": "0.0.0.0",
+      "name": "python",
+      "pid": 28633,
+      "port": 8444,
+      "protocol": "tcp",
+      "stime": "Mon Apr 18 15:03:28 2022",
+      "user": "root"
+    },
+    {
+      "address": "0.0.0.0",
+      "name": "",
+      "pid": 0,
+      "port": 2049,
+      "protocol": "tcp",
+      "stime": "",
+      "user": ""
+    },
+    {
+      "address": "0.0.0.0",
+      "name": "nrpe",
+      "pid": 999,
+      "port": 5666,
+      "protocol": "tcp",
+      "stime": "Fri May 21 08:55:20 2021",
+      "user": "nrpe"
+    },
+    {
+      "address": "0.0.0.0",
+      "name": "redis-server",
+      "pid": 20064,
+      "port": 6378,
+      "protocol": "tcp",
+      "stime": "Tue May 25 11:00:31 2021",
+      "user": "polkitd"
+    },
+    {
+      "address": "0.0.0.0",
+      "name": "redis-server",
+      "pid": 20064,
+      "port": 6379,
+      "protocol": "tcp",
+      "stime": "Tue May 25 11:00:31 2021",
+      "user": "polkitd"
+    },
+    {
+      "address": "0.0.0.0",
+      "name": "rpcbind",
+      "pid": 47374,
+      "port": 111,
+      "protocol": "tcp",
+      "stime": "Fri Jul  9 14:12:03 2021",
+      "user": "rpc"
+    },
+    {
+      "address": "0.0.0.0",
+      "name": "rpc.mountd",
+      "pid": 47410,
+      "port": 20048,
+      "protocol": "tcp",
+      "stime": "Fri Jul  9 14:12:09 2021",
+      "user": "root"
+    },
+    {
+      "address": "0.0.0.0",
+      "name": "rpc.statd",
+      "pid": 47406,
+      "port": 53648,
+      "protocol": "tcp",
+      "stime": "Fri Jul  9 14:12:09 2021",
+      "user": "rpcuser"
+    },
+    {
+      "address": "0.0.0.0",
+      "name": "nginx:",
+      "pid": 23339,
+      "port": 80,
+      "protocol": "tcp",
+      "stime": "Tue Jun  1 17:04:40 2021",
+      "user": "root"
+    },
+    {
+      "address": "::",
+      "name": "sshd",
+      "pid": 1005,
+      "port": 22,
+      "protocol": "tcp",
+      "stime": "Fri May 21 08:55:20 2021",
+      "user": "root"
+    },
+    {
+      "address": "::1",
+      "name": "master",
+      "pid": 1186,
+      "port": 25,
+      "protocol": "tcp",
+      "stime": "Fri May 21 08:55:20 2021",
+      "user": "root"
+    },
+    {
+      "address": "::",
+      "name": "",
+      "pid": 0,
+      "port": 40957,
+      "protocol": "tcp",
+      "stime": "",
+      "user": ""
+    },
+    {
+      "address": "::",
+      "name": "",
+      "pid": 0,
+      "port": 2049,
+      "protocol": "tcp",
+      "stime": "",
+      "user": ""
+    },
+    {
+      "address": "::",
+      "name": "nrpe",
+      "pid": 999,
+      "port": 5666,
+      "protocol": "tcp",
+      "stime": "Fri May 21 08:55:20 2021",
+      "user": "nrpe"
+    },
+    {
+      "address": "::",
+      "name": "mariadbd",
+      "pid": 73979,
+      "port": 3306,
+      "protocol": "tcp",
+      "stime": "Tue May 25 15:30:13 2021",
+      "user": "mysql"
+    },
+    {
+      "address": "::",
+      "name": "rpcbind",
+      "pid": 47374,
+      "port": 111,
+      "protocol": "tcp",
+      "stime": "Fri Jul  9 14:12:03 2021",
+      "user": "rpc"
+    },
+    {
+      "address": "::",
+      "name": "rpc.mountd",
+      "pid": 47410,
+      "port": 20048,
+      "protocol": "tcp",
+      "stime": "Fri Jul  9 14:12:09 2021",
+      "user": "root"
+    },
+    {
+      "address": "::",
+      "name": "rpc.statd",
+      "pid": 47406,
+      "port": 47601,
+      "protocol": "tcp",
+      "stime": "Fri Jul  9 14:12:09 2021",
+      "user": "rpcuser"
+    }
+  ],
+  "udp_listen": [
+    {
+      "address": "0.0.0.0",
+      "name": "",
+      "pid": 0,
+      "port": 2049,
+      "protocol": "udp",
+      "stime": "",
+      "user": ""
+    },
+    {
+      "address": "0.0.0.0",
+      "name": "rpc.mountd",
+      "pid": 47410,
+      "port": 20048,
+      "protocol": "udp",
+      "stime": "Fri Jul  9 14:12:09 2021",
+      "user": "root"
+    },
+    {
+      "address": "0.0.0.0",
+      "name": "",
+      "pid": 0,
+      "port": 59970,
+      "protocol": "udp",
+      "stime": "",
+      "user": ""
+    },
+    {
+      "address": "0.0.0.0",
+      "name": "rpc.statd",
+      "pid": 47406,
+      "port": 60822,
+      "protocol": "udp",
+      "stime": "Fri Jul  9 14:12:09 2021",
+      "user": "rpcuser"
+    },
+    {
+      "address": "0.0.0.0",
+      "name": "rpcbind",
+      "pid": 47374,
+      "port": 111,
+      "protocol": "udp",
+      "stime": "Fri Jul  9 14:12:03 2021",
+      "user": "rpc"
+    },
+    {
+      "address": "127.0.0.1",
+      "name": "chronyd",
+      "pid": 719,
+      "port": 323,
+      "protocol": "udp",
+      "stime": "Fri May 21 08:55:20 2021",
+      "user": "chrony"
+    },
+    {
+      "address": "0.0.0.0",
+      "name": "rpcbind",
+      "pid": 47374,
+      "port": 909,
+      "protocol": "udp",
+      "stime": "Fri Jul  9 14:12:03 2021",
+      "user": "rpc"
+    },
+    {
+      "address": "127.0.0.1",
+      "name": "rpc.statd",
+      "pid": 47406,
+      "port": 942,
+      "protocol": "udp",
+      "stime": "Fri Jul  9 14:12:09 2021",
+      "user": "rpcuser"
+    },
+    {
+      "address": "::",
+      "name": "",
+      "pid": 0,
+      "port": 2049,
+      "protocol": "udp",
+      "stime": "",
+      "user": ""
+    },
+    {
+      "address": "::",
+      "name": "rpc.mountd",
+      "pid": 47410,
+      "port": 20048,
+      "protocol": "udp",
+      "stime": "Fri Jul  9 14:12:09 2021",
+      "user": "root"
+    },
+    {
+      "address": "::",
+      "name": "rpc.statd",
+      "pid": 47406,
+      "port": 42219,
+      "protocol": "udp",
+      "stime": "Fri Jul  9 14:12:09 2021",
+      "user": "rpcuser"
+    },
+    {
+      "address": "::",
+      "name": "",
+      "pid": 0,
+      "port": 42799,
+      "protocol": "udp",
+      "stime": "",
+      "user": ""
+    },
+    {
+      "address": "::",
+      "name": "rpcbind",
+      "pid": 47374,
+      "port": 111,
+      "protocol": "udp",
+      "stime": "Fri Jul  9 14:12:03 2021",
+      "user": "rpc"
+    },
+    {
+      "address": "::1",
+      "name": "chronyd",
+      "pid": 719,
+      "port": 323,
+      "protocol": "udp",
+      "stime": "Fri May 21 08:55:20 2021",
+      "user": "chrony"
+    },
+    {
+      "address": "::",
+      "name": "rpcbind",
+      "pid": 47374,
+      "port": 909,
+      "protocol": "udp",
+      "stime": "Fri Jul  9 14:12:03 2021",
+      "user": "rpc"
+    }
+  ]
+}

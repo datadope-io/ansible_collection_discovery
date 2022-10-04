@@ -1,0 +1,26 @@
+---
+- name: Read containers
+  community.docker.docker_host_info:
+    containers: yes
+  ignore_errors: yes
+  register: result
+
+- name: Process containers
+  block:
+    - name: Container info
+      community.docker.docker_container_info:
+        name: "{{ item.Id }}"
+      loop: "{{ result.containers }}"
+      when: result.containers|length > 0
+      register: loopresult
+
+    # Base docker key is needed since loopresult could be empty (no containers running in a docker instance)
+    - name: Define docker facts key
+      set_fact:
+        dockers: {'containers': []}
+
+    - name: List of containers
+      set_fact:
+        dockers: "{{ dockers | combine({'containers': dockers.containers | default([]) + [item.container]}) }}"
+      loop: "{{ loopresult.results | flatten(levels=1) }}"
+  when: result.failed == false

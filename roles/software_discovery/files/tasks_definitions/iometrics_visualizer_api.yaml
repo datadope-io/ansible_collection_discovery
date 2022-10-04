@@ -1,0 +1,4 @@
+- name: Skip software if it is not a real IOMetrics Visualizer API
+  set_instance_fact:
+    NOT_A_REAL_SOFTWARE_REMOVE_FROM_LIST: yes
+  when: "__instance__.docker is undefined or __instance__.docker.name != '/iometrics-visualizer-api'"

@@ -1,0 +1,40 @@
+- name: Search ports
+  find_ports:
+    filter:
+      pid: "<< __instance__.process.pid >>"
+      port: "5[0-9][0-9]1[34]"
+  register: ports
+
+- name: Loop ports
+  block:
+    - name: Set endpoint
+      set_instance_fact:
+        _endpoint: "<< ({'host': ((__item__.address == '0.0.0.0') | ternary('127.0.0.1', __item__.address)),
+         'port': __item__.port}) >>"
+    - name: Set endpoint special case
+      set_instance_fact:
+        _tls: no
+      when: (__item__.port | regex_search('(?:.(?!.))$',  ignorecase=True )) == '3'
+    - name: Set endpoint default
+      set_instance_fact:
+        _tls: yes
+      when: (__item__.port | regex_search('(?:.(?!.))$',  ignorecase=True )) != '3'
+  loop: "<< ports.result | default([]) >>"
+
+- name: Add endpoint to endpoints
+  add_endpoint_info:
+    uri: "<< ((__instance__._tls == True) | ternary('https:', 'http:')) + '//'
+     + __instance__._endpoint.host >>:<< __instance__._endpoint.port | string >>"
+  when:
+    - __instance__._endpoint is defined
+
+- name: Abort if not endpoint present
+  set_instance_fact:
+    NOT_A_REAL_SOFTWARE_REMOVE_FROM_LIST: yes
+  when:
+    - __instance__._endpoint is not defined
+
+- name: Remove tmp vars
+  del_instance_fact:
+    - _endpoint
+    - _tls

@@ -1,0 +1,8 @@
+---
+- name: Docker containers info (community module)
+  include_tasks: community.yml
+  when: docker_containers__docker_ps_all == false
+
+- name: Docker containers info (Docker CLI)
+  include_tasks: command.yml
+  when: docker_containers__docker_ps_all == true or dockers is undefined

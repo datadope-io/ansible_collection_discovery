@@ -1,0 +1,114 @@
+---
+- name: Extract Grafana environment
+  block:
+    - name: Search home from cmdline
+      set_instance_fact:
+        _home: "<< __instance__.process.cmdline | regex_search('.*--homepath=([\\w/]*).*', '\\1', ignorecase=True) | first >>"
+      ignore_errors: yes
+    - name: Search config from cmdline
+      set_instance_fact:
+        _conf_file: "<< __instance__.process.cmdline | regex_search('.*--config=([\\w\\/\\.]*)\\ .*', '\\1', ignorecase=True) | first >>"
+      ignore_errors: yes
+    - name: Search data from cmdline
+      set_instance_fact:
+        _data: "<< __instance__.process.cmdline | regex_search('.*paths.data=([\\w\\/\\.]*)\\ .*', '\\1', ignorecase=True) | first >>"
+      ignore_errors: yes
+    - name: Search logs from cmdline
+      set_instance_fact:
+        _logs: "<< __instance__.process.cmdline | regex_search('.*logs=([\\w\\/\\.]*)\\ .*', '\\1', ignorecase=True) | first >>"
+      ignore_errors: yes
+
+- name: Extract port from config file
+  block:
+    - name: Check config file
+      stat:
+        path: "<< __instance__._conf_file >>"
+      register: conf_file
+    - name: Get port
+      block:
+        - name: Read config file
+          read_remote_file:
+            file_path: "<< __instance__._conf_file >>"
+            parser: key_value
+            parser_params:
+              comment_delimiters:
+                - "#"
+                - "["
+          register: result
+        - name: Search port in config file
+          set_instance_fact:
+            listening_ports: << (__instance__.listening_ports + [result.parsed.http_port | int]) | unique >>
+          when: result.parsed.http_port is defined
+      ignore_errors: true
+      when:
+        - conf_file is not failed
+        - conf_file.stat.exists
+        - conf_file.stat.readable
+    - name: Save config file
+      add_file_info:
+        path: '<<__instance__._conf_file | dirname>>'
+        name: '<<__instance__._conf_file | basename>>'
+        type: 'config'
+        subtype: 'generic'
+  when: __instance__._conf_file is defined
+
+- name: Check bin and save version
+  block:
+    - name: Check with bin
+      stat:
+        path: "<< __instance__._home >>/bin/grafana-server"
+      register: dir
+      ignore_errors: yes
+    - name: Extract version executing grafana server
+      block:
+        - name: Get grafana version
+          run_command:
+            argv:
+              - "<< dir.stat.path >>"
+              - "-v"
+          register: version
+        - name: Set grafana version
+          add_version_info:
+            version_type: command
+            version_number: "<< version.stdout | regex_search('Version\\ ([\\d\\.]*)\\ ', '\\1', multiline=True, dotall=true, i=true) | first>>"
+          when: version.stdout is defined
+      when:
+        - dir is not failed
+        - dir.stat.exists
+        - dir.stat.executable
+  when: __instance__._home is defined
+
+- name: Check and save home
+  block:
+  - name: Check with bin
+    stat:
+      path: "<< __instance__._home >>/bin/grafana-server"
+    register: dir
+  - name: Save home file
+    add_file_info:
+      path: '<<__instance__._home>>'
+      type: 'home'
+      subtype: 'generic'
+  when: __instance__._home is defined
+
+- name: Save home file
+  add_file_info:
+    path: '<<__instance__._data>>'
+    type: 'data'
+    subtype: 'generic'
+  when: __instance__._data is defined
+
+- name: Save log file
+  add_file_info:
+    path: '<<__instance__._logs>>'
+    type: 'log'
+    subtype: 'generic'
+  when: __instance__._data is defined
+
+- name: Remove temporary vars
+  del_instance_fact:
+    - _conf_file
+    - _home
+    - _data
+    - _logs
+...

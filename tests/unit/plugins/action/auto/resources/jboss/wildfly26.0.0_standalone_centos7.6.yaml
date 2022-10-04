@@ -1,0 +1,6587 @@
+mocked_plugin_tasks:
+  "Run entry regex":
+    calls:
+      - run
+      - expected_exception:
+          message: "'NoneType' object is not iterable"
+      - expected_exception:
+          message: "'NoneType' object is not iterable"
+      - run
+      - run
+      - run
+      - expected_exception:
+          message: "'NoneType' object is not iterable"
+      - expected_exception:
+          message: "'NoneType' object is not iterable"
+      - expected_exception:
+          message: "'NoneType' object is not iterable"
+      - run
+      - run
+      - run
+  "Check if version file is accessible":
+    expected_args:
+      path: "/opt/wildfly/version.txt"
+      follow: false
+      get_attributes: true
+      get_mime: true
+      in_docker: true
+    plugin_result:
+      failed: true
+  "Try to get version (2/6)":
+    expected_exception:
+      message: "'NoneType' object is not iterable"
+  "Try to get version (3/6)":
+    expected_exception:
+      message: "'NoneType' object is not iterable"
+  "Try to get version (4/6)":
+    expected_exception:
+      message: "'NoneType' object is not iterable"
+  "Check if jboss_cmd is accessible":
+    expected_args:
+      path: "/opt/wildfly/bin/standalone.sh"
+      follow: false
+      get_attributes: true
+      get_mime: true
+      in_docker: true
+    plugin_result:
+      failed: false
+  "Run command if jboss_cmd is accessible":
+    expected_args:
+      argv: null
+      cmd: "/opt/wildfly/bin/standalone.sh -V"
+      in_docker: true
+    plugin_result:
+      failed: false
+      stdout: |-
+        =========================================================================
+
+          JBoss Bootstrap Environment
+        
+          JBOSS_HOME: /opt/wildfly
+        
+          JAVA: java
+        
+          JAVA_OPTS:  -server -Xms64m -Xmx512m -XX:MetaspaceSize=96M -XX:MaxMetaspaceSize=256m -Djava.net.preferIPv4Stack=true -Djboss.modules.system.pkgs=org.jboss.byteman -Djava.awt.headless=true 
+        
+        =========================================================================
+        
+        \u001b[0m00:31:53,215 INFO  [org.jboss.modules] (main) JBoss Modules version 2.0.0.Final
+        \u001b[0mWildFly Full 26.0.0.Final (WildFly Core 18.0.0.Final)
+  "Check if logging_conf_file is accessible":
+    expected_args:
+      path: "/opt/wildfly/standalone/configuration/logging.properties"
+      follow: false
+      get_attributes: true
+      get_mime: true
+      in_docker: true
+    plugin_result:
+      failed: false
+  "Read logging_conf_file if accessible":
+    expected_args:
+      delegate_reading: false
+      file_path: "/opt/wildfly/standalone/configuration/logging.properties"
+      in_docker: true
+      parser: null
+      parser_params: null
+    plugin_result:
+      failed: false
+      content: |-
+        # Note this file has been generated and will be overwritten if a
+        # logging subsystem has been defined in the XML configuration.
+
+
+        # Additional loggers to configure (the root logger is always configured)
+        loggers=sun.rmi,io.jaegertracing.Configuration,org.jboss.as.config,com.arjuna
+
+        logger.level=INFO
+        logger.handlers=FILE,CONSOLE
+
+        logger.sun.rmi.level=WARN
+        logger.sun.rmi.useParentHandlers=true
+
+        logger.io.jaegertracing.Configuration.level=WARN
+        logger.io.jaegertracing.Configuration.useParentHandlers=true
+
+        logger.org.jboss.as.config.level=DEBUG
+        logger.org.jboss.as.config.useParentHandlers=true
+
+        logger.com.arjuna.level=WARN
+        logger.com.arjuna.useParentHandlers=true
+
+        handler.CONSOLE=org.jboss.logmanager.handlers.ConsoleHandler
+        handler.CONSOLE.level=INFO
+        handler.CONSOLE.formatter=COLOR-PATTERN
+        handler.CONSOLE.properties=autoFlush,target
+        handler.CONSOLE.autoFlush=true
+        handler.CONSOLE.target=SYSTEM_OUT
+
+        handler.FILE=org.jboss.logmanager.handlers.PeriodicRotatingFileHandler
+        handler.FILE.level=ALL
+        handler.FILE.formatter=PATTERN
+        handler.FILE.properties=autoFlush,append,fileName,suffix
+        handler.FILE.constructorProperties=fileName,append
+        handler.FILE.autoFlush=true
+        handler.FILE.append=true
+        handler.FILE.fileName=/opt/wildfly/standalone/log/server.log
+        handler.FILE.suffix=.yyyy-MM-dd
+
+        formatter.PATTERN=org.jboss.logmanager.formatters.PatternFormatter
+        formatter.PATTERN.properties=pattern
+        formatter.PATTERN.pattern=%d{yyyy-MM-dd HH\\:mm\\:ss,SSS} %-5p [%c] (%t) %s%e%n
+
+        formatter.COLOR-PATTERN=org.jboss.logmanager.formatters.PatternFormatter
+        formatter.COLOR-PATTERN.properties=pattern
+        formatter.COLOR-PATTERN.pattern=%K{level}%d{HH\\:mm\\:ss,SSS} %-5p [%c] (%t) %s%e%n
+
+  "Check if standalone_xml_file is accessible":
+    expected_args:
+      path: "/opt/wildfly/standalone/configuration/standalone.xml"
+      follow: false
+      get_attributes: true
+      get_mime: true
+      in_docker: true
+    plugin_result:
+      failed: false
+  "Read standalone_xml_file":
+    expected_args:
+      delegate_reading: false
+      file_path: "/opt/wildfly/standalone/configuration/standalone.xml"
+      in_docker: true
+      parser: "xml"
+      parser_params: null
+    plugin_result:
+      failed: false
+      parsed: {
+        "server": {
+          "attr-xmlns": "urn:jboss:domain:19.0",
+          "extensions": {
+            "extension": [
+              {
+                "attr-module": "org.jboss.as.clustering.infinispan"
+              },
+              {
+                "attr-module": "org.jboss.as.connector"
+              },
+              {
+                "attr-module": "org.jboss.as.deployment-scanner"
+              },
+              {
+                "attr-module": "org.jboss.as.ee"
+              },
+              {
+                "attr-module": "org.jboss.as.ejb3"
+              },
+              {
+                "attr-module": "org.jboss.as.jaxrs"
+              },
+              {
+                "attr-module": "org.jboss.as.jdr"
+              },
+              {
+                "attr-module": "org.jboss.as.jmx"
+              },
+              {
+                "attr-module": "org.jboss.as.jpa"
+              },
+              {
+                "attr-module": "org.jboss.as.jsf"
+              },
+              {
+                "attr-module": "org.jboss.as.logging"
+              },
+              {
+                "attr-module": "org.jboss.as.mail"
+              },
+              {
+                "attr-module": "org.jboss.as.naming"
+              },
+              {
+                "attr-module": "org.jboss.as.pojo"
+              },
+              {
+                "attr-module": "org.jboss.as.remoting"
+              },
+              {
+                "attr-module": "org.jboss.as.sar"
+              },
+              {
+                "attr-module": "org.jboss.as.transactions"
+              },
+              {
+                "attr-module": "org.jboss.as.webservices"
+              },
+              {
+                "attr-module": "org.jboss.as.weld"
+              },
+              {
+                "attr-module": "org.wildfly.extension.batch.jberet"
+              },
+              {
+                "attr-module": "org.wildfly.extension.bean-validation"
+              },
+              {
+                "attr-module": "org.wildfly.extension.clustering.web"
+              },
+              {
+                "attr-module": "org.wildfly.extension.core-management"
+              },
+              {
+                "attr-module": "org.wildfly.extension.discovery"
+              },
+              {
+                "attr-module": "org.wildfly.extension.ee-security"
+              },
+              {
+                "attr-module": "org.wildfly.extension.elytron"
+              },
+              {
+                "attr-module": "org.wildfly.extension.elytron-oidc-client"
+              },
+              {
+                "attr-module": "org.wildfly.extension.health"
+              },
+              {
+                "attr-module": "org.wildfly.extension.io"
+              },
+              {
+                "attr-module": "org.wildfly.extension.metrics"
+              },
+              {
+                "attr-module": "org.wildfly.extension.microprofile.config-smallrye"
+              },
+              {
+                "attr-module": "org.wildfly.extension.microprofile.jwt-smallrye"
+              },
+              {
+                "attr-module": "org.wildfly.extension.microprofile.opentracing-smallrye"
+              },
+              {
+                "attr-module": "org.wildfly.extension.request-controller"
+              },
+              {
+                "attr-module": "org.wildfly.extension.security.manager"
+              },
+              {
+                "attr-module": "org.wildfly.extension.undertow"
+              }
+            ]
+          },
+          "management": {
+            "audit-log": {
+              "formatters": {
+                "json-formatter": {
+                  "attr-name": "json-formatter"
+                }
+              },
+              "handlers": {
+                "file-handler": {
+                  "attr-name": "file",
+                  "attr-formatter": "json-formatter",
+                  "attr-path": "audit-log.log",
+                  "attr-relative-to": "jboss.server.data.dir"
+                }
+              },
+              "logger": {
+                "attr-log-boot": "true",
+                "attr-log-read-only": "false",
+                "attr-enabled": "false",
+                "handlers": {
+                  "handler": {
+                    "attr-name": "file"
+                  }
+                }
+              }
+            },
+            "management-interfaces": {
+              "http-interface": {
+                "attr-http-authentication-factory": "management-http-authentication",
+                "http-upgrade": {
+                  "attr-enabled": "true",
+                  "attr-sasl-authentication-factory": "management-sasl-authentication"
+                },
+                "socket-binding": {
+                  "attr-http": "management-http"
+                }
+              }
+            },
+            "access-control": {
+              "attr-provider": "simple",
+              "role-mapping": {
+                "role": {
+                  "attr-name": "SuperUser",
+                  "include": {
+                    "user": {
+                      "attr-name": "$local"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "profile": {
+            "subsystem": [
+              {
+                "attr-xmlns": "urn:jboss:domain:logging:8.0",
+                "console-handler": {
+                  "attr-name": "CONSOLE",
+                  "level": {
+                    "attr-name": "INFO"
+                  },
+                  "formatter": {
+                    "named-formatter": {
+                      "attr-name": "COLOR-PATTERN"
+                    }
+                  }
+                },
+                "periodic-rotating-file-handler": {
+                  "attr-name": "FILE",
+                  "attr-autoflush": "true",
+                  "formatter": {
+                    "named-formatter": {
+                      "attr-name": "PATTERN"
+                    }
+                  },
+                  "file": {
+                    "attr-relative-to": "jboss.server.log.dir",
+                    "attr-path": "server.log"
+                  },
+                  "suffix": {
+                    "attr-value": ".yyyy-MM-dd"
+                  },
+                  "append": {
+                    "attr-value": "true"
+                  }
+                },
+                "logger": [
+                  {
+                    "attr-category": "com.arjuna",
+                    "level": {
+                      "attr-name": "WARN"
+                    }
+                  },
+                  {
+                    "attr-category": "io.jaegertracing.Configuration",
+                    "level": {
+                      "attr-name": "WARN"
+                    }
+                  },
+                  {
+                    "attr-category": "org.jboss.as.config",
+                    "level": {
+                      "attr-name": "DEBUG"
+                    }
+                  },
+                  {
+                    "attr-category": "sun.rmi",
+                    "level": {
+                      "attr-name": "WARN"
+                    }
+                  }
+                ],
+                "root-logger": {
+                  "level": {
+                    "attr-name": "INFO"
+                  },
+                  "handlers": {
+                    "handler": [
+                      {
+                        "attr-name": "CONSOLE"
+                      },
+                      {
+                        "attr-name": "FILE"
+                      }
+                    ]
+                  }
+                },
+                "formatter": [
+                  {
+                    "attr-name": "PATTERN",
+                    "pattern-formatter": {
+                      "attr-pattern": "%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p [%c] (%t) %s%e%n"
+                    }
+                  },
+                  {
+                    "attr-name": "COLOR-PATTERN",
+                    "pattern-formatter": {
+                      "attr-pattern": "%K{level}%d{HH:mm:ss,SSS} %-5p [%c] (%t) %s%e%n"
+                    }
+                  }
+                ]
+              },
+              {
+                "attr-xmlns": "urn:jboss:domain:batch-jberet:2.0",
+                "default-job-repository": {
+                  "attr-name": "in-memory"
+                },
+                "default-thread-pool": {
+                  "attr-name": "batch"
+                },
+                "job-repository": {
+                  "attr-name": "in-memory",
+                  "in-memory": null
+                },
+                "thread-pool": {
+                  "attr-name": "batch",
+                  "max-threads": {
+                    "attr-count": "10"
+                  },
+                  "keepalive-time": {
+                    "attr-time": "30",
+                    "attr-unit": "seconds"
+                  }
+                }
+              },
+              {
+                "attr-xmlns": "urn:jboss:domain:bean-validation:1.0"
+              },
+              {
+                "attr-xmlns": "urn:jboss:domain:core-management:1.0"
+              },
+              {
+                "attr-xmlns": "urn:jboss:domain:datasources:6.0",
+                "datasources": {
+                  "datasource": {
+                    "attr-jndi-name": "java:jboss/datasources/ExampleDS",
+                    "attr-pool-name": "ExampleDS",
+                    "attr-enabled": "true",
+                    "attr-use-java-context": "true",
+                    "attr-statistics-enabled": "${wildfly.datasources.statistics-enabled:${wildfly.statistics-enabled:false}}",
+                    "connection-url": "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE",
+                    "driver": "h2",
+                    "security": {
+                      "user-name": "sa",
+                      "password": "sa"
+                    }
+                  },
+                  "drivers": {
+                    "driver": {
+                      "attr-name": "h2",
+                      "attr-module": "com.h2database.h2",
+                      "xa-datasource-class": "org.h2.jdbcx.JdbcDataSource"
+                    }
+                  }
+                }
+              },
+              {
+                "attr-xmlns": "urn:jboss:domain:deployment-scanner:2.0",
+                "deployment-scanner": {
+                  "attr-path": "deployments",
+                  "attr-relative-to": "jboss.server.base.dir",
+                  "attr-scan-interval": "5000",
+                  "attr-runtime-failure-causes-rollback": "${jboss.deployment.scanner.rollback.on.failure:false}"
+                }
+              },
+              {
+                "attr-xmlns": "urn:jboss:domain:discovery:1.0"
+              },
+              {
+                "attr-xmlns": "urn:jboss:domain:distributable-web:2.0",
+                "attr-default-session-management": "default",
+                "attr-default-single-sign-on-management": "default",
+                "infinispan-session-management": {
+                  "attr-name": "default",
+                  "attr-cache-container": "web",
+                  "attr-granularity": "SESSION",
+                  "local-affinity": null
+                },
+                "infinispan-single-sign-on-management": {
+                  "attr-name": "default",
+                  "attr-cache-container": "web",
+                  "attr-cache": "sso"
+                },
+                "local-routing": null
+              },
+              {
+                "attr-xmlns": "urn:jboss:domain:ee:6.0",
+                "spec-descriptor-property-replacement": "false",
+                "concurrent": {
+                  "context-services": {
+                    "context-service": {
+                      "attr-name": "default",
+                      "attr-jndi-name": "java:jboss/ee/concurrency/context/default",
+                      "attr-use-transaction-setup-provider": "true"
+                    }
+                  },
+                  "managed-thread-factories": {
+                    "managed-thread-factory": {
+                      "attr-name": "default",
+                      "attr-jndi-name": "java:jboss/ee/concurrency/factory/default",
+                      "attr-context-service": "default"
+                    }
+                  },
+                  "managed-executor-services": {
+                    "managed-executor-service": {
+                      "attr-name": "default",
+                      "attr-jndi-name": "java:jboss/ee/concurrency/executor/default",
+                      "attr-context-service": "default",
+                      "attr-hung-task-termination-period": "0",
+                      "attr-hung-task-threshold": "60000",
+                      "attr-keepalive-time": "5000"
+                    }
+                  },
+                  "managed-scheduled-executor-services": {
+                    "managed-scheduled-executor-service": {
+                      "attr-name": "default",
+                      "attr-jndi-name": "java:jboss/ee/concurrency/scheduler/default",
+                      "attr-context-service": "default",
+                      "attr-hung-task-termination-period": "0",
+                      "attr-hung-task-threshold": "60000",
+                      "attr-keepalive-time": "3000"
+                    }
+                  }
+                },
+                "default-bindings": {
+                  "attr-context-service": "java:jboss/ee/concurrency/context/default",
+                  "attr-datasource": "java:jboss/datasources/ExampleDS",
+                  "attr-managed-executor-service": "java:jboss/ee/concurrency/executor/default",
+                  "attr-managed-scheduled-executor-service": "java:jboss/ee/concurrency/scheduler/default",
+                  "attr-managed-thread-factory": "java:jboss/ee/concurrency/factory/default"
+                }
+              },
+              {
+                "attr-xmlns": "urn:jboss:domain:ee-security:1.0"
+              },
+              {
+                "attr-xmlns": "urn:jboss:domain:ejb3:9.0",
+                "session-bean": {
+                  "stateless": {
+                    "bean-instance-pool-ref": {
+                      "attr-pool-name": "slsb-strict-max-pool"
+                    }
+                  },
+                  "stateful": {
+                    "attr-default-access-timeout": "5000",
+                    "attr-cache-ref": "simple",
+                    "attr-passivation-disabled-cache-ref": "simple"
+                  },
+                  "singleton": {
+                    "attr-default-access-timeout": "5000"
+                  }
+                },
+                "pools": {
+                  "bean-instance-pools": {
+                    "strict-max-pool": [
+                      {
+                        "attr-name": "mdb-strict-max-pool",
+                        "attr-derive-size": "from-cpu-count",
+                        "attr-instance-acquisition-timeout": "5",
+                        "attr-instance-acquisition-timeout-unit": "MINUTES"
+                      },
+                      {
+                        "attr-name": "slsb-strict-max-pool",
+                        "attr-derive-size": "from-worker-pools",
+                        "attr-instance-acquisition-timeout": "5",
+                        "attr-instance-acquisition-timeout-unit": "MINUTES"
+                      }
+                    ]
+                  }
+                },
+                "caches": {
+                  "cache": [
+                    {
+                      "attr-name": "simple"
+                    },
+                    {
+                      "attr-name": "distributable",
+                      "attr-passivation-store-ref": "infinispan",
+                      "attr-aliases": "passivating clustered"
+                    }
+                  ]
+                },
+                "passivation-stores": {
+                  "passivation-store": {
+                    "attr-name": "infinispan",
+                    "attr-cache-container": "ejb",
+                    "attr-max-size": "10000"
+                  }
+                },
+                "async": {
+                  "attr-thread-pool-name": "default"
+                },
+                "timer-service": {
+                  "attr-thread-pool-name": "default",
+                  "attr-default-data-store": "default-file-store",
+                  "data-stores": {
+                    "file-data-store": {
+                      "attr-name": "default-file-store",
+                      "attr-path": "timer-service-data",
+                      "attr-relative-to": "jboss.server.data.dir"
+                    }
+                  }
+                },
+                "remote": {
+                  "attr-cluster": "ejb",
+                  "attr-connectors": "http-remoting-connector",
+                  "attr-thread-pool-name": "default",
+                  "channel-creation-options": {
+                    "option": {
+                      "attr-name": "MAX_OUTBOUND_MESSAGES",
+                      "attr-value": "1234",
+                      "attr-type": "remoting"
+                    }
+                  }
+                },
+                "thread-pools": {
+                  "thread-pool": {
+                    "attr-name": "default",
+                    "max-threads": {
+                      "attr-count": "10"
+                    },
+                    "keepalive-time": {
+                      "attr-time": "60",
+                      "attr-unit": "seconds"
+                    }
+                  }
+                },
+                "default-security-domain": {
+                  "attr-value": "other"
+                },
+                "application-security-domains": {
+                  "application-security-domain": {
+                    "attr-name": "other",
+                    "attr-security-domain": "ApplicationDomain"
+                  }
+                },
+                "default-missing-method-permissions-deny-access": {
+                  "attr-value": "true"
+                },
+                "statistics": {
+                  "attr-enabled": "${wildfly.ejb3.statistics-enabled:${wildfly.statistics-enabled:false}}"
+                },
+                "log-system-exceptions": {
+                  "attr-value": "true"
+                }
+              },
+              {
+                "attr-xmlns": "urn:wildfly:elytron:15.0",
+                "attr-final-providers": "combined-providers",
+                "attr-disallowed-providers": "OracleUcrypto",
+                "providers": {
+                  "aggregate-providers": {
+                    "attr-name": "combined-providers",
+                    "providers": [
+                      {
+                        "attr-name": "elytron"
+                      },
+                      {
+                        "attr-name": "openssl"
+                      }
+                    ]
+                  },
+                  "provider-loader": [
+                    {
+                      "attr-name": "elytron",
+                      "attr-module": "org.wildfly.security.elytron"
+                    },
+                    {
+                      "attr-name": "openssl",
+                      "attr-module": "org.wildfly.openssl"
+                    }
+                  ]
+                },
+                "audit-logging": {
+                  "file-audit-log": {
+                    "attr-name": "local-audit",
+                    "attr-path": "audit.log",
+                    "attr-relative-to": "jboss.server.log.dir",
+                    "attr-format": "JSON"
+                  }
+                },
+                "security-domains": {
+                  "security-domain": [
+                    {
+                      "attr-name": "ManagementDomain",
+                      "attr-default-realm": "ManagementRealm",
+                      "attr-permission-mapper": "default-permission-mapper",
+                      "realm": [
+                        {
+                          "attr-name": "ManagementRealm",
+                          "attr-role-decoder": "groups-to-roles"
+                        },
+                        {
+                          "attr-name": "local",
+                          "attr-role-mapper": "super-user-mapper"
+                        }
+                      ]
+                    },
+                    {
+                      "attr-name": "ApplicationDomain",
+                      "attr-default-realm": "ApplicationRealm",
+                      "attr-permission-mapper": "default-permission-mapper",
+                      "realm": [
+                        {
+                          "attr-name": "ApplicationRealm",
+                          "attr-role-decoder": "groups-to-roles"
+                        },
+                        {
+                          "attr-name": "local"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "security-realms": {
+                  "identity-realm": {
+                    "attr-name": "local",
+                    "attr-identity": "$local"
+                  },
+                  "properties-realm": [
+                    {
+                      "attr-name": "ApplicationRealm",
+                      "users-properties": {
+                        "attr-path": "application-users.properties",
+                        "attr-relative-to": "jboss.server.config.dir",
+                        "attr-digest-realm-name": "ApplicationRealm"
+                      },
+                      "groups-properties": {
+                        "attr-path": "application-roles.properties",
+                        "attr-relative-to": "jboss.server.config.dir"
+                      }
+                    },
+                    {
+                      "attr-name": "ManagementRealm",
+                      "users-properties": {
+                        "attr-path": "mgmt-users.properties",
+                        "attr-relative-to": "jboss.server.config.dir",
+                        "attr-digest-realm-name": "ManagementRealm"
+                      },
+                      "groups-properties": {
+                        "attr-path": "mgmt-groups.properties",
+                        "attr-relative-to": "jboss.server.config.dir"
+                      }
+                    }
+                  ]
+                },
+                "mappers": {
+                  "simple-permission-mapper": {
+                    "attr-name": "default-permission-mapper",
+                    "attr-mapping-mode": "first",
+                    "permission-mapping": [
+                      {
+                        "principal": {
+                          "attr-name": "anonymous"
+                        },
+                        "permission-set": {
+                          "attr-name": "default-permissions"
+                        }
+                      },
+                      {
+                        "attr-match-all": "true",
+                        "permission-set": [
+                          {
+                            "attr-name": "login-permission"
+                          },
+                          {
+                            "attr-name": "default-permissions"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "constant-realm-mapper": {
+                    "attr-name": "local",
+                    "attr-realm-name": "local"
+                  },
+                  "simple-role-decoder": {
+                    "attr-name": "groups-to-roles",
+                    "attr-attribute": "groups"
+                  },
+                  "constant-role-mapper": {
+                    "attr-name": "super-user-mapper",
+                    "role": {
+                      "attr-name": "SuperUser"
+                    }
+                  }
+                },
+                "permission-sets": {
+                  "permission-set": [
+                    {
+                      "attr-name": "login-permission",
+                      "permission": {
+                        "attr-class-name": "org.wildfly.security.auth.permission.LoginPermission"
+                      }
+                    },
+                    {
+                      "attr-name": "default-permissions",
+                      "permission": [
+                        {
+                          "attr-class-name": "org.wildfly.extension.batch.jberet.deployment.BatchPermission",
+                          "attr-module": "org.wildfly.extension.batch.jberet",
+                          "attr-target-name": "*"
+                        },
+                        {
+                          "attr-class-name": "org.wildfly.transaction.client.RemoteTransactionPermission",
+                          "attr-module": "org.wildfly.transaction.client"
+                        },
+                        {
+                          "attr-class-name": "org.jboss.ejb.client.RemoteEJBPermission",
+                          "attr-module": "org.jboss.ejb-client"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "http": {
+                  "http-authentication-factory": [
+                    {
+                      "attr-name": "management-http-authentication",
+                      "attr-security-domain": "ManagementDomain",
+                      "attr-http-server-mechanism-factory": "global",
+                      "mechanism-configuration": {
+                        "mechanism": {
+                          "attr-mechanism-name": "DIGEST",
+                          "mechanism-realm": {
+                            "attr-realm-name": "ManagementRealm"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "attr-name": "application-http-authentication",
+                      "attr-security-domain": "ApplicationDomain",
+                      "attr-http-server-mechanism-factory": "global",
+                      "mechanism-configuration": {
+                        "mechanism": {
+                          "attr-mechanism-name": "BASIC",
+                          "mechanism-realm": {
+                            "attr-realm-name": "ApplicationRealm"
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "provider-http-server-mechanism-factory": {
+                    "attr-name": "global"
+                  }
+                },
+                "sasl": {
+                  "sasl-authentication-factory": [
+                    {
+                      "attr-name": "management-sasl-authentication",
+                      "attr-sasl-server-factory": "configured",
+                      "attr-security-domain": "ManagementDomain",
+                      "mechanism-configuration": {
+                        "mechanism": [
+                          {
+                            "attr-mechanism-name": "JBOSS-LOCAL-USER",
+                            "attr-realm-mapper": "local"
+                          },
+                          {
+                            "attr-mechanism-name": "DIGEST-MD5",
+                            "mechanism-realm": {
+                              "attr-realm-name": "ManagementRealm"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "attr-name": "application-sasl-authentication",
+                      "attr-sasl-server-factory": "configured",
+                      "attr-security-domain": "ApplicationDomain",
+                      "mechanism-configuration": {
+                        "mechanism": [
+                          {
+                            "attr-mechanism-name": "JBOSS-LOCAL-USER",
+                            "attr-realm-mapper": "local"
+                          },
+                          {
+                            "attr-mechanism-name": "DIGEST-MD5",
+                            "mechanism-realm": {
+                              "attr-realm-name": "ApplicationRealm"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "configurable-sasl-server-factory": {
+                    "attr-name": "configured",
+                    "attr-sasl-server-factory": "elytron",
+                    "properties": {
+                      "property": [
+                        {
+                          "attr-name": "wildfly.sasl.local-user.default-user",
+                          "attr-value": "$local"
+                        },
+                        {
+                          "attr-name": "wildfly.sasl.local-user.challenge-path",
+                          "attr-value": "${jboss.server.temp.dir}/auth"
+                        }
+                      ]
+                    }
+                  },
+                  "mechanism-provider-filtering-sasl-server-factory": {
+                    "attr-name": "elytron",
+                    "attr-sasl-server-factory": "global",
+                    "filters": {
+                      "filter": {
+                        "attr-provider-name": "WildFlyElytron"
+                      }
+                    }
+                  },
+                  "provider-sasl-server-factory": {
+                    "attr-name": "global"
+                  }
+                },
+                "tls": {
+                  "key-stores": {
+                    "key-store": {
+                      "attr-name": "applicationKS",
+                      "credential-reference": {
+                        "attr-clear-text": "password"
+                      },
+                      "implementation": {
+                        "attr-type": "JKS"
+                      },
+                      "file": {
+                        "attr-path": "application.keystore",
+                        "attr-relative-to": "jboss.server.config.dir"
+                      }
+                    }
+                  },
+                  "key-managers": {
+                    "key-manager": {
+                      "attr-name": "applicationKM",
+                      "attr-key-store": "applicationKS",
+                      "attr-generate-self-signed-certificate-host": "localhost",
+                      "credential-reference": {
+                        "attr-clear-text": "password"
+                      }
+                    }
+                  },
+                  "server-ssl-contexts": {
+                    "server-ssl-context": {
+                      "attr-name": "applicationSSC",
+                      "attr-key-manager": "applicationKM"
+                    }
+                  }
+                }
+              },
+              {
+                "attr-xmlns": "urn:wildfly:elytron-oidc-client:1.0"
+              },
+              {
+                "attr-xmlns": "urn:wildfly:health:1.0",
+                "attr-security-enabled": "false"
+              },
+              {
+                "attr-xmlns": "urn:jboss:domain:infinispan:13.0",
+                "cache-container": [
+                  {
+                    "attr-name": "ejb",
+                    "attr-default-cache": "passivation",
+                    "attr-marshaller": "PROTOSTREAM",
+                    "attr-aliases": "sfsb",
+                    "attr-modules": "org.wildfly.clustering.ejb.infinispan",
+                    "local-cache": {
+                      "attr-name": "passivation",
+                      "expiration": {
+                        "attr-interval": "0"
+                      },
+                      "file-store": {
+                        "attr-passivation": "true",
+                        "attr-purge": "false"
+                      }
+                    }
+                  },
+                  {
+                    "attr-name": "web",
+                    "attr-default-cache": "passivation",
+                    "attr-marshaller": "PROTOSTREAM",
+                    "attr-modules": "org.wildfly.clustering.web.infinispan",
+                    "local-cache": [
+                      {
+                        "attr-name": "passivation",
+                        "expiration": {
+                          "attr-interval": "0"
+                        },
+                        "file-store": {
+                          "attr-passivation": "true",
+                          "attr-purge": "false"
+                        }
+                      },
+                      {
+                        "attr-name": "sso",
+                        "expiration": {
+                          "attr-interval": "0"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "attr-name": "server",
+                    "attr-default-cache": "default",
+                    "attr-marshaller": "PROTOSTREAM",
+                    "attr-modules": "org.wildfly.clustering.server",
+                    "local-cache": {
+                      "attr-name": "default",
+                      "expiration": {
+                        "attr-interval": "0"
+                      }
+                    }
+                  },
+                  {
+                    "attr-name": "hibernate",
+                    "attr-marshaller": "JBOSS",
+                    "attr-modules": "org.infinispan.hibernate-cache",
+                    "local-cache": [
+                      {
+                        "attr-name": "entity",
+                        "heap-memory": {
+                          "attr-size": "10000"
+                        },
+                        "expiration": {
+                          "attr-max-idle": "100000"
+                        }
+                      },
+                      {
+                        "attr-name": "local-query",
+                        "heap-memory": {
+                          "attr-size": "10000"
+                        },
+                        "expiration": {
+                          "attr-max-idle": "100000"
+                        }
+                      },
+                      {
+                        "attr-name": "timestamps",
+                        "expiration": {
+                          "attr-interval": "0"
+                        }
+                      },
+                      {
+                        "attr-name": "pending-puts",
+                        "expiration": {
+                          "attr-max-idle": "60000"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "attr-xmlns": "urn:jboss:domain:io:3.0",
+                "worker": {
+                  "attr-name": "default"
+                },
+                "buffer-pool": {
+                  "attr-name": "default"
+                }
+              },
+              {
+                "attr-xmlns": "urn:jboss:domain:jaxrs:2.0"
+              },
+              {
+                "attr-xmlns": "urn:jboss:domain:jca:5.0",
+                "archive-validation": {
+                  "attr-enabled": "true",
+                  "attr-fail-on-error": "true",
+                  "attr-fail-on-warn": "false"
+                },
+                "bean-validation": {
+                  "attr-enabled": "true"
+                },
+                "default-workmanager": {
+                  "short-running-threads": {
+                    "core-threads": {
+                      "attr-count": "50"
+                    },
+                    "queue-length": {
+                      "attr-count": "50"
+                    },
+                    "max-threads": {
+                      "attr-count": "50"
+                    },
+                    "keepalive-time": {
+                      "attr-time": "10",
+                      "attr-unit": "seconds"
+                    }
+                  },
+                  "long-running-threads": {
+                    "core-threads": {
+                      "attr-count": "50"
+                    },
+                    "queue-length": {
+                      "attr-count": "50"
+                    },
+                    "max-threads": {
+                      "attr-count": "50"
+                    },
+                    "keepalive-time": {
+                      "attr-time": "10",
+                      "attr-unit": "seconds"
+                    }
+                  }
+                },
+                "cached-connection-manager": null
+              },
+              {
+                "attr-xmlns": "urn:jboss:domain:jdr:1.0"
+              },
+              {
+                "attr-xmlns": "urn:jboss:domain:jmx:1.3",
+                "expose-resolved-model": null,
+                "expose-expression-model": null,
+                "remoting-connector": null
+              },
+              {
+                "attr-xmlns": "urn:jboss:domain:jpa:1.1",
+                "jpa": {
+                  "attr-default-extended-persistence-inheritance": "DEEP"
+                }
+              },
+              {
+                "attr-xmlns": "urn:jboss:domain:jsf:1.1"
+              },
+              {
+                "attr-xmlns": "urn:jboss:domain:mail:4.0",
+                "mail-session": {
+                  "attr-name": "default",
+                  "attr-jndi-name": "java:jboss/mail/Default",
+                  "smtp-server": {
+                    "attr-outbound-socket-binding-ref": "mail-smtp"
+                  }
+                }
+              },
+              {
+                "attr-xmlns": "urn:wildfly:metrics:1.0",
+                "attr-security-enabled": "false",
+                "attr-exposed-subsystems": "*",
+                "attr-prefix": "${wildfly.metrics.prefix:wildfly}"
+              },
+              {
+                "attr-xmlns": "urn:wildfly:microprofile-config-smallrye:1.0"
+              },
+              {
+                "attr-xmlns": "urn:wildfly:microprofile-jwt-smallrye:1.0"
+              },
+              {
+                "attr-xmlns": "urn:wildfly:microprofile-opentracing-smallrye:3.0",
+                "attr-default-tracer": "jaeger",
+                "jaeger-tracer": {
+                  "attr-name": "jaeger",
+                  "sampler-configuration": {
+                    "attr-sampler-type": "const",
+                    "attr-sampler-param": "1.0"
+                  }
+                }
+              },
+              {
+                "attr-xmlns": "urn:jboss:domain:naming:2.0",
+                "remote-naming": null
+              },
+              {
+                "attr-xmlns": "urn:jboss:domain:pojo:1.0"
+              },
+              {
+                "attr-xmlns": "urn:jboss:domain:remoting:4.0",
+                "http-connector": {
+                  "attr-name": "http-remoting-connector",
+                  "attr-connector-ref": "default",
+                  "attr-sasl-authentication-factory": "application-sasl-authentication"
+                }
+              },
+              {
+                "attr-xmlns": "urn:jboss:domain:request-controller:1.0"
+              },
+              {
+                "attr-xmlns": "urn:jboss:domain:resource-adapters:6.0"
+              },
+              {
+                "attr-xmlns": "urn:jboss:domain:sar:1.0"
+              },
+              {
+                "attr-xmlns": "urn:jboss:domain:security-manager:1.0",
+                "deployment-permissions": {
+                  "maximum-set": {
+                    "permission": {
+                      "attr-class": "java.security.AllPermission"
+                    }
+                  }
+                }
+              },
+              {
+                "attr-xmlns": "urn:jboss:domain:transactions:6.0",
+                "core-environment": {
+                  "attr-node-identifier": "${jboss.tx.node.id:1}",
+                  "process-id": {
+                    "uuid": null
+                  }
+                },
+                "recovery-environment": {
+                  "attr-socket-binding": "txn-recovery-environment",
+                  "attr-status-socket-binding": "txn-status-manager"
+                },
+                "coordinator-environment": {
+                  "attr-statistics-enabled": "${wildfly.transactions.statistics-enabled:${wildfly.statistics-enabled:false}}"
+                },
+                "object-store": {
+                  "attr-path": "tx-object-store",
+                  "attr-relative-to": "jboss.server.data.dir"
+                }
+              },
+              {
+                "attr-xmlns": "urn:jboss:domain:undertow:12.0",
+                "attr-default-server": "default-server",
+                "attr-default-virtual-host": "default-host",
+                "attr-default-servlet-container": "default",
+                "attr-instance-id": "${jboss.node.name}",
+                "attr-default-security-domain": "other",
+                "attr-statistics-enabled": "${wildfly.undertow.statistics-enabled:${wildfly.statistics-enabled:false}}",
+                "buffer-cache": {
+                  "attr-name": "default"
+                },
+                "server": {
+                  "attr-name": "default-server",
+                  "http-listener": {
+                    "attr-name": "default",
+                    "attr-socket-binding": "http",
+                    "attr-record-request-start-time": "true",
+                    "attr-redirect-socket": "https",
+                    "attr-enable-http2": "true"
+                  },
+                  "https-listener": {
+                    "attr-name": "https",
+                    "attr-socket-binding": "https",
+                    "attr-ssl-context": "applicationSSC",
+                    "attr-enable-http2": "true"
+                  },
+                  "host": {
+                    "attr-name": "default-host",
+                    "attr-alias": "localhost",
+                    "location": {
+                      "attr-name": "/",
+                      "attr-handler": "welcome-content"
+                    },
+                    "access-log": {
+                      "attr-pattern": "%h %l %u %t \"%r\" %s %b \"%{i,Referer}\" \"%{i,User-Agent}\" Cookie: \"%{i,COOKIE}\" Set-Cookie: \"%{o,SET-COOKIE}\" SessionID: %S Thread: \"%I\" TimeTaken: %T"
+                    },
+                    "filter-ref": {
+                      "attr-name": "http-dumper"
+                    },
+                    "http-invoker": {
+                      "attr-http-authentication-factory": "application-http-authentication"
+                    }
+                  }
+                },
+                "servlet-container": {
+                  "attr-name": "default",
+                  "jsp-config": null,
+                  "websockets": null
+                },
+                "handlers": {
+                  "file": {
+                    "attr-name": "welcome-content",
+                    "attr-path": "${jboss.home.dir}/welcome-content"
+                  }
+                },
+                "filters": {
+                  "filter": {
+                    "attr-name": "http-dumper",
+                    "attr-class-name": "io.undertow.server.handlers.RequestDumpingHandler",
+                    "attr-module": "io.undertow.core"
+                  }
+                },
+                "application-security-domains": {
+                  "application-security-domain": {
+                    "attr-name": "other",
+                    "attr-security-domain": "ApplicationDomain"
+                  }
+                }
+              },
+              {
+                "attr-xmlns": "urn:jboss:domain:webservices:2.0",
+                "attr-statistics-enabled": "${wildfly.webservices.statistics-enabled:${wildfly.statistics-enabled:false}}",
+                "wsdl-host": "${jboss.bind.address:127.0.0.1}",
+                "endpoint-config": [
+                  {
+                    "attr-name": "Standard-Endpoint-Config"
+                  },
+                  {
+                    "attr-name": "Recording-Endpoint-Config",
+                    "pre-handler-chain": {
+                      "attr-name": "recording-handlers",
+                      "attr-protocol-bindings": "##SOAP11_HTTP ##SOAP11_HTTP_MTOM ##SOAP12_HTTP ##SOAP12_HTTP_MTOM",
+                      "handler": {
+                        "attr-name": "RecordingHandler",
+                        "attr-class": "org.jboss.ws.common.invocation.RecordingServerHandler"
+                      }
+                    }
+                  }
+                ],
+                "client-config": {
+                  "attr-name": "Standard-Client-Config"
+                }
+              },
+              {
+                "attr-xmlns": "urn:jboss:domain:weld:4.0"
+              }
+            ]
+          },
+          "interfaces": {
+            "interface": [
+              {
+                "attr-name": "management",
+                "inet-address": {
+                  "attr-value": "${jboss.bind.address.management:127.0.0.1}"
+                }
+              },
+              {
+                "attr-name": "public",
+                "inet-address": {
+                  "attr-value": "${jboss.bind.address:127.0.0.1}"
+                }
+              }
+            ]
+          },
+          "socket-binding-group": {
+            "attr-name": "standard-sockets",
+            "attr-default-interface": "public",
+            "attr-port-offset": "${jboss.socket.binding.port-offset:0}",
+            "socket-binding": [
+              {
+                "attr-name": "ajp",
+                "attr-port": "${jboss.ajp.port:28009}"
+              },
+              {
+                "attr-name": "http",
+                "attr-port": "${jboss.http.port:28080}"
+              },
+              {
+                "attr-name": "https",
+                "attr-port": "${jboss.https.port:28443}"
+              },
+              {
+                "attr-name": "management-http",
+                "attr-interface": "management",
+                "attr-port": "${jboss.management.http.port:29990}"
+              },
+              {
+                "attr-name": "management-https",
+                "attr-interface": "management",
+                "attr-port": "${jboss.management.https.port:9993}"
+              },
+              {
+                "attr-name": "txn-recovery-environment",
+                "attr-port": "4712"
+              },
+              {
+                "attr-name": "txn-status-manager",
+                "attr-port": "4713"
+              }
+            ],
+            "outbound-socket-binding": [
+              {
+                "attr-name": "infinispan-server-1",
+                "remote-destination": {
+                  "attr-host": "server1.example.com",
+                  "attr-port": "11622"
+                }
+              },
+              {
+                "attr-name": "mail-smtp",
+                "remote-destination": {
+                  "attr-host": "${jboss.mail.server.host:localhost}",
+                  "attr-port": "${jboss.mail.server.port:25}"
+                }
+              }
+            ]
+          }
+        }
+      }
+
+expected_result:
+  - bindings:
+      - address: 0.0.0.0
+        class: service
+        port: 29990
+        protocol: tcp
+      - address: 0.0.0.0
+        class: service
+        port: 28080
+        protocol: tcp
+      - address: 0.0.0.0
+        class: service
+        port: 28443
+        protocol: tcp
+      - address: 0.0.0.0
+        class: binding_address
+      - class: ajp
+        port: 28009
+      - class: http
+        port: 28080
+      - class: https
+        port: 28443
+      - class: management_http
+        port: 29990
+      - class: management_https
+        port: 9993
+      - class: txn_recovery_environment
+        port: 4712
+      - class: txn_status_manager
+        port: 4713
+      - address: localhost
+        class: domain controller
+    configuration:
+      standalone_xml:
+        server:
+          attr-xmlns: urn:jboss:domain:19.0
+          extensions:
+            extension:
+              - attr-module: org.jboss.as.clustering.infinispan
+              - attr-module: org.jboss.as.connector
+              - attr-module: org.jboss.as.deployment-scanner
+              - attr-module: org.jboss.as.ee
+              - attr-module: org.jboss.as.ejb3
+              - attr-module: org.jboss.as.jaxrs
+              - attr-module: org.jboss.as.jdr
+              - attr-module: org.jboss.as.jmx
+              - attr-module: org.jboss.as.jpa
+              - attr-module: org.jboss.as.jsf
+              - attr-module: org.jboss.as.logging
+              - attr-module: org.jboss.as.mail
+              - attr-module: org.jboss.as.naming
+              - attr-module: org.jboss.as.pojo
+              - attr-module: org.jboss.as.remoting
+              - attr-module: org.jboss.as.sar
+              - attr-module: org.jboss.as.transactions
+              - attr-module: org.jboss.as.webservices
+              - attr-module: org.jboss.as.weld
+              - attr-module: org.wildfly.extension.batch.jberet
+              - attr-module: org.wildfly.extension.bean-validation
+              - attr-module: org.wildfly.extension.clustering.web
+              - attr-module: org.wildfly.extension.core-management
+              - attr-module: org.wildfly.extension.discovery
+              - attr-module: org.wildfly.extension.ee-security
+              - attr-module: org.wildfly.extension.elytron
+              - attr-module: org.wildfly.extension.elytron-oidc-client
+              - attr-module: org.wildfly.extension.health
+              - attr-module: org.wildfly.extension.io
+              - attr-module: org.wildfly.extension.metrics
+              - attr-module: org.wildfly.extension.microprofile.config-smallrye
+              - attr-module: org.wildfly.extension.microprofile.jwt-smallrye
+              - attr-module: org.wildfly.extension.microprofile.opentracing-smallrye
+              - attr-module: org.wildfly.extension.request-controller
+              - attr-module: org.wildfly.extension.security.manager
+              - attr-module: org.wildfly.extension.undertow
+          interfaces:
+            interface:
+              - attr-name: management
+                inet-address:
+                  attr-value: ${jboss.bind.address.management:127.0.0.1}
+              - attr-name: public
+                inet-address:
+                  attr-value: ${jboss.bind.address:127.0.0.1}
+          management:
+            access-control:
+              attr-provider: simple
+              role-mapping:
+                role:
+                  attr-name: SuperUser
+                  include:
+                    user:
+                      attr-name: $local
+            audit-log:
+              formatters:
+                json-formatter:
+                  attr-name: json-formatter
+              handlers:
+                file-handler:
+                  attr-formatter: json-formatter
+                  attr-name: file
+                  attr-path: audit-log.log
+                  attr-relative-to: jboss.server.data.dir
+              logger:
+                attr-enabled: 'false'
+                attr-log-boot: 'true'
+                attr-log-read-only: 'false'
+                handlers:
+                  handler:
+                    attr-name: file
+            management-interfaces:
+              http-interface:
+                attr-http-authentication-factory: management-http-authentication
+                http-upgrade:
+                  attr-enabled: 'true'
+                  attr-sasl-authentication-factory: management-sasl-authentication
+                socket-binding:
+                  attr-http: management-http
+          profile:
+            subsystem:
+              - attr-xmlns: urn:jboss:domain:logging:8.0
+                console-handler:
+                  attr-name: CONSOLE
+                  formatter:
+                    named-formatter:
+                      attr-name: COLOR-PATTERN
+                  level:
+                    attr-name: INFO
+                formatter:
+                  - attr-name: PATTERN
+                    pattern-formatter:
+                      attr-pattern: '%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p [%c] (%t) %s%e%n'
+                  - attr-name: COLOR-PATTERN
+                    pattern-formatter:
+                      attr-pattern: '%K{level}%d{HH:mm:ss,SSS} %-5p [%c] (%t) %s%e%n'
+                logger:
+                  - attr-category: com.arjuna
+                    level:
+                      attr-name: WARN
+                  - attr-category: io.jaegertracing.Configuration
+                    level:
+                      attr-name: WARN
+                  - attr-category: org.jboss.as.config
+                    level:
+                      attr-name: DEBUG
+                  - attr-category: sun.rmi
+                    level:
+                      attr-name: WARN
+                periodic-rotating-file-handler:
+                  append:
+                    attr-value: 'true'
+                  attr-autoflush: 'true'
+                  attr-name: FILE
+                  file:
+                    attr-path: server.log
+                    attr-relative-to: jboss.server.log.dir
+                  formatter:
+                    named-formatter:
+                      attr-name: PATTERN
+                  suffix:
+                    attr-value: .yyyy-MM-dd
+                root-logger:
+                  handlers:
+                    handler:
+                      - attr-name: CONSOLE
+                      - attr-name: FILE
+                  level:
+                    attr-name: INFO
+              - attr-xmlns: urn:jboss:domain:batch-jberet:2.0
+                default-job-repository:
+                  attr-name: in-memory
+                default-thread-pool:
+                  attr-name: batch
+                job-repository:
+                  attr-name: in-memory
+                  in-memory: null
+                thread-pool:
+                  attr-name: batch
+                  keepalive-time:
+                    attr-time: '30'
+                    attr-unit: seconds
+                  max-threads:
+                    attr-count: '10'
+              - attr-xmlns: urn:jboss:domain:bean-validation:1.0
+              - attr-xmlns: urn:jboss:domain:core-management:1.0
+              - attr-xmlns: urn:jboss:domain:datasources:6.0
+                datasources:
+                  datasource:
+                    attr-enabled: 'true'
+                    attr-jndi-name: java:jboss/datasources/ExampleDS
+                    attr-pool-name: ExampleDS
+                    attr-statistics-enabled: ${wildfly.datasources.statistics-enabled:${wildfly.statistics-enabled:false}}
+                    attr-use-java-context: 'true'
+                    connection-url: jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+                    driver: h2
+                    security:
+                      password: sa
+                      user-name: sa
+                  drivers:
+                    driver:
+                      attr-module: com.h2database.h2
+                      attr-name: h2
+                      xa-datasource-class: org.h2.jdbcx.JdbcDataSource
+              - attr-xmlns: urn:jboss:domain:deployment-scanner:2.0
+                deployment-scanner:
+                  attr-path: deployments
+                  attr-relative-to: jboss.server.base.dir
+                  attr-runtime-failure-causes-rollback: ${jboss.deployment.scanner.rollback.on.failure:false}
+                  attr-scan-interval: '5000'
+              - attr-xmlns: urn:jboss:domain:discovery:1.0
+              - attr-default-session-management: default
+                attr-default-single-sign-on-management: default
+                attr-xmlns: urn:jboss:domain:distributable-web:2.0
+                infinispan-session-management:
+                  attr-cache-container: web
+                  attr-granularity: SESSION
+                  attr-name: default
+                  local-affinity: null
+                infinispan-single-sign-on-management:
+                  attr-cache: sso
+                  attr-cache-container: web
+                  attr-name: default
+                local-routing: null
+              - attr-xmlns: urn:jboss:domain:ee:6.0
+                concurrent:
+                  context-services:
+                    context-service:
+                      attr-jndi-name: java:jboss/ee/concurrency/context/default
+                      attr-name: default
+                      attr-use-transaction-setup-provider: 'true'
+                  managed-executor-services:
+                    managed-executor-service:
+                      attr-context-service: default
+                      attr-hung-task-termination-period: '0'
+                      attr-hung-task-threshold: '60000'
+                      attr-jndi-name: java:jboss/ee/concurrency/executor/default
+                      attr-keepalive-time: '5000'
+                      attr-name: default
+                  managed-scheduled-executor-services:
+                    managed-scheduled-executor-service:
+                      attr-context-service: default
+                      attr-hung-task-termination-period: '0'
+                      attr-hung-task-threshold: '60000'
+                      attr-jndi-name: java:jboss/ee/concurrency/scheduler/default
+                      attr-keepalive-time: '3000'
+                      attr-name: default
+                  managed-thread-factories:
+                    managed-thread-factory:
+                      attr-context-service: default
+                      attr-jndi-name: java:jboss/ee/concurrency/factory/default
+                      attr-name: default
+                default-bindings:
+                  attr-context-service: java:jboss/ee/concurrency/context/default
+                  attr-datasource: java:jboss/datasources/ExampleDS
+                  attr-managed-executor-service: java:jboss/ee/concurrency/executor/default
+                  attr-managed-scheduled-executor-service: java:jboss/ee/concurrency/scheduler/default
+                  attr-managed-thread-factory: java:jboss/ee/concurrency/factory/default
+                spec-descriptor-property-replacement: 'false'
+              - attr-xmlns: urn:jboss:domain:ee-security:1.0
+              - application-security-domains:
+                  application-security-domain:
+                    attr-name: other
+                    attr-security-domain: ApplicationDomain
+                async:
+                  attr-thread-pool-name: default
+                attr-xmlns: urn:jboss:domain:ejb3:9.0
+                caches:
+                  cache:
+                    - attr-name: simple
+                    - attr-aliases: passivating clustered
+                      attr-name: distributable
+                      attr-passivation-store-ref: infinispan
+                default-missing-method-permissions-deny-access:
+                  attr-value: 'true'
+                default-security-domain:
+                  attr-value: other
+                log-system-exceptions:
+                  attr-value: 'true'
+                passivation-stores:
+                  passivation-store:
+                    attr-cache-container: ejb
+                    attr-max-size: '10000'
+                    attr-name: infinispan
+                pools:
+                  bean-instance-pools:
+                    strict-max-pool:
+                      - attr-derive-size: from-cpu-count
+                        attr-instance-acquisition-timeout: '5'
+                        attr-instance-acquisition-timeout-unit: MINUTES
+                        attr-name: mdb-strict-max-pool
+                      - attr-derive-size: from-worker-pools
+                        attr-instance-acquisition-timeout: '5'
+                        attr-instance-acquisition-timeout-unit: MINUTES
+                        attr-name: slsb-strict-max-pool
+                remote:
+                  attr-cluster: ejb
+                  attr-connectors: http-remoting-connector
+                  attr-thread-pool-name: default
+                  channel-creation-options:
+                    option:
+                      attr-name: MAX_OUTBOUND_MESSAGES
+                      attr-type: remoting
+                      attr-value: '1234'
+                session-bean:
+                  singleton:
+                    attr-default-access-timeout: '5000'
+                  stateful:
+                    attr-cache-ref: simple
+                    attr-default-access-timeout: '5000'
+                    attr-passivation-disabled-cache-ref: simple
+                  stateless:
+                    bean-instance-pool-ref:
+                      attr-pool-name: slsb-strict-max-pool
+                statistics:
+                  attr-enabled: ${wildfly.ejb3.statistics-enabled:${wildfly.statistics-enabled:false}}
+                thread-pools:
+                  thread-pool:
+                    attr-name: default
+                    keepalive-time:
+                      attr-time: '60'
+                      attr-unit: seconds
+                    max-threads:
+                      attr-count: '10'
+                timer-service:
+                  attr-default-data-store: default-file-store
+                  attr-thread-pool-name: default
+                  data-stores:
+                    file-data-store:
+                      attr-name: default-file-store
+                      attr-path: timer-service-data
+                      attr-relative-to: jboss.server.data.dir
+              - attr-disallowed-providers: OracleUcrypto
+                attr-final-providers: combined-providers
+                attr-xmlns: urn:wildfly:elytron:15.0
+                audit-logging:
+                  file-audit-log:
+                    attr-format: JSON
+                    attr-name: local-audit
+                    attr-path: audit.log
+                    attr-relative-to: jboss.server.log.dir
+                http:
+                  http-authentication-factory:
+                    - attr-http-server-mechanism-factory: global
+                      attr-name: management-http-authentication
+                      attr-security-domain: ManagementDomain
+                      mechanism-configuration:
+                        mechanism:
+                          attr-mechanism-name: DIGEST
+                          mechanism-realm:
+                            attr-realm-name: ManagementRealm
+                    - attr-http-server-mechanism-factory: global
+                      attr-name: application-http-authentication
+                      attr-security-domain: ApplicationDomain
+                      mechanism-configuration:
+                        mechanism:
+                          attr-mechanism-name: BASIC
+                          mechanism-realm:
+                            attr-realm-name: ApplicationRealm
+                  provider-http-server-mechanism-factory:
+                    attr-name: global
+                mappers:
+                  constant-realm-mapper:
+                    attr-name: local
+                    attr-realm-name: local
+                  constant-role-mapper:
+                    attr-name: super-user-mapper
+                    role:
+                      attr-name: SuperUser
+                  simple-permission-mapper:
+                    attr-mapping-mode: first
+                    attr-name: default-permission-mapper
+                    permission-mapping:
+                      - permission-set:
+                          attr-name: default-permissions
+                        principal:
+                          attr-name: anonymous
+                      - attr-match-all: 'true'
+                        permission-set:
+                          - attr-name: login-permission
+                          - attr-name: default-permissions
+                  simple-role-decoder:
+                    attr-attribute: groups
+                    attr-name: groups-to-roles
+                permission-sets:
+                  permission-set:
+                    - attr-name: login-permission
+                      permission:
+                        attr-class-name: org.wildfly.security.auth.permission.LoginPermission
+                    - attr-name: default-permissions
+                      permission:
+                        - attr-class-name: org.wildfly.extension.batch.jberet.deployment.BatchPermission
+                          attr-module: org.wildfly.extension.batch.jberet
+                          attr-target-name: '*'
+                        - attr-class-name: org.wildfly.transaction.client.RemoteTransactionPermission
+                          attr-module: org.wildfly.transaction.client
+                        - attr-class-name: org.jboss.ejb.client.RemoteEJBPermission
+                          attr-module: org.jboss.ejb-client
+                providers:
+                  aggregate-providers:
+                    attr-name: combined-providers
+                    providers:
+                      - attr-name: elytron
+                      - attr-name: openssl
+                  provider-loader:
+                    - attr-module: org.wildfly.security.elytron
+                      attr-name: elytron
+                    - attr-module: org.wildfly.openssl
+                      attr-name: openssl
+                sasl:
+                  configurable-sasl-server-factory:
+                    attr-name: configured
+                    attr-sasl-server-factory: elytron
+                    properties:
+                      property:
+                        - attr-name: wildfly.sasl.local-user.default-user
+                          attr-value: $local
+                        - attr-name: wildfly.sasl.local-user.challenge-path
+                          attr-value: ${jboss.server.temp.dir}/auth
+                  mechanism-provider-filtering-sasl-server-factory:
+                    attr-name: elytron
+                    attr-sasl-server-factory: global
+                    filters:
+                      filter:
+                        attr-provider-name: WildFlyElytron
+                  provider-sasl-server-factory:
+                    attr-name: global
+                  sasl-authentication-factory:
+                    - attr-name: management-sasl-authentication
+                      attr-sasl-server-factory: configured
+                      attr-security-domain: ManagementDomain
+                      mechanism-configuration:
+                        mechanism:
+                          - attr-mechanism-name: JBOSS-LOCAL-USER
+                            attr-realm-mapper: local
+                          - attr-mechanism-name: DIGEST-MD5
+                            mechanism-realm:
+                              attr-realm-name: ManagementRealm
+                    - attr-name: application-sasl-authentication
+                      attr-sasl-server-factory: configured
+                      attr-security-domain: ApplicationDomain
+                      mechanism-configuration:
+                        mechanism:
+                          - attr-mechanism-name: JBOSS-LOCAL-USER
+                            attr-realm-mapper: local
+                          - attr-mechanism-name: DIGEST-MD5
+                            mechanism-realm:
+                              attr-realm-name: ApplicationRealm
+                security-domains:
+                  security-domain:
+                    - attr-default-realm: ManagementRealm
+                      attr-name: ManagementDomain
+                      attr-permission-mapper: default-permission-mapper
+                      realm:
+                        - attr-name: ManagementRealm
+                          attr-role-decoder: groups-to-roles
+                        - attr-name: local
+                          attr-role-mapper: super-user-mapper
+                    - attr-default-realm: ApplicationRealm
+                      attr-name: ApplicationDomain
+                      attr-permission-mapper: default-permission-mapper
+                      realm:
+                        - attr-name: ApplicationRealm
+                          attr-role-decoder: groups-to-roles
+                        - attr-name: local
+                security-realms:
+                  identity-realm:
+                    attr-identity: $local
+                    attr-name: local
+                  properties-realm:
+                    - attr-name: ApplicationRealm
+                      groups-properties:
+                        attr-path: application-roles.properties
+                        attr-relative-to: jboss.server.config.dir
+                      users-properties:
+                        attr-digest-realm-name: ApplicationRealm
+                        attr-path: application-users.properties
+                        attr-relative-to: jboss.server.config.dir
+                    - attr-name: ManagementRealm
+                      groups-properties:
+                        attr-path: mgmt-groups.properties
+                        attr-relative-to: jboss.server.config.dir
+                      users-properties:
+                        attr-digest-realm-name: ManagementRealm
+                        attr-path: mgmt-users.properties
+                        attr-relative-to: jboss.server.config.dir
+                tls:
+                  key-managers:
+                    key-manager:
+                      attr-generate-self-signed-certificate-host: localhost
+                      attr-key-store: applicationKS
+                      attr-name: applicationKM
+                      credential-reference:
+                        attr-clear-text: password
+                  key-stores:
+                    key-store:
+                      attr-name: applicationKS
+                      credential-reference:
+                        attr-clear-text: password
+                      file:
+                        attr-path: application.keystore
+                        attr-relative-to: jboss.server.config.dir
+                      implementation:
+                        attr-type: JKS
+                  server-ssl-contexts:
+                    server-ssl-context:
+                      attr-key-manager: applicationKM
+                      attr-name: applicationSSC
+              - attr-xmlns: urn:wildfly:elytron-oidc-client:1.0
+              - attr-security-enabled: 'false'
+                attr-xmlns: urn:wildfly:health:1.0
+              - attr-xmlns: urn:jboss:domain:infinispan:13.0
+                cache-container:
+                  - attr-aliases: sfsb
+                    attr-default-cache: passivation
+                    attr-marshaller: PROTOSTREAM
+                    attr-modules: org.wildfly.clustering.ejb.infinispan
+                    attr-name: ejb
+                    local-cache:
+                      attr-name: passivation
+                      expiration:
+                        attr-interval: '0'
+                      file-store:
+                        attr-passivation: 'true'
+                        attr-purge: 'false'
+                  - attr-default-cache: passivation
+                    attr-marshaller: PROTOSTREAM
+                    attr-modules: org.wildfly.clustering.web.infinispan
+                    attr-name: web
+                    local-cache:
+                      - attr-name: passivation
+                        expiration:
+                          attr-interval: '0'
+                        file-store:
+                          attr-passivation: 'true'
+                          attr-purge: 'false'
+                      - attr-name: sso
+                        expiration:
+                          attr-interval: '0'
+                  - attr-default-cache: default
+                    attr-marshaller: PROTOSTREAM
+                    attr-modules: org.wildfly.clustering.server
+                    attr-name: server
+                    local-cache:
+                      attr-name: default
+                      expiration:
+                        attr-interval: '0'
+                  - attr-marshaller: JBOSS
+                    attr-modules: org.infinispan.hibernate-cache
+                    attr-name: hibernate
+                    local-cache:
+                      - attr-name: entity
+                        expiration:
+                          attr-max-idle: '100000'
+                        heap-memory:
+                          attr-size: '10000'
+                      - attr-name: local-query
+                        expiration:
+                          attr-max-idle: '100000'
+                        heap-memory:
+                          attr-size: '10000'
+                      - attr-name: timestamps
+                        expiration:
+                          attr-interval: '0'
+                      - attr-name: pending-puts
+                        expiration:
+                          attr-max-idle: '60000'
+              - attr-xmlns: urn:jboss:domain:io:3.0
+                buffer-pool:
+                  attr-name: default
+                worker:
+                  attr-name: default
+              - attr-xmlns: urn:jboss:domain:jaxrs:2.0
+              - archive-validation:
+                  attr-enabled: 'true'
+                  attr-fail-on-error: 'true'
+                  attr-fail-on-warn: 'false'
+                attr-xmlns: urn:jboss:domain:jca:5.0
+                bean-validation:
+                  attr-enabled: 'true'
+                cached-connection-manager: null
+                default-workmanager:
+                  long-running-threads:
+                    core-threads:
+                      attr-count: '50'
+                    keepalive-time:
+                      attr-time: '10'
+                      attr-unit: seconds
+                    max-threads:
+                      attr-count: '50'
+                    queue-length:
+                      attr-count: '50'
+                  short-running-threads:
+                    core-threads:
+                      attr-count: '50'
+                    keepalive-time:
+                      attr-time: '10'
+                      attr-unit: seconds
+                    max-threads:
+                      attr-count: '50'
+                    queue-length:
+                      attr-count: '50'
+              - attr-xmlns: urn:jboss:domain:jdr:1.0
+              - attr-xmlns: urn:jboss:domain:jmx:1.3
+                expose-expression-model: null
+                expose-resolved-model: null
+                remoting-connector: null
+              - attr-xmlns: urn:jboss:domain:jpa:1.1
+                jpa:
+                  attr-default-extended-persistence-inheritance: DEEP
+              - attr-xmlns: urn:jboss:domain:jsf:1.1
+              - attr-xmlns: urn:jboss:domain:mail:4.0
+                mail-session:
+                  attr-jndi-name: java:jboss/mail/Default
+                  attr-name: default
+                  smtp-server:
+                    attr-outbound-socket-binding-ref: mail-smtp
+              - attr-exposed-subsystems: '*'
+                attr-prefix: ${wildfly.metrics.prefix:wildfly}
+                attr-security-enabled: 'false'
+                attr-xmlns: urn:wildfly:metrics:1.0
+              - attr-xmlns: urn:wildfly:microprofile-config-smallrye:1.0
+              - attr-xmlns: urn:wildfly:microprofile-jwt-smallrye:1.0
+              - attr-default-tracer: jaeger
+                attr-xmlns: urn:wildfly:microprofile-opentracing-smallrye:3.0
+                jaeger-tracer:
+                  attr-name: jaeger
+                  sampler-configuration:
+                    attr-sampler-param: '1.0'
+                    attr-sampler-type: const
+              - attr-xmlns: urn:jboss:domain:naming:2.0
+                remote-naming: null
+              - attr-xmlns: urn:jboss:domain:pojo:1.0
+              - attr-xmlns: urn:jboss:domain:remoting:4.0
+                http-connector:
+                  attr-connector-ref: default
+                  attr-name: http-remoting-connector
+                  attr-sasl-authentication-factory: application-sasl-authentication
+              - attr-xmlns: urn:jboss:domain:request-controller:1.0
+              - attr-xmlns: urn:jboss:domain:resource-adapters:6.0
+              - attr-xmlns: urn:jboss:domain:sar:1.0
+              - attr-xmlns: urn:jboss:domain:security-manager:1.0
+                deployment-permissions:
+                  maximum-set:
+                    permission:
+                      attr-class: java.security.AllPermission
+              - attr-xmlns: urn:jboss:domain:transactions:6.0
+                coordinator-environment:
+                  attr-statistics-enabled: ${wildfly.transactions.statistics-enabled:${wildfly.statistics-enabled:false}}
+                core-environment:
+                  attr-node-identifier: ${jboss.tx.node.id:1}
+                  process-id:
+                    uuid: null
+                object-store:
+                  attr-path: tx-object-store
+                  attr-relative-to: jboss.server.data.dir
+                recovery-environment:
+                  attr-socket-binding: txn-recovery-environment
+                  attr-status-socket-binding: txn-status-manager
+              - application-security-domains:
+                  application-security-domain:
+                    attr-name: other
+                    attr-security-domain: ApplicationDomain
+                attr-default-security-domain: other
+                attr-default-server: default-server
+                attr-default-servlet-container: default
+                attr-default-virtual-host: default-host
+                attr-instance-id: ${jboss.node.name}
+                attr-statistics-enabled: ${wildfly.undertow.statistics-enabled:${wildfly.statistics-enabled:false}}
+                attr-xmlns: urn:jboss:domain:undertow:12.0
+                buffer-cache:
+                  attr-name: default
+                filters:
+                  filter:
+                    attr-class-name: io.undertow.server.handlers.RequestDumpingHandler
+                    attr-module: io.undertow.core
+                    attr-name: http-dumper
+                handlers:
+                  file:
+                    attr-name: welcome-content
+                    attr-path: ${jboss.home.dir}/welcome-content
+                server:
+                  attr-name: default-server
+                  host:
+                    access-log:
+                      attr-pattern: '%h %l %u %t "%r" %s %b "%{i,Referer}" "%{i,User-Agent}" Cookie: "%{i,COOKIE}" Set-Cookie: "%{o,SET-COOKIE}" SessionID: %S Thread: "%I" TimeTaken: %T'
+                    attr-alias: localhost
+                    attr-name: default-host
+                    filter-ref:
+                      attr-name: http-dumper
+                    http-invoker:
+                      attr-http-authentication-factory: application-http-authentication
+                    location:
+                      attr-handler: welcome-content
+                      attr-name: /
+                  http-listener:
+                    attr-enable-http2: 'true'
+                    attr-name: default
+                    attr-record-request-start-time: 'true'
+                    attr-redirect-socket: https
+                    attr-socket-binding: http
+                  https-listener:
+                    attr-enable-http2: 'true'
+                    attr-name: https
+                    attr-socket-binding: https
+                    attr-ssl-context: applicationSSC
+                servlet-container:
+                  attr-name: default
+                  jsp-config: null
+                  websockets: null
+              - attr-statistics-enabled: ${wildfly.webservices.statistics-enabled:${wildfly.statistics-enabled:false}}
+                attr-xmlns: urn:jboss:domain:webservices:2.0
+                client-config:
+                  attr-name: Standard-Client-Config
+                endpoint-config:
+                  - attr-name: Standard-Endpoint-Config
+                  - attr-name: Recording-Endpoint-Config
+                    pre-handler-chain:
+                      attr-name: recording-handlers
+                      attr-protocol-bindings: '##SOAP11_HTTP ##SOAP11_HTTP_MTOM ##SOAP12_HTTP ##SOAP12_HTTP_MTOM'
+                      handler:
+                        attr-class: org.jboss.ws.common.invocation.RecordingServerHandler
+                        attr-name: RecordingHandler
+                wsdl-host: ${jboss.bind.address:127.0.0.1}
+              - attr-xmlns: urn:jboss:domain:weld:4.0
+          socket-binding-group:
+            attr-default-interface: public
+            attr-name: standard-sockets
+            attr-port-offset: ${jboss.socket.binding.port-offset:0}
+            outbound-socket-binding:
+              - attr-name: infinispan-server-1
+                remote-destination:
+                  attr-host: server1.example.com
+                  attr-port: '11622'
+              - attr-name: mail-smtp
+                remote-destination:
+                  attr-host: ${jboss.mail.server.host:localhost}
+                  attr-port: ${jboss.mail.server.port:25}
+            socket-binding:
+              - attr-name: ajp
+                attr-port: ${jboss.ajp.port:28009}
+              - attr-name: http
+                attr-port: ${jboss.http.port:28080}
+              - attr-name: https
+                attr-port: ${jboss.https.port:28443}
+              - attr-interface: management
+                attr-name: management-http
+                attr-port: ${jboss.management.http.port:29990}
+              - attr-interface: management
+                attr-name: management-https
+                attr-port: ${jboss.management.https.port:9993}
+              - attr-name: txn-recovery-environment
+                attr-port: '4712'
+              - attr-name: txn-status-manager
+                attr-port: '4713'
+    discovery_time: '2022-06-23T20:55:14+02:00'
+    extra_data:
+      heap_initial_allocation_memory: 64m
+      heap_max_memory: 512m
+      server:
+        name: jbossnode
+      mode: standalone
+    files:
+      - name: server.log
+        path: /opt/wildfly/standalone/log
+        subtype: generic
+        type: log
+      - name: logging.properties
+        path: /opt/wildfly/standalone/configuration
+        subtype: generic
+        type: log
+      - path: /opt/wildfly/standalone
+        subtype: generic
+        type: data
+      - path: /opt/wildfly
+        subtype: generic
+        type: data
+      - path: standalone.xml
+        subtype: generic
+        type: config
+      - name: standalone.xml
+        path: /opt/wildfly/standalone/configuration
+        subtype: xml
+        type: config
+    listening_ports:
+      - 28080
+      - 28443
+      - 29990
+    packages:
+      - arch: noarch
+        epoch: null
+        name: jboss-el-2.2-api
+        release: 0.7.20120212git2fabd8.el7
+        source: rpm
+        version: 1.0.1
+      - arch: noarch
+        epoch: null
+        name: jboss-jaxrpc-1.1-api
+        release: 7.el7
+        source: rpm
+        version: 1.0.1
+      - arch: noarch
+        epoch: null
+        name: jboss-servlet-3.0-api
+        release: 9.el7
+        source: rpm
+        version: 1.0.1
+      - arch: noarch
+        epoch: null
+        name: jboss-transaction-1.1-api
+        release: 8.el7
+        source: rpm
+        version: 1.0.1
+      - arch: noarch
+        epoch: null
+        name: jboss-ejb-3.1-api
+        release: 10.el7
+        source: rpm
+        version: 1.0.2
+      - arch: noarch
+        epoch: null
+        name: jboss-interceptors-1.1-api
+        release: 0.9.20120319git49a904.el7
+        source: rpm
+        version: 1.0.2
+    process:
+      cmdline: java -D[Standalone] -server -Xms64m -Xmx512m -XX:MetaspaceSize=96M -XX:MaxMetaspaceSize=256m -Djava.net.preferIPv4Stack=true -Djboss.modules.system.pkgs=org.jboss.byteman -Djava.awt.headless=true -Dorg.jboss.boot.log.file=/opt/wildfly/standalone/log/server.log -Dlogging.configuration=file:/opt/wildfly/standalone/configuration/logging.properties -jar /opt/wildfly/jboss-modules.jar -mp /opt/wildfly/modules org.jboss.as.standalone -Djboss.home.dir=/opt/wildfly -Djboss.server.base.dir=/opt/wildfly/standalone -c standalone.xml -b 0.0.0.0 -bmanagement 0.0.0.0 -Djboss.node.name=jbossnode -Djboss.bind.address=0.0.0.0
+      listening_ports:
+        - 28080
+        - 28443
+        - 29990
+      pid: '16804'
+      ppid: '16732'
+      user: root
+    type: JBoss Application Server
+    version:
+      - number: 1.0.1
+        type: package
+      - number: 1.0.2
+        type: package
+      - number: 26.0.0
+        type: file
+
+software_list:
+  - cmd_regexp: org\.jboss\.Main|org\.jboss\.(?:Main|as\.(?:standalone|server))
+    name: JBoss Application Server
+    pkg_regexp: jboss
+    process_type: parent
+    return_children: false
+    return_packages: true
+    vars:
+      credentials:
+        management_user: admin
+        management_password: password
+      default_management_port: '9990'
+    custom_tasks:
+      - name: Include JBoss specific plugins
+        include_tasks:
+          file: "<< software_discovery__custom_tasks_definition_files_path >>/jboss.yaml"
+
+dockers:
+  containers: [ ]
+packages:
+  GeoIP:
+    - arch: x86_64
+      epoch: null
+      name: GeoIP
+      release: 14.el7
+      source: rpm
+      version: 1.5.0
+  PyYAML:
+    - arch: x86_64
+      epoch: null
+      name: PyYAML
+      release: 11.el7
+      source: rpm
+      version: '3.10'
+  acl:
+    - arch: x86_64
+      epoch: null
+      name: acl
+      release: 15.el7
+      source: rpm
+      version: 2.2.51
+  aether-api:
+    - arch: noarch
+      epoch: null
+      name: aether-api
+      release: 13.el7
+      source: rpm
+      version: 1.13.1
+  aether-connector-wagon:
+    - arch: noarch
+      epoch: null
+      name: aether-connector-wagon
+      release: 13.el7
+      source: rpm
+      version: 1.13.1
+  aether-impl:
+    - arch: noarch
+      epoch: null
+      name: aether-impl
+      release: 13.el7
+      source: rpm
+      version: 1.13.1
+  aether-spi:
+    - arch: noarch
+      epoch: null
+      name: aether-spi
+      release: 13.el7
+      source: rpm
+      version: 1.13.1
+  aether-util:
+    - arch: noarch
+      epoch: null
+      name: aether-util
+      release: 13.el7
+      source: rpm
+      version: 1.13.1
+  alsa-lib:
+    - arch: x86_64
+      epoch: null
+      name: alsa-lib
+      release: 1.el7
+      source: rpm
+      version: 1.1.8
+  aopalliance:
+    - arch: noarch
+      epoch: 0
+      name: aopalliance
+      release: 8.el7
+      source: rpm
+      version: '1.0'
+  apache-commons-cli:
+    - arch: noarch
+      epoch: null
+      name: apache-commons-cli
+      release: 13.el7
+      source: rpm
+      version: '1.2'
+  apache-commons-codec:
+    - arch: noarch
+      epoch: null
+      name: apache-commons-codec
+      release: 7.el7
+      source: rpm
+      version: '1.8'
+  apache-commons-io:
+    - arch: noarch
+      epoch: 1
+      name: apache-commons-io
+      release: 12.el7
+      source: rpm
+      version: '2.4'
+  apache-commons-lang:
+    - arch: noarch
+      epoch: null
+      name: apache-commons-lang
+      release: 15.el7
+      source: rpm
+      version: '2.6'
+  apache-commons-logging:
+    - arch: noarch
+      epoch: null
+      name: apache-commons-logging
+      release: 7.el7
+      source: rpm
+      version: 1.1.2
+  apache-commons-net:
+    - arch: noarch
+      epoch: null
+      name: apache-commons-net
+      release: 8.el7.centos
+      source: rpm
+      version: '3.2'
+  apr:
+    - arch: x86_64
+      epoch: null
+      name: apr
+      release: 7.el7
+      source: rpm
+      version: 1.4.8
+  apr-util:
+    - arch: x86_64
+      epoch: null
+      name: apr-util
+      release: 6.el7
+      source: rpm
+      version: 1.5.2
+  atinject:
+    - arch: noarch
+      epoch: null
+      name: atinject
+      release: 13.20100611svn86.el7
+      source: rpm
+      version: '1'
+  atk:
+    - arch: x86_64
+      epoch: null
+      name: atk
+      release: 2.el7
+      source: rpm
+      version: 2.28.1
+  audit:
+    - arch: x86_64
+      epoch: null
+      name: audit
+      release: 4.el7
+      source: rpm
+      version: 2.8.5
+  audit-libs:
+    - arch: x86_64
+      epoch: null
+      name: audit-libs
+      release: 4.el7
+      source: rpm
+      version: 2.8.5
+  audit-libs-python:
+    - arch: x86_64
+      epoch: null
+      name: audit-libs-python
+      release: 4.el7
+      source: rpm
+      version: 2.8.5
+  authconfig:
+    - arch: x86_64
+      epoch: null
+      name: authconfig
+      release: 30.el7
+      source: rpm
+      version: 6.2.8
+  autogen-libopts:
+    - arch: x86_64
+      epoch: null
+      name: autogen-libopts
+      release: 5.el7
+      source: rpm
+      version: '5.18'
+  avahi-libs:
+    - arch: x86_64
+      epoch: null
+      name: avahi-libs
+      release: 20.el7
+      source: rpm
+      version: 0.6.31
+  avalon-framework:
+    - arch: noarch
+      epoch: 0
+      name: avalon-framework
+      release: 10.el7
+      source: rpm
+      version: '4.3'
+  avalon-logkit:
+    - arch: noarch
+      epoch: 0
+      name: avalon-logkit
+      release: 14.el7
+      source: rpm
+      version: '2.1'
+  basesystem:
+    - arch: noarch
+      epoch: null
+      name: basesystem
+      release: 7.el7.centos
+      source: rpm
+      version: '10.0'
+  bash:
+    - arch: x86_64
+      epoch: null
+      name: bash
+      release: 35.el7_9
+      source: rpm
+      version: 4.2.46
+  bc:
+    - arch: x86_64
+      epoch: null
+      name: bc
+      release: 13.el7
+      source: rpm
+      version: 1.06.95
+  bcel:
+    - arch: noarch
+      epoch: 0
+      name: bcel
+      release: 18.el7
+      source: rpm
+      version: '5.2'
+  bind-export-libs:
+    - arch: x86_64
+      epoch: 32
+      name: bind-export-libs
+      release: 26.P2.el7_9.9
+      source: rpm
+      version: 9.11.4
+  bind-libs:
+    - arch: x86_64
+      epoch: 32
+      name: bind-libs
+      release: 26.P2.el7_9.9
+      source: rpm
+      version: 9.11.4
+  bind-libs-lite:
+    - arch: x86_64
+      epoch: 32
+      name: bind-libs-lite
+      release: 26.P2.el7_9.9
+      source: rpm
+      version: 9.11.4
+  bind-license:
+    - arch: noarch
+      epoch: 32
+      name: bind-license
+      release: 26.P2.el7_9.9
+      source: rpm
+      version: 9.11.4
+  bind-utils:
+    - arch: x86_64
+      epoch: 32
+      name: bind-utils
+      release: 26.P2.el7_9.9
+      source: rpm
+      version: 9.11.4
+  binutils:
+    - arch: x86_64
+      epoch: null
+      name: binutils
+      release: 44.base.el7_9.1
+      source: rpm
+      version: '2.27'
+  btrfs-progs:
+    - arch: x86_64
+      epoch: null
+      name: btrfs-progs
+      release: 1.el7
+      source: rpm
+      version: 4.9.1
+  bzip2-libs:
+    - arch: x86_64
+      epoch: null
+      name: bzip2-libs
+      release: 13.el7
+      source: rpm
+      version: 1.0.6
+  ca-certificates:
+    - arch: noarch
+      epoch: null
+      name: ca-certificates
+      release: 72.el7_9
+      source: rpm
+      version: 2021.2.50
+  cairo:
+    - arch: x86_64
+      epoch: null
+      name: cairo
+      release: 4.el7
+      source: rpm
+      version: 1.15.12
+  cal10n:
+    - arch: noarch
+      epoch: null
+      name: cal10n
+      release: 4.el7
+      source: rpm
+      version: 0.7.7
+  cdi-api:
+    - arch: noarch
+      epoch: null
+      name: cdi-api
+      release: 11.SP4.el7
+      source: rpm
+      version: '1.0'
+  centos-logos:
+    - arch: noarch
+      epoch: null
+      name: centos-logos
+      release: 3.el7.centos
+      source: rpm
+      version: 70.0.6
+  centos-release:
+    - arch: x86_64
+      epoch: null
+      name: centos-release
+      release: 9.2009.1.el7.centos
+      source: rpm
+      version: '7'
+  cglib:
+    - arch: noarch
+      epoch: null
+      name: cglib
+      release: 18.el7
+      source: rpm
+      version: '2.2'
+  checkpolicy:
+    - arch: x86_64
+      epoch: null
+      name: checkpolicy
+      release: 8.el7
+      source: rpm
+      version: '2.5'
+  chkconfig:
+    - arch: x86_64
+      epoch: null
+      name: chkconfig
+      release: 1.el7
+      source: rpm
+      version: 1.7.6
+  chrony:
+    - arch: x86_64
+      epoch: null
+      name: chrony
+      release: 1.el7
+      source: rpm
+      version: '3.4'
+  cloud-init:
+    - arch: x86_64
+      epoch: null
+      name: cloud-init
+      release: 7.el7.centos.6
+      source: rpm
+      version: '19.4'
+  cloud-utils-growpart:
+    - arch: noarch
+      epoch: null
+      name: cloud-utils-growpart
+      release: 5.el7
+      source: rpm
+      version: '0.29'
+  copy-jdk-configs:
+    - arch: noarch
+      epoch: null
+      name: copy-jdk-configs
+      release: 10.el7_5
+      source: rpm
+      version: '3.3'
+  coreutils:
+    - arch: x86_64
+      epoch: null
+      name: coreutils
+      release: 24.el7_9.2
+      source: rpm
+      version: '8.22'
+  cpio:
+    - arch: x86_64
+      epoch: null
+      name: cpio
+      release: 28.el7
+      source: rpm
+      version: '2.11'
+  cracklib:
+    - arch: x86_64
+      epoch: null
+      name: cracklib
+      release: 11.el7
+      source: rpm
+      version: 2.9.0
+  cracklib-dicts:
+    - arch: x86_64
+      epoch: null
+      name: cracklib-dicts
+      release: 11.el7
+      source: rpm
+      version: 2.9.0
+  cronie:
+    - arch: x86_64
+      epoch: null
+      name: cronie
+      release: 24.el7_9
+      source: rpm
+      version: 1.4.11
+  cronie-anacron:
+    - arch: x86_64
+      epoch: null
+      name: cronie-anacron
+      release: 24.el7_9
+      source: rpm
+      version: 1.4.11
+  crontabs:
+    - arch: noarch
+      epoch: null
+      name: crontabs
+      release: 6.20121102git.el7
+      source: rpm
+      version: '1.11'
+  cryptsetup-libs:
+    - arch: x86_64
+      epoch: null
+      name: cryptsetup-libs
+      release: 6.el7
+      source: rpm
+      version: 2.0.3
+  cups-libs:
+    - arch: x86_64
+      epoch: 1
+      name: cups-libs
+      release: 51.el7
+      source: rpm
+      version: 1.6.3
+  curl:
+    - arch: x86_64
+      epoch: null
+      name: curl
+      release: 59.el7_9.1
+      source: rpm
+      version: 7.29.0
+  cyrus-sasl:
+    - arch: x86_64
+      epoch: null
+      name: cyrus-sasl
+      release: 24.el7_9
+      source: rpm
+      version: 2.1.26
+  cyrus-sasl-gssapi:
+    - arch: x86_64
+      epoch: null
+      name: cyrus-sasl-gssapi
+      release: 24.el7_9
+      source: rpm
+      version: 2.1.26
+  cyrus-sasl-lib:
+    - arch: x86_64
+      epoch: null
+      name: cyrus-sasl-lib
+      release: 24.el7_9
+      source: rpm
+      version: 2.1.26
+  cyrus-sasl-plain:
+    - arch: x86_64
+      epoch: null
+      name: cyrus-sasl-plain
+      release: 24.el7_9
+      source: rpm
+      version: 2.1.26
+  dbus:
+    - arch: x86_64
+      epoch: 1
+      name: dbus
+      release: 15.el7
+      source: rpm
+      version: 1.10.24
+  dbus-glib:
+    - arch: x86_64
+      epoch: null
+      name: dbus-glib
+      release: 7.el7
+      source: rpm
+      version: '0.100'
+  dbus-libs:
+    - arch: x86_64
+      epoch: 1
+      name: dbus-libs
+      release: 15.el7
+      source: rpm
+      version: 1.10.24
+  dbus-python:
+    - arch: x86_64
+      epoch: null
+      name: dbus-python
+      release: 9.el7
+      source: rpm
+      version: 1.1.1
+  dejavu-fonts-common:
+    - arch: noarch
+      epoch: null
+      name: dejavu-fonts-common
+      release: 6.el7
+      source: rpm
+      version: '2.33'
+  dejavu-sans-fonts:
+    - arch: noarch
+      epoch: null
+      name: dejavu-sans-fonts
+      release: 6.el7
+      source: rpm
+      version: '2.33'
+  device-mapper:
+    - arch: x86_64
+      epoch: 7
+      name: device-mapper
+      release: 6.el7_9.5
+      source: rpm
+      version: 1.02.170
+  device-mapper-libs:
+    - arch: x86_64
+      epoch: 7
+      name: device-mapper-libs
+      release: 6.el7_9.5
+      source: rpm
+      version: 1.02.170
+  dhclient:
+    - arch: x86_64
+      epoch: 12
+      name: dhclient
+      release: 83.el7.centos.1
+      source: rpm
+      version: 4.2.5
+  dhcp-common:
+    - arch: x86_64
+      epoch: 12
+      name: dhcp-common
+      release: 83.el7.centos.1
+      source: rpm
+      version: 4.2.5
+  dhcp-libs:
+    - arch: x86_64
+      epoch: 12
+      name: dhcp-libs
+      release: 83.el7.centos.1
+      source: rpm
+      version: 4.2.5
+  diffutils:
+    - arch: x86_64
+      epoch: null
+      name: diffutils
+      release: 5.el7
+      source: rpm
+      version: '3.3'
+  dmidecode:
+    - arch: x86_64
+      epoch: 1
+      name: dmidecode
+      release: 5.el7_9.1
+      source: rpm
+      version: '3.2'
+  dracut:
+    - arch: x86_64
+      epoch: null
+      name: dracut
+      release: 572.el7
+      source: rpm
+      version: '033'
+  dracut-config-generic:
+    - arch: x86_64
+      epoch: null
+      name: dracut-config-generic
+      release: 572.el7
+      source: rpm
+      version: '033'
+  dracut-config-rescue:
+    - arch: x86_64
+      epoch: null
+      name: dracut-config-rescue
+      release: 572.el7
+      source: rpm
+      version: '033'
+  dracut-network:
+    - arch: x86_64
+      epoch: null
+      name: dracut-network
+      release: 572.el7
+      source: rpm
+      version: '033'
+  e2fsprogs:
+    - arch: x86_64
+      epoch: null
+      name: e2fsprogs
+      release: 19.el7
+      source: rpm
+      version: 1.42.9
+  e2fsprogs-libs:
+    - arch: x86_64
+      epoch: null
+      name: e2fsprogs-libs
+      release: 19.el7
+      source: rpm
+      version: 1.42.9
+  easymock2:
+    - arch: noarch
+      epoch: null
+      name: easymock2
+      release: 12.el7
+      source: rpm
+      version: 2.5.2
+  elfutils-default-yama-scope:
+    - arch: noarch
+      epoch: null
+      name: elfutils-default-yama-scope
+      release: 5.el7
+      source: rpm
+      version: '0.176'
+  elfutils-libelf:
+    - arch: x86_64
+      epoch: null
+      name: elfutils-libelf
+      release: 5.el7
+      source: rpm
+      version: '0.176'
+  elfutils-libs:
+    - arch: x86_64
+      epoch: null
+      name: elfutils-libs
+      release: 5.el7
+      source: rpm
+      version: '0.176'
+  epel-release:
+    - arch: noarch
+      epoch: null
+      name: epel-release
+      release: '14'
+      source: rpm
+      version: '7'
+  ethtool:
+    - arch: x86_64
+      epoch: 2
+      name: ethtool
+      release: 10.el7
+      source: rpm
+      version: '4.8'
+  expat:
+    - arch: x86_64
+      epoch: null
+      name: expat
+      release: 12.el7
+      source: rpm
+      version: 2.1.0
+  felix-framework:
+    - arch: noarch
+      epoch: null
+      name: felix-framework
+      release: 5.el7
+      source: rpm
+      version: 4.2.1
+  file:
+    - arch: x86_64
+      epoch: null
+      name: file
+      release: 37.el7
+      source: rpm
+      version: '5.11'
+  file-libs:
+    - arch: x86_64
+      epoch: null
+      name: file-libs
+      release: 37.el7
+      source: rpm
+      version: '5.11'
+  filebeat:
+    - arch: x86_64
+      epoch: null
+      name: filebeat
+      release: '1'
+      source: rpm
+      version: 7.4.2
+  filesystem:
+    - arch: x86_64
+      epoch: null
+      name: filesystem
+      release: 25.el7
+      source: rpm
+      version: '3.2'
+  findutils:
+    - arch: x86_64
+      epoch: 1
+      name: findutils
+      release: 6.el7
+      source: rpm
+      version: 4.5.11
+  fipscheck:
+    - arch: x86_64
+      epoch: null
+      name: fipscheck
+      release: 6.el7
+      source: rpm
+      version: 1.4.1
+  fipscheck-lib:
+    - arch: x86_64
+      epoch: null
+      name: fipscheck-lib
+      release: 6.el7
+      source: rpm
+      version: 1.4.1
+  fontconfig:
+    - arch: x86_64
+      epoch: null
+      name: fontconfig
+      release: 4.3.el7
+      source: rpm
+      version: 2.13.0
+  fontpackages-filesystem:
+    - arch: noarch
+      epoch: null
+      name: fontpackages-filesystem
+      release: 8.el7
+      source: rpm
+      version: '1.44'
+  forkstat:
+    - arch: x86_64
+      epoch: null
+      name: forkstat
+      release: '1.1'
+      source: rpm
+      version: 0.02.12
+  freetype:
+    - arch: x86_64
+      epoch: null
+      name: freetype
+      release: 14.el7_9.1
+      source: rpm
+      version: '2.8'
+  fribidi:
+    - arch: x86_64
+      epoch: null
+      name: fribidi
+      release: 1.el7_7.1
+      source: rpm
+      version: 1.0.2
+  gawk:
+    - arch: x86_64
+      epoch: null
+      name: gawk
+      release: 4.el7_3.1
+      source: rpm
+      version: 4.0.2
+  gdbm:
+    - arch: x86_64
+      epoch: null
+      name: gdbm
+      release: 8.el7
+      source: rpm
+      version: '1.10'
+  gdk-pixbuf2:
+    - arch: x86_64
+      epoch: null
+      name: gdk-pixbuf2
+      release: 3.el7
+      source: rpm
+      version: 2.36.12
+  geoipupdate:
+    - arch: x86_64
+      epoch: null
+      name: geoipupdate
+      release: 1.el7
+      source: rpm
+      version: 2.5.0
+  geronimo-annotation:
+    - arch: noarch
+      epoch: null
+      name: geronimo-annotation
+      release: 15.el7
+      source: rpm
+      version: '1.0'
+  geronimo-jms:
+    - arch: noarch
+      epoch: null
+      name: geronimo-jms
+      release: 19.el7
+      source: rpm
+      version: 1.1.1
+  gettext:
+    - arch: x86_64
+      epoch: null
+      name: gettext
+      release: 3.el7
+      source: rpm
+      version: 0.19.8.1
+  gettext-libs:
+    - arch: x86_64
+      epoch: null
+      name: gettext-libs
+      release: 3.el7
+      source: rpm
+      version: 0.19.8.1
+  giflib:
+    - arch: x86_64
+      epoch: null
+      name: giflib
+      release: 9.el7
+      source: rpm
+      version: 4.1.6
+  glib2:
+    - arch: x86_64
+      epoch: null
+      name: glib2
+      release: 9.el7_9
+      source: rpm
+      version: 2.56.1
+  glibc:
+    - arch: x86_64
+      epoch: null
+      name: glibc
+      release: 325.el7_9
+      source: rpm
+      version: '2.17'
+    - arch: i686
+      epoch: null
+      name: glibc
+      release: 325.el7_9
+      source: rpm
+      version: '2.17'
+  glibc-common:
+    - arch: x86_64
+      epoch: null
+      name: glibc-common
+      release: 325.el7_9
+      source: rpm
+      version: '2.17'
+  gmp:
+    - arch: x86_64
+      epoch: 1
+      name: gmp
+      release: 15.el7
+      source: rpm
+      version: 6.0.0
+  gnupg2:
+    - arch: x86_64
+      epoch: null
+      name: gnupg2
+      release: 5.el7_5
+      source: rpm
+      version: 2.0.22
+  gobject-introspection:
+    - arch: x86_64
+      epoch: null
+      name: gobject-introspection
+      release: 1.el7
+      source: rpm
+      version: 1.56.1
+  google-guice:
+    - arch: noarch
+      epoch: null
+      name: google-guice
+      release: 9.el7
+      source: rpm
+      version: 3.1.3
+  gpg-pubkey:
+    - arch: null
+      epoch: null
+      name: gpg-pubkey
+      release: 53a7ff4b
+      source: rpm
+      version: f4a80eb5
+    - arch: null
+      epoch: null
+      name: gpg-pubkey
+      release: 61b8bab7
+      source: rpm
+      version: 3a79bd29
+    - arch: null
+      epoch: null
+      name: gpg-pubkey
+      release: 52ae6884
+      source: rpm
+      version: 352c64e5
+    - arch: null
+      epoch: null
+      name: gpg-pubkey
+      release: 5c4058fb
+      source: rpm
+      version: 5072e1f5
+    - arch: null
+      epoch: null
+      name: gpg-pubkey
+      release: 5eb44ee6
+      source: rpm
+      version: a3219f7b
+    - arch: null
+      epoch: null
+      name: gpg-pubkey
+      release: 602c28d5
+      source: rpm
+      version: e2c63c11
+    - arch: null
+      epoch: null
+      name: gpg-pubkey
+      release: 5ced7aac
+      source: rpm
+      version: 90cfb1f5
+  gpgme:
+    - arch: x86_64
+      epoch: null
+      name: gpgme
+      release: 5.el7
+      source: rpm
+      version: 1.3.2
+  graphite2:
+    - arch: x86_64
+      epoch: null
+      name: graphite2
+      release: 1.el7_3
+      source: rpm
+      version: 1.3.10
+  grep:
+    - arch: x86_64
+      epoch: null
+      name: grep
+      release: 3.el7
+      source: rpm
+      version: '2.20'
+  groff-base:
+    - arch: x86_64
+      epoch: null
+      name: groff-base
+      release: 8.el7
+      source: rpm
+      version: 1.22.2
+  grub2:
+    - arch: x86_64
+      epoch: 1
+      name: grub2
+      release: 0.87.el7.centos.7
+      source: rpm
+      version: '2.02'
+  grub2-common:
+    - arch: noarch
+      epoch: 1
+      name: grub2-common
+      release: 0.87.el7.centos.7
+      source: rpm
+      version: '2.02'
+  grub2-pc:
+    - arch: x86_64
+      epoch: 1
+      name: grub2-pc
+      release: 0.87.el7.centos.7
+      source: rpm
+      version: '2.02'
+  grub2-pc-modules:
+    - arch: noarch
+      epoch: 1
+      name: grub2-pc-modules
+      release: 0.87.el7.centos.7
+      source: rpm
+      version: '2.02'
+  grub2-tools:
+    - arch: x86_64
+      epoch: 1
+      name: grub2-tools
+      release: 0.87.el7.centos.7
+      source: rpm
+      version: '2.02'
+  grub2-tools-extra:
+    - arch: x86_64
+      epoch: 1
+      name: grub2-tools-extra
+      release: 0.87.el7.centos.7
+      source: rpm
+      version: '2.02'
+  grub2-tools-minimal:
+    - arch: x86_64
+      epoch: 1
+      name: grub2-tools-minimal
+      release: 0.87.el7.centos.7
+      source: rpm
+      version: '2.02'
+  grubby:
+    - arch: x86_64
+      epoch: null
+      name: grubby
+      release: 26.el7
+      source: rpm
+      version: '8.28'
+  gssproxy:
+    - arch: x86_64
+      epoch: null
+      name: gssproxy
+      release: 30.el7_9
+      source: rpm
+      version: 0.7.0
+  gtk-update-icon-cache:
+    - arch: x86_64
+      epoch: null
+      name: gtk-update-icon-cache
+      release: 6.el7
+      source: rpm
+      version: 3.22.30
+  gtk2:
+    - arch: x86_64
+      epoch: null
+      name: gtk2
+      release: 1.el7
+      source: rpm
+      version: 2.24.31
+  guava:
+    - arch: noarch
+      epoch: null
+      name: guava
+      release: 6.el7
+      source: rpm
+      version: '13.0'
+  gzip:
+    - arch: x86_64
+      epoch: null
+      name: gzip
+      release: 10.el7
+      source: rpm
+      version: '1.5'
+  hamcrest:
+    - arch: noarch
+      epoch: 0
+      name: hamcrest
+      release: 6.el7
+      source: rpm
+      version: '1.3'
+  hardlink:
+    - arch: x86_64
+      epoch: 1
+      name: hardlink
+      release: 19.el7
+      source: rpm
+      version: '1.0'
+  harfbuzz:
+    - arch: x86_64
+      epoch: null
+      name: harfbuzz
+      release: 2.el7
+      source: rpm
+      version: 1.7.5
+  hicolor-icon-theme:
+    - arch: noarch
+      epoch: null
+      name: hicolor-icon-theme
+      release: 7.el7
+      source: rpm
+      version: '0.12'
+  hostname:
+    - arch: x86_64
+      epoch: null
+      name: hostname
+      release: 3.el7_7.1
+      source: rpm
+      version: '3.13'
+  httpcomponents-client:
+    - arch: noarch
+      epoch: null
+      name: httpcomponents-client
+      release: 5.el7_0
+      source: rpm
+      version: 4.2.5
+  httpcomponents-core:
+    - arch: noarch
+      epoch: null
+      name: httpcomponents-core
+      release: 6.el7
+      source: rpm
+      version: 4.2.4
+  httpd:
+    - arch: x86_64
+      epoch: null
+      name: httpd
+      release: 97.el7.centos.4
+      source: rpm
+      version: 2.4.6
+  httpd-tools:
+    - arch: x86_64
+      epoch: null
+      name: httpd-tools
+      release: 97.el7.centos.4
+      source: rpm
+      version: 2.4.6
+  hwdata:
+    - arch: x86_64
+      epoch: null
+      name: hwdata
+      release: 9.7.el7
+      source: rpm
+      version: '0.252'
+  info:
+    - arch: x86_64
+      epoch: null
+      name: info
+      release: 5.el7
+      source: rpm
+      version: '5.1'
+  initscripts:
+    - arch: x86_64
+      epoch: null
+      name: initscripts
+      release: 1.el7_9.1
+      source: rpm
+      version: 9.49.53
+  iometrics-agent:
+    - arch: x86_64
+      epoch: null
+      name: iometrics-agent
+      release: '25'
+      source: rpm
+      version: 1.11.3
+  iotop:
+    - arch: noarch
+      epoch: null
+      name: iotop
+      release: 4.el7
+      source: rpm
+      version: '0.6'
+  iproute:
+    - arch: x86_64
+      epoch: null
+      name: iproute
+      release: 30.el7
+      source: rpm
+      version: 4.11.0
+  iptables:
+    - arch: x86_64
+      epoch: null
+      name: iptables
+      release: 35.el7
+      source: rpm
+      version: 1.4.21
+  iputils:
+    - arch: x86_64
+      epoch: null
+      name: iputils
+      release: 10.el7
+      source: rpm
+      version: '20160308'
+  irqbalance:
+    - arch: x86_64
+      epoch: 3
+      name: irqbalance
+      release: 12.el7
+      source: rpm
+      version: 1.0.7
+  jakarta-commons-httpclient:
+    - arch: noarch
+      epoch: 1
+      name: jakarta-commons-httpclient
+      release: 16.el7_0
+      source: rpm
+      version: '3.1'
+  jansson:
+    - arch: x86_64
+      epoch: null
+      name: jansson
+      release: 1.el7
+      source: rpm
+      version: '2.10'
+  jasper-libs:
+    - arch: x86_64
+      epoch: null
+      name: jasper-libs
+      release: 33.el7
+      source: rpm
+      version: 1.900.1
+  java-1.8.0-openjdk:
+    - arch: x86_64
+      epoch: 1
+      name: java-1.8.0-openjdk
+      release: 1.el7_9
+      source: rpm
+      version: 1.8.0.322.b06
+  java-1.8.0-openjdk-devel:
+    - arch: x86_64
+      epoch: 1
+      name: java-1.8.0-openjdk-devel
+      release: 1.el7_9
+      source: rpm
+      version: 1.8.0.322.b06
+  java-1.8.0-openjdk-headless:
+    - arch: x86_64
+      epoch: 1
+      name: java-1.8.0-openjdk-headless
+      release: 1.el7_9
+      source: rpm
+      version: 1.8.0.322.b06
+  javamail:
+    - arch: noarch
+      epoch: null
+      name: javamail
+      release: 8.el7
+      source: rpm
+      version: 1.4.6
+  javapackages-tools:
+    - arch: noarch
+      epoch: null
+      name: javapackages-tools
+      release: 11.el7
+      source: rpm
+      version: 3.4.1
+  javassist:
+    - arch: noarch
+      epoch: null
+      name: javassist
+      release: 10.el7
+      source: rpm
+      version: 3.16.1
+  jbigkit-libs:
+    - arch: x86_64
+      epoch: null
+      name: jbigkit-libs
+      release: 11.el7
+      source: rpm
+      version: '2.0'
+  jboss-ejb-3.1-api:
+    - arch: noarch
+      epoch: null
+      name: jboss-ejb-3.1-api
+      release: 10.el7
+      source: rpm
+      version: 1.0.2
+  jboss-el-2.2-api:
+    - arch: noarch
+      epoch: null
+      name: jboss-el-2.2-api
+      release: 0.7.20120212git2fabd8.el7
+      source: rpm
+      version: 1.0.1
+  jboss-interceptors-1.1-api:
+    - arch: noarch
+      epoch: null
+      name: jboss-interceptors-1.1-api
+      release: 0.9.20120319git49a904.el7
+      source: rpm
+      version: 1.0.2
+  jboss-jaxrpc-1.1-api:
+    - arch: noarch
+      epoch: null
+      name: jboss-jaxrpc-1.1-api
+      release: 7.el7
+      source: rpm
+      version: 1.0.1
+  jboss-servlet-3.0-api:
+    - arch: noarch
+      epoch: null
+      name: jboss-servlet-3.0-api
+      release: 9.el7
+      source: rpm
+      version: 1.0.1
+  jboss-transaction-1.1-api:
+    - arch: noarch
+      epoch: null
+      name: jboss-transaction-1.1-api
+      release: 8.el7
+      source: rpm
+      version: 1.0.1
+  jline:
+    - arch: noarch
+      epoch: null
+      name: jline
+      release: 8.el7
+      source: rpm
+      version: '1.0'
+  jq:
+    - arch: x86_64
+      epoch: null
+      name: jq
+      release: 2.el7
+      source: rpm
+      version: '1.6'
+  jsch:
+    - arch: noarch
+      epoch: 0
+      name: jsch
+      release: 5.el7
+      source: rpm
+      version: 0.1.50
+  json-c:
+    - arch: x86_64
+      epoch: null
+      name: json-c
+      release: 4.el7_0
+      source: rpm
+      version: '0.11'
+  jsoup:
+    - arch: noarch
+      epoch: null
+      name: jsoup
+      release: 10.el7
+      source: rpm
+      version: 1.6.1
+  junit:
+    - arch: noarch
+      epoch: 0
+      name: junit
+      release: 8.el7
+      source: rpm
+      version: '4.11'
+  jzlib:
+    - arch: noarch
+      epoch: 0
+      name: jzlib
+      release: 6.el7
+      source: rpm
+      version: 1.1.1
+  kbd:
+    - arch: x86_64
+      epoch: null
+      name: kbd
+      release: 16.el7_9
+      source: rpm
+      version: 1.15.5
+  kbd-legacy:
+    - arch: noarch
+      epoch: null
+      name: kbd-legacy
+      release: 16.el7_9
+      source: rpm
+      version: 1.15.5
+  kbd-misc:
+    - arch: noarch
+      epoch: null
+      name: kbd-misc
+      release: 16.el7_9
+      source: rpm
+      version: 1.15.5
+  kernel:
+    - arch: x86_64
+      epoch: null
+      name: kernel
+      release: 1127.el7
+      source: rpm
+      version: 3.10.0
+    - arch: x86_64
+      epoch: null
+      name: kernel
+      release: 1160.49.1.el7
+      source: rpm
+      version: 3.10.0
+    - arch: x86_64
+      epoch: null
+      name: kernel
+      release: 1160.59.1.el7
+      source: rpm
+      version: 3.10.0
+  kernel-tools:
+    - arch: x86_64
+      epoch: null
+      name: kernel-tools
+      release: 1160.59.1.el7
+      source: rpm
+      version: 3.10.0
+  kernel-tools-libs:
+    - arch: x86_64
+      epoch: null
+      name: kernel-tools-libs
+      release: 1160.59.1.el7
+      source: rpm
+      version: 3.10.0
+  kexec-tools:
+    - arch: x86_64
+      epoch: null
+      name: kexec-tools
+      release: 51.el7_9.3
+      source: rpm
+      version: 2.0.15
+  keyutils:
+    - arch: x86_64
+      epoch: null
+      name: keyutils
+      release: 3.el7
+      source: rpm
+      version: 1.5.8
+  keyutils-libs:
+    - arch: x86_64
+      epoch: null
+      name: keyutils-libs
+      release: 3.el7
+      source: rpm
+      version: 1.5.8
+  kmod:
+    - arch: x86_64
+      epoch: null
+      name: kmod
+      release: 28.el7
+      source: rpm
+      version: '20'
+  kmod-libs:
+    - arch: x86_64
+      epoch: null
+      name: kmod-libs
+      release: 28.el7
+      source: rpm
+      version: '20'
+  kpartx:
+    - arch: x86_64
+      epoch: null
+      name: kpartx
+      release: 135.el7_9
+      source: rpm
+      version: 0.4.9
+  krb5-libs:
+    - arch: x86_64
+      epoch: null
+      name: krb5-libs
+      release: 51.el7_9
+      source: rpm
+      version: 1.15.1
+  less:
+    - arch: x86_64
+      epoch: null
+      name: less
+      release: 9.el7
+      source: rpm
+      version: '458'
+  libICE:
+    - arch: x86_64
+      epoch: null
+      name: libICE
+      release: 9.el7
+      source: rpm
+      version: 1.0.9
+  libSM:
+    - arch: x86_64
+      epoch: null
+      name: libSM
+      release: 2.el7
+      source: rpm
+      version: 1.2.2
+  libX11:
+    - arch: x86_64
+      epoch: null
+      name: libX11
+      release: 4.el7_9
+      source: rpm
+      version: 1.6.7
+  libX11-common:
+    - arch: noarch
+      epoch: null
+      name: libX11-common
+      release: 4.el7_9
+      source: rpm
+      version: 1.6.7
+  libXau:
+    - arch: x86_64
+      epoch: null
+      name: libXau
+      release: 2.1.el7
+      source: rpm
+      version: 1.0.8
+  libXcomposite:
+    - arch: x86_64
+      epoch: null
+      name: libXcomposite
+      release: 4.1.el7
+      source: rpm
+      version: 0.4.4
+  libXcursor:
+    - arch: x86_64
+      epoch: null
+      name: libXcursor
+      release: 1.el7
+      source: rpm
+      version: 1.1.15
+  libXdamage:
+    - arch: x86_64
+      epoch: null
+      name: libXdamage
+      release: 4.1.el7
+      source: rpm
+      version: 1.1.4
+  libXext:
+    - arch: x86_64
+      epoch: null
+      name: libXext
+      release: 3.el7
+      source: rpm
+      version: 1.3.3
+  libXfixes:
+    - arch: x86_64
+      epoch: null
+      name: libXfixes
+      release: 1.el7
+      source: rpm
+      version: 5.0.3
+  libXft:
+    - arch: x86_64
+      epoch: null
+      name: libXft
+      release: 2.el7
+      source: rpm
+      version: 2.3.2
+  libXi:
+    - arch: x86_64
+      epoch: null
+      name: libXi
+      release: 1.el7
+      source: rpm
+      version: 1.7.9
+  libXinerama:
+    - arch: x86_64
+      epoch: null
+      name: libXinerama
+      release: 2.1.el7
+      source: rpm
+      version: 1.1.3
+  libXrandr:
+    - arch: x86_64
+      epoch: null
+      name: libXrandr
+      release: 2.el7
+      source: rpm
+      version: 1.5.1
+  libXrender:
+    - arch: x86_64
+      epoch: null
+      name: libXrender
+      release: 1.el7
+      source: rpm
+      version: 0.9.10
+  libXtst:
+    - arch: x86_64
+      epoch: null
+      name: libXtst
+      release: 1.el7
+      source: rpm
+      version: 1.2.3
+  libXxf86vm:
+    - arch: x86_64
+      epoch: null
+      name: libXxf86vm
+      release: 1.el7
+      source: rpm
+      version: 1.1.4
+  libacl:
+    - arch: x86_64
+      epoch: null
+      name: libacl
+      release: 15.el7
+      source: rpm
+      version: 2.2.51
+  libaio:
+    - arch: x86_64
+      epoch: null
+      name: libaio
+      release: 13.el7
+      source: rpm
+      version: 0.3.109
+  libassuan:
+    - arch: x86_64
+      epoch: null
+      name: libassuan
+      release: 3.el7
+      source: rpm
+      version: 2.1.0
+  libattr:
+    - arch: x86_64
+      epoch: null
+      name: libattr
+      release: 13.el7
+      source: rpm
+      version: 2.4.46
+  libbasicobjects:
+    - arch: x86_64
+      epoch: null
+      name: libbasicobjects
+      release: 32.el7
+      source: rpm
+      version: 0.1.1
+  libblkid:
+    - arch: x86_64
+      epoch: null
+      name: libblkid
+      release: 65.el7_9.1
+      source: rpm
+      version: 2.23.2
+  libcap:
+    - arch: x86_64
+      epoch: null
+      name: libcap
+      release: 11.el7
+      source: rpm
+      version: '2.22'
+  libcap-ng:
+    - arch: x86_64
+      epoch: null
+      name: libcap-ng
+      release: 4.el7
+      source: rpm
+      version: 0.7.5
+  libcgroup:
+    - arch: x86_64
+      epoch: null
+      name: libcgroup
+      release: 21.el7
+      source: rpm
+      version: '0.41'
+  libcollection:
+    - arch: x86_64
+      epoch: null
+      name: libcollection
+      release: 32.el7
+      source: rpm
+      version: 0.7.0
+  libcom_err:
+    - arch: x86_64
+      epoch: null
+      name: libcom_err
+      release: 19.el7
+      source: rpm
+      version: 1.42.9
+  libcroco:
+    - arch: x86_64
+      epoch: null
+      name: libcroco
+      release: 6.el7_9
+      source: rpm
+      version: 0.6.12
+  libcurl:
+    - arch: x86_64
+      epoch: null
+      name: libcurl
+      release: 59.el7_9.1
+      source: rpm
+      version: 7.29.0
+  libdaemon:
+    - arch: x86_64
+      epoch: null
+      name: libdaemon
+      release: 7.el7
+      source: rpm
+      version: '0.14'
+  libdb:
+    - arch: x86_64
+      epoch: null
+      name: libdb
+      release: 25.el7
+      source: rpm
+      version: 5.3.21
+  libdb-utils:
+    - arch: x86_64
+      epoch: null
+      name: libdb-utils
+      release: 25.el7
+      source: rpm
+      version: 5.3.21
+  libdrm:
+    - arch: x86_64
+      epoch: null
+      name: libdrm
+      release: 2.el7
+      source: rpm
+      version: 2.4.97
+  libedit:
+    - arch: x86_64
+      epoch: null
+      name: libedit
+      release: 12.20121213cvs.el7
+      source: rpm
+      version: '3.0'
+  libestr:
+    - arch: x86_64
+      epoch: null
+      name: libestr
+      release: 2.el7
+      source: rpm
+      version: 0.1.9
+  libevent:
+    - arch: x86_64
+      epoch: null
+      name: libevent
+      release: 4.el7
+      source: rpm
+      version: 2.0.21
+  libfastjson:
+    - arch: x86_64
+      epoch: null
+      name: libfastjson
+      release: 3.el7
+      source: rpm
+      version: 0.99.4
+  libffi:
+    - arch: x86_64
+      epoch: null
+      name: libffi
+      release: 19.el7
+      source: rpm
+      version: 3.0.13
+  libfontenc:
+    - arch: x86_64
+      epoch: null
+      name: libfontenc
+      release: 3.el7
+      source: rpm
+      version: 1.1.3
+  libgcc:
+    - arch: i686
+      epoch: null
+      name: libgcc
+      release: 44.el7
+      source: rpm
+      version: 4.8.5
+    - arch: x86_64
+      epoch: null
+      name: libgcc
+      release: 44.el7
+      source: rpm
+      version: 4.8.5
+  libgcrypt:
+    - arch: x86_64
+      epoch: null
+      name: libgcrypt
+      release: 14.el7
+      source: rpm
+      version: 1.5.3
+  libglvnd:
+    - arch: x86_64
+      epoch: 1
+      name: libglvnd
+      release: 0.8.git5baa1e5.el7
+      source: rpm
+      version: 1.0.1
+  libglvnd-egl:
+    - arch: x86_64
+      epoch: 1
+      name: libglvnd-egl
+      release: 0.8.git5baa1e5.el7
+      source: rpm
+      version: 1.0.1
+  libglvnd-glx:
+    - arch: x86_64
+      epoch: 1
+      name: libglvnd-glx
+      release: 0.8.git5baa1e5.el7
+      source: rpm
+      version: 1.0.1
+  libgomp:
+    - arch: x86_64
+      epoch: null
+      name: libgomp
+      release: 44.el7
+      source: rpm
+      version: 4.8.5
+  libgpg-error:
+    - arch: x86_64
+      epoch: null
+      name: libgpg-error
+      release: 3.el7
+      source: rpm
+      version: '1.12'
+  libidn:
+    - arch: x86_64
+      epoch: null
+      name: libidn
+      release: 4.el7
+      source: rpm
+      version: '1.28'
+  libini_config:
+    - arch: x86_64
+      epoch: null
+      name: libini_config
+      release: 32.el7
+      source: rpm
+      version: 1.3.1
+  libjpeg-turbo:
+    - arch: x86_64
+      epoch: null
+      name: libjpeg-turbo
+      release: 8.el7
+      source: rpm
+      version: 1.2.90
+  libmnl:
+    - arch: x86_64
+      epoch: null
+      name: libmnl
+      release: 7.el7
+      source: rpm
+      version: 1.0.3
+  libmount:
+    - arch: x86_64
+      epoch: null
+      name: libmount
+      release: 65.el7_9.1
+      source: rpm
+      version: 2.23.2
+  libndp:
+    - arch: x86_64
+      epoch: null
+      name: libndp
+      release: 9.el7
+      source: rpm
+      version: '1.2'
+  libnetfilter_conntrack:
+    - arch: x86_64
+      epoch: null
+      name: libnetfilter_conntrack
+      release: 1.el7_3
+      source: rpm
+      version: 1.0.6
+  libnfnetlink:
+    - arch: x86_64
+      epoch: null
+      name: libnfnetlink
+      release: 4.el7
+      source: rpm
+      version: 1.0.1
+  libnfsidmap:
+    - arch: x86_64
+      epoch: null
+      name: libnfsidmap
+      release: 19.el7
+      source: rpm
+      version: '0.25'
+  libnl3:
+    - arch: x86_64
+      epoch: null
+      name: libnl3
+      release: 4.el7
+      source: rpm
+      version: 3.2.28
+  libnl3-cli:
+    - arch: x86_64
+      epoch: null
+      name: libnl3-cli
+      release: 4.el7
+      source: rpm
+      version: 3.2.28
+  libpath_utils:
+    - arch: x86_64
+      epoch: null
+      name: libpath_utils
+      release: 32.el7
+      source: rpm
+      version: 0.2.1
+  libpcap:
+    - arch: x86_64
+      epoch: 14
+      name: libpcap
+      release: 12.el7
+      source: rpm
+      version: 1.5.3
+  libpciaccess:
+    - arch: x86_64
+      epoch: null
+      name: libpciaccess
+      release: 1.el7
+      source: rpm
+      version: '0.14'
+  libpipeline:
+    - arch: x86_64
+      epoch: null
+      name: libpipeline
+      release: 3.el7
+      source: rpm
+      version: 1.2.3
+  libpng:
+    - arch: x86_64
+      epoch: 2
+      name: libpng
+      release: 8.el7
+      source: rpm
+      version: 1.5.13
+  libpwquality:
+    - arch: x86_64
+      epoch: null
+      name: libpwquality
+      release: 5.el7
+      source: rpm
+      version: 1.2.3
+  libref_array:
+    - arch: x86_64
+      epoch: null
+      name: libref_array
+      release: 32.el7
+      source: rpm
+      version: 0.1.5
+  libseccomp:
+    - arch: x86_64
+      epoch: null
+      name: libseccomp
+      release: 4.el7
+      source: rpm
+      version: 2.3.1
+  libselinux:
+    - arch: x86_64
+      epoch: null
+      name: libselinux
+      release: 15.el7
+      source: rpm
+      version: '2.5'
+  libselinux-python:
+    - arch: x86_64
+      epoch: null
+      name: libselinux-python
+      release: 15.el7
+      source: rpm
+      version: '2.5'
+  libselinux-python3:
+    - arch: x86_64
+      epoch: null
+      name: libselinux-python3
+      release: 15.el7
+      source: rpm
+      version: '2.5'
+  libselinux-utils:
+    - arch: x86_64
+      epoch: null
+      name: libselinux-utils
+      release: 15.el7
+      source: rpm
+      version: '2.5'
+  libsemanage:
+    - arch: x86_64
+      epoch: null
+      name: libsemanage
+      release: 14.el7
+      source: rpm
+      version: '2.5'
+  libsemanage-python:
+    - arch: x86_64
+      epoch: null
+      name: libsemanage-python
+      release: 14.el7
+      source: rpm
+      version: '2.5'
+  libsepol:
+    - arch: x86_64
+      epoch: null
+      name: libsepol
+      release: 10.el7
+      source: rpm
+      version: '2.5'
+  libsmartcols:
+    - arch: x86_64
+      epoch: null
+      name: libsmartcols
+      release: 65.el7_9.1
+      source: rpm
+      version: 2.23.2
+  libss:
+    - arch: x86_64
+      epoch: null
+      name: libss
+      release: 19.el7
+      source: rpm
+      version: 1.42.9
+  libssh2:
+    - arch: x86_64
+      epoch: null
+      name: libssh2
+      release: 4.el7
+      source: rpm
+      version: 1.8.0
+  libstdc++:
+    - arch: x86_64
+      epoch: null
+      name: libstdc++
+      release: 44.el7
+      source: rpm
+      version: 4.8.5
+    - arch: i686
+      epoch: null
+      name: libstdc++
+      release: 44.el7
+      source: rpm
+      version: 4.8.5
+  libsysfs:
+    - arch: x86_64
+      epoch: null
+      name: libsysfs
+      release: 16.el7
+      source: rpm
+      version: 2.1.0
+  libtasn1:
+    - arch: x86_64
+      epoch: null
+      name: libtasn1
+      release: 1.el7
+      source: rpm
+      version: '4.10'
+  libteam:
+    - arch: x86_64
+      epoch: null
+      name: libteam
+      release: 3.el7
+      source: rpm
+      version: '1.29'
+  libthai:
+    - arch: x86_64
+      epoch: null
+      name: libthai
+      release: 9.el7
+      source: rpm
+      version: 0.1.14
+  libtiff:
+    - arch: x86_64
+      epoch: null
+      name: libtiff
+      release: 35.el7
+      source: rpm
+      version: 4.0.3
+  libtirpc:
+    - arch: x86_64
+      epoch: null
+      name: libtirpc
+      release: 0.16.el7
+      source: rpm
+      version: 0.2.4
+  libunistring:
+    - arch: x86_64
+      epoch: null
+      name: libunistring
+      release: 9.el7
+      source: rpm
+      version: 0.9.3
+  libuser:
+    - arch: x86_64
+      epoch: null
+      name: libuser
+      release: 9.el7
+      source: rpm
+      version: '0.60'
+  libutempter:
+    - arch: x86_64
+      epoch: null
+      name: libutempter
+      release: 4.el7
+      source: rpm
+      version: 1.1.6
+  libuuid:
+    - arch: x86_64
+      epoch: null
+      name: libuuid
+      release: 65.el7_9.1
+      source: rpm
+      version: 2.23.2
+  libverto:
+    - arch: x86_64
+      epoch: null
+      name: libverto
+      release: 4.el7
+      source: rpm
+      version: 0.2.5
+  libverto-libevent:
+    - arch: x86_64
+      epoch: null
+      name: libverto-libevent
+      release: 4.el7
+      source: rpm
+      version: 0.2.5
+  libwayland-client:
+    - arch: x86_64
+      epoch: null
+      name: libwayland-client
+      release: 1.el7
+      source: rpm
+      version: 1.15.0
+  libwayland-server:
+    - arch: x86_64
+      epoch: null
+      name: libwayland-server
+      release: 1.el7
+      source: rpm
+      version: 1.15.0
+  libxcb:
+    - arch: x86_64
+      epoch: null
+      name: libxcb
+      release: 1.el7
+      source: rpm
+      version: '1.13'
+  libxml2:
+    - arch: x86_64
+      epoch: null
+      name: libxml2
+      release: 6.el7_9.6
+      source: rpm
+      version: 2.9.1
+  libxml2-python:
+    - arch: x86_64
+      epoch: null
+      name: libxml2-python
+      release: 6.el7_9.6
+      source: rpm
+      version: 2.9.1
+  libxshmfence:
+    - arch: x86_64
+      epoch: null
+      name: libxshmfence
+      release: 1.el7
+      source: rpm
+      version: '1.2'
+  libxslt:
+    - arch: x86_64
+      epoch: null
+      name: libxslt
+      release: 6.el7
+      source: rpm
+      version: 1.1.28
+  libyaml:
+    - arch: x86_64
+      epoch: null
+      name: libyaml
+      release: 11.el7_0
+      source: rpm
+      version: 0.1.4
+  linux-firmware:
+    - arch: noarch
+      epoch: null
+      name: linux-firmware
+      release: 80.git78c0348.el7_9
+      source: rpm
+      version: '20200421'
+  lksctp-tools:
+    - arch: x86_64
+      epoch: null
+      name: lksctp-tools
+      release: 2.el7
+      source: rpm
+      version: 1.0.17
+  lm_sensors-libs:
+    - arch: x86_64
+      epoch: null
+      name: lm_sensors-libs
+      release: 8.20160601gitf9185e5.el7
+      source: rpm
+      version: 3.4.0
+  log4j:
+    - arch: noarch
+      epoch: 0
+      name: log4j
+      release: 18.el7_4
+      source: rpm
+      version: 1.2.17
+  logrotate:
+    - arch: x86_64
+      epoch: null
+      name: logrotate
+      release: 19.el7
+      source: rpm
+      version: 3.8.6
+  lshw:
+    - arch: x86_64
+      epoch: null
+      name: lshw
+      release: 17.el7
+      source: rpm
+      version: B.02.18
+  lsof:
+    - arch: x86_64
+      epoch: null
+      name: lsof
+      release: 6.el7
+      source: rpm
+      version: '4.87'
+  lua:
+    - arch: x86_64
+      epoch: null
+      name: lua
+      release: 15.el7
+      source: rpm
+      version: 5.1.4
+  lz4:
+    - arch: x86_64
+      epoch: null
+      name: lz4
+      release: 1.el7
+      source: rpm
+      version: 1.8.3
+  lzo:
+    - arch: x86_64
+      epoch: null
+      name: lzo
+      release: 8.el7
+      source: rpm
+      version: '2.06'
+  mailcap:
+    - arch: noarch
+      epoch: null
+      name: mailcap
+      release: 2.el7
+      source: rpm
+      version: 2.1.41
+  make:
+    - arch: x86_64
+      epoch: 1
+      name: make
+      release: 24.el7
+      source: rpm
+      version: '3.82'
+  man-db:
+    - arch: x86_64
+      epoch: null
+      name: man-db
+      release: 11.el7
+      source: rpm
+      version: 2.6.3
+  maven:
+    - arch: noarch
+      epoch: null
+      name: maven
+      release: 17.el7
+      source: rpm
+      version: 3.0.5
+  maven-wagon:
+    - arch: noarch
+      epoch: 0
+      name: maven-wagon
+      release: 3.el7
+      source: rpm
+      version: '2.4'
+  mesa-libEGL:
+    - arch: x86_64
+      epoch: null
+      name: mesa-libEGL
+      release: 12.el7_9
+      source: rpm
+      version: 18.3.4
+  mesa-libGL:
+    - arch: x86_64
+      epoch: null
+      name: mesa-libGL
+      release: 12.el7_9
+      source: rpm
+      version: 18.3.4
+  mesa-libgbm:
+    - arch: x86_64
+      epoch: null
+      name: mesa-libgbm
+      release: 12.el7_9
+      source: rpm
+      version: 18.3.4
+  mesa-libglapi:
+    - arch: x86_64
+      epoch: null
+      name: mesa-libglapi
+      release: 12.el7_9
+      source: rpm
+      version: 18.3.4
+  microcode_ctl:
+    - arch: x86_64
+      epoch: 2
+      name: microcode_ctl
+      release: 73.11.el7_9
+      source: rpm
+      version: '2.1'
+  mongodb-database-tools:
+    - arch: x86_64
+      epoch: null
+      name: mongodb-database-tools
+      release: '1'
+      source: rpm
+      version: 100.5.2
+  mongodb-org:
+    - arch: x86_64
+      epoch: null
+      name: mongodb-org
+      release: 1.el7
+      source: rpm
+      version: 4.4.12
+  mongodb-org-database-tools-extra:
+    - arch: x86_64
+      epoch: null
+      name: mongodb-org-database-tools-extra
+      release: 1.el7
+      source: rpm
+      version: 4.4.12
+  mongodb-org-mongos:
+    - arch: x86_64
+      epoch: null
+      name: mongodb-org-mongos
+      release: 1.el7
+      source: rpm
+      version: 4.4.12
+  mongodb-org-server:
+    - arch: x86_64
+      epoch: null
+      name: mongodb-org-server
+      release: 1.el7
+      source: rpm
+      version: 4.4.12
+  mongodb-org-shell:
+    - arch: x86_64
+      epoch: null
+      name: mongodb-org-shell
+      release: 1.el7
+      source: rpm
+      version: 4.4.12
+  mongodb-org-tools:
+    - arch: x86_64
+      epoch: null
+      name: mongodb-org-tools
+      release: 1.el7
+      source: rpm
+      version: 4.4.12
+  mozjs17:
+    - arch: x86_64
+      epoch: null
+      name: mozjs17
+      release: 20.el7
+      source: rpm
+      version: 17.0.0
+  mysql-community-client:
+    - arch: x86_64
+      epoch: null
+      name: mysql-community-client
+      release: 1.el7
+      source: rpm
+      version: 8.0.28
+  mysql-community-client-plugins:
+    - arch: x86_64
+      epoch: null
+      name: mysql-community-client-plugins
+      release: 1.el7
+      source: rpm
+      version: 8.0.28
+  mysql-community-common:
+    - arch: x86_64
+      epoch: null
+      name: mysql-community-common
+      release: 1.el7
+      source: rpm
+      version: 8.0.28
+  mysql-community-icu-data-files:
+    - arch: x86_64
+      epoch: null
+      name: mysql-community-icu-data-files
+      release: 1.el7
+      source: rpm
+      version: 8.0.28
+  mysql-community-libs:
+    - arch: x86_64
+      epoch: null
+      name: mysql-community-libs
+      release: 1.el7
+      source: rpm
+      version: 8.0.28
+  mysql-community-libs-compat:
+    - arch: x86_64
+      epoch: null
+      name: mysql-community-libs-compat
+      release: 1.el7
+      source: rpm
+      version: 8.0.28
+  mysql-community-server:
+    - arch: x86_64
+      epoch: null
+      name: mysql-community-server
+      release: 1.el7
+      source: rpm
+      version: 8.0.28
+  mysql80-community-release:
+    - arch: noarch
+      epoch: null
+      name: mysql80-community-release
+      release: '3'
+      source: rpm
+      version: el8
+  ncurses:
+    - arch: x86_64
+      epoch: null
+      name: ncurses
+      release: 14.20130511.el7_4
+      source: rpm
+      version: '5.9'
+  ncurses-base:
+    - arch: noarch
+      epoch: null
+      name: ncurses-base
+      release: 14.20130511.el7_4
+      source: rpm
+      version: '5.9'
+  ncurses-libs:
+    - arch: x86_64
+      epoch: null
+      name: ncurses-libs
+      release: 14.20130511.el7_4
+      source: rpm
+      version: '5.9'
+  nekohtml:
+    - arch: noarch
+      epoch: 0
+      name: nekohtml
+      release: 13.el7
+      source: rpm
+      version: 1.9.14
+  net-tools:
+    - arch: x86_64
+      epoch: null
+      name: net-tools
+      release: 0.25.20131004git.el7
+      source: rpm
+      version: '2.0'
+  newt:
+    - arch: x86_64
+      epoch: null
+      name: newt
+      release: 4.el7
+      source: rpm
+      version: 0.52.15
+  newt-python:
+    - arch: x86_64
+      epoch: null
+      name: newt-python
+      release: 4.el7
+      source: rpm
+      version: 0.52.15
+  nfs-utils:
+    - arch: x86_64
+      epoch: 1
+      name: nfs-utils
+      release: 0.68.el7.2
+      source: rpm
+      version: 1.3.0
+  nmap-ncat:
+    - arch: x86_64
+      epoch: 2
+      name: nmap-ncat
+      release: 19.el7
+      source: rpm
+      version: '6.40'
+  nspr:
+    - arch: x86_64
+      epoch: null
+      name: nspr
+      release: 1.el7_9
+      source: rpm
+      version: 4.32.0
+  nss:
+    - arch: x86_64
+      epoch: null
+      name: nss
+      release: 4.el7_9
+      source: rpm
+      version: 3.67.0
+  nss-pem:
+    - arch: x86_64
+      epoch: null
+      name: nss-pem
+      release: 7.el7
+      source: rpm
+      version: 1.0.3
+  nss-softokn:
+    - arch: x86_64
+      epoch: null
+      name: nss-softokn
+      release: 3.el7_9
+      source: rpm
+      version: 3.67.0
+  nss-softokn-freebl:
+    - arch: i686
+      epoch: null
+      name: nss-softokn-freebl
+      release: 3.el7_9
+      source: rpm
+      version: 3.67.0
+    - arch: x86_64
+      epoch: null
+      name: nss-softokn-freebl
+      release: 3.el7_9
+      source: rpm
+      version: 3.67.0
+  nss-sysinit:
+    - arch: x86_64
+      epoch: null
+      name: nss-sysinit
+      release: 4.el7_9
+      source: rpm
+      version: 3.67.0
+  nss-tools:
+    - arch: x86_64
+      epoch: null
+      name: nss-tools
+      release: 4.el7_9
+      source: rpm
+      version: 3.67.0
+  nss-util:
+    - arch: x86_64
+      epoch: null
+      name: nss-util
+      release: 1.el7_9
+      source: rpm
+      version: 3.67.0
+  ntp:
+    - arch: x86_64
+      epoch: null
+      name: ntp
+      release: 29.el7.centos.2
+      source: rpm
+      version: 4.2.6p5
+  ntpdate:
+    - arch: x86_64
+      epoch: null
+      name: ntpdate
+      release: 29.el7.centos.2
+      source: rpm
+      version: 4.2.6p5
+  numactl-libs:
+    - arch: x86_64
+      epoch: null
+      name: numactl-libs
+      release: 5.el7
+      source: rpm
+      version: 2.0.12
+  objectweb-asm:
+    - arch: noarch
+      epoch: 0
+      name: objectweb-asm
+      release: 9.el7
+      source: rpm
+      version: 3.3.1
+  oniguruma:
+    - arch: x86_64
+      epoch: null
+      name: oniguruma
+      release: 1.el7
+      source: rpm
+      version: 6.8.2
+  openldap:
+    - arch: x86_64
+      epoch: null
+      name: openldap
+      release: 25.el7_9
+      source: rpm
+      version: 2.4.44
+  openssh:
+    - arch: x86_64
+      epoch: null
+      name: openssh
+      release: 22.el7_9
+      source: rpm
+      version: 7.4p1
+  openssh-clients:
+    - arch: x86_64
+      epoch: null
+      name: openssh-clients
+      release: 22.el7_9
+      source: rpm
+      version: 7.4p1
+  openssh-server:
+    - arch: x86_64
+      epoch: null
+      name: openssh-server
+      release: 22.el7_9
+      source: rpm
+      version: 7.4p1
+  openssl:
+    - arch: x86_64
+      epoch: 1
+      name: openssl
+      release: 24.el7_9
+      source: rpm
+      version: 1.0.2k
+  openssl-libs:
+    - arch: x86_64
+      epoch: 1
+      name: openssl-libs
+      release: 24.el7_9
+      source: rpm
+      version: 1.0.2k
+  os-prober:
+    - arch: x86_64
+      epoch: null
+      name: os-prober
+      release: 9.el7
+      source: rpm
+      version: '1.58'
+  p11-kit:
+    - arch: x86_64
+      epoch: null
+      name: p11-kit
+      release: 3.el7
+      source: rpm
+      version: 0.23.5
+  p11-kit-trust:
+    - arch: x86_64
+      epoch: null
+      name: p11-kit-trust
+      release: 3.el7
+      source: rpm
+      version: 0.23.5
+  packer:
+    - arch: x86_64
+      epoch: null
+      name: packer
+      release: '1'
+      source: rpm
+      version: 1.7.10
+  pam:
+    - arch: x86_64
+      epoch: null
+      name: pam
+      release: 23.el7
+      source: rpm
+      version: 1.1.8
+  pango:
+    - arch: x86_64
+      epoch: null
+      name: pango
+      release: 4.el7_7
+      source: rpm
+      version: 1.42.4
+  parted:
+    - arch: x86_64
+      epoch: null
+      name: parted
+      release: 32.el7
+      source: rpm
+      version: '3.1'
+  passwd:
+    - arch: x86_64
+      epoch: null
+      name: passwd
+      release: 6.el7
+      source: rpm
+      version: '0.79'
+  pciutils-libs:
+    - arch: x86_64
+      epoch: null
+      name: pciutils-libs
+      release: 3.el7
+      source: rpm
+      version: 3.5.1
+  pcre:
+    - arch: x86_64
+      epoch: null
+      name: pcre
+      release: 17.el7
+      source: rpm
+      version: '8.32'
+  pcsc-lite-libs:
+    - arch: x86_64
+      epoch: null
+      name: pcsc-lite-libs
+      release: 8.el7
+      source: rpm
+      version: 1.8.8
+  perl:
+    - arch: x86_64
+      epoch: 4
+      name: perl
+      release: 299.el7_9
+      source: rpm
+      version: 5.16.3
+  perl-Carp:
+    - arch: noarch
+      epoch: null
+      name: perl-Carp
+      release: 244.el7
+      source: rpm
+      version: '1.26'
+  perl-Encode:
+    - arch: x86_64
+      epoch: null
+      name: perl-Encode
+      release: 7.el7
+      source: rpm
+      version: '2.51'
+  perl-Exporter:
+    - arch: noarch
+      epoch: null
+      name: perl-Exporter
+      release: 3.el7
+      source: rpm
+      version: '5.68'
+  perl-File-Path:
+    - arch: noarch
+      epoch: null
+      name: perl-File-Path
+      release: 2.el7
+      source: rpm
+      version: '2.09'
+  perl-File-Temp:
+    - arch: noarch
+      epoch: null
+      name: perl-File-Temp
+      release: 3.el7
+      source: rpm
+      version: 0.23.01
+  perl-Filter:
+    - arch: x86_64
+      epoch: null
+      name: perl-Filter
+      release: 3.el7
+      source: rpm
+      version: '1.49'
+  perl-Getopt-Long:
+    - arch: noarch
+      epoch: null
+      name: perl-Getopt-Long
+      release: 3.el7
+      source: rpm
+      version: '2.40'
+  perl-HTTP-Tiny:
+    - arch: noarch
+      epoch: null
+      name: perl-HTTP-Tiny
+      release: 3.el7
+      source: rpm
+      version: '0.033'
+  perl-PathTools:
+    - arch: x86_64
+      epoch: null
+      name: perl-PathTools
+      release: 5.el7
+      source: rpm
+      version: '3.40'
+  perl-Pod-Escapes:
+    - arch: noarch
+      epoch: 1
+      name: perl-Pod-Escapes
+      release: 299.el7_9
+      source: rpm
+      version: '1.04'
+  perl-Pod-Perldoc:
+    - arch: noarch
+      epoch: null
+      name: perl-Pod-Perldoc
+      release: 4.el7
+      source: rpm
+      version: '3.20'
+  perl-Pod-Simple:
+    - arch: noarch
+      epoch: 1
+      name: perl-Pod-Simple
+      release: 4.el7
+      source: rpm
+      version: '3.28'
+  perl-Pod-Usage:
+    - arch: noarch
+      epoch: null
+      name: perl-Pod-Usage
+      release: 3.el7
+      source: rpm
+      version: '1.63'
+  perl-Scalar-List-Utils:
+    - arch: x86_64
+      epoch: null
+      name: perl-Scalar-List-Utils
+      release: 248.el7
+      source: rpm
+      version: '1.27'
+  perl-Socket:
+    - arch: x86_64
+      epoch: null
+      name: perl-Socket
+      release: 5.el7
+      source: rpm
+      version: '2.010'
+  perl-Storable:
+    - arch: x86_64
+      epoch: null
+      name: perl-Storable
+      release: 3.el7
+      source: rpm
+      version: '2.45'
+  perl-Text-ParseWords:
+    - arch: noarch
+      epoch: null
+      name: perl-Text-ParseWords
+      release: 4.el7
+      source: rpm
+      version: '3.29'
+  perl-Time-HiRes:
+    - arch: x86_64
+      epoch: 4
+      name: perl-Time-HiRes
+      release: 3.el7
+      source: rpm
+      version: '1.9725'
+  perl-Time-Local:
+    - arch: noarch
+      epoch: null
+      name: perl-Time-Local
+      release: 2.el7
+      source: rpm
+      version: '1.2300'
+  perl-constant:
+    - arch: noarch
+      epoch: null
+      name: perl-constant
+      release: 2.el7
+      source: rpm
+      version: '1.27'
+  perl-libs:
+    - arch: x86_64
+      epoch: 4
+      name: perl-libs
+      release: 299.el7_9
+      source: rpm
+      version: 5.16.3
+  perl-macros:
+    - arch: x86_64
+      epoch: 4
+      name: perl-macros
+      release: 299.el7_9
+      source: rpm
+      version: 5.16.3
+  perl-parent:
+    - arch: noarch
+      epoch: 1
+      name: perl-parent
+      release: 244.el7
+      source: rpm
+      version: '0.225'
+  perl-podlators:
+    - arch: noarch
+      epoch: null
+      name: perl-podlators
+      release: 3.el7
+      source: rpm
+      version: 2.5.1
+  perl-threads:
+    - arch: x86_64
+      epoch: null
+      name: perl-threads
+      release: 4.el7
+      source: rpm
+      version: '1.87'
+  perl-threads-shared:
+    - arch: x86_64
+      epoch: null
+      name: perl-threads-shared
+      release: 6.el7
+      source: rpm
+      version: '1.43'
+  pinentry:
+    - arch: x86_64
+      epoch: null
+      name: pinentry
+      release: 17.el7
+      source: rpm
+      version: 0.8.1
+  pixman:
+    - arch: x86_64
+      epoch: null
+      name: pixman
+      release: 1.el7
+      source: rpm
+      version: 0.34.0
+  pkgconfig:
+    - arch: x86_64
+      epoch: 1
+      name: pkgconfig
+      release: 4.el7
+      source: rpm
+      version: 0.27.1
+  plexus-cipher:
+    - arch: noarch
+      epoch: null
+      name: plexus-cipher
+      release: 5.el7
+      source: rpm
+      version: '1.7'
+  plexus-classworlds:
+    - arch: noarch
+      epoch: null
+      name: plexus-classworlds
+      release: 8.el7
+      source: rpm
+      version: 2.4.2
+  plexus-component-api:
+    - arch: noarch
+      epoch: null
+      name: plexus-component-api
+      release: 0.16.alpha15.el7
+      source: rpm
+      version: '1.0'
+  plexus-containers-component-annotations:
+    - arch: noarch
+      epoch: null
+      name: plexus-containers-component-annotations
+      release: 14.el7
+      source: rpm
+      version: 1.5.5
+  plexus-containers-container-default:
+    - arch: noarch
+      epoch: null
+      name: plexus-containers-container-default
+      release: 14.el7
+      source: rpm
+      version: 1.5.5
+  plexus-interactivity:
+    - arch: noarch
+      epoch: 0
+      name: plexus-interactivity
+      release: 0.14.alpha6.el7
+      source: rpm
+      version: '1.0'
+  plexus-interpolation:
+    - arch: noarch
+      epoch: null
+      name: plexus-interpolation
+      release: 8.el7
+      source: rpm
+      version: '1.15'
+  plexus-sec-dispatcher:
+    - arch: noarch
+      epoch: null
+      name: plexus-sec-dispatcher
+      release: 13.el7
+      source: rpm
+      version: '1.4'
+  plexus-utils:
+    - arch: noarch
+      epoch: null
+      name: plexus-utils
+      release: 9.el7
+      source: rpm
+      version: 3.0.9
+  policycoreutils:
+    - arch: x86_64
+      epoch: null
+      name: policycoreutils
+      release: 34.el7
+      source: rpm
+      version: '2.5'
+  policycoreutils-python:
+    - arch: x86_64
+      epoch: null
+      name: policycoreutils-python
+      release: 34.el7
+      source: rpm
+      version: '2.5'
+  polkit:
+    - arch: x86_64
+      epoch: null
+      name: polkit
+      release: 26.el7_9.1
+      source: rpm
+      version: '0.112'
+  polkit-pkla-compat:
+    - arch: x86_64
+      epoch: null
+      name: polkit-pkla-compat
+      release: 4.el7
+      source: rpm
+      version: '0.1'
+  popt:
+    - arch: x86_64
+      epoch: null
+      name: popt
+      release: 16.el7
+      source: rpm
+      version: '1.13'
+  postfix:
+    - arch: x86_64
+      epoch: 2
+      name: postfix
+      release: 9.el7
+      source: rpm
+      version: 2.10.1
+  procps-ng:
+    - arch: x86_64
+      epoch: null
+      name: procps-ng
+      release: 28.el7
+      source: rpm
+      version: 3.3.10
+  pth:
+    - arch: x86_64
+      epoch: null
+      name: pth
+      release: 23.el7
+      source: rpm
+      version: 2.0.7
+  pygpgme:
+    - arch: x86_64
+      epoch: null
+      name: pygpgme
+      release: 9.el7
+      source: rpm
+      version: '0.3'
+  pyliblzma:
+    - arch: x86_64
+      epoch: null
+      name: pyliblzma
+      release: 11.el7
+      source: rpm
+      version: 0.5.3
+  pyserial:
+    - arch: noarch
+      epoch: null
+      name: pyserial
+      release: 6.el7
+      source: rpm
+      version: '2.6'
+  python:
+    - arch: x86_64
+      epoch: null
+      name: python
+      release: 90.el7
+      source: rpm
+      version: 2.7.5
+  python-IPy:
+    - arch: noarch
+      epoch: null
+      name: python-IPy
+      release: 6.el7
+      source: rpm
+      version: '0.75'
+  python-babel:
+    - arch: noarch
+      epoch: null
+      name: python-babel
+      release: 8.el7
+      source: rpm
+      version: 0.9.6
+  python-backports:
+    - arch: x86_64
+      epoch: null
+      name: python-backports
+      release: 8.el7
+      source: rpm
+      version: '1.0'
+  python-backports-ssl_match_hostname:
+    - arch: noarch
+      epoch: null
+      name: python-backports-ssl_match_hostname
+      release: 1.el7
+      source: rpm
+      version: 3.5.0.1
+  python-chardet:
+    - arch: noarch
+      epoch: null
+      name: python-chardet
+      release: 3.el7
+      source: rpm
+      version: 2.2.1
+  python-configobj:
+    - arch: noarch
+      epoch: null
+      name: python-configobj
+      release: 7.el7
+      source: rpm
+      version: 4.7.2
+  python-decorator:
+    - arch: noarch
+      epoch: null
+      name: python-decorator
+      release: 3.el7
+      source: rpm
+      version: 3.4.0
+  python-gobject-base:
+    - arch: x86_64
+      epoch: null
+      name: python-gobject-base
+      release: 1.el7_4.1
+      source: rpm
+      version: 3.22.0
+  python-iniparse:
+    - arch: noarch
+      epoch: null
+      name: python-iniparse
+      release: 9.el7
+      source: rpm
+      version: '0.4'
+  python-ipaddress:
+    - arch: noarch
+      epoch: null
+      name: python-ipaddress
+      release: 2.el7
+      source: rpm
+      version: 1.0.16
+  python-javapackages:
+    - arch: noarch
+      epoch: null
+      name: python-javapackages
+      release: 11.el7
+      source: rpm
+      version: 3.4.1
+  python-jinja2:
+    - arch: noarch
+      epoch: null
+      name: python-jinja2
+      release: 4.el7
+      source: rpm
+      version: 2.7.2
+  python-jsonpatch:
+    - arch: noarch
+      epoch: null
+      name: python-jsonpatch
+      release: 4.el7
+      source: rpm
+      version: '1.2'
+  python-jsonpointer:
+    - arch: noarch
+      epoch: null
+      name: python-jsonpointer
+      release: 2.el7
+      source: rpm
+      version: '1.9'
+  python-kitchen:
+    - arch: noarch
+      epoch: null
+      name: python-kitchen
+      release: 5.el7
+      source: rpm
+      version: 1.1.1
+  python-libs:
+    - arch: x86_64
+      epoch: null
+      name: python-libs
+      release: 90.el7
+      source: rpm
+      version: 2.7.5
+  python-linux-procfs:
+    - arch: noarch
+      epoch: null
+      name: python-linux-procfs
+      release: 4.el7
+      source: rpm
+      version: 0.4.11
+  python-lxml:
+    - arch: x86_64
+      epoch: null
+      name: python-lxml
+      release: 4.el7
+      source: rpm
+      version: 3.2.1
+  python-markupsafe:
+    - arch: x86_64
+      epoch: null
+      name: python-markupsafe
+      release: 10.el7
+      source: rpm
+      version: '0.11'
+  python-perf:
+    - arch: x86_64
+      epoch: null
+      name: python-perf
+      release: 1160.59.1.el7
+      source: rpm
+      version: 3.10.0
+  python-prettytable:
+    - arch: noarch
+      epoch: null
+      name: python-prettytable
+      release: 3.el7
+      source: rpm
+      version: 0.7.2
+  python-pycurl:
+    - arch: x86_64
+      epoch: null
+      name: python-pycurl
+      release: 19.el7
+      source: rpm
+      version: 7.19.0
+  python-pyudev:
+    - arch: noarch
+      epoch: null
+      name: python-pyudev
+      release: 9.el7
+      source: rpm
+      version: '0.15'
+  python-requests:
+    - arch: noarch
+      epoch: null
+      name: python-requests
+      release: 10.el7
+      source: rpm
+      version: 2.6.0
+  python-schedutils:
+    - arch: x86_64
+      epoch: null
+      name: python-schedutils
+      release: 6.el7
+      source: rpm
+      version: '0.4'
+  python-setuptools:
+    - arch: noarch
+      epoch: null
+      name: python-setuptools
+      release: 7.el7
+      source: rpm
+      version: 0.9.8
+  python-six:
+    - arch: noarch
+      epoch: null
+      name: python-six
+      release: 2.el7
+      source: rpm
+      version: 1.9.0
+  python-urlgrabber:
+    - arch: noarch
+      epoch: null
+      name: python-urlgrabber
+      release: 10.el7
+      source: rpm
+      version: '3.10'
+  python-urllib3:
+    - arch: noarch
+      epoch: null
+      name: python-urllib3
+      release: 7.el7
+      source: rpm
+      version: 1.10.2
+  python3:
+    - arch: x86_64
+      epoch: null
+      name: python3
+      release: 18.el7
+      source: rpm
+      version: 3.6.8
+  python3-libs:
+    - arch: x86_64
+      epoch: null
+      name: python3-libs
+      release: 18.el7
+      source: rpm
+      version: 3.6.8
+  python3-pip:
+    - arch: noarch
+      epoch: null
+      name: python3-pip
+      release: 8.el7
+      source: rpm
+      version: 9.0.3
+  python3-setuptools:
+    - arch: noarch
+      epoch: null
+      name: python3-setuptools
+      release: 10.el7
+      source: rpm
+      version: 39.2.0
+  pyxattr:
+    - arch: x86_64
+      epoch: null
+      name: pyxattr
+      release: 5.el7
+      source: rpm
+      version: 0.5.1
+  qdox:
+    - arch: noarch
+      epoch: 0
+      name: qdox
+      release: 10.el7
+      source: rpm
+      version: 1.12.1
+  qemu-guest-agent:
+    - arch: x86_64
+      epoch: 10
+      name: qemu-guest-agent
+      release: 3.el7
+      source: rpm
+      version: 2.12.0
+  qrencode-libs:
+    - arch: x86_64
+      epoch: null
+      name: qrencode-libs
+      release: 3.el7
+      source: rpm
+      version: 3.4.1
+  quota:
+    - arch: x86_64
+      epoch: 1
+      name: quota
+      release: 19.el7
+      source: rpm
+      version: '4.01'
+  quota-nls:
+    - arch: noarch
+      epoch: 1
+      name: quota-nls
+      release: 19.el7
+      source: rpm
+      version: '4.01'
+  readline:
+    - arch: x86_64
+      epoch: null
+      name: readline
+      release: 11.el7
+      source: rpm
+      version: '6.2'
+  regexp:
+    - arch: noarch
+      epoch: 0
+      name: regexp
+      release: 13.el7
+      source: rpm
+      version: '1.5'
+  rootfiles:
+    - arch: noarch
+      epoch: null
+      name: rootfiles
+      release: 11.el7
+      source: rpm
+      version: '8.1'
+  rpcbind:
+    - arch: x86_64
+      epoch: null
+      name: rpcbind
+      release: 49.el7
+      source: rpm
+      version: 0.2.0
+  rpm:
+    - arch: x86_64
+      epoch: null
+      name: rpm
+      release: 48.el7_9
+      source: rpm
+      version: 4.11.3
+  rpm-build-libs:
+    - arch: x86_64
+      epoch: null
+      name: rpm-build-libs
+      release: 48.el7_9
+      source: rpm
+      version: 4.11.3
+  rpm-libs:
+    - arch: x86_64
+      epoch: null
+      name: rpm-libs
+      release: 48.el7_9
+      source: rpm
+      version: 4.11.3
+  rpm-python:
+    - arch: x86_64
+      epoch: null
+      name: rpm-python
+      release: 48.el7_9
+      source: rpm
+      version: 4.11.3
+  rsync:
+    - arch: x86_64
+      epoch: null
+      name: rsync
+      release: 10.el7
+      source: rpm
+      version: 3.1.2
+  rsyslog:
+    - arch: x86_64
+      epoch: null
+      name: rsyslog
+      release: 57.el7_9.1
+      source: rpm
+      version: 8.24.0
+  sed:
+    - arch: x86_64
+      epoch: null
+      name: sed
+      release: 7.el7
+      source: rpm
+      version: 4.2.2
+  selinux-policy:
+    - arch: noarch
+      epoch: null
+      name: selinux-policy
+      release: 268.el7_9.2
+      source: rpm
+      version: 3.13.1
+  selinux-policy-targeted:
+    - arch: noarch
+      epoch: null
+      name: selinux-policy-targeted
+      release: 268.el7_9.2
+      source: rpm
+      version: 3.13.1
+  setools-libs:
+    - arch: x86_64
+      epoch: null
+      name: setools-libs
+      release: 4.el7
+      source: rpm
+      version: 3.3.8
+  setup:
+    - arch: noarch
+      epoch: null
+      name: setup
+      release: 11.el7
+      source: rpm
+      version: 2.8.71
+  sg3_utils:
+    - arch: x86_64
+      epoch: 1
+      name: sg3_utils
+      release: 19.el7
+      source: rpm
+      version: '1.37'
+  sg3_utils-libs:
+    - arch: x86_64
+      epoch: 1
+      name: sg3_utils-libs
+      release: 19.el7
+      source: rpm
+      version: '1.37'
+  shadow-utils:
+    - arch: x86_64
+      epoch: 2
+      name: shadow-utils
+      release: 5.el7
+      source: rpm
+      version: '4.6'
+  shared-mime-info:
+    - arch: x86_64
+      epoch: null
+      name: shared-mime-info
+      release: 5.el7
+      source: rpm
+      version: '1.8'
+  sisu-inject-bean:
+    - arch: noarch
+      epoch: null
+      name: sisu-inject-bean
+      release: 11.el7
+      source: rpm
+      version: 2.3.0
+  sisu-inject-plexus:
+    - arch: noarch
+      epoch: null
+      name: sisu-inject-plexus
+      release: 11.el7
+      source: rpm
+      version: 2.3.0
+  slang:
+    - arch: x86_64
+      epoch: null
+      name: slang
+      release: 11.el7
+      source: rpm
+      version: 2.2.4
+  slf4j:
+    - arch: noarch
+      epoch: 0
+      name: slf4j
+      release: 4.el7_4
+      source: rpm
+      version: 1.7.4
+  smem:
+    - arch: noarch
+      epoch: null
+      name: smem
+      release: 1.el7
+      source: rpm
+      version: '1.4'
+  snappy:
+    - arch: x86_64
+      epoch: null
+      name: snappy
+      release: 3.el7
+      source: rpm
+      version: 1.1.0
+  sqlite:
+    - arch: x86_64
+      epoch: null
+      name: sqlite
+      release: 8.el7_7.1
+      source: rpm
+      version: 3.7.17
+  sudo:
+    - arch: x86_64
+      epoch: null
+      name: sudo
+      release: 10.el7_9.2
+      source: rpm
+      version: 1.8.23
+  sysstat:
+    - arch: x86_64
+      epoch: null
+      name: sysstat
+      release: 19.el7
+      source: rpm
+      version: 10.1.5
+  systemd:
+    - arch: x86_64
+      epoch: null
+      name: systemd
+      release: 78.el7_9.5
+      source: rpm
+      version: '219'
+  systemd-libs:
+    - arch: x86_64
+      epoch: null
+      name: systemd-libs
+      release: 78.el7_9.5
+      source: rpm
+      version: '219'
+  systemd-sysv:
+    - arch: x86_64
+      epoch: null
+      name: systemd-sysv
+      release: 78.el7_9.5
+      source: rpm
+      version: '219'
+  sysvinit-tools:
+    - arch: x86_64
+      epoch: null
+      name: sysvinit-tools
+      release: 14.dsf.el7
+      source: rpm
+      version: '2.88'
+  tar:
+    - arch: x86_64
+      epoch: 2
+      name: tar
+      release: 35.el7
+      source: rpm
+      version: '1.26'
+  tcp_wrappers:
+    - arch: x86_64
+      epoch: null
+      name: tcp_wrappers
+      release: 77.el7
+      source: rpm
+      version: '7.6'
+  tcp_wrappers-libs:
+    - arch: x86_64
+      epoch: null
+      name: tcp_wrappers-libs
+      release: 77.el7
+      source: rpm
+      version: '7.6'
+  tcpdump:
+    - arch: x86_64
+      epoch: 14
+      name: tcpdump
+      release: 4.el7_7.1
+      source: rpm
+      version: 4.9.2
+  teamd:
+    - arch: x86_64
+      epoch: null
+      name: teamd
+      release: 3.el7
+      source: rpm
+      version: '1.29'
+  telnet:
+    - arch: x86_64
+      epoch: 1
+      name: telnet
+      release: 66.el7
+      source: rpm
+      version: '0.17'
+  tomcat-servlet-3.0-api:
+    - arch: noarch
+      epoch: 0
+      name: tomcat-servlet-3.0-api
+      release: 16.el7_9
+      source: rpm
+      version: 7.0.76
+  ttmkfdir:
+    - arch: x86_64
+      epoch: null
+      name: ttmkfdir
+      release: 42.el7
+      source: rpm
+      version: 3.0.9
+  tuned:
+    - arch: noarch
+      epoch: null
+      name: tuned
+      release: 11.el7_9
+      source: rpm
+      version: 2.11.0
+  tzdata:
+    - arch: noarch
+      epoch: null
+      name: tzdata
+      release: 1.el7
+      source: rpm
+      version: 2021e
+  tzdata-java:
+    - arch: noarch
+      epoch: null
+      name: tzdata-java
+      release: 1.el7
+      source: rpm
+      version: 2021e
+  unzip:
+    - arch: x86_64
+      epoch: null
+      name: unzip
+      release: 24.el7_9
+      source: rpm
+      version: '6.0'
+  ustr:
+    - arch: x86_64
+      epoch: null
+      name: ustr
+      release: 16.el7
+      source: rpm
+      version: 1.0.4
+  util-linux:
+    - arch: x86_64
+      epoch: null
+      name: util-linux
+      release: 65.el7_9.1
+      source: rpm
+      version: 2.23.2
+  vim-minimal:
+    - arch: x86_64
+      epoch: 2
+      name: vim-minimal
+      release: 8.el7_9
+      source: rpm
+      version: 7.4.629
+  virt-what:
+    - arch: x86_64
+      epoch: null
+      name: virt-what
+      release: 4.el7_9.1
+      source: rpm
+      version: '1.18'
+  wget:
+    - arch: x86_64
+      epoch: null
+      name: wget
+      release: 18.el7_6.1
+      source: rpm
+      version: '1.14'
+  which:
+    - arch: x86_64
+      epoch: null
+      name: which
+      release: 7.el7
+      source: rpm
+      version: '2.20'
+  wpa_supplicant:
+    - arch: x86_64
+      epoch: 1
+      name: wpa_supplicant
+      release: 12.el7_9.2
+      source: rpm
+      version: '2.6'
+  xalan-j2:
+    - arch: noarch
+      epoch: 0
+      name: xalan-j2
+      release: 23.el7
+      source: rpm
+      version: 2.7.1
+  xbean:
+    - arch: noarch
+      epoch: null
+      name: xbean
+      release: 6.el7
+      source: rpm
+      version: '3.13'
+  xerces-j2:
+    - arch: noarch
+      epoch: null
+      name: xerces-j2
+      release: 17.el7_0
+      source: rpm
+      version: 2.11.0
+  xfsprogs:
+    - arch: x86_64
+      epoch: null
+      name: xfsprogs
+      release: 22.el7
+      source: rpm
+      version: 4.5.0
+  xml-commons-apis:
+    - arch: noarch
+      epoch: null
+      name: xml-commons-apis
+      release: 16.el7
+      source: rpm
+      version: 1.4.01
+  xml-commons-resolver:
+    - arch: noarch
+      epoch: 0
+      name: xml-commons-resolver
+      release: 15.el7
+      source: rpm
+      version: '1.2'
+  xorg-x11-font-utils:
+    - arch: x86_64
+      epoch: 1
+      name: xorg-x11-font-utils
+      release: 21.el7
+      source: rpm
+      version: '7.5'
+  xorg-x11-fonts-Type1:
+    - arch: noarch
+      epoch: null
+      name: xorg-x11-fonts-Type1
+      release: 9.el7
+      source: rpm
+      version: '7.5'
+  xz:
+    - arch: x86_64
+      epoch: null
+      name: xz
+      release: 1.el7
+      source: rpm
+      version: 5.2.2
+  xz-libs:
+    - arch: x86_64
+      epoch: null
+      name: xz-libs
+      release: 1.el7
+      source: rpm
+      version: 5.2.2
+  yum:
+    - arch: noarch
+      epoch: null
+      name: yum
+      release: 168.el7.centos
+      source: rpm
+      version: 3.4.3
+  yum-metadata-parser:
+    - arch: x86_64
+      epoch: null
+      name: yum-metadata-parser
+      release: 10.el7
+      source: rpm
+      version: 1.1.4
+  yum-plugin-fastestmirror:
+    - arch: noarch
+      epoch: null
+      name: yum-plugin-fastestmirror
+      release: 54.el7_8
+      source: rpm
+      version: 1.1.31
+  yum-utils:
+    - arch: noarch
+      epoch: null
+      name: yum-utils
+      release: 54.el7_8
+      source: rpm
+      version: 1.1.31
+  zlib:
+    - arch: x86_64
+      epoch: null
+      name: zlib
+      release: 19.el7_9
+      source: rpm
+      version: 1.2.7
+processes:
+  - cmdline: /usr/lib/systemd/systemd --switched-root --system --deserialize 21
+    pid: '1'
+    ppid: '0'
+    user: root
+  - cmdline: ''
+    pid: '2'
+    ppid: '0'
+    user: root
+  - cmdline: ''
+    pid: '4'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '6'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '7'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '8'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '9'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '10'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '11'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '13'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '14'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '15'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '16'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '17'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '18'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '19'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '20'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '21'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '22'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '23'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '24'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '30'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '31'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '32'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '33'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '41'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '43'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '44'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '45'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '46'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '59'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '113'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '192'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '193'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '260'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '265'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '266'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '267'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '268'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '272'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '281'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '282'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '283'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '284'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '285'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '286'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '287'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '288'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '289'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '290'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '291'
+    ppid: '2'
+    user: root
+  - cmdline: /usr/lib/systemd/systemd-journald
+    pid: '408'
+    ppid: '1'
+    user: root
+  - cmdline: /usr/lib/systemd/systemd-udevd
+    pid: '447'
+    ppid: '1'
+    user: root
+  - cmdline: ''
+    pid: '471'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '512'
+    ppid: '2'
+    user: root
+  - cmdline: /sbin/auditd
+    pid: '516'
+    ppid: '1'
+    user: root
+  - cmdline: ''
+    pid: '539'
+    ppid: '2'
+    user: root
+  - cmdline: /usr/lib/polkit-1/polkitd --no-debug
+    pid: '548'
+    ppid: '1'
+    user: polkitd
+  - cmdline: /sbin/rpcbind -w
+    pid: '550'
+    ppid: '1'
+    user: rpc
+  - cmdline: /usr/lib/systemd/systemd-logind
+    pid: '554'
+    ppid: '1'
+    user: root
+  - cmdline: /usr/sbin/gssproxy -D
+    pid: '562'
+    ppid: '1'
+    user: root
+  - cmdline: '/usr/bin/dbus-daemon --system --address=systemd: --nofork --nopidfile --systemd-activation'
+    pid: '563'
+    ppid: '1'
+    user: dbus
+  - cmdline: /usr/sbin/chronyd
+    pid: '566'
+    ppid: '1'
+    user: chrony
+  - cmdline: /sbin/dhclient -1 -q -lf /var/lib/dhclient/dhclient--eth0.lease -pf /var/run/dhclient-eth0.pid -H test-norm01 eth0
+    pid: '808'
+    ppid: '1'
+    user: root
+  - cmdline: /usr/bin/python2 -Es /usr/sbin/tuned -l -P
+    pid: '864'
+    ppid: '1'
+    user: root
+  - cmdline: /usr/sbin/httpd -DFOREGROUND
+    pid: '866'
+    ppid: '1'
+    user: root
+  - cmdline: '/usr/bin/java -Xms64M -Xmx1G -Djava.util.logging.config.file=logging.properties -Djava.security.auth.login.config=/opt/apache-activemq-5.14.3//conf/login.config -Dcom.sun.management.jmxremote -Djava.awt.headless=true -Djava.io.tmpdir=/opt/apache-activemq-5.14.3//tmp -Dactivemq.classpath=/opt/apache-activemq-5.14.3//conf:/opt/apache-activemq-5.14.3//../lib/: -Dactivemq.home=/opt/apache-activemq-5.14.3/ -Dactivemq.base=/opt/apache-activemq-5.14.3/ -Dactivemq.conf=/opt/apache-activemq-5.14.3//conf -Dactivemq.data=/opt/apache-activemq-5.14.3//data -jar /opt/apache-activemq-5.14.3//bin/activemq.jar start'
+    pid: '967'
+    ppid: '1'
+    user: root
+  - cmdline: /usr/libexec/postfix/master -w
+    pid: '1100'
+    ppid: '1'
+    user: root
+  - cmdline: qmgr -l -t unix -u
+    pid: '1106'
+    ppid: '1100'
+    user: postfix
+  - cmdline: /usr/share/filebeat/bin/filebeat -e -c /etc/filebeat/filebeat.yml -path.home /usr/share/filebeat -path.config /etc/filebeat -path.data /var/lib/filebeat -path.logs /var/log/filebeat
+    pid: '1147'
+    ppid: '1'
+    user: root
+  - cmdline: /usr/sbin/rsyslogd -n
+    pid: '1148'
+    ppid: '1'
+    user: root
+  - cmdline: /usr/sbin/sshd -D
+    pid: '1159'
+    ppid: '1'
+    user: root
+  - cmdline: /usr/sbin/crond -n
+    pid: '1181'
+    ppid: '1'
+    user: root
+  - cmdline: /sbin/agetty --noclear tty1 linux
+    pid: '1182'
+    ppid: '1'
+    user: root
+  - cmdline: /sbin/agetty --keep-baud 115200,38400,9600 ttyS0 vt220
+    pid: '1183'
+    ppid: '1'
+    user: root
+  - cmdline: /usr/bin/mongod -f /etc/mongod.conf
+    pid: '1239'
+    ppid: '1'
+    user: mongod
+  - cmdline: /usr/sbin/mysqld
+    pid: '1535'
+    ppid: '1'
+    user: mysql
+  - cmdline: ''
+    pid: '1993'
+    ppid: '2'
+    user: root
+  - cmdline: /usr/sbin/httpd -DFOREGROUND
+    pid: '2191'
+    ppid: '866'
+    user: apache
+  - cmdline: /usr/sbin/httpd -DFOREGROUND
+    pid: '2192'
+    ppid: '866'
+    user: apache
+  - cmdline: /usr/sbin/httpd -DFOREGROUND
+    pid: '2193'
+    ppid: '866'
+    user: apache
+  - cmdline: /usr/sbin/httpd -DFOREGROUND
+    pid: '2194'
+    ppid: '866'
+    user: apache
+  - cmdline: /usr/sbin/httpd -DFOREGROUND
+    pid: '2195'
+    ppid: '866'
+    user: apache
+  - cmdline: ''
+    pid: '3613'
+    ppid: '2'
+    user: root
+  - cmdline: pickup -l -t unix -u
+    pid: '6346'
+    ppid: '1100'
+    user: postfix
+  - cmdline: 'sshd: centos [priv]'
+    pid: '12465'
+    ppid: '1159'
+    user: root
+  - cmdline: 'sshd: centos@pts/0'
+    pid: '12468'
+    ppid: '12465'
+    user: centos
+  - cmdline: -bash
+    pid: '12469'
+    ppid: '12468'
+    user: centos
+  - cmdline: sudo su
+    pid: '12624'
+    ppid: '12469'
+    user: root
+  - cmdline: su
+    pid: '12625'
+    ppid: '12624'
+    user: root
+  - cmdline: bash
+    pid: '12626'
+    ppid: '12625'
+    user: root
+  - cmdline: ''
+    pid: '13638'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    pid: '16252'
+    ppid: '2'
+    user: root
+  - cmdline: /bin/bash /opt/wildfly/bin/launch.sh standalone standalone.xml 0.0.0.0 0.0.0.0
+    pid: '16731'
+    ppid: '1'
+    user: root
+  - cmdline: /bin/sh /opt/wildfly/bin/standalone.sh -c standalone.xml -b 0.0.0.0 -bmanagement 0.0.0.0 -Djboss.node.name=jbossnode -Djboss.bind.address=0.0.0.0
+    pid: '16732'
+    ppid: '16731'
+    user: root
+  - cmdline: java -D[Standalone] -server -Xms64m -Xmx512m -XX:MetaspaceSize=96M -XX:MaxMetaspaceSize=256m -Djava.net.preferIPv4Stack=true -Djboss.modules.system.pkgs=org.jboss.byteman -Djava.awt.headless=true -Dorg.jboss.boot.log.file=/opt/wildfly/standalone/log/server.log -Dlogging.configuration=file:/opt/wildfly/standalone/configuration/logging.properties -jar /opt/wildfly/jboss-modules.jar -mp /opt/wildfly/modules org.jboss.as.standalone -Djboss.home.dir=/opt/wildfly -Djboss.server.base.dir=/opt/wildfly/standalone -c standalone.xml -b 0.0.0.0 -bmanagement 0.0.0.0 -Djboss.node.name=jbossnode -Djboss.bind.address=0.0.0.0
+    pid: '16804'
+    ppid: '16732'
+    user: root
+  - cmdline: 'sshd: centos [priv]'
+    pid: '17035'
+    ppid: '1159'
+    user: root
+  - cmdline: 'sshd: centos@pts/2'
+    pid: '17037'
+    ppid: '17035'
+    user: centos
+  - cmdline: /bin/sh -c sudo -H -S -n  -u root /bin/sh -c 'echo BECOME-SUCCESS-uogiasqvprujzcdjlsfyzkxrwqlshowe ; /usr/bin/python /home/centos/.ansible/tmp/ansible-tmp-1656010476.541192-90866-279307388845969/AnsiballZ_process_facts.py' && sleep 0
+    pid: '17194'
+    ppid: '17037'
+    user: centos
+  - cmdline: sudo -H -S -n -u root /bin/sh -c echo BECOME-SUCCESS-uogiasqvprujzcdjlsfyzkxrwqlshowe ; /usr/bin/python /home/centos/.ansible/tmp/ansible-tmp-1656010476.541192-90866-279307388845969/AnsiballZ_process_facts.py
+    pid: '17207'
+    ppid: '17194'
+    user: root
+  - cmdline: /bin/sh -c echo BECOME-SUCCESS-uogiasqvprujzcdjlsfyzkxrwqlshowe ; /usr/bin/python /home/centos/.ansible/tmp/ansible-tmp-1656010476.541192-90866-279307388845969/AnsiballZ_process_facts.py
+    pid: '17209'
+    ppid: '17207'
+    user: root
+  - cmdline: /usr/bin/python /home/centos/.ansible/tmp/ansible-tmp-1656010476.541192-90866-279307388845969/AnsiballZ_process_facts.py
+    pid: '17210'
+    ppid: '17209'
+    user: root
+  - cmdline: ''
+    pid: '17543'
+    ppid: '2'
+    user: root
+  - cmdline: /usr/sbin/httpd -DFOREGROUND
+    pid: '18901'
+    ppid: '866'
+    user: apache
+tcp_listen:
+  - address: 0.0.0.0
+    name: java
+    pid: 16804
+    port: 29990
+    protocol: tcp
+    stime: Thu Jun 23 18:52:06 2022
+    user: root
+  - address: 0.0.0.0
+    name: mongod
+    pid: 1239
+    port: 27017
+    protocol: tcp
+    stime: Thu Jun 16 14:10:00 2022
+    user: mongod
+  - address: 0.0.0.0
+    name: rpcbind
+    pid: 550
+    port: 111
+    protocol: tcp
+    stime: Thu Jun 16 14:09:45 2022
+    user: rpc
+  - address: 0.0.0.0
+    name: java
+    pid: 16804
+    port: 28080
+    protocol: tcp
+    stime: Thu Jun 23 18:52:06 2022
+    user: root
+  - address: 0.0.0.0
+    name: sshd
+    pid: 1159
+    port: 22
+    protocol: tcp
+    stime: Thu Jun 16 14:09:58 2022
+    user: root
+  - address: 127.0.0.1
+    name: master
+    pid: 1100
+    port: 25
+    protocol: tcp
+    stime: Thu Jun 16 14:09:57 2022
+    user: root
+  - address: 0.0.0.0
+    name: java
+    pid: 16804
+    port: 28443
+    protocol: tcp
+    stime: Thu Jun 23 18:52:06 2022
+    user: root
+  - address: '::'
+    name: java
+    pid: 967
+    port: 5672
+    protocol: tcp
+    stime: Thu Jun 16 14:09:54 2022
+    user: root
+  - address: '::'
+    name: java
+    pid: 967
+    port: 42825
+    protocol: tcp
+    stime: Thu Jun 16 14:09:54 2022
+    user: root
+  - address: '::'
+    name: mysqld
+    pid: 1535
+    port: 3306
+    protocol: tcp
+    stime: Thu Jun 16 14:10:11 2022
+    user: mysql
+  - address: '::'
+    name: java
+    pid: 967
+    port: 61613
+    protocol: tcp
+    stime: Thu Jun 16 14:09:54 2022
+    user: root
+  - address: '::'
+    name: java
+    pid: 967
+    port: 61614
+    protocol: tcp
+    stime: Thu Jun 16 14:09:54 2022
+    user: root
+  - address: '::'
+    name: rpcbind
+    pid: 550
+    port: 111
+    protocol: tcp
+    stime: Thu Jun 16 14:09:45 2022
+    user: rpc
+  - address: '::'
+    name: java
+    pid: 967
+    port: 61616
+    protocol: tcp
+    stime: Thu Jun 16 14:09:54 2022
+    user: root
+  - address: '::'
+    name: httpd
+    pid: 866
+    port: 80
+    protocol: tcp
+    stime: Thu Jun 16 14:09:53 2022
+    user: root
+  - address: '::'
+    name: httpd
+    pid: 866
+    port: 81
+    protocol: tcp
+    stime: Thu Jun 16 14:09:53 2022
+    user: root
+  - address: '::'
+    name: sshd
+    pid: 1159
+    port: 22
+    protocol: tcp
+    stime: Thu Jun 16 14:09:58 2022
+    user: root
+  - address: ::1
+    name: master
+    pid: 1100
+    port: 25
+    protocol: tcp
+    stime: Thu Jun 16 14:09:57 2022
+    user: root
+  - address: '::'
+    name: java
+    pid: 967
+    port: 1883
+    protocol: tcp
+    stime: Thu Jun 16 14:09:54 2022
+    user: root
+  - address: '::'
+    name: java
+    pid: 967
+    port: 8161
+    protocol: tcp
+    stime: Thu Jun 16 14:09:54 2022
+    user: root
+udp_listen:
+  - address: 0.0.0.0
+    name: dhclient
+    pid: 808
+    port: 68
+    protocol: udp
+    stime: Thu Jun 16 14:09:53 2022
+    user: root
+  - address: 0.0.0.0
+    name: rpcbind
+    pid: 550
+    port: 111
+    protocol: udp
+    stime: Thu Jun 16 14:09:45 2022
+    user: rpc
+  - address: 127.0.0.1
+    name: chronyd
+    pid: 566
+    port: 323
+    protocol: udp
+    stime: Thu Jun 16 14:09:49 2022
+    user: chrony
+  - address: '::'
+    name: rpcbind
+    pid: 550
+    port: 721
+    protocol: udp
+    stime: Thu Jun 16 14:09:45 2022
+    user: rpc
+  - address: '::'
+    name: rpcbind
+    pid: 550
+    port: 111
+    protocol: udp
+    stime: Thu Jun 16 14:09:45 2022
+    user: rpc
+  - address: ::1
+    name: chronyd
+    pid: 566
+    port: 323
+    protocol: udp
+    stime: Thu Jun 16 14:09:49 2022
+    user: chrony

@@ -1,0 +1,6 @@
+- name: show var
+  print_var:
+    var: __instance__.listening_ports
+- name: set_var_from_include
+  set_instance_fact:
+    var_from_include_tasks: << __instance__.listening_ports | last  >>

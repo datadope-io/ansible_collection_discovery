@@ -1,0 +1,335 @@
+- name: Get binary from cmdline
+  set_instance_fact:
+    _bin_file: "<< __instance__.process.cmdline.split(' ', 1)[0] >>"
+  ignore_errors: yes
+- name: Save bin_file
+  add_file_info:
+    path: "<<__instance__._bin_file | dirname >>"
+    name: "<<__instance__._bin_file | basename >>"
+    type: 'binary'
+    subtype: 'generic'
+
+- name: Get conf_file_path from cmdline
+  set_instance_fact:
+    _conf_file_path: "<< __instance__.process.cmdline | regex_search('-f ?(\\S*\\.conf).*', '\\1') | first >>"
+  ignore_errors: yes
+
+- name: Get conf_file_path from binary
+  block:
+    - name: Run command with binary
+      run_command:
+        argv:
+          - << __instance__._bin_file >>
+          - -V
+      register: result
+    - name: Process command output if not failed
+      block:
+        - name: Search conf_file_path in stdout
+          set_instance_fact:
+            _conf_file_path: "<< result.stdout | regex_search(' -D SERVER_CONFIG_FILE=\"(.*)\"$', '\\1', multiline=True) | first >>"
+        - name: Search httpd_root in stdout
+          set_instance_fact:
+            _httpd_root: "<< result.stdout | regex_search(' -D HTTPD_ROOT=\"(.*)\"$', '\\1', multiline=True) | first >>"
+        - name: Check if conf_file_path is accesible
+          stat:
+            path: "<< __instance__._conf_file_path >>"
+          register: accesible
+        - name: Join httpd_root to conf_file_path if needed
+          set_instance_fact:
+            _conf_file_path: "<< (__instance__._httpd_root, __instance__._conf_file_path) | datadope.discovery.path_join >>"
+          when: accesible is failed
+      when: result is not failed
+  when:
+    - __instance__._conf_file_path is not defined
+    - __instance__._bin_file is defined
+
+- name: Get version from binary
+  block:
+    - name: Run command version
+      run_command:
+        argv:
+          - << __instance__._bin_file >>
+          - -v
+      register: result
+    - name: Add version from command to the instance data
+      add_version_info:
+        version_type: "active"
+        version_number: "<< result.stdout | regex_search('Apache/(\\d+(?:\\.\\d+)*)', '\\1') | first >>"
+      when: result is not failed
+      ignore_errors: yes
+
+- name: Read process environment
+  read_environment_for_process:
+    pid: "<< __instance__.process.pid >>"
+  register: env_vars
+  ignore_errors: yes
+
+- name: Parse config file
+  read_remote_file:
+    file_path: "<< __instance__._conf_file_path >>"
+    delegate_reading: yes
+    parser: "custom"
+    parser_params:
+      module_name: "file_parser"
+      module_args:
+        parser: "apache_webserver"
+        env_vars: "<< env_vars.parsed | default({}) >>"
+  register: result
+  when: __instance__._conf_file_path is defined
+
+- name: Save parsed config file if necessary
+  set_instance_fact:
+    configuration: "<< result.parsed >>"
+  when: result.parsed is defined
+
+- name: Extract data of the instance
+  block:
+    - name: Set config path vars
+      set_instance_fact:
+        _conf_file_name: "<< __instance__._conf_file_path | basename >>"
+        _conf_path: "<< __instance__._conf_file_path | dirname >>"
+        _parent_conf_path: "<< __instance__._conf_file_path | dirname | dirname>>"
+    - name: Save config_file in files
+      add_file_info:
+        path: "<<__instance__._conf_file_path | dirname>>"
+        name: "<<__instance__._conf_file_path | basename>>"
+        type: 'config'
+        subtype: 'generic'
+    - name: Set instance_name from config file
+      set_instance_fact:
+        extra_data: "<< (__instance__.extra_data | default({})) | combine({
+        'instance_name': __instance__._conf_file_name | regex_search('http\\w?_(.*).conf', '\\1') | first
+        }) >>"
+      when: __instance__._config_file_name is defined
+    - name: Search listen in configuration
+      find_in_dict:
+        item: Listen
+        source: "<< __instance__.configuration >>"
+      register: listen
+    - name: Store listen configuration if available
+      set_instance_fact:
+        _listen: "<< __instance__._listen | default([]) + [__item__] >>"
+      loop: "<< listen.result >> "
+      when: listen.result is defined
+    - name: If no listen configuration found, search listen in cmdline
+      set_instance_fact:
+        _listen: "<< regex_search('^.*Listen ([0-9]+)', '\\1', multiline=True) >>"
+      when: __instance__._listen is not defined
+    - name: Process listen entries
+      block:
+        - name: Set default address and raw_port
+          set_instance_fact:
+            _address: "localhost"
+            _raw_port: "<< __listen__ >>"
+          when: not __listen__ is search(':')
+        - name: Set address and raw_port
+          set_instance_fact:
+            _address: "<< __listen__.split(':', 1)[0] >>"
+            _raw_port: "<< __listen__.split(':', 1)[1] >>"
+          when: __listen__ is search(':')
+        - name: Set port and protocol
+          set_instance_fact:
+            _port: "<< __instance__._raw_port | regex_search('([0-9]+) ?([a-zA-Z]+)?', '\\1') | first  | string >>"
+            _protocol: "<< __instance__._raw_port | regex_search('([0-9]+) ?([a-zA-Z]+)?', '\\2') | first  >>"
+          when: __instance__._raw_port is defined
+          ignore_errors: yes
+        - name: Set https protocol if necessary
+          set_instance_fact:
+            _protocol: "https"
+          when:
+            - __instance__._port == "443"
+            - __instance__._protocol == ""
+        - name: Set http protocol if necessary
+          set_instance_fact:
+            _protocol: "http"
+          when: __instance__._protocol == ""
+        - name: Set port info if necessary 1/2
+          add_binding_info:
+            address: "<<__instance__._address>>"
+            port: "<<__instance__._port | int>>"
+            class: "<<__instance__._protocol>>"
+        - name: Set port info if necessary 2/2
+          set_instance_fact:
+            _bindings: "<<__instance__._bindings | default([]) + [__instance__._port] >>"
+          when: __instance__._port not in __instance__._bindings | default([])
+        - name: Add port data if necessary
+          set_instance_fact:
+            'bindings': "<< __instance__.bindings + [{__instance__._port: {'address': __item__.address + [__instance__._address] }}] >>"
+          when:
+            - __item__.port == __instance__._port
+            - __instance__._address not in __item__.address
+          loop: "<< __instance__.bindings | default([])>>"
+        - name: Remove temporary variables
+          del_instance_fact:
+            - _address
+            - _port
+            - _raw_port
+            - _protocol
+      loop: "<< __instance__._listen >>"
+      loop_control:
+        loop_var: __listen__
+  when: __instance__.configuration is defined
+- name: Reformat listen_ports
+  set_instance_fact:
+    bindings: "<< (__instance__.bindings | default([])) | list >>"
+- name: Set instance_name if possible and not defined
+  set_instance_fact:
+    extra_data: "<< (__instance__.extra_data | default({})) | combine({
+    'instance_name': __instance__.bindings | map(attribute='port') | list | join('.')
+    }) >>"
+  when:
+    - __instance__.extra_data.instance_name is not defined
+    - __instance__.bindings | length > 0
+- name: Set instance_name_uppercase if instance_name is defined
+  set_instance_fact:
+    extra_data: "<< (__instance__.extra_data | default({})) | combine({
+    'instance_name_uppercase': __instance__.extra_data.instance_name | upper
+    }) >>"
+  when: __instance__.extra_data.instance_name is defined
+
+- name: Process custom_log_files
+  block:
+    - name: Get custom_log_files
+      find_in_dict:
+        item: CustomLog
+        source: "<< __instance__.configuration >>"
+      register: _raw_custom_log_files
+    - name: Iterate over custom_log_files
+      block:
+        - name: Run regex on the current item for custom_log_files
+          set_instance_fact:
+            _file: "<< __item__ | regex_search('\"?(.*log)\"?', '\\1') | first >>"
+        - name: Check custom_log_files as a file itself
+          block:
+            - name: Check custom_log_files file
+              stat:
+                path: "<< __instance__._file >>"
+              register: result
+            - name: Set custom_log_files if file exists
+              set_instance_fact:
+                _custom_log_files: "<< __instance__._custom_log_files | default([]) + [__instance__._file] >>"
+              when:
+                - result is not failed
+                - __instance__._file not in __instance__._custom_log_files | default([])
+        - name: Check custom_log_file as a file in conf_path
+          block:
+            - name: Check custom_log_file file in conf_path
+              stat:
+                path: "<< (__instance__._conf_path, __instance__._file) | datadope.discovery.path_join >>"
+              register: result
+            - name: Set custom_log_files if file exists
+              set_instance_fact:
+                _custom_log_files: "<< __instance__._custom_log_files | default([]) + [ (__instance__._conf_path, __instance__._file) | datadope.discovery.path_join] >>"
+              when:
+                - result is not failed
+                - (__instance__._conf_path, __instance__._file) | datadope.discovery.path_join not in __instance__._custom_log_files | default([])
+          when: result is failed
+        - name: Check custom_log_file as a file in parent_conf_path
+          block:
+            - name: Check custom_log_file file in parent_conf_path
+              stat:
+                path: "<< (__instance__._parent_conf_path, __instance__._file) | datadope.discovery.path_join >>"
+              register: result
+            - name: Set custom_log_files if file exists
+              set_instance_fact:
+                _custom_log_files: "<< __instance__._custom_log_files | default([]) + [ (__instance__._parent_conf_path, __instance__._file) | datadope.discovery.path_join] >>"
+              when:
+                - result is not failed
+                - (__instance__._parent_conf_path, __instance__._file) | datadope.discovery.path_join not in __instance__._custom_log_files | default([])
+          when: result is failed
+        - name: Remove temporary variables
+          del_instance_fact:
+            - _file
+      loop: "<< _raw_custom_log_files.result | default([]) >>"
+  when: __instance__.configuration is defined
+- name: loop in custom_log_files
+  block:
+    - name: Save custom log files
+      add_file_info:
+        path: "<<log_file | dirname>>"
+        name: "<<log_file | basename>>"
+        type: 'log'
+        subtype: 'access'
+  loop: "<< __instance__._custom_log_files | default([]) >>"
+  loop_control:
+    loop_var: log_file
+
+- name: Process error_log_files
+  block:
+    - name: Get error_log_files
+      find_in_dict:
+        item: ErrorLog
+        source: "<< __instance__.configuration >>"
+      register: _raw_error_log_files
+    - name: Iterate over error_log_files
+      block:
+        - name: Run regex on the current item for error_log_files
+          set_instance_fact:
+            _file: "<< __item__ | regex_search('\"?(.*log)\"?', '\\1') | first >>"
+        - name: Check error_log_file as a file itself
+          block:
+            - name: Check error_log_file file
+              stat:
+                path: "<< __instance__._file >>"
+              register: result
+            - name: Set error_log_files if file exists
+              set_instance_fact:
+                _error_log_files: "<< __instance__._error_log_files | default([]) + [__instance__._file] >>"
+              when:
+                - result is not failed
+                - __instance__._file not in __instance__._error_log_files | default([])
+        - name: Check error_log_file as a file in conf_path
+          block:
+            - name: Check error_log_file file in conf_path
+              stat:
+                path: "<< (__instance__._conf_path, __instance__._file) | datadope.discovery.path_join >>"
+              register: result
+            - name: Set _error_log_files if file exists
+              set_instance_fact:
+                _error_log_files: "<< __instance__._error_log_files | default([]) + [ (__instance__._conf_path, __instance__._file) | datadope.discovery.path_join] >>"
+              when:
+                - result is not failed
+                - (__instance__._conf_path, __instance__._file) | datadope.discovery.path_join not in __instance__._error_log_files | default([])
+          when: result is failed
+        - name: Check error_log_file as a file in parent_conf_path
+          block:
+            - name: Check error_log_file file in parent_conf_path
+              stat:
+                path: "<< (__instance__._parent_conf_path, __instance__._file) | datadope.discovery.path_join >>"
+              register: result
+            - name: Set error_log_file if file exists
+              set_instance_fact:
+                _error_log_files: "<< __instance__._error_log_files | default([]) + [ (__instance__._parent_conf_path, __instance__._file) | datadope.discovery.path_join] >>"
+              when:
+                - result is not failed
+                - (__instance__._parent_conf_path, __instance__._file) | datadope.discovery.path_join not in __instance__._error_log_files | default([])
+          when: result is failed
+        - name: Remove temporary variables
+          del_instance_fact:
+            - _file
+      loop: "<< _raw_error_log_files.result | default([]) >>"
+  when: __instance__.configuration is defined
+- name: loop in error_log_files
+  block:
+    - name: Save error log files
+      add_file_info:
+        path: "<<log_file | dirname>>"
+        name: "<<log_file | basename>>"
+        type: 'log'
+        subtype: 'error'
+  loop: "<< __instance__._error_log_files | default([]) >>"
+  loop_control:
+    loop_var: log_file
+
+- name: Remove temporary vars
+  del_instance_fact:
+    - _bin_file
+    - _conf_file_path
+    - _conf_file_name
+    - _conf_path
+    - _parent_conf_path
+    - _custom_log_files
+    - _error_log_files
+    - _bindings
+    - _listen
+    - _httpd_root
