@@ -1,0 +1,634 @@
+---
+- name: Gather basic configuration
+  block:
+    - name: Run entry regex
+      set_instance_fact:
+        "<< __entry__.key >>": "<< __instance__.process.cmdline | regex_search(__regex__, '\\1', multiline=True, ignorecase=True) | first >>"
+      ignore_errors: true
+      loop: "<< __entry__.value if __entry__.value is not string else [__entry__.value] >>"
+      loop_control:
+        loop_var: __regex__
+    - name: Define default value if no match is found
+      set_instance_fact:
+        "<< __entry__.key >>": null
+      when: __entry__.key not in __instance__
+  loop: >
+    << {
+      '_server_name': [
+        "-Djboss.node.name=([\w\/\.\-\d]*)",
+        "-Dserver.name=([\w\/\.\_\-\d]*)",
+        "-D\[Server:(\S*)\]"
+      ],
+      '_heap_initial_allocation_memory': "-Xms(\d+\w)",
+      '_heap_max_memory': "-Xmx(\d+\w)",
+      '_bind_address': "-Djboss.bind.address=([\w\d\.]*)",
+      '_bind_address_management': "-Djboss.bind.address.management=([\w\d\.]*)",
+      '_domain_log_dir': "-Djboss.domain.log.dir=([\w\/\.\-\d]*)",
+      '_log_dir': "-Djboss.server.log.dir=([\w\/\.\-\d]*)",
+      '_home_dir': "-Djboss.home.dir=([\w\/\.\-\d]*)",
+      '_base_dir': "-Djboss.server.base.dir=([\w\/\.\-\d]*)",
+      '_config_file': "-c ([^\s]+)"
+    } | dict2items >>
+  loop_control:
+    loop_var: __entry__
+
+- name: Save heap initial allocation memory
+  set_instance_fact:
+    extra_data: "<< __instance__.extra_data | default({}) | combine(
+      {'heap_initial_allocation_memory': __instance__._heap_initial_allocation_memory}
+    )>>"
+  when: __instance__._heap_initial_allocation_memory != None
+
+- name: Save heap max memory
+  set_instance_fact:
+    extra_data: "<< __instance__.extra_data | default({}) | combine(
+      {'heap_max_memory': __instance__._heap_max_memory}
+    ) >>"
+  when: __instance__._heap_max_memory != None
+
+#todo comprobar si lo que devuelve es una ruta completa o solo la ubicación de los logs
+- name: Save domain logs dir
+  add_file_info:
+    path: '<<__instance__._domain_log_dir>>'
+    type: 'log'
+    subtype: 'generic'
+  when: __instance__._domain_log_dir != None
+
+- name: Save domain logs dir
+  add_file_info:
+    path: '<<__instance__._log_dir>>'
+    type: 'log'
+    subtype: 'generic'
+  when: __instance__._log_dir != None
+
+- name: Redefine server_name if necessary
+  set_instance_fact:
+    _server:
+      name: "<< __instance__._server_name >>"
+  when: __instance__._server_name != None
+
+- name: Save binding address
+  add_binding_info:
+    address: '<<__instance__._bind_address>>'
+    class: 'binding_address'
+  when: __instance__._bind_address != None
+
+- name: Save binding address management
+  add_binding_info:
+    address: '<<__instance__._bind_address_management>>'
+    class: 'bind_address_management'
+  when: __instance__._bind_address_management != None
+
+- name: Check instance running mode
+  block:
+    - name: Register standalone mode if necessary
+      set_instance_fact:
+        _mode: "standalone"
+        _domain_controller: "localhost"
+      when: "'org.jboss.as.standalone' in __instance__.process.cmdline or 'standalone-' in __instance__.process.cmdline"
+    - name: Register domain mode if necessary
+      block:
+        - name: Register mode
+          set_instance_fact:
+            _mode: "domain"
+        - name: Check if controller information is available
+          set_instance_fact:
+            _controller: "<< __instance__.process.cmdline | regex_search('-Djboss.domain.master.addres=([\\w\\/\\.\\-\\d]*)', '\\1', ignorecase=True) | first >>"
+        - name: Register controller information
+          set_instance_fact:
+            _domain_controller: "<< __instance__._controller >>"
+            _domain_role: "slave"
+        - name: Remove temporary variables
+          del_instance_fact:
+            - _controller
+      ignore_errors: yes
+      when: "'org.jboss.as.server' in __instance__.process.cmdline or 'org.jboss.as.host-controller' in __instance__.process.cmdline or 'jboss.domain.config.dir' in __instance__.process.cmdline or 'jboss.domain.master.address' in __instance__.process.cmdline"
+    - name: Set unknown mode if unable to determine it
+      set_instance_fact:
+        _mode: "unknown"
+      when: __instance__._mode is undefined
+- name: Gather version information
+  block:
+    - name: Try to get version (1/6)
+      block:
+        - name: Set version file
+          set_instance_fact:
+            _version_file_path: "<< __instance__._home_dir >>/version.txt"
+        - name: Check if version file is accessible
+          stat:
+            path: "<< __instance__._version_file_path >>"
+          register: result
+        - name: Read version file
+          read_remote_file:
+            file_path: "<< __instance__._version_file_path >>"
+          register: _version_file
+          when: result is not failed
+        - name: Gather version if version file is accessible
+          set_instance_fact:
+            _version: "<< _version_file.content.partition('- Version')[2].strip().rsplit('.', 1)[0] >>"
+          when:
+            - _version_file.content is defined
+      ignore_errors: yes
+    - name: Try to get version (2/6)
+      set_instance_fact:
+        _version: "<< __instance__._home_dir | regex_search('jboss[_\\\\/\\.-]?(?:\\w+-)*?(\\d+(?:[_\\.-]\\d+)*)', '\\1', ignorecase=True) | first >>"
+      ignore_errors: yes
+      when: __instance__._version is undefined
+    - name: Try to get version (3/6)
+      set_instance_fact:
+        _version: "<< __instance__._home_dir | regex_search('jboss(?:-eap)?[_\\\\/\\.-]?(?:base)?[_\\\\/\\.-]?(?:\\w+-)*?[_\\\\/\\.-]?(\\d+(?:[_\\.-]\\d+)*)', '\\1', ignorecase=True) | first >>"
+      ignore_errors: yes
+      when: __instance__._version is undefined
+    - name: Try to get version (4/6)
+      set_instance_fact:
+        _version: "<< __instance__._home_dir | regex_search('/jboss/as(\\d+)_', '\\1', ignorecase=True) | first >>"
+      ignore_errors: yes
+      when: __instance__._version is undefined
+    - name: Try to get version (5/6)
+      block:
+        - name: Set bin for standalone mode
+          set_instance_fact:
+            _bin: "standalone.sh"
+          when: __instance__._mode == 'standalone'
+        - name: Set bin for domain mode
+          set_instance_fact:
+            _bin: "domain.sh"
+          when: __instance__._mode == 'domain'
+        - name: Set jboss_cmd
+          set_instance_fact:
+            _jboss_cmd: "<< __instance__._home_dir >>/bin/<< __instance__._bin >>"
+        - name: Check if jboss_cmd is accessible
+          stat:
+            path: "<< __instance__._jboss_cmd >>"
+          register: result
+        - name: Run command if jboss_cmd is accessible
+          run_command:
+            cmd: "<< __instance__._jboss_cmd >> -V"
+          register: result
+          when: result is not failed
+        - name: Attempt to set _version if command is successful
+          set_instance_fact:
+            _version: "<< result.stdout | regex_search('(?:JBoss|WildFly)(?: Full| Application Server)?(?: AS)?(?: EAP)?\\s+(\\d+(?:\\.\\d)*)', '\\1', multiline=True, ignorecase=True) | first >>"
+          ignore_errors: yes
+          when: result is not failed
+        - name: Remove temporary variables
+          del_instance_fact:
+            - _bin
+            - _jboss_cmd
+      ignore_errors: yes
+      when:
+        - __instance__._version is undefined
+        - "__instance__._mode == 'standalone' or __instance__._mode == 'domain'"
+    - name: Try to get version (6/6)
+      set_instance_fact:
+        _version: "<< __instance__.process.cmdline | regex_search('jboss-eap-([0-9\\.]*)', '\\1', multiline=True, ignorecase=True) | first >>"
+      ignore_errors: yes
+      when: __instance__._version is undefined
+    - name: Store version if found
+      add_version_info:
+        version_number: '<< __instance__._version >>'
+        version_type: 'file'
+      when: __instance__._version is defined
+    - name: Delete temporary variables
+      del_instance_fact:
+        - _version_file_path
+        - _version
+  when: "'_home_dir' in __instance__"
+- name: Gather logging information
+  block:
+    - name: Get logging_conf_file
+      set_instance_fact:
+        _logging_conf_file: "<< __instance__.process.cmdline | regex_search('-Dlogging.configuration=.*:([\\w\\/\\.\\-\\d]*)', '\\1', ignorecase=True) | first >>"
+    - name: Check if logging_conf_file is accessible
+      stat:
+        path: "<< __instance__._logging_conf_file >>"
+      register: result
+    - name: Read logging_conf_file if accessible
+      read_remote_file:
+        file_path: "<< __instance__._logging_conf_file >>"
+      register: _file
+      when: result is not failed
+    - name: Store log_file if necessary
+      set_instance_fact:
+        _log_file: "<< _file.content | regex_search('handler.FILE.fileName=([\\w\\/\\.\\-\\d]*)', '\\1', ignorecase=True) | first >>"
+  ignore_errors: yes
+
+- name: Save log file
+  add_file_info:
+    path: '<<__instance__._log_file | dirname>>'
+    name: '<<__instance__._log_file | basename>>'
+    type: 'log'
+    subtype: 'generic'
+  when: __instance__._log_file is defined
+
+- name: Parse standalone mode configuration
+  block:
+    - name: Set standalone_xml_file if config_file is defined
+      set_instance_fact:
+        _standalone_xml_file: "<< (__instance__._base_dir, 'configuration', __instance__._config_file) | datadope.discovery.path_join >>"
+      when: __instance__._config_file != None
+    - name: Set standalone_xml_file if _config_file is undefined
+      set_instance_fact:
+        _standalone_xml_file: "<< (__instance__._base_dir, 'configuration/standalone.xml') | datadope.discovery.path_join >>"
+      when: __instance__._config_file == None
+    - name: Check if standalone_xml_file is accessible
+      stat:
+        path: "<< __instance__._standalone_xml_file >>"
+      register: result
+    - name: Perform xml tasks if standalone_xml_file is accessible
+      block:
+        - name: Read standalone_xml_file
+          read_remote_file:
+            file_path: "<< __instance__._standalone_xml_file >>"
+            parser: "xml"
+          register: _xml_file
+        - name: Store standalone_xml_file
+          set_instance_fact:
+            configuration: "<< configuration | default({}) | combine({'standalone_xml': _xml_file.parsed}) >>"
+        - name: Set _port_offset
+          set_instance_fact:
+            _port_offset: "<< __instance__.configuration.standalone_xml['server']['socket-binding-group']['attr-port-offset'].split(':')[1].strip('}') >>"
+        - name: Get information from socket_bindings
+          block:
+            - name: Set socket vars
+              set_instance_fact:
+                # For compatibility reasons, '-' are replaced by '_' in socket names
+                _socket_name: "<< __item__['attr-name'] | replace('-', '_') >>"
+                _socket_port: "<< __item__['attr-port'].lstrip('${jboss.management.' + __item__['attr-name'] + '.port:').rstrip('}') >>"
+            - name: Store port information
+              add_binding_info:
+                port: '<<__instance__._socket_port | int + __instance__._port_offset | int>>'
+                class: '<<__instance__._socket_name>>'
+          loop: "<< __instance__.configuration.standalone_xml['server']['socket-binding-group']['socket-binding'] | default([]) >>"
+        - name: Set management_port and port_remoting if needed
+          set_instance_fact:
+            _management_port: "<< __instance__.port_management_http >>"
+            _port_remoting: "<< __instance__.port_management_http >>"
+          when: __instance__.port_management_http is defined
+        - name: Remove temporary vars
+          del_instance_fact:
+            - _port_offset
+            - _socket_name
+            - _socket_port
+
+      when: result is not failed
+  when:
+    - __instance__._mode == 'standalone'
+    - __instance__._base_dir is defined
+- name: Parse domain mode configuration
+  block:
+    - name: Set host_xml_file and domain_xml_file
+      set_instance_fact:
+        _host_xml_file: "<< (__instance__._home_dir, 'domain/configuration/host.xml') | datadope.discovery.path_join >>"
+        _domain_xml_file: "<< (__instance__._home_dir, 'domain/configuration/domain.xml') | datadope.discovery.path_join >>"
+    - name: Check if host_xml_file is accessible
+      stat:
+        path: "<< __instance__._host_xml_file >>"
+      register: result
+    - name: Perform xml tasks if host_xml_file is accessible
+      block:
+        - name: Read host_xml_file
+          read_remote_file:
+            file_path: "<< __instance__._host_xml_file >>"
+            parser: "xml"
+          register: _xml_file
+        - name: Store host_xml_file
+          set_instance_fact:
+            configuration: "<< configuration | default({}) | combine({'host_xml': _xml_file.parsed}) >>"
+        - name: Process host_xml_file
+          block:
+            - name: Find domain controller node
+              find_in_dict:
+                item: "domain-controller"
+                source: "<< __instance__.configuration.host_xml >>"
+              register: _domain_controller_node
+            - name: Set domain_role as slave if necessary
+              set_instance_fact:
+                _domain_role: "slave"
+                _domain_controller:
+                  host: "<< (_domain_controller_node.result | first)['remote']['attr-host'].lstrip('${jboss.domain.master.address:').rstrip('}') >>"
+                  port: "<< (_domain_controller_node.result | first)['remote']['attr-port'].lstrip('${jboss.domain.master.port:').rstrip('}') | int  >>"
+                  security_realm: "<< (_domain_controller_node.result | first)['remote']['attr-security-realm'] >>"
+              when:
+                - _domain_controller_node.result is defined
+                - "'remote' in _domain_controller_node.result | first"
+            - name: Set domain_role as master if necessary
+              set_instance_fact:
+                _domain_role: "master"
+              when:
+                - _domain_controller_node.result is defined
+                - "'local' in _domain_controller_node.result | first"
+            - name: Find management node
+              find_in_dict:
+                item: "management"
+                source: "<< __instance__.configuration.host_xml >>"
+              register: _management_node
+            - name: Set management_port if necessary
+              set_instance_fact:
+                _management_port: "<< (_management_node.result | first)['management-interfaces']['http-interface']['socket']['attr-port'].lstrip('${jboss.management.http.port:').rstrip('}') | int >>"
+              when: "(_management_node.result | first)['management-interfaces']['http-interface']['socket'] is defined"
+            - name: Find servers node
+              find_in_dict:
+                item: "servers"
+                source: "<< __instance__.configuration.host_xml >>"
+              register: _servers_node
+            - name: Get _server_node from _servers_node using server name
+              set_instance_fact:
+                _server_node: "<< (_servers_node.result | first).server | selectattr('attr-name', 'search', __instance__._server.name) | first >>"
+              ignore_errors: true
+              when: __instance__._server.name is defined
+            - name: Perform server tasks if _server_node is defined
+              block:
+                - name: Set server data
+                  set_instance_fact:
+                    _server:
+                      group: "<< __instance__._server_node['attr-group'] >>"
+                      port_offset: "<< __instance__._server_node['socket-bindings']['attr-port-offset'] | default('0')>>"
+                - name: Check if domain_xml_file is accessible
+                  stat:
+                    path: "<< __instance__._domain_xml_file >>"
+                  register: result
+                - name: Perform API tasks if domain_xml_file is not accessible or domain_role is slave, when domain_controller and management_port are defined
+                  block:
+                    - name: Iterate over management_ports, first the local management_port, then, as fallback, default_management_port
+                      block:
+                        - name: Request information to the management server
+                          run_module:
+                            uri:
+                              url: "http://<< __instance__._domain_controller.host >>:<< __item__ >>/management"
+                              method: "POST"
+                              body_format: "json"
+                              body:
+                                operation: "read-resource"
+                                address:
+                                  - server-group: "<< __instance__._server.group >>"
+                              url_username: "<< credentials.management_user >>"
+                              url_password: "<< credentials.management_password >>"
+                          register: response
+                        - name: Process response if response is not failed
+                          block:
+                            - name: Store server profile and port_offset
+                              set_instance_fact:
+                                _server: "<< __instance__._server | combine({'profile': response.json.result.profile, 'port_offset': response.json.result['socket-binding-port-offset']}) >>"
+                            - name: Request socket binding group information by its name
+                              run_module:
+                                uri:
+                                  url: "http://<< __instance__._domain_controller.host >>:<< __item__ >>/management"
+                                  method: "POST"
+                                  body_format: "json"
+                                  body:
+                                    operation: "read-resource"
+                                    recursive-depth: 1
+                                    address:
+                                      - socket-binding-group: "<< response.json.result['socket-binding-group'] >>"
+                                  url_username: "<< credentials.management_user >>"
+                                  url_password: "<< credentials.management_password >>"
+                              register: response
+                            - name: Iterate over socket bindings if response is not failed
+                              block:
+                                - name: Set binding base information when port is dict
+                                  set_instance_fact:
+                                    _binding:
+                                      # For compatibility reasons, '-' are replaced by '_' in binding names
+                                      name: "<< __entry__.value['name'] | replace('-', '_') >>"
+                                      base_port: "<< __entry__.value['port']['EXPRESSION_VALUE'].split(':')[1].replace('}','') >>"
+                                  when: __entry__.value.port is mapping
+                                - name: Set binding base information when port is not dict
+                                  set_instance_fact:
+                                    _binding:
+                                      # For compatibility reasons, '-' are replaced by '_' in binding names
+                                      name: "<< __entry__.value['name'] | replace('-', '_') >>"
+                                      base_port: "<< __entry__.value['port'] >>"
+                                  when: __entry__.value.port is not mapping
+                                - name: Store port information
+                                  set_instance_fact:
+                                    "_binding_ports": "<< _binding_ports | default({}) | combine({__instance__._binding.name: (__instance__._binding.base_port | int + __instance__._server.port_offset | int)}) >>"
+                              # Avoid multicast ports
+                              when: __entry__.value['multicast-port'] == None
+                              loop: "<< response.json.result['socket-binding'] | default({}) | dict2items >>"
+                              loop_control:
+                                loop_var: __entry__
+                          when:
+                            - response is not failed
+                            - response.json.outcome == "success"
+                      # Since a default server.port_offset is defined as '0', we need to check server.profile to know if a loop iteration has worked
+                      when: __instance__._server.profile is not defined
+                      loop: "<< [__instance__._management_port, default_management_port] | unique | list >>"
+                      ignore_errors: true
+                  when:
+                    - "result is failed or __instance__._domain_role == 'slave'"
+                    - __instance__._domain_controller is defined
+                    - __instance__._management_port is defined
+                - name: Perform xml_tasks if domain_xml_file is accessible and domain_role is not slave
+                  block:
+                    - name: Read domain_xml_file
+                      read_remote_file:
+                        file_path: "<< __instance__._domain_xml_file >>"
+                        parser: "xml"
+                      register: _xml_file
+                    - name: Store domain_xml_file
+                      set_instance_fact:
+                        configuration: "<< configuration | default({}) | combine({'domain_xml': _xml_file.parsed}) >>"
+                    - name: Find server groups node
+                      find_in_dict:
+                        item: "server-groups"
+                        source: "<< __instance__.configuration.domain_xml >>"
+                      register: _server_groups
+                    - name: Get _server_group for server
+                      set_instance_fact:
+                        _server_group: "<< (_server_groups.result | first)['server-group'] | selectattr('attr-name', 'search', __instance__._server.group) | first >>"
+                      ignore_errors: true
+                    - name: Perform _server_group tasks if _server_group is defined
+                      block:
+                        - name: Set server profile name from _server_group
+                          set_instance_fact:
+                            _server: "<< __instance__._server | combine({'profile': __instance__._server_group['attr-profile']}) >>"
+                        - name: Get server socket binding group name
+                          set_instance_fact:
+                            _server_socket_binding_group_name: "<< __instance__._server_group['socket-binding-group']['attr-ref']>>"
+                        - name: Perform socket binding group tasks if _server_socket_binding_group_name is defined
+                          block:
+                            - name: Find socket binding groups node
+                              find_in_dict:
+                                item: "socket-binding-groups"
+                                source: "<< __instance__.configuration.domain_xml >>"
+                              register: _socket_binding_groups
+                            - name: Get _server_socket_binding_group using the group name as filter
+                              set_instance_fact:
+                                _server_socket_binding_group: "<< (_socket_binding_groups.result | first)['socket-binding-group'] | selectattr('attr-name', 'search', __instance__._server_socket_binding_group_name) | first >>"
+                              ignore_errors: true
+                            - name: Iterate over socket bindings from group
+                              block:
+                                - name: Set binding base information
+                                  set_instance_fact:
+                                    _binding:
+                                      # For compatibility reasons, '-' are replaced by '_' in binding names
+                                      name: "<< __item__['attr-name'] | replace('-', '_') >>"
+                                      base_port: "<< __item__['attr-port'].lstrip('${jboss.management.' + __item__['attr-name'] | replace('-', '_') + '.port:' % socket_name).rstrip('}') >>"
+                                - name: Store port information
+                                  set_instance_fact:
+                                      "_binding_ports": "<< _binding_ports | default({}) | combine({__instance__._binding.name: (__instance__._binding.base_port | int + __instance__._server.port_offset | int)}) >>"
+                              when:
+                                - __item__['attr-name'] is defined
+                                - __item__['attr-port'] is defined
+                              loop: "<< __instance__._server_socket_binding_group['socket-binding'] | default([]) >>"
+                          when: __instance__._server_socket_binding_group_name is defined
+                      when: __instance__._server_group is defined
+                  when: "result is not failed and __instance__._domain_role != 'slave'"
+              when: __instance__._server_node is defined
+        - name: Remove temporary vars
+          del_instance_fact:
+            - _xml_file
+            - _domain_controller_node
+            - _management_node
+            - _servers_node
+            - _server_node
+            - _server_socket_binding_group
+            - _server_socket_binding_group_name
+            - _server_group
+            - _binding
+      when: result is not failed
+  when:
+    - __instance__._mode == 'domain'
+    - __instance__._home_dir is defined
+
+- name: Save logging conf file
+  add_file_info:
+    path: '<<__instance__._logging_conf_file | dirname>>'
+    name: '<<__instance__._logging_conf_file | basename>>'
+    type: 'log'
+    subtype: 'generic'
+  when: __instance__._logging_conf_file is defined
+
+- name: Save host xml file
+  add_file_info:
+    path: '<<__instance__._host_xml_file | dirname>>'
+    name: '<<__instance__._host_xml_file | basename>>'
+    type: 'config'
+    subtype: 'host'
+  when: __instance__._host_xml_file is defined
+
+- name: Save domain xml file
+  add_file_info:
+    path: '<<__instance__._domain_xml_file | dirname>>'
+    name: '<<__instance__._domain_xml_file | basename>>'
+    type: 'config'
+    subtype: 'domain'
+  when: __instance__._domain_xml_file is defined
+
+- name: check binding ports and loop if exists
+  block:
+  - name: Loop in binding ports
+    block:
+    - name: Save binding_ports
+      add_binding_info:
+        port: '<<__item__.value>>'
+        class: '<<__item__.key>>'
+    loop: "<<__instance__._binding_ports | dict2items>>"
+  when: __instance__._binding_ports is defined
+
+- name: Save base dir
+  add_file_info:
+    path: '<<__instance__._base_dir>>'
+    type: 'data'
+    subtype: 'generic'
+  when: __instance__._base_dir != None
+
+- name: Save home dir
+  add_file_info:
+    path: '<<__instance__._home_dir>>'
+    type: 'data'
+    subtype: 'generic'
+  when: __instance__._home_dir != None
+
+- name: Save config file
+  add_file_info:
+    path: '<<__instance__._config_file>>'
+    type: 'config'
+    subtype: 'generic'
+  when: __instance__._config_file != None
+
+- name: Save standole xml file
+  add_file_info:
+    path: '<<__instance__._standalone_xml_file | dirname>>'
+    name: '<<__instance__._standalone_xml_file | basename>>'
+    type: 'config'
+    subtype: 'xml'
+  when: __instance__._standalone_xml_file is defined
+
+- name: Save domain controller if is dict
+  add_binding_info:
+    address: '<<__instance__._domain_controller.host>>'
+    port: '<<__instance__._domain_controller.port>>'
+    class: 'domain controller'
+    extra_data:
+      security_realm: '<<__instance__._domain_controller.security_realm>>'
+  when:
+    - __instance__._domain_controller is defined
+    - __instance__._domain_controller is mapping
+
+- name: Save domain controller if is str
+  add_binding_info:
+    address: '<<__instance__._domain_controller>>'
+    class: 'domain controller'
+  when:
+    - __instance__._domain_controller is defined
+    - __instance__._domain_controller is string
+
+- name: Save port remoting
+  add_binding_info:
+    port: '<<__instance__._port_remoting>>'
+    class: 'port remoting'
+  when: __instance__._port_remoting is defined
+
+- name: Save management port
+  add_binding_info:
+    port: '<<__instance__._management_port>>'
+    class: 'listener'
+  when: __instance__._management_port is defined
+
+- name: Save domain role
+  set_instance_fact:
+    extra_data: "<< __instance__.extra_data | default({}) | combine (
+        {'domain_role': __instance__._domain_role}
+    ) >>"
+  when: __instance__._domain_role is defined
+
+- name: Save server
+  set_instance_fact:
+    extra_data: "<< __instance__.extra_data | default({}) | combine(
+        {'server': __instance__._server}
+    ) >>"
+  when: __instance__._server is defined
+
+- name: Save mode
+  set_instance_fact:
+    extra_data: "<< __instance__.extra_data | default({}) | combine (
+        {'mode': __instance__._mode}
+    ) >>"
+  when: __instance__._mode is defined
+
+- name: Remove temporary vars
+  del_instance_fact:
+    - _server_name
+    - _heap_initial_allocation_memory
+    - _heap_max_memory
+    - _bind_address
+    - _bind_address_management
+    - _domain_log_dir
+    - _log_dir
+    - _home_dir
+    - _base_dir
+    - _config_file
+    - _log_file
+    - _binding_ports
+    - _domain_controller
+    - _domain_role
+    - _domain_xml_file
+    - _host_xml_file
+    - _logging_conf_file
+    - _management_port
+    - _mode
+    - _port_remoting
+    - _server
+    - _standalone_xml_file

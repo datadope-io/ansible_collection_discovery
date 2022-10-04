@@ -1,0 +1,152 @@
+{
+  "software_list": [
+    {
+      "name": "PostgreSQL Database",
+      "cmd_regexp": "postgres:",
+      "pkg_regexp": "postgresql.*-server|postgresql-\\d",
+      "process_type": "child",
+      "return_children": true
+    }
+  ],
+  "processes": [
+    {
+      "cmdline": "/usr/lib/systemd/systemd --switched-root --system --deserialize 21",
+      "pid": "1",
+      "ppid": "0",
+      "user": "root"
+    },
+    {
+      "cmdline": "/usr/pgsql-11/bin/postmaster -D /var/lib/pgsql/11/data/",
+      "pid": "24895",
+      "ppid": "1",
+      "user": "root"
+    },
+    {
+      "cmdline": "postgres: logger",
+      "pid": "24898",
+      "ppid": "24895",
+      "user": "root"
+    },
+    {
+      "cmdline": "postgres: checkpointer",
+      "pid": "24900",
+      "ppid": "24895",
+      "user": "root"
+    },
+    {
+      "cmdline": "postgres: background writer",
+      "pid": "24901",
+      "ppid": "24895",
+      "user": "root"
+    },
+    {
+      "cmdline": "postgres: walwriter",
+      "pid": "24902",
+      "ppid": "24895",
+      "user": "root"
+    },
+    {
+      "cmdline": "postgres: autovacuum launcher",
+      "pid": "24903",
+      "ppid": "24895",
+      "user": "root"
+    },
+    {
+      "cmdline": "postgres: stats collector",
+      "pid": "24904",
+      "ppid": "24895",
+      "user": "root"
+    },
+    {
+      "cmdline": "postgres: logical replication launcher",
+      "pid": "24905",
+      "ppid": "24895",
+      "user": "root"
+    }
+  ],
+  "tcp_listen": [
+    {
+      "address": "127.0.0.1",
+      "name": "postmaster",
+      "pid": 24895,
+      "port": 5432,
+      "protocol": "tcp",
+      "stime": "Fri Apr  8 01:14:02 2022",
+      "user": "postgres"
+    }
+  ],
+  "udp_listen": [],
+  "expected_result": [
+    {
+      "bindings": [{"address": "127.0.0.1",
+                "class": "service",
+                "port": 5432,
+                "protocol": "tcp"}],
+      "type": "PostgreSQL Database",
+      "discovery_time": "2022-05-26T18:00:00+02:00",
+      "process": {
+        "children": [
+          {
+            "children": [],
+            "cmdline": "postgres: logger",
+            "pid": "24898",
+            "ppid": "24895",
+            "user": "root"
+          },
+          {
+            "children": [],
+            "cmdline": "postgres: checkpointer",
+            "pid": "24900",
+            "ppid": "24895",
+            "user": "root"
+          },
+          {
+            "children": [],
+            "cmdline": "postgres: background writer",
+            "pid": "24901",
+            "ppid": "24895",
+            "user": "root"
+          },
+          {
+            "children": [],
+            "cmdline": "postgres: walwriter",
+            "pid": "24902",
+            "ppid": "24895",
+            "user": "root"
+          },
+          {
+            "children": [],
+            "cmdline": "postgres: autovacuum launcher",
+            "pid": "24903",
+            "ppid": "24895",
+            "user": "root"
+          },
+          {
+            "children": [],
+            "cmdline": "postgres: stats collector",
+            "pid": "24904",
+            "ppid": "24895",
+            "user": "root"
+          },
+          {
+            "children": [],
+            "cmdline": "postgres: logical replication launcher",
+            "pid": "24905",
+            "ppid": "24895",
+            "user": "root"
+          }
+        ],
+        "cmdline": "/usr/pgsql-11/bin/postmaster -D /var/lib/pgsql/11/data/",
+        "listening_ports": [
+          5432
+        ],
+        "pid": "24895",
+        "ppid": "1",
+        "user": "root"
+      },
+      "listening_ports": [
+        5432
+      ]
+    }
+  ]
+}

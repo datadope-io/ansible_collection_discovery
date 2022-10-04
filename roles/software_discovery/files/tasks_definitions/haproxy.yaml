@@ -1,0 +1,42 @@
+- name: Get conf_file_path from cmdline
+  set_instance_fact:
+    _conf_file_path: "<< __instance__.process.cmdline | regex_search('.*-f (.*haproxy\\.cfg|.*conf).*', '\\1', ignorecase=True) | first >>"
+  ignore_errors: yes
+- name: Read process environment
+  read_environment_for_process:
+    pid: "<< __instance__.process.pid >>"
+  register: env_vars
+  ignore_errors: yes
+- name: Check if config file is accesible
+  stat:
+    path: "<< __instance__._conf_file_path >>"
+  register: check_access
+  when: __instance__._conf_file_path is defined
+- name: Parse config file
+  read_remote_file:
+    file_path: "<< __instance__._conf_file_path >>"
+    delegate_reading: yes
+    parser: "custom"
+    parser_params:
+      module_name: "file_parser"
+      module_args:
+        parser: "haproxy"
+        env_vars: "<< env_vars.parsed >>"
+  register: config_file
+  when: check_access is not failed
+- name: Save parsed config file if necessary
+  set_instance_fact:
+      configuration: "<< config_file.parsed >>"
+  when: config_file.parsed is defined
+
+- name: Save config file
+  add_file_info:
+    path: '<<__instance__._conf_file_path | dirname>>'
+    name: '<<__instance__._conf_file_path | basename>>'
+    type: 'config'
+    subtype: 'generic'
+  when: __instance__._conf_file_path is defined
+
+- name: Remove temporary vars
+  del_instance_fact:
+    - _conf_file_path

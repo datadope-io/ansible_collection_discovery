@@ -1,0 +1,284 @@
+# REQUIRED PLUGIN DEFINITION VARS:
+# default_server_file: The server file to search. May be mariadbd or mysqld
+# default_client_file: The client file to search. May be mariadb or mysql
+
+# TODO: Socket connection not implemented
+# TODO: Parse conf_file. Configuration is not used nowadays so it is not parsed by now.
+
+---
+- name: Read process environment
+  read_environment_for_process:
+    pid: << __instance__.process.pid >>
+  register: environment
+- name: Run cmdline related tasks
+  block:
+    - name: Port from cmdline
+      set_instance_fact:
+        _port: << __instance__.process.cmdline | regex_search('--port=(\d+)', '\1', ignorecase=True, multiline=True) | first >>
+      ignore_errors: True
+    - name: Data dir from cmdline
+      set_instance_fact:
+        _data_path: << __instance__.process.cmdline | regex_search('datadir=(\S+)', '\1', ignorecase=True, multiline=True) | first >>
+      ignore_errors: True
+    - name: Add data path to files dict
+      add_file_info:
+        path: "<< __instance__._data_path >>"
+        type: data
+        subtype: generic
+      when: __instance__._data_path is defined
+      ignore_errors: True
+    - name: Bind address from cmdline
+      set_instance_fact:
+        _bind_address: << __instance__.process.cmdline | regex_search('bind-address=((?:\d+\.){3}\d+|[\w\:]+)', '\1', ignorecase=True, multiline=True) | first >>
+      ignore_errors: True
+    - name: Defaults file from cmdline
+      set_instance_fact:
+        _defaults_file: << __instance__.process.cmdline | regex_search('--defaults-file=(\S+)', '\1', ignorecase=True, multiline=True) | first >>
+      ignore_errors: True
+    - name: Add defaults file to files dict
+      add_file_info:
+        path: "<< __instance__._defaults_file >>"
+        type: defaults
+        subtype: generic
+      when: __instance__._defaults_file is defined
+    - name: Bin file from cmdline
+      set_instance_fact:
+        _bin_file: << __instance__.process.cmdline | regex_search('((?:/\w+)+/' + default_server_file + ')(?=\s|$)', '\1', ignorecase=True, multiline=True) | first >>
+      ignore_errors: True
+    - name: Socket from cmdline
+      set_instance_fact:
+        _socket: << __instance__.process.cmdline | regex_search('--socket=(\S+)', '\1', ignorecase=True, multiline=True) | first >>
+      ignore_errors: True
+    - name: Use port
+      set_instance_fact:
+        listening_ports: << __instance__.listening_ports + [__instance__._port | int] >>
+      when:
+        - __instance__._port is defined
+        - __instance__._port | int not in __instance__.listening_ports
+    - name: Default defaults file
+      block:
+        - name: Set conf file
+          set_instance_fact:
+            _conf_file: /etc/my.cnf
+        - name: Add conf file to files dict
+          add_file_info:
+            path: "<< __instance__._conf_file | dirname >>"
+            name: "<< __instance__._conf_file | basename >>"
+            type: config
+            subtype: generic
+      when: __instance__._defaults_file is not defined
+    - name: Bind address default value
+      block:
+        - name: Set bind address
+          set_instance_fact:
+            _bind_address: 127.0.0.1
+        - name: Add bind address to binding dict
+          add_binding_info:
+            address: "<< __instance__._bind_address >>"
+      when: __instance__._bind_address is not defined
+
+    - name: Calculate bin file if not available
+      block:
+        - name: Execute which for server
+          which:
+            name: << default_server_file >>
+            paths: << environment.parsed.PATH | datadope.discovery.split(':') >>
+          register: result
+        - name: Set bin file from which
+          set_instance_fact:
+            _bin_file: << result.file.path >>
+          when: result is not failed
+      when:
+        - __instance__._bin_file is not defined
+        - environment.parsed.PATH is defined
+
+- name: Add bin file to fiiles dict
+  add_file_info:
+    path: "<< __instance__._bin_file >>"
+    type: binary
+    subtype: generic
+
+- name: Get client bin_file
+  block:
+    - name: Execute which for client
+      which:
+        name: << default_client_file >>
+        paths: << environment.parsed.PATH | datadope.discovery.split(':') >>
+      register: result
+    - name: Set client file from which
+      block:
+        - name: Set client file
+          set_instance_fact:
+            _client_file: << result.file.path >>
+        - name: Add client file to files dict
+          add_file_info:
+            path: "<< __instance__._client_file >>"
+            type: binary
+            subtype: client
+      when: result is not failed
+  when:
+    - environment.parsed.PATH is defined
+
+- name: Get version from bin
+  block:
+    - name: Execute command to get version
+      run_command:
+        argv:
+          - << __instance__._bin_file >>
+          - '-V'
+      environment: << environment.parsed >>
+      register: result
+    - name: Store version
+      add_version_info:
+        version_type: 'active'
+        version_number: << _version_number >>
+      vars:
+        _version_number: << result.stdout | regex_search('\s[vV]er\s*(\d+(?:\.\d+)*)', '\1', multiline=true, ignorecase=true) | first >>
+      ignore_errors: yes
+      when: result is not failed
+  when: __instance__._client_file is defined
+
+- name: Read databases
+  block:
+  - name: Read databases if config_file exists
+    block:
+      - name: Iterate users
+        block:
+          - name: Prepare command
+            set_instance_fact:
+              _command: << __instance__._client_file >> -P << __port__ >><< __user_param__ >> -N -s -e
+            vars:
+              __user_param__: << (__user_info__.username | length > 0) | ternary(' --user='+__user_info__.username+' -p'+__user_info__.password, '') >>
+          - name: Run command to get databases
+            run_command:
+              cmd: "<< __instance__._command >> 'show databases'"
+            environment: "<< environment.parsed | combine({'MYSQL_PWD': __user_info__.password}) >>"
+            register: result
+            timeout: 10
+          - name: Set databases
+            set_instance_fact:
+              _can_connect: true
+              _databases: << (__instance__._databases | default([]) + __databases__) | unique >>
+            vars:
+              __databases__: << result.stdout_lines | difference(ignore_databases | default([])) >>
+            when: result is not failed
+          - name: Manage slave status
+            block:
+              - name: Run command to get slave status
+                run_command:
+                  cmd: "<< __instance__._command >> 'show slave status'"
+                environment: "<< environment.parsed | combine({'MYSQL_PWD': __user_info__.password}) >>"
+                register: result_slave
+                timeout: 10
+              - name: Set slave status
+                set_instance_fact:
+                  _gather_slave: "<< 'Slave_SQL_Running: Yes' in result_slave.stdout >>"
+                when: result_slave is not failed
+            when: result is not failed
+          - name: Check with IPS
+            block:
+              - name: Prepare command with IPs
+                set_instance_fact:
+                  _command: << __instance__._client_file >> --host=<<__IP__>> -P << __port__ >><< __user_param__ >> -N -s -e
+                vars:
+                  __user_param__: << (__user_info__.username | length > 0) | ternary(' --user='+__user_info__.username+' -p'+__user_info__.password, '') >>
+              - name: Run command to get databases with IPs
+                run_command:
+                  cmd: << __instance__._command >> 'show databases'
+                environment: "<< environment.parsed | combine({'MYSQL_PWD': __user_info__.password}) >>"
+                register: result
+                timeout: 10
+              - name: Set databases for IPs
+                set_instance_fact:
+                  _can_connect: true
+                  _databases: << (__instance__._databases | default([]) + __databases__) | unique >>
+                vars:
+                  __databases__: << result.stdout_lines | difference(ignore_databases | default([])) >>
+                when: result is not failed
+              - name: Manage slave status with IPs
+                block:
+                  - name: Run command to get slave status with IPs
+                    run_command:
+                      cmd: "<< __instance__._command >> 'show slave status'"
+                    environment: "<< environment.parsed | combine({'MYSQL_PWD': __user_info__.password}) >>"
+                    register: result_slave
+                    timeout: 10
+                  - name: Set slave status for IP
+                    set_instance_fact:
+                      _gather_slave: "<< 'Slave_SQL_Running: Yes' in result_slave.stdout >>"
+                    when: result_slave is not failed
+                when: result is not failed
+            loop: << ansible_facts.all_ipv4_addresses + [__instance__._bind_address] >>
+            loop_control:
+              loop_var: __IP__
+            when: __instance__._databases is not defined or __instance__._databases | length == 0
+        when: __instance__._databases is not defined or __instance__._databases | length == 0
+        loop: "<< [{'username': '', 'password': ''}] + connect_with_users >>"
+        loop_control:
+          loop_var: __user_info__
+    when:
+      - __instance__._bin_file is defined
+      - __instance__._databases is not defined or __instance__._databases | length == 0
+    loop: << __instance__.listening_ports >>
+    loop_control:
+      loop_var: __port__
+  when: __instance__._client_file is defined
+
+
+- name: Add gather_slave to extra data
+  set_instance_fact:
+    extra_data: "<< (__instance__.extra_data | default([])) | combine({
+    'gather_slave': __instance__._gather_slave
+    }) >>"
+  when: __instance__._gather_slave is defined
+
+- name: Add can connect to messages dict
+  add_message_info:
+    msg: Connection to the database was not possible with the provided information
+    key: can_connect
+    value: false
+  when: __instance__._can_connect is not defined or __instance__._can_connect == false
+
+- name: Get databases form files
+  block:
+    - name: Find dirs
+      run_module:
+        ansible.builtin.find:
+          paths: << _data_dir >>
+          recurse: no
+          file_type: directory
+          excludes: << ignore_databases >>
+      register: result
+    - name: Store databases
+      set_instance_fact:
+        _databases: << result.files | map(attribute='path') | map('basename') | list >>
+      when: result is not failed
+  vars:
+    _data_dir: << ('docker' in __instance__) | ternary('/proc/' + __instance__.process.pid + '/root', '') >><< __instance__._data_path | default('/var/lib/mysql') >>
+  when: __instance__._databases is not defined or __instance__._databases | length == 0
+
+- name: Remove lostxfound databases
+  set_instance_fact:
+    _databases: "<< __instance__._databases | map('regex_search', '^(?:(?!lost.*found).)*$') | select('string') | list >>"
+  when: __instance__._databases is defined
+
+- name: Add databases to extra data
+  set_instance_fact:
+    extra_data: "<< (__instance__.extra_data | default([])) | combine({
+    'databases': __instance__._databases
+    }) >>"
+  when: __instance__._databases is defined
+- name: Remove temporary vars
+  del_instance_fact:
+    - _command
+    - _port
+    - _socket
+    - _bind_address
+    - _bin_file
+    - _can_connect
+    - _client_file
+    - _conf_file
+    - _data_path
+    - _defaults_file
+    - _databases
+    - _gather_slave

@@ -1,0 +1,11 @@
+{
+  "processes": [],
+  "packages": {},
+  "tcp_listen": [],
+  "udp_listen": [],
+  "dockers": {
+    "containers": []
+  },
+  "software_list": [],
+  "expected_result": []
+}

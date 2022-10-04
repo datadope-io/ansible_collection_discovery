@@ -1,0 +1,100 @@
+---
+- name: get config_paths
+  set_instance_fact:
+    _config_paths:
+      - /etc/keepalived/keepalived.conf
+      - /etc/keepalived.conf
+
+- name: get config with config_paths
+  block:
+    - name: Run stat for path
+      stat:
+        path: "<< __item__>>"
+      register: result
+    - name: get config_path
+      set_instance_fact:
+        _conf_file_path: "<<__item__>>"
+      when: result is not failed
+  when: __instance__._conf_file_path is not defined
+  loop: "<<__instance__._config_paths>>"
+
+- name: Read process environment
+  read_environment_for_process:
+    pid: << __instance__.process.pid >>
+  register: env_vars
+  ignore_errors: yes
+
+- name: Parse config file
+  read_remote_file:
+    file_path: "<< __instance__._conf_file_path >>"
+    delegate_reading: yes
+    parser: "custom"
+    parser_params:
+      module_name: "file_parser"
+      module_args:
+        parser: "keepalived"
+        env_vars: "<< env_vars.parsed >>"
+  register: result
+  when: __instance__._conf_file_path is defined
+
+- name: Save parsed config file if necessary
+  set_instance_fact:
+    configuration: "<< result.parsed >>"
+  when: result.parsed is defined
+
+- name: change notification_email to list
+  block:
+    - name: if notification_email is dict
+      set_instance_fact:
+        _notification_email: "<<__instance__.configuration.global_defs.notification_email.keys() | list>>"
+      when: __instance__.configuration.global_defs.notification_email is mapping
+    - name: if notification_email is str
+      set_instance_fact:
+        _notification_email: "<<__instance__.configuration.global_defs.notification_email | list>>"
+      when:
+        - _notification_email is not defined
+        - __instance__.configuration.global_defs.notification_email is string
+  when: __instance__.configuration.global_defs.notification_email is defined
+
+- name: change notification_email_from to list
+  block:
+    - name: if notification_email_from is dict
+      set_instance_fact:
+        _notification_email_from: "<<__instance__.configuration.global_defs.notification_email_from.keys() | list>>"
+      when: __instance__.configuration.global_defs.notification_email_from is mapping
+    - name: if notification_email_from is str
+      set_instance_fact:
+        _notification_email_from: [ "<<__instance__.configuration.global_defs.notification_email_from >>" ]
+      when:
+        - _notification_email_from is not defined
+        - __instance__.configuration.global_defs.notification_email_from is string
+  when: __instance__.configuration.global_defs.notification_email_from is defined
+
+- name: put notification_email
+  update_instance_fact:
+    updates:
+      - path: configuration.global_defs.notification_email
+        value: <<__instance__._notification_email>>
+  when: __instance__._notification_email is defined
+
+- name: put notification_email_from
+  update_instance_fact:
+    updates:
+      - path: configuration.global_defs.notification_email_from
+        value: <<__instance__._notification_email_from>>
+  when: __instance__._notification_email_from is defined
+
+- name: Save config file
+  add_file_info:
+    path: '<<__instance__._conf_file_path | dirname>>'
+    name: '<<__instance__._conf_file_path | basename>>'
+    type: 'config'
+    subtype: 'generic'
+  when: __instance__._conf_file_path is defined
+
+- name: delete _config_paths and notification_emails
+  del_instance_fact:
+    - _config_paths
+    - _notification_email
+    - _notification_email_from
+    - _conf_file_path

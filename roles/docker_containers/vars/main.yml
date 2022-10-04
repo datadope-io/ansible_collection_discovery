@@ -1,0 +1,3 @@
+---
+# (bool) If true, the dockers result fact will include non-running dockers.
+docker_containers__docker_ps_all: false

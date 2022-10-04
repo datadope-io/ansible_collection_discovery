@@ -1,0 +1,41 @@
+---
+- hosts: all
+  name: Execute role software_discovery
+  pre_tasks:
+    - name: Load playbook vars
+      include_vars:
+        dir: "{{ item }}"
+        depth: 1
+      with_items:
+        - "vars/"
+  roles:
+    - role: datadope.discovery.software_discovery
+  tasks:
+    - name: Save software_fact inputs and result to local file to use for unit testing
+      block:
+        - name: Generate input_data var
+          set_fact:
+            input_data: {
+              'software_list': "{{ software_definitions }}",
+              'processes': "{{ processes }}",
+              'tcp_listen': "{{ tcp_listen }}",
+              'udp_listen': "{{ udp_listen }}",
+              'packages': "{{ packages }}",
+              'dockers': "{{ dockers | default({}) }}",
+              'expected_result': "{{ software }}"
+            }
+
+        - name: Copy input_data to JSON
+          become: false
+          local_action: copy
+            content={{ input_data | to_nice_json }}
+            dest={{ software_discovery__copy_input_data_dest_path }}/{{ software_discovery__copy_input_data_file_name }}.json
+          when: software_discovery__copy_input_data_file_format == 'json'
+
+        - name: Copy input_data to YAML
+          local_action: copy
+            content={{ input_data | to_yaml(indent=2, width=5000, default_flow_style=False) }}
+            dest={{ software_discovery__copy_input_data_dest_path }}/{{ software_discovery__copy_input_data_file_name }}.{{ software_discovery__copy_input_data_file_format }}
+          when: software_discovery__copy_input_data_file_format == 'yaml' or software_discovery__copy_input_data_file_format == 'yml'
+      become: no
+      when: software_discovery__copy_input_data == true

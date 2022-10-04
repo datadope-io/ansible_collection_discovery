@@ -1,0 +1,63 @@
+---
+- name: Gather IIS version
+  block:
+    - name: Run command to gather version
+      run_module:
+        ansible.windows.win_shell:
+         _raw_params: '[System.Diagnostics.FileVersionInfo]::GetVersionInfo("$env:SystemRoot\system32\inetsrv\InetMgr.exe").ProductVersion'
+      register: result
+    - name: Format command output
+      set_instance_fact:
+        _version: "<< result.stdout_lines | first >>"
+      when: result is not failed
+    - name: Register version
+      add_version_info:
+        version_type: "file"
+        version_number: "<< __instance__._version >>"
+      when: result is not failed
+  ignore_errors: yes
+
+- name: Gather IIS sites
+  block:
+    - name: Run command to gather sites
+      run_module:
+        ansible.windows.win_shell:
+          _raw_params: 'Foreach ($Site in get-website) { Foreach ($Bind in $Site.bindings.collection) {[pscustomobject]@{name=$Site.name;protocol=$Bind.Protocol;bindings=$Bind.BindingInformation;physical_path=$Site.PhysicalPath} | ConvertTo-Json -Compress }}'
+      register: result
+    - name: Iterate over bindings
+      block:
+        - name: Format data
+          set_instance_fact:
+            _entry: "<< __item__ | from_json >>"
+        - name: Split binding information
+          set_instance_fact:
+            _entry_binding: "<< __instance__._entry.bindings.replace('*:', '0.0.0.0:').split(':') >>"
+        - name: Add binding information
+          add_binding_info:
+            address: "<< __instance__._entry_binding[0] >>"
+            port: "<< __instance__._entry_binding[1] >>"
+            protocol: "tcp"
+        - name: Add endpoint information when site is defined
+          add_endpoint_info:
+            uri: "<< __instance__._entry.protocol + '://' + __instance__._entry_binding[2] + ':' + __instance__._entry_binding[1] >>"
+            extra_data:
+              name: "<< __instance__._entry.name >>"
+              path: "<< __instance__._entry.physical_path >>"
+          when: __instance__._entry_binding[2]
+        - name: Add endpoint information when site is not defined
+          add_endpoint_info:
+            uri: "<< __instance__._entry.protocol + '://' + __instance__._entry_binding[0] + ':' + __instance__._entry_binding[1] >>"
+            extra_data:
+              name: "<< __instance__._entry.name >>"
+              path: "<< __instance__._entry.physical_path >>"
+          when: not __instance__._entry_binding[2]
+        - name: Add port to listening_ports
+          set_instance_fact:
+            listening_ports: "<< (__instance__.listening_ports + [__instance__._entry_binding[1] | int]) | unique >>"
+      loop: "<< result.stdout_lines | default([]) >>"
+
+- name: Remove tmp vars
+  del_instance_fact:
+    - _version
+    - _entry
+    - _entry_binding

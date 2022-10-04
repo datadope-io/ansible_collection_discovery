@@ -1,0 +1,36 @@
+---
+- name: Gather facts
+  setup:
+
+- name: Test in check_mode
+  block:
+    - name: Get processes in check mode
+      process_facts: {}
+      check_mode: yes
+
+    - name: Check that no process is returned in check mode
+      assert:
+        that:
+          - processes is not defined
+        fail_msg: processes is not defined or has elements in check mode
+
+- name: Test gather processes
+  block:
+    - name: List processes
+      process_facts: {}
+
+    - name: Check process list
+      assert:
+        that:
+          - processes is defined
+          - processes | length > 0
+        fail_msg: No process is returned
+
+    - name: Check process element info
+      assert:
+        that:
+          - item.pid is defined
+          - item.ppid is defined
+          - item.cmdline is defined
+        fail_msg: Wrong process info
+      loop: "{{ processes }}"

@@ -1,0 +1,584 @@
+---
+- name: Get config_base from cmdline with base_reg
+  block:
+    - name: Get base_reg from cmdline
+      set_instance_fact:
+        _base_reg: "<< __instance__.process.cmdline | regex_search('.*-Dcatalina.base=([\\w\\/\\.\\-]*).*', '\\1', ignorecase=True) | first  >>"
+      ignore_errors: yes
+    - name: Get process right 1
+      block:
+        - name: Save process 1
+          set_instance_fact:
+            _process_aux: "<<__instance__.process>>"
+        - name: Save base_reg 1
+          set_instance_fact:
+            _config_base: "<<__instance__._base_reg>>"
+      when: __instance__._base_reg is defined
+    - name: Get process right 2
+      block:
+        - name: Get base_reg from cmdline in children
+          set_instance_fact:
+            _base_reg: "<< __item__.cmdline | regex_search('.*-Dcatalina.base=([\\w\\/\\.\\-]*).*', '\\1', ignorecase=True) | first  >>"
+          ignore_errors: yes
+        - name: Save base_reg and process_aux with is children
+          block:
+            - name: Save process 2
+              set_instance_fact:
+                _process_aux: "<<__item__>>"
+            - name: Save base_reg 2
+              set_instance_fact:
+                _config_base: "<<__instance__._base_reg>>"
+          when: __instance__._base_reg is defined
+      loop: "<<__instance__.process.children>>"
+      when: __instance__._base_reg is not defined
+
+- name: Read process environment
+  read_environment_for_process:
+    pid: << __instance__._process_aux.pid >>
+  register: env_vars
+  ignore_errors: yes
+
+- name: Get home_reg from cmdline
+  set_instance_fact:
+    _home_reg: "<< __instance__._process_aux.cmdline | regex_search('.*-Dcatalina.home=([\\w\\/\\.\\-]*).*', '\\1', ignorecase=True) | first  >>"
+  ignore_errors: yes
+- name: Get home base config and version
+  block:
+    - name: Save home_reg
+      set_instance_fact:
+        _config_home: "<<__instance__._home_reg>>"
+    - name: Get base from cmdline
+      set_instance_fact:
+        _base_homereg: "<< __instance__._process_aux.cmdline | regex_search('.*-Dcatalina.base=([\\w\\/\\.\\-\\d]*)', '\\1' ,ignorecase=True, multiline=True, dotall=True) | first  >>"
+      ignore_errors: yes
+    - name: Save base
+      set_instance_fact:
+        _config_base: "<<__instance__._base_homereg>>"
+      when: __instance__._base_homereg is defined
+    - name: Get config from cmdline
+      set_instance_fact:
+        _config_homereg: "<< __instance__._process_aux.cmdline | regex_search('.*-Dcatalina.config=file:([\\w\\/\\.\\-\\d]*)', '\\1' ,ignorecase=True, multiline=True, dotall=True) | first  >>"
+      ignore_errors: yes
+    - name: Save config
+      set_instance_fact:
+        config_config: "<<__instance__._config_homereg>>"
+      when: __instance__._config_homereg is defined
+    - name: Save java_home
+      set_instance_fact:
+        _config_java_home: "<<env_vars.parsed.JAVA_HOME>>"
+      when: env_vars.parsed.JAVA_HOME is defined
+    - name: Get config_file
+      set_instance_fact:
+        _config_file: "<< __instance__._process_aux.cmdline | regex_search('-config ([\\w\\/\\.\\-\\d]*)' ,'\\1' ,ignorecase=True, multiline=True, dotall=True) | first  >>"
+      ignore_errors: yes
+    - name: Set config_file if is defined
+      set_instance_fact:
+        _conf_file: "<<__instance__._config_file>>"
+      when: __instance__._config_file is defined
+    - name: Set config_file if is not defined
+      set_instance_fact:
+        _conf_file: "<< (__instance__._config_base, 'conf/server.xml') | datadope.discovery.path_join >>"
+      when: __instance__._config_file is not defined
+    - name: Get version from file 1
+      block:
+        - name: Get release_file to version 1 with container
+          set_instance_fact:
+            _release_file: "/proc/<<__instance__._process_aux.pid>>/root<<__instance__._config_home>>/RELEASE-NOTES"
+          when:
+            - __instance.process.container is defined
+        - name: Get release_file to version 1 without container
+          set_instance_fact:
+            _release_file: "<<__instance__._config_home>>/RELEASE-NOTES"
+          when:
+            - __instance.process.container is not defined
+        - name: Read file version 1
+          read_remote_file:
+            file_path: "<< __instance__._release_file >>"
+          register: result
+          when:
+            - __instance__._release_file is defined
+        - name: Get releasereg from file version 1
+          set_instance_fact:
+            _releasereg: "<<result.content | regex_search('.*Apache Tomcat Version\\s+(\\d(?:\\.\\d+)*).*','\\1',i=True, multiline=True, dotall=True) | first>>"
+          ignore_errors: yes
+          when:
+            - result is not failed
+        - name: Set info_version 1
+          block:
+            - name: Set _version aux 1
+              set_instance_fact:
+                _version: "<<__instance__._releasereg>>"
+            - name: Set version 1
+              add_version_info:
+                version_type: 'file'
+                version_number: "<< __instance__._releasereg >>"
+          when:
+            - __instance__._releasereg is defined
+      when:
+        - __instance__._config_home is defined
+    - name: Get other version from file 2
+      block:
+        - name: Get release_file to version 2 with container
+          set_instance_fact:
+            _release_file: "/proc/<<__instance__._process_aux.pid>>/root<<__instance__._config_home>>/webapps/ROOT/RELEASE-NOTES.txt"
+          when:
+            - __instance.process.container is defined
+        - name: Get release_file to version 2 without container
+          set_instance_fact:
+            _release_file: "<<__instance__._config_home>>/webapps/ROOT/RELEASE-NOTES.txt"
+          when:
+            - __instance.process.container is not defined
+        - name: Read file version 2
+          read_remote_file:
+            file_path: "<< __instance__._release_file >>"
+          register: result
+          when:
+            - __instance__._release_file is defined
+        - name: Get releasereg from file version 2
+          set_instance_fact:
+            _releasereg: "<<result.content | regex_search('.*Apache Tomcat Version\\s+(\\d(?:\\.\\d+)*).*','\\1',i=True, multiline=True, dotall=True) |first>>"
+          ignore_errors: yes
+          when:
+            - result is not failed
+        - name: Set info_version 2
+          block:
+            - name: Set _version aux 2
+              set_instance_fact:
+                _version: "<<__instance__._releasereg>>"
+            - name: Set version 2
+              add_version_info:
+                version_type: 'file'
+                version_number: "<< __instance__._releasereg >>"
+          when:
+            - __instance__._releasereg is defined
+      when:
+        - __instance__._config_home is defined
+        - "__instance__._version is not defined or __instance__._version=='unknown'"
+    - name: Get other version from catalina.sh
+      block:
+        - name: Get path from catalina.sh
+          set_instance_fact:
+            _catalina_bin: "<< (__instance__._config_home, 'bin/catalina.sh') | datadope.discovery.path_join >>"
+        - name: Check if catalina.sh is accessible
+          stat:
+            path: "<< __instance__._catalina_bin >>"
+          register: result
+        - name: Run command if catalina.sh is accessible
+          run_command:
+            cmd: "<< __instance__._catalina_bin >> -V"
+          register: result
+          when: result is not failed
+        - name: Attempt to set _version if command is successful
+          set_instance_fact:
+            _releasereg: "<< result.stdout | regex_search('.*Server number:\\s+(\\d(?:\\.\\d+)*).*', '\\1', i=True, multiline=True, ignorecase=True) | first >>"
+          ignore_errors: yes
+          when: result is not failed
+        - name: Set info_version 3
+          block:
+            - name: Set _version aux 3
+              set_instance_fact:
+                _version: "<<__instance__._releasereg>>"
+            - name: Set version 3
+              add_version_info:
+                version_type: 'active'
+                version_number: "<< __instance__._releasereg >>"
+          when:
+            - __instance__._releasereg is defined
+      when:
+        - __instance__._config_home is defined
+        - "__instance__._version is not defined or __instance__._version=='unknown'"
+    - name: Get other version from catalina_home
+      block:
+        - name: Get releasereg from catalina_home
+          set_instance_fact:
+            _releasereg: "<< __instance__._config_home | regex_search('tomcat[-/_ ]?(\\d(?:[_\\-\\.]\\d+)+)', '\\1', i=True) | first  >>"
+          ignore_errors: yes
+        - name: If releasereg from cataline_home exists 1
+          block:
+            - name: Repleace releasereg 1
+              set_instance_fact:
+                _releasereg: "<<__instance__._releasereg | replace('-','.') | replace('_','.')>>"
+            - name: Set info_version 4
+              add_version_info:
+                version_type: 'path'
+                version_number: "<< __instance__._releasereg >>"
+          when:
+            - __instance__._releasereg is defined
+        - name: If releasereg from cataline_home no exists
+          block:
+            - name: Get other releasereg from catalina_home 2
+              set_instance_fact:
+                _releasereg: "<< __instance__._config_home | regex_search('tomcat(\\d(?:[_\\-\\.]\\d+)*)', '\\1', i=True) | first  >>"
+              ignore_errors: yes
+            - name: If releasereg from cataline_home exists 2
+              block:
+                - name: Repleace releasereg 2
+                  set_instance_fact:
+                    _releasereg: "<<__instance__._releasereg | replace('-','.') | replace('_','.')>>"
+                - name: Set process_version 5
+                  add_version_info:
+                    version_type: 'path'
+                    version_number: "<< __instance__._releasereg >>"
+              when:
+                - __instance__._releasereg is defined
+          when:
+            - __instance__.releasereg is not defined
+      when:
+        - __instance__._config_home is defined
+        - "__instance__._version is not defined or __instance__._version=='unknown'"
+  when:
+    - __instance__._home_reg is defined
+    - env_vars is defined
+
+- name: Parse config
+  block:
+    - name: Get server file in home
+      set_instance_fact:
+        _server_file_in_home: "<< (__instance__._config_home, 'conf/server.xml') | datadope.discovery.path_join >>"
+    - name: Get server file in base
+      set_instance_fact:
+        _server_file_in_base: "<< (__instance__._config_base, 'conf/server.xml') | datadope.discovery.path_join >>"
+    - name: Set server_xml file
+      set_instance_fact:
+        _server_xml_file: "<<__instance__._conf_file>>"
+    - name: Check if xml_file is accessible
+      stat:
+        path: "<< __instance__._server_xml_file>>"
+      register: result_xml
+    - name: Check if server file in base is accessible
+      stat:
+        path: "<< __instance__._server_file_in_base >>"
+      register: result
+    - name: Set server file if is base
+      set_instance_fact:
+        _server_xml_file: "<<__instance__._server_file_in_base>>"
+      when:
+        - result is not failed
+    - name: Check if server file in home is accessible
+      stat:
+        path: "<< __instance__._server_file_in_home >>"
+      register: result
+    - name: Set server file if is home
+      set_instance_fact:
+        _server_xml_file: "<<__instance__._server_file_in_home>>"
+      when:
+        - result is not failed
+    - name: Read config file
+      read_remote_file:
+        file_path: "<< __instance__._server_xml_file>>"
+        parser: "xml"
+      register: _xml_file
+      when:
+        - __instance__._server_xml_file is defined
+    - name: Save config file
+      set_instance_fact:
+        _config_file_xml:  "<<_xml_file.parsed>>"
+      when:
+        - _xml_file is defined
+        - _xml_file is not failed
+    - name: Check config_file.xml
+      block:
+        - name: Check if exist Connector
+          find_in_dict:
+            item: Connector
+            source: "<< __instance__._config_file_xml >>"
+          register: connectors
+        - name: Iterator over connectors
+          block:
+          - name: Iterate over connector
+            block:
+              - name: Check and save if connector is dict
+                set_instance_fact:
+                  _connector: ["<<connector>>"]
+                when: connector is mapping
+              - name: Check and save if connector is list
+                set_instance_fact:
+                  _connector: <<connector>>
+                when: __instance__._connector is not defined
+              - name: Iterate over connector_item
+                block:
+                  - name: Register http if exist
+                    set_instance_fact:
+                      _connector_http: "<<connector_item>>"
+                    when:
+                      - connector_item['attr-protocol'] is defined
+                      - connector_item['attr-protocol'] == 'HTTP/1.1'
+                  - name: Register ajp if exist
+                    set_instance_fact:
+                      _connector_ajp: "<<connector_item>>"
+                    when:
+                      - connector_item['attr-protocol'] is defined
+                      - connector_item['attr-protocol'] == 'AJP'
+                  - name: Register http if exit and is not defined
+                    set_instance_fact:
+                      _connector_http: "<<connector_item>>"
+                    when:
+                      - __instance__._connector_http is not defined
+                      - connector_item['attr-maxHttpHeaderSize'] is defined
+                  - name: Register ajp if exit and is not defined
+                    set_instance_fact:
+                      _connector_ajp: "<<connector_item>>"
+                    when:
+                      - __instance__._connector_ajp is not defined
+                      - connector_item['attr-protocol'] is defined
+                      - connector_item['attr-protocol'] == 'AJP/1.3'
+                loop: "<<__instance__._connector>>"
+                loop_control:
+                  loop_var: connector_item
+                ignore_errors: yes
+            loop: "<<connectors.result>>"
+            loop_control:
+              loop_var: connector
+          when:
+            - connectors is defined
+        - name: Check if connector_http exits and get ports
+          block:
+            - name: Get port from connector_http
+              set_instance_fact:
+                _port_http: "<<__instance__._connector_http['attr-port']>>"
+            - name: Check if port_http is only number
+              set_instance_fact:
+                _process_conf_port_http: "<<__instance__._port_http>>"
+              when:
+                - "'$' not in __instance__._port_http"
+            - name: If port_http is not only number
+              block:
+                - name: Replace ports
+                  set_instance_fact:
+                    _port_http: "<<__instance__._port_http | replace('$','') | replace('{','') | replace('}','')>>"
+                - name: Set var regrex in port_http
+                  set_instance_fact:
+                    _port_http: ".*-D<<__instance__._port_http>>=([\\w\\d]*)'>>"
+                - name: Do regrex in cmdline for port_http
+                  set_instance_fact:
+                    _process_conf_port_http: "<< __instance__._process_aux | regex_search(__instance__._port_http ,ignorecase=True) | first  >>"
+                  ignore_errors: yes
+              when:
+                - __instance__._port_http is defined
+                - "'$' in __instance__._port_http | string"
+          when:
+            - __instance__._connector_http is defined
+        - name: If connector_http dont exit
+          block:
+            - name: Iterate over connector if connector_http is not defined
+              block:
+                - name: Iterate over connector_item if connector_http is not defined
+                  block:
+                    - name: Register connector http for cache
+                      set_instance_fact:
+                        _connector_http: "<<connector_item>>"
+                    - name: Register process conf port http if dont exists protocol
+                      set_instance_fact:
+                        _process_conf_port_http: "<<connector_item['attr-port']>>"
+                      when:
+                        - __instance__._process_conf_port_http is not defined
+                        - connector_item['attr-port'] is defined
+                        - connector_item['attr-protocol'] is not defined
+                  loop: "<<connector>>"
+                  loop_control:
+                    loop_var: connector_item
+                  ignore_errors: yes
+              loop: "<<connectors.result>>"
+              loop_control:
+                loop_var: connector
+              when:
+                - connectors is defined
+          when:
+            - __instance__._connector_http is not defined
+        - name: If in port have a dollar
+          block:
+            - name: Set connector http var
+              set_instance_fact:
+                _connector_http_var: "<<__instance__._connector_http['attr-port'] | replace('${','') | replace('}','')>>"
+            - name: Set catalina properties files if config_config is defined
+              set_instance_fact:
+                _catalina_properties_file: "<<__instance__.config_config>>"
+              when:
+                - __instance__.config_config is defined
+            - name: Set catalina properties file if config_config is not defined
+              set_instance_fact:
+                _catalina_properties_file: "<< (__instance__._config_base, 'conf/catalina.properties') | datadope.discovery.path_join >>"
+              when:
+                - __instance__.config_config is not defined
+            - name: Check if catalina_properties_file is accessible
+              stat:
+                path: "<< __instance__._catalina_properties_file >>"
+              register: result_catalina
+            - name: Read catalina file
+              read_remote_file:
+                file_path: "<< __instance__._catalina_properties_file>>"
+              register: _file_catalina_prop
+              when:
+                - __instance__._catalina_properties_file is defined
+            - name: Split text of catalina file
+              set_instance_fact:
+                _catalina_text: "<< _file_catalina_prop.content | datadope.discovery.split('\n#') >>"
+              when:
+                - _file_catalina_prop is defined
+            - name: Iterate over catalina file
+              block:
+                - name: Check if line make match with equals or connector_http_var
+                  block:
+                    - name: Split lines with match
+                      set_instance_fact:
+                        _line_split: "<<line | datadope.discovery.split('=')>>"
+                    - name: Save if name of var is equals config port http
+                      set_instance_fact:
+                        _process_conf_port_http: "<<__instance__._line_split[1] | replace('\n','')>>"
+                      when:
+                        - "__instance__._connector_http_var == __instance__._line_split[0]"
+                  when:
+                    - "'=' in line"
+                    - __instance__._connector_http_var in line
+              loop: "<<__instance__._catalina_text>>"
+              loop_control:
+                loop_var: line
+              when:
+                - __instance__._catalina_text is defined
+          when:
+            - __instance__.connector_http is defined
+            - __instance__.connector_http['attr-port'] is defined
+            - "'$' in __instance__._connector_http['attr-port']"
+        - name: Check if connector_ajp exits and get ports
+          block:
+            - name: Get port from connector_ajp
+              set_instance_fact:
+                _port_ajp: "<<__instance__._connector_ajp['attr-port']>>"
+            - name: Check if port_ajp is only number
+              set_instance_fact:
+                _process_conf_port_ajp: "<<__instance__._port_ajp>>"
+              when:
+                - "'$' not in __instance__._port_ajp"
+            - name: If port_ajp is not only number
+              block:
+                - name: Replace ports
+                  set_instance_fact:
+                    _port_ajp: "<<__instance__._port_ajp | replace('$','') | replace('{','') | replace('}','')>>"
+                - name: Set var regrex in port_ajp
+                  set_instance_fact:
+                    _port_ajp: ".*-D<<__instance__._port_ajp>>=([\\w\\d]*)'>>"
+                - name: Do regrex in cmdline for port_ajp
+                  set_instance_fact:
+                    _process_conf_port_ajp: "<< __instance__._process_aux | regex_search(__instance__._port_ajp ,ignorecase=True) | first  >>"
+                  ignore_errors: yes
+              when:
+                - __instance__._port_http is defined
+                - "'$' in __instance__._port_http | string"
+          when:
+            - __instance__._connector_ajp is defined
+      when:
+        - __instance__._config_file_xml is defined
+  when:
+    - __instance__._home_reg is defined
+    - env_vars is defined
+
+- name: Set port jmx
+  block:
+    - name: Regrex from jmx port
+      set_instance_fact:
+        _jmx_port_reg: "<< __instance__._process_aux | regex_search('.*-Dcom.sun.management.jmxremote.port=([0-9]*).*', '\\1', ignorecase=True) | first  >>"
+      ignore_errors: yes
+    - name: Set jmx port if regrex is ok
+      set_instance_fact:
+        _process_conf_port_jmx: "<<__instance__._jmx_port_reg>>"
+      when:
+        - __instance__._jmx_port_reg is defined
+    - name: Set jmx port if regrex is wrong
+      set_instance_fact:
+        _process_conf_port_jmx: "8050"
+      when:
+        - __instance__._jmx_port_reg is not defined
+  when:
+    - __instance__._home_reg is defined
+
+- name: Put catalina_base in files
+  add_file_info:
+    path: '<<__instance__._config_base>>'
+    type: 'config'
+    subtype: 'base'
+  when: __instance__._config_base is defined
+
+- name: Put catalina_home in files
+  add_file_info:
+    path: '<<__instance__._config_home>>'
+    type: 'config'
+    subtype: 'home'
+  when:
+    - __instance__._config_home is defined
+
+- name: Put java_home in files
+  add_file_info:
+    path: '<<__instance__._config_java_home>>'
+    type: 'config'
+    subtype: 'java_home'
+  when:
+    - __instance__._config_java_home is defined
+
+- name: Put port_ajp in bindings
+  add_binding_info:
+    port: '<<__instance__._process_conf_port_ajp>>'
+    class: 'port_ajp'
+  when:
+    - __instance__._process_conf_port_ajp is defined
+
+- name: Put port_http in bindings
+  add_binding_info:
+    port: '<<__instance__._process_conf_port_http>>'
+    class: 'port_http'
+  when:
+    - __instance__._process_conf_port_http is defined
+
+- name: Put port_jmx in bindings
+  add_binding_info:
+    port: '<<__instance__._process_conf_port_jmx>>'
+    class: 'port_jmx'
+  when:
+    - __instance__._process_conf_port_jmx is defined
+
+- name: Save config file in files
+  add_file_info:
+    path: '<<__instance__._conf_file | dirname>>'
+    name: '<<__instance__._conf_file | basename>>'
+    type: 'config'
+    subtype: 'generic'
+  when: __instance__._conf_file is defined
+
+- name: Save config file in Configuration
+  set_instance_fact:
+    configuration:  "<<__instance__._config_file_xml>>"
+  when:
+    - __instance__._config_file_xml is defined
+
+- name: Remove temporary vars
+  del_instance_fact:
+    - _config_base
+    - _config_home
+    - _config_java_home
+    - _process_conf_port_ajp
+    - _process_conf_port_http
+    - _process_conf_port_jmx
+    - _base_homereg
+    - _base_reg
+    - _home_reg
+    - _release_file
+    - _releasereg
+    - _catalina_bin
+    - _config_file_xml
+    - _process_aux
+    - _line_split
+    - _server_file_in_base
+    - _server_file_in_home
+    - _server_xml_file
+    - _catalina_text
+    - _catalina_properties_file
+    - _connector_http
+    - _connector_http_var
+    - _port_http
+    - _connector_ajp
+    - _port_ajp
+    - _jmx_port_reg
+    - _config_homereg
+    - _config_file
+    - _version
+    - _conf_file
+    - _connector
