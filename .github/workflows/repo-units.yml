@@ -11,8 +11,7 @@ jobs:
     strategy:
       matrix:
         ansible:
-          # It's important that Sanity is tested against all stable-X.Y branches
-          # Testing against `devel` may fail as new tests are added.
+          # It's important to run unit tests against all stable-X.Y branches
 
           # https://docs.ansible.com/ansible/latest/reference_appendices/release_and_maintenance.html#ansible-core-changelogs
           - stable-2.12
