@@ -418,7 +418,7 @@ expected_result:
         type: package
 
 software_list:
-  - cmd_regexp: apache[^ ]*/(sbin|bin)/[^ ]*\bhttpd$|/usr/sbin/httpd.*|apache/jbcs-httpd2.*|\bapps/apache[^ ]*/(sbin|bin)/httpd$|\bapache[^ ]*/(sbin|bin)/[^ ]*\bhttpd[-_]prefork$|/usr/sbin/httpd[-_\.](prefork|worker)$|/usr/sbin/httpd\d$|/usr/sbin/apache2
+  - cmd_regexp: "^.*\/(?:sbin|bin)\/(?:httpd|apache2)(?:[-_](?:prefork|worker))?(?:.*)?"
     name: Apache WebServer
     pkg_regexp: apache2|^httpd$
     process_type: parent
