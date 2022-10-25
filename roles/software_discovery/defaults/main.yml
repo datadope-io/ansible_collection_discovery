@@ -52,7 +52,7 @@ software_discovery__software_list:
           file: "{{ software_discovery__custom_tasks_definition_files_path }}/sql_server.yaml"
 
   - name: IIS
-    cmd_regexp: 'w3wp.exe'  # Service iissvcs
+    cmd_regexp: 'iissvcs'
     process_type: single
     return_children: false
     return_packages: false
