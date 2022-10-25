@@ -11,6 +11,10 @@ mocked_plugin_tasks:
       failed: false
       stdout_lines:
         - "{\"name\":\"Default Web Site\",\"protocol\":\"http\",\"bindings\":\"*:80:\",\"physical_path\":\"%SystemDrive%\\\\inetpub\\\\wwwroot\"}"
+        - "{\"name\":\"Default Web Site\",\"protocol\":\"net.tcp\",\"bindings\":\"808:*\",\"physical_path\":\"%SystemDrive%\\\\inetpub\\\\wwwroot\"}"
+        - "{\"name\":\"Default Web Site\",\"protocol\":\"net.msmq\",\"bindings\":\"localhost\",\"physical_path\":\"%SystemDrive%\\\\inetpub\\\\wwwroot\"}"
+        - "{\"name\":\"Default Web Site\",\"protocol\":\"msmq.formatname\",\"bindings\":\"localhost\",\"physical_path\":\"%SystemDrive%\\\\inetpub\\\\wwwroot\"}"
+        - "{\"name\":\"Default Web Site\",\"protocol\":\"net.pipe\",\"bindings\":\"*\",\"physical_path\":\"%SystemDrive%\\\\inetpub\\\\wwwroot\"}"
         - "{\"name\":\"Default Web Site\",\"protocol\":\"https\",\"bindings\":\"*:443:\",\"physical_path\":\"%SystemDrive%\\\\inetpub\\\\wwwroot\"}"
         - "{\"name\":\"Extra Web Site\",\"protocol\":\"http\",\"bindings\":\"*:800:demo.iometrics.io\",\"physical_path\":\"%SystemDrive%\\\\inetpub\\\\wwwroot\"}"
 
@@ -42,6 +46,16 @@ expected_result:
           name: Default Web Site
           path: "%SystemDrive%\\inetpub\\wwwroot"
         type: generic
+        uri: net.tcp://0.0.0.0:808
+      - extra_data:
+          name: Default Web Site
+          path: "%SystemDrive%\\inetpub\\wwwroot"
+        type: generic
+        uri: net.msmq://localhost
+      - extra_data:
+          name: Default Web Site
+          path: "%SystemDrive%\\inetpub\\wwwroot"
+        type: generic
         uri: https://0.0.0.0:443
       - extra_data:
           name: Extra Web Site
@@ -49,20 +63,28 @@ expected_result:
         type: generic
         uri: http://demo.iometrics.io:800
     bindings:
-      - address: "0.0.0.0"
+      - address: 0.0.0.0
         class: service
         port: 80
-        protocol: tcp
-      - address: "0.0.0.0"
+        protocol: http
+      - class: service
+        port: 808
+        protocol: net.tcp
+      - class: service
+        port: 1801
+        protocol: net.msmq
+      - address: 0.0.0.0
         class: service
         port: 443
-        protocol: tcp
-      - address: "0.0.0.0"
+        protocol: https
+      - address: 0.0.0.0
         class: service
         port: 800
-        protocol: tcp
+        protocol: http
     listening_ports:
       - 80
+      - 808
+      - 1801
       - 443
       - 800
     process:
