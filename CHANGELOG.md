@@ -1,3 +1,8 @@
+# 1.0.1
+
+## Fixes
+- Fixed a problem with the Apache Webserver regex
+
 # 1.0.0
 
 Initial version of `datadope.discovery` Ansible collection.
