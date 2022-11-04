@@ -36,10 +36,12 @@ options:
     description: Environment variables that will be injected into the parser.
     required: false
     type: dict
+    default: {}
   path_prefix:
     description: Prefix that will be appended to every path that the parser will access during its operation.
     required: false
     type: str
+    default: ''
   strict_vars:
     description: Determines if the process should fail if a defined environment variable is not available.
     required: false
