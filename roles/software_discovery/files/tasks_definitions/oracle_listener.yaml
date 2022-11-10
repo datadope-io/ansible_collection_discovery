@@ -65,7 +65,7 @@
           set_instance_fact:
             _listening_ports: >-
                   << (__instance__._listening_ports | default([]) + __item__
-                  | regex_findall('PORT=(.*?)\)', ignorecase=True) | map('int')) | unique >>
+                  | regex_findall('PORT=(.*?)\)', ignorecase=True) | map('int') | list) | unique >>
           when:
             - "'PORT=' in (__item__ | upper)"
             - "'HTTP' not in (__item__ | upper)"
