@@ -1,7 +1,12 @@
+# 1.0.2
+
+## Fixes
+- Fixed a problem with Oracle Listener ports iteration.
+
 # 1.0.1
 
 ## Fixes
-- Fixed a problem with the Apache Webserver regex
+- Fixed a problem with the Apache Webserver regex.
 
 # 1.0.0
 
