@@ -1,0 +1,6 @@
+---
+# (string) Path where the files required for the role are located.
+snmp_discovery__sysobject_files_path: "{{ role_path }}/files"
+
+# (string) Path where the template files are located.
+snmp_discovery__templates_path: "{{ role_path }}/files/templates"

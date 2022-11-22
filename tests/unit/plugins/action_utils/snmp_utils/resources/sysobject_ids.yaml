@@ -1,0 +1,31 @@
+generic_template:
+  Aruba:
+    NETWORKING:
+      '14823': null
+      14823.1.1.1: '5000'
+      14823.1.1.23: 620 Controller
+      14823.1.1.26: S3500-48P
+      14823.1.1.32: 7210 Controller
+  Cisco:
+    STORAGE:
+      1.2.826.0.1.4616240.1.1.4500: ciscoMCU4500
+      1.2.826.0.1.4616240.1.1.4501: ciscoMCU4501
+    NETWORKING:
+      '9': null
+      9.1.151: Catalyst 116C
+      9.1.152: Catalyst 1116
+  Dell:
+    UNKNOWN:
+      '674': null
+    NETWORKING:
+      674.10892.2: iDRAC
+      674.10892.5: PowerEdge
+
+testing_template:
+  Aruba:
+    NETWORKING:
+      14823.1.1.19: 650 Controller
+      14823.1.1.20: 651 Controller
+  Cisco:
+    NETWORKING:
+      9.1.150: Catalyst 116T

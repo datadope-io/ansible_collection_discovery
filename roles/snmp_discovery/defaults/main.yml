@@ -1,0 +1,18 @@
+---
+# (string) Host on which to perform SNMP Facts.
+snmp_discovery__host: "localhost"
+
+# (string) Version for SNMP.
+snmp_discovery__version: "v2c"
+
+# (string) Community for SNMP v2c.
+snmp_discovery__community: "public"
+
+# (int) Port for SNMP Facts.
+snmp_discovery__port: 161
+
+# (int) Timeout for SNMP Facts.
+snmp_discovery__timeout: 2
+
+# (float) Number of retries for SNMP Facts.
+snmp_discovery__retries: 0

@@ -1,3 +1,9 @@
+# 1.5.0
+
+## Features
+- New snmp_facts module.
+- New snmp_discovery role.
+
 # 1.4.0
 
 ## Features
