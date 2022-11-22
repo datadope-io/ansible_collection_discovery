@@ -1,0 +1,9 @@
+---
+# @var pysnmp_version: (string) # Version of the pysnmp library required.
+snmp_pysnmp_version: "4.4.12"
+
+# @var sysobject_files_path: (string) # Path where the files required for the role are located.
+snmp_sysobject_files_path: "{{ role_path }}/files"
+
+# @var snmp_templates_path: (string) # Path where the template files are located.
+snmp_templates_path: "{{ role_path }}/files/templates"

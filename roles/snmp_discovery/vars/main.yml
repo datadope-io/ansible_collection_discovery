@@ -1,0 +1,18 @@
+---
+# @var snmp_host: (string) # Host on which to perform SNMP Facts.
+snmp_host: "localhost"
+
+# @var snmp_version: (string) # Version for SNMP.
+snmp_version: "v2c"
+
+# @var snmp_community: (string) # Community for SNMP v2c.
+snmp_community: "public"
+
+# @var snmp_port: (int) # Port for SNMP Facts.
+snmp_port: 161
+
+# @var snmp_timeout: (int) # Timeout for SNMP Facts.
+snmp_timeout: 10
+
+# @var snmp_retries: (float) # Number of retries for SNMP Facts.
+snmp_retries: 1
