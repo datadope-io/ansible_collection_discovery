@@ -25,7 +25,7 @@ from ansible.plugins.action import ActionBase
 from ansible.utils.display import Display
 
 from ansible_collections.datadope.discovery.plugins.action_utils.software_facts.compat.__init__ \
-    import merge_hash, isidentifier
+    import merge_hash, isidentifier, ArgumentSpecValidator
 
 DEFAULT_LOOP_VAR = '__item__'
 
@@ -325,26 +325,13 @@ class ActionModule(ActionBase):
         display.v(msg, host=self._host)
 
     def validate_parameters(self, parameters):
-        # TODO Improve. Validate software_list parameters
-        validated = True
-        for param, param_spec in iteritems(self.argument_spec):
-            # Check if the param is available
-            if param in parameters:
-                # Check if the param is of the desired type
-                if str(type(parameters[param]).__name__) != param_spec['type']:
-                    validated = False
-                    break
-                # If the param is instance of a list, check if all the elements are of the desired type
-                if isinstance(parameters[param], list):
-                    validated = all(str(type(element).__name__) == param_spec['elements']
-                                    for element in parameters[param])
-                    if not validated:
-                        break
-            # If the param is not available and is required, the validation fails
-            elif param_spec['required']:
-                validated = False
-                break
-        return validated
+        validator = ArgumentSpecValidator(self.argument_spec)
+        validation_result = validator.validate(parameters)
+
+        if validation_result.error_messages:
+            display.warning("Wrong parameters sent to module:\n{0}".format('\n'.join(validation_result.error_messages)))
+
+        return not bool(validation_result.error_messages)
 
     @classmethod
     def _prepare_processes(cls, processes):
