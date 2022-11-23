@@ -1,3 +1,9 @@
+# 1.1.0
+
+## Features
+- New win_hyperv_facts module
+- New hyperv_vms role
+
 # 1.0.2
 
 ## Fixes

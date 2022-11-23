@@ -25,14 +25,14 @@ By setting this option to true, all the information related to the process is ga
 ```yaml
     
     - name: Gather processes facts
-      community.windows.win_process_facts:
+      datadope.discovery.win_process_facts:
 
     - name: Gather full processes facts
-      community.windows.win_process_facts:
+      datadope.discovery.win_process_facts:
         extended_data: true
 
     - name: Gather full processes facts with only the year within the date fields
-      community.windows.win_process_facts:
+      datadope.discovery.win_process_facts:
         extended_data: true
         date_format: '%Y'
 
