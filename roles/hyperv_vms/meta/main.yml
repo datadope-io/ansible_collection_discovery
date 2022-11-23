@@ -1,0 +1,18 @@
+---
+galaxy_info:
+  role_name: hyperv_vms
+  author: Datadope
+  description: Role to get running Hyper-V virtual machines
+  company: Datadope
+  license: GPL-3.0-or-later
+  min_ansible_version: 2.9.8
+  platforms:
+    - name: Windows
+      versions:
+        - all
+
+  galaxy_tags:
+    - discovery
+    - hyperv
+
+dependencies: []
