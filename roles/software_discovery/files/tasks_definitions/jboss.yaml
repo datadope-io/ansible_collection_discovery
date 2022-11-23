@@ -51,14 +51,14 @@
   add_file_info:
     path: '<<__instance__._domain_log_dir>>'
     type: 'log'
-    subtype: 'generic'
+    subtype: 'domain logging dir'
   when: __instance__._domain_log_dir != None
 
 - name: Save domain logs dir
   add_file_info:
     path: '<<__instance__._log_dir>>'
     type: 'log'
-    subtype: 'generic'
+    subtype: 'logging dir'
   when: __instance__._log_dir != None
 
 - name: Redefine server_name if necessary
@@ -218,7 +218,7 @@
     path: '<<__instance__._log_file | dirname>>'
     name: '<<__instance__._log_file | basename>>'
     type: 'log'
-    subtype: 'generic'
+    subtype: 'logging file'
   when: __instance__._log_file is defined
 
 - name: Parse standalone mode configuration
@@ -260,11 +260,6 @@
                 port: '<<__instance__._socket_port | int + __instance__._port_offset | int>>'
                 class: '<<__instance__._socket_name>>'
           loop: "<< __instance__.configuration.standalone_xml['server']['socket-binding-group']['socket-binding'] | default([]) >>"
-        - name: Set management_port and port_remoting if needed
-          set_instance_fact:
-            _management_port: "<< __instance__.port_management_http >>"
-            _port_remoting: "<< __instance__.port_management_http >>"
-          when: __instance__.port_management_http is defined
         - name: Remove temporary vars
           del_instance_fact:
             - _port_offset
@@ -327,6 +322,11 @@
               set_instance_fact:
                 _management_port: "<< (_management_node.result | first)['management-interfaces']['http-interface']['socket']['attr-port'].lstrip('${jboss.management.http.port:').rstrip('}') | int >>"
               when: "(_management_node.result | first)['management-interfaces']['http-interface']['socket'] is defined"
+            - name: Add management_port binding if necessary
+              add_binding_info:
+                port: '<<__instance__._management_port>>'
+                class: 'management_http'
+              when: __instance__._management_port is defined
             - name: Find servers node
               find_in_dict:
                 item: "servers"
@@ -487,6 +487,7 @@
             - _server_socket_binding_group_name
             - _server_group
             - _binding
+            - _management_port
       when: result is not failed
   when:
     - __instance__._mode == 'domain'
@@ -497,7 +498,7 @@
     path: '<<__instance__._logging_conf_file | dirname>>'
     name: '<<__instance__._logging_conf_file | basename>>'
     type: 'log'
-    subtype: 'generic'
+    subtype: 'logging config'
   when: __instance__._logging_conf_file is defined
 
 - name: Save host xml file
@@ -531,21 +532,21 @@
   add_file_info:
     path: '<<__instance__._base_dir>>'
     type: 'data'
-    subtype: 'generic'
+    subtype: 'base dir'
   when: __instance__._base_dir != None
 
 - name: Save home dir
   add_file_info:
     path: '<<__instance__._home_dir>>'
     type: 'data'
-    subtype: 'generic'
+    subtype: 'home dir'
   when: __instance__._home_dir != None
 
 - name: Save config file
   add_file_info:
     path: '<<__instance__._config_file>>'
     type: 'config'
-    subtype: 'generic'
+    subtype: 'config file'
   when: __instance__._config_file != None
 
 - name: Save standole xml file
@@ -574,18 +575,6 @@
   when:
     - __instance__._domain_controller is defined
     - __instance__._domain_controller is string
-
-- name: Save port remoting
-  add_binding_info:
-    port: '<<__instance__._port_remoting>>'
-    class: 'port remoting'
-  when: __instance__._port_remoting is defined
-
-- name: Save management port
-  add_binding_info:
-    port: '<<__instance__._management_port>>'
-    class: 'listener'
-  when: __instance__._management_port is defined
 
 - name: Save domain role
   set_instance_fact:
@@ -627,8 +616,6 @@
     - _domain_xml_file
     - _host_xml_file
     - _logging_conf_file
-    - _management_port
     - _mode
-    - _port_remoting
     - _server
     - _standalone_xml_file

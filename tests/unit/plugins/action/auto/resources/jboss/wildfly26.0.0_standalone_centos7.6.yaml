@@ -2153,20 +2153,20 @@ expected_result:
     files:
       - name: server.log
         path: /opt/wildfly/standalone/log
-        subtype: generic
+        subtype: logging file
         type: log
       - name: logging.properties
         path: /opt/wildfly/standalone/configuration
-        subtype: generic
+        subtype: logging config
         type: log
       - path: /opt/wildfly/standalone
-        subtype: generic
+        subtype: base dir
         type: data
       - path: /opt/wildfly
-        subtype: generic
+        subtype: home dir
         type: data
       - path: standalone.xml
-        subtype: generic
+        subtype: config file
         type: config
       - name: standalone.xml
         path: /opt/wildfly/standalone/configuration

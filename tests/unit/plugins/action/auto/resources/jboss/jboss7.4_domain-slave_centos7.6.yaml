@@ -587,6 +587,8 @@ expected_result:
         class: service
         port: 55200
         protocol: udp
+      - class: management_http
+        port: 19990
       - class: https
         port: 8443
       - class: http
@@ -612,8 +614,6 @@ expected_result:
         extra_data:
           security_realm: ManagementRealm
         port: 9999
-      - class: listener
-        port: 19990
     configuration:
       host_xml:
         host:
@@ -868,15 +868,15 @@ expected_result:
       mode: domain
     files:
       - path: /opt/jboss/domain/servers/nodo2-server1/log
-        subtype: generic
+        subtype: logging dir
         type: log
       - name: server.log
         path: /opt/jboss/domain/servers/nodo2-server1/log
-        subtype: generic
+        subtype: logging file
         type: log
       - name: logging.properties
         path: /opt/jboss/domain/servers/nodo2-server1/data
-        subtype: generic
+        subtype: logging config
         type: log
       - name: host.xml
         path: /opt/jboss/domain/configuration
@@ -887,7 +887,7 @@ expected_result:
         subtype: domain
         type: config
       - path: /opt/jboss
-        subtype: generic
+        subtype: home dir
         type: data
     listening_ports:
       - 3528
