@@ -70,7 +70,7 @@
 - name: Save binding address
   add_binding_info:
     address: '<<__instance__._bind_address>>'
-    class: 'binding_address'
+    class: 'bind_address'
   when: __instance__._bind_address != None
 
 - name: Save binding address management
@@ -561,7 +561,7 @@
   add_binding_info:
     address: '<<__instance__._domain_controller.host>>'
     port: '<<__instance__._domain_controller.port>>'
-    class: 'domain controller'
+    class: 'domain_controller'
     extra_data:
       security_realm: '<<__instance__._domain_controller.security_realm>>'
   when:
@@ -571,7 +571,7 @@
 - name: Save domain controller if is str
   add_binding_info:
     address: '<<__instance__._domain_controller>>'
-    class: 'domain controller'
+    class: 'domain_controller'
   when:
     - __instance__._domain_controller is defined
     - __instance__._domain_controller is string

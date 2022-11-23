@@ -610,7 +610,7 @@ expected_result:
       - class: iiop
         port: 3528
       - address: 192.168.0.130
-        class: domain controller
+        class: domain_controller
         extra_data:
           security_realm: ManagementRealm
         port: 9999
