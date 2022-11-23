@@ -1,7 +1,13 @@
+# 1.0.2
+
+## Fixes
+- Fixed a problem with Oracle Listener ports iteration.
+- Fixed a problem with the validation of the module args where depending on the ansible version an error could happen.
+
 # 1.0.1
 
 ## Fixes
-- Fixed a problem with the Apache Webserver regex
+- Fixed a problem with the Apache Webserver regex.
 
 # 1.0.0
 
