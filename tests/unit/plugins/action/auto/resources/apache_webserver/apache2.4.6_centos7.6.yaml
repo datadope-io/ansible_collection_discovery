@@ -354,11 +354,11 @@ expected_result:
     files:
       - path: /usr/sbin
         name: httpd
-        subtype: generic
+        subtype: process bin file
         type: binary
       - name: httpd.conf
         path: /etc/httpd/conf
-        subtype: generic
+        subtype: config file
         type: config
       - name: access_log
         path: /etc/httpd/logs

@@ -7,7 +7,7 @@
     path: "<<__instance__._bin_file | dirname >>"
     name: "<<__instance__._bin_file | basename >>"
     type: 'binary'
-    subtype: 'generic'
+    subtype: 'process bin file'
 
 - name: Get conf_file_path from cmdline
   set_instance_fact:
@@ -94,7 +94,7 @@
         path: "<<__instance__._conf_file_path | dirname>>"
         name: "<<__instance__._conf_file_path | basename>>"
         type: 'config'
-        subtype: 'generic'
+        subtype: 'config file'
     - name: Set instance_name from config file
       set_instance_fact:
         extra_data: "<< (__instance__.extra_data | default({})) | combine({
