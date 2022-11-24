@@ -3,8 +3,8 @@
   win_shell: "Get-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V | Select-Object -expandproperty State"
   register: result
   when:
-    - ansible_os_family is defined
-    - ansible_os_family | lower == 'windows'
+    - ansible_system is defined
+    - ansible_system | lower == 'win32nt'
 
 - name: Gather Hyper-V virtual machines
   datadope.discovery.win_hyperv_facts: {}
