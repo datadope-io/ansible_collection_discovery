@@ -1,3 +1,8 @@
+# 1.1.1
+
+## Fixes
+- Fixed a problem with the system identification when running tasks
+
 # 1.1.0
 
 ## Features
