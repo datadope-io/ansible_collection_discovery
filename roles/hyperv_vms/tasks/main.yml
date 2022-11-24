@@ -1,0 +1,14 @@
+---
+- name: Check if Hyper-V is present on the machine
+  win_shell: "Get-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V | Select-Object -expandproperty State"
+  register: result
+  when:
+    - ansible_os_family is defined
+    - ansible_os_family | lower == 'windows'
+
+- name: Gather Hyper-V virtual machines
+  datadope.discovery.win_hyperv_facts: {}
+  when:
+    - result is not skipped
+    - result is not failed
+    - "'Enabled' in result.stdout_lines"
