@@ -18,25 +18,25 @@
     - name: Read ports info for Linux systems
       listen_ports_facts: {}
       ignore_errors: yes
-      when: ansible_os_family | lower == 'linux'
+      when: ansible_system | lower == 'linux'
 
     - name: Read ports info for SunOS systems
       datadope.discovery.sunos_listen_ports_facts: {}
       ignore_errors: yes
-      when: ansible_os_family | lower == 'solaris'
+      when: ansible_system | lower == 'sunos'
 
     - name: Read packages for Linux systems
       package_facts: {}
       ignore_errors: yes
-      when: ansible_os_family | lower == 'linux'
+      when: ansible_system | lower == 'linux'
 
     - name: Read dockers for Linux systems
       include_role:
         name: datadope.discovery.docker_containers
-      when: ansible_os_family | lower == 'linux'
+      when: ansible_system | lower == 'linux'
 
   become: yes
-  when: ansible_os_family | lower != 'windows'
+  when: ansible_system | lower != 'win32nt'
 
 - name: Gather information for Windows systems
   block:
@@ -48,7 +48,7 @@
     - name: Read packages
       datadope.discovery.win_package_facts: {}
       ignore_errors: yes
-  when: ansible_os_family | lower == 'windows'
+  when: ansible_system | lower == 'win32nt'
 
 # We need to include in ansible_facts software_list to be able to use it later with role_path var already replaced.
 - name: Store software definition
