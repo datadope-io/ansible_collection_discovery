@@ -36,18 +36,18 @@ since it could have an impact on the system. Also, this option requires the user
 ```yaml
     
     - name: Gather system packages facts
-      community.windows.win_package_facts:
+      datadope.discovery.win_package_facts:
 
     - name: Gather system and current user packages facts
-      community.windows.win_package_facts:
+      datadope.discovery.win_package_facts:
         gather_current_user: true
 
     - name: Gather system and external users packages facts
-      community.windows.win_package_facts:
+      datadope.discovery.win_package_facts:
         gather_external_users: true
 
     - name: Gather system, current user and external users packages facts
-      community.windows.win_package_facts:
+      datadope.discovery.win_package_facts:
         gather_current_user: true
         gather_external_users: true
 
