@@ -72,8 +72,7 @@ mocked_plugin_tasks:
             ],
             "root": "/usr/share/nginx/html",
             "listen": [
-              "81",
-              "[::]:81"
+              "81"
             ]
           },
           "types": {
@@ -552,7 +551,6 @@ expected_result:
             - 500 502 503 504 /50x.html
           listen:
             - '81'
-            - '[::]:81'
           location = /404.html: { }
           location = /50x.html: { }
           root: /usr/share/nginx/html

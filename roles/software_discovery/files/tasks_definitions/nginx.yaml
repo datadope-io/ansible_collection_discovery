@@ -139,11 +139,9 @@
         - name: Loop raw ports
           block:
             - name: Set port with ':'
-              block:
-                - name: Set port
-                  set_instance_fact:
-                    _ip: "<< (__item__.rsplit(':', 1))[0] >>"
-                    _portr: "<< (__item__.rsplit(':', 1))[1] >>"
+              set_instance_fact:
+                _ip: "<< (__item__.rsplit(':', 1))[0] >>"
+                _portr: "<< (__item__.rsplit(':', 1))[1] >>"
               when:  "':' in __item__"
             - name: Set port without ':'
               set_instance_fact:
@@ -175,7 +173,7 @@
               set_instance_fact:
                 _listen_ports: "<< __instance__._listen_ports | default([]) + [ __instance__._port_info ]>>"
               when: __instance__._port_info not in __instance__._listen_ports
-          loop: << _raw_listen_ports.result | default([]) >>
+          loop: << _raw_listen_ports.result | default([]) | flatten >>
       ignore_errors: yes
       when:
         - __instance__._listen_ports is not defined
@@ -218,15 +216,16 @@
                     - name: Nginx plus
                       set_instance_fact:
                         _stub_status_config: "present"
-                        _stub_status_endpoint: "<< __endpoint__ >>"
                         _nginx_build: "nginx-plus"
                       when: response.msg | regex_search('.*nginx-plus.*', ignorecase=True) | string | length > 0
                     - name: Nginx standard
                       set_instance_fact:
                         _stub_status_config: "present"
-                        _stub_status_endpoint: "<< __endpoint__ >>"
                         _nginx_build: "nginx-standard"
                       when: response.msg | regex_search('.*Active connections.*', ignorecase=True) | string | length > 0
+                    - name: Add stub status endpoint
+                      add_endpoint_info:
+                        uri: "<< __endpoint__ >>"
                   when: response.status == 200
               loop: "<< __instance__._endpoints >>"
               loop_control:
@@ -249,10 +248,6 @@
             extra_data: "<< (__instance__.extra_data | default({})) | combine({
             'stub_status_config': __instance__._stub_status_config }) >>"
           when: __instance__._stub_status_config is defined
-        - name: Add stub status endpoint
-          add_endpoint_info:
-            uri: "<< __instance__._stub_status_endpoint >>"
-          when: __instance__._stub_status_endpoint is defined
         - name: Add nginx build
           set_instance_fact:
             extra_data: "<< (__instance__.extra_data | default({})) | combine({
@@ -278,7 +273,6 @@
         - _test_ports
         - _stub_status
         - _stub_status_config
-        - _stub_status_endpoint
         - _nginx_build
   when:
     - __instance__._bin_file is defined
