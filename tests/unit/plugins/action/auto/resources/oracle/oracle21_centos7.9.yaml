@@ -228,7 +228,7 @@ expected_result:
           - xepdb1
     files:
     - path: /opt/oracle/diag/rdbms/xe/XE/trace
-      subtype: generic
+      subtype: alert
       type: log
     - path: /opt/oracle/product/21c/dbhomeXE
       subtype: generic

@@ -179,11 +179,11 @@ expected_result:
         subtype: generic
         type: home
       - path: /softOracle/app/oracle/product/12.1.0.2/db_1/bin/lsnrctl
-        subtype: generic
+        subtype: process bin file
         type: binary
       - path: /softOracle/app/oracle/diag/tnslsnr/ld1bmb02/listener_bsaapp/trace
         name: log.xml
-        subtype: generic
+        subtype: logging file
         type: log
     listening_ports:
       - 1524
@@ -215,11 +215,11 @@ expected_result:
         subtype: generic
         type: home
       - path: /softOracle/app/oracle/product/12.1.0.2/db_1/bin/lsnrctl
-        subtype: generic
+        subtype: process bin file
         type: binary
       - path: /softOracle/app/oracle/diag/tnslsnr/ld1bmb02/listener_bsarep/trace
         name: log.xml
-        subtype: generic
+        subtype: logging file
         type: log
     listening_ports:
       - 1527
@@ -251,11 +251,11 @@ expected_result:
         subtype: generic
         type: home
       - path: /softOracle/app/oracle/product/12.1.0.2/db_1/bin/lsnrctl
-        subtype: generic
+        subtype: process bin file
         type: binary
       - path: /softOracle/app/oracle/diag/tnslsnr/ld1bmb02/listener_bnabbdd/trace
         name: log.xml
-        subtype: generic
+        subtype: logging file
         type: log
     listening_ports:
       - 1523
@@ -287,11 +287,11 @@ expected_result:
         subtype: generic
         type: home
       - path: /softOracle_local/app/oragrid/product/12.1.0.2/grid_infraestructure/bin/lsnrctl
-        subtype: generic
+        subtype: process bin file
         type: binary
       - path: /softOracle_local/app/oragrid/diag/tnslsnr/ld1bmb02/listener/trace
         name: log.xml
-        subtype: generic
+        subtype: logging file
         type: log
     listening_ports:
       - 1521
@@ -323,11 +323,11 @@ expected_result:
         subtype: generic
         type: home
       - path: /softOracle/app/oracle/product/12.1.0.2/db_1/bin/lsnrctl
-        subtype: generic
+        subtype: process bin file
         type: binary
       - path: /softOracle/app/oracle/diag/tnslsnr/ld1bmb02/listener_arsys/trace
         name: log.xml
-        subtype: generic
+        subtype: logging file
         type: log
     listening_ports:
       - 1522
