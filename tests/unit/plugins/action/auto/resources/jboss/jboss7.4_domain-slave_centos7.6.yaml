@@ -23,6 +23,9 @@ mocked_plugin_tasks:
   "Check if controller information is available":
     expected_exception:
       message: "'NoneType' object is not iterable"
+  "Check if jboss_cmd is accessible":
+    plugin_result:
+      failed: true
   "Check if version file is accessible":
     expected_args:
       path: "/opt/jboss/version.txt"
