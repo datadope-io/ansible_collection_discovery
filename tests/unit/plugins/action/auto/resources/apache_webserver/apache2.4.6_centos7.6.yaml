@@ -349,8 +349,8 @@ expected_result:
       User: apache
     discovery_time: '2022-06-08T19:34:47+02:00'
     extra_data:
-      instance_name: '80.80'
-      instance_name_uppercase: '80.80'
+      instance_name: '80'
+      instance_name_uppercase: '80'
     files:
       - path: /usr/sbin
         name: httpd

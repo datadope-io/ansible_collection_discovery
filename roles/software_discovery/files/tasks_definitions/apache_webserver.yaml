@@ -175,7 +175,7 @@
 - name: Set instance_name if possible and not defined
   set_instance_fact:
     extra_data: "<< (__instance__.extra_data | default({})) | combine({
-    'instance_name': __instance__.bindings | map(attribute='port') | list | join('.')
+    'instance_name': __instance__.bindings | map(attribute='port') | list | unique | join('.')
     }) >>"
   when:
     - __instance__.extra_data.instance_name is not defined
