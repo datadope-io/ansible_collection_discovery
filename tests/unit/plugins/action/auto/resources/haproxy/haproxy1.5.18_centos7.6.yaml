@@ -97,6 +97,19 @@ mocked_plugin_tasks:
           ]
         }
       }
+  "Read raw config file":
+    plugin_result:
+      failed: false
+      content: "backend static\n  balance roundrobin\n  server static 127.0.0.1:4331 check\nbackend app\n  balance roundrobin\n  server\n    app1 127.0.0.1:5001 check\n    app2 127.0.0.1:5002 check\n    app3 127.0.0.1:5003 check\n    app4 127.0.0.1:5004 check\nglobal\n  daemon\n  chroot /var/lib/haproxy\n  stats socket /var/lib/haproxy/stats\n  log 127.0.0.1 local2\n  user haproxy\n  group haproxy\n  maxconn '4000'\n  pidfile /var/run/haproxy.pid\nfrontend micro-http-02\n  bind *:83\n  default_backend micro02\n  reqadd X-Forwarded-Proto:\ http\nbackend micro02\n  server\n    loadbalancer-1 192.168.0.142:8080 check\n    loadbalancer-2 192.168.0.223:8080 check\n  balance leastconn\n  option\n    http-server-close\n    forwardfor\n  timeout\n    http-keep-alive 300\n    connect 10s\n    server 1m\n  mode http\nfrontend main\n  default_backend app\n  use_backend static          if url_static\n  \"*:5000\"\n  acl\n    url_static       path_beg       -i /static /images /javascript /stylesheets\n    url_static       path_end       -i .jpg .gif .png .css .js\ndefaults\n  retries '3'\n  log global\n  mode http\n  timeout\n    http-request    10s\n    queue           1m\n    connect         10s\n    client          1m\n    server          1m\n    http-keep-alive 10s\n    check           10s\n  maxconn '3000'\n  option\n    httplog\n    dontlognull\n    http-server-close\n    forwardfor       except 127.0.0.0/8\n    redispatch\n"
+  "Try to get stats socket path":
+    expected_exception:
+      message: "'NoneType' object is not iterable"
+  "Try to get stats listen ip and port if socket path couldn't be found":
+    expected_exception:
+      message: "'NoneType' object is not iterable"
+  "Try to get stats credentials if socket path couldn't be found":
+    expected_exception:
+      message: "'NoneType' object is not iterable"
 
 expected_result:
   - configuration:
@@ -176,6 +189,9 @@ expected_result:
         port: 5000
         protocol: tcp
     discovery_time: '2022-06-16T23:16:05+02:00'
+    extra_data:
+      binded_ports:
+        - "*:83"
     files:
       - name: haproxy.cfg
         path: /etc/haproxy
