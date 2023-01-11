@@ -8,12 +8,14 @@
     * [process_facts](#process_facts)
     * [win_process_facts](#win_process_facts)
     * [win_package_facts](#win_package_facts)
+    * [win_hyperv_facts](#win_hyperv_facts)
     * [sunos_listen_ports_facts](#sunos_listen_ports_facts)
     * [file_parser](#file_parser)
     * [check_connection](#check_connection)
   * [Roles](#roles)
     * [software_discovery](#software_discovery)
     * [docker_containers](#docker_containers)
+    * [hyperv_vms](#hyperv_vms)
   * [Playbooks](#playbooks)
     * [software_discovery.yml](#software_discoveryyml)
   * [Other artifacts](#other-artifacts)
@@ -92,6 +94,15 @@ Windows modules are implemented using PowerShell. But module definition must be 
 See [definition](plugins/modules/win_process_facts.py), [implementation](plugins/modules/win_process_facts.ps1) and 
 [doc](docs/modules/win_process_facts.md).
 
+### win_hyperv_facts
+
+This module provides target host's Hyper-V virtual machines information.
+
+Windows modules are implemented using PowerShell. But module definition must be provided in a python file.
+
+See [definition](plugins/modules/win_hyperv_facts.py), [implementation](plugins/modules/win_hyperv_facts.ps1) and 
+[doc](docs/modules/win_hyperv_facts.md).
+
 ### sunos_listen_ports_facts
 
 This module gather facts on processes listening on TCP and UDP ports.
@@ -142,6 +153,13 @@ so a fallback mechanism has been implemented using ansible `command` module to e
 Both mechanisms return the same information of the discovered docker containers.
 
 See [implementation](roles/docker_containers) and [doc](docs/roles/docker_containers.md).
+
+### hyperv_vms
+
+This role checks if the target machine runs Hyper-V. If the result is positive, then it starts the Hyper-V virtual
+machine's information extraction.
+
+See [implementation](roles/hyperv_vms) and [doc](docs/roles/hyperv_vms.md).
 
 ## Playbooks
 

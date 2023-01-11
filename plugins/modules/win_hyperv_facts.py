@@ -21,8 +21,8 @@ options:
     default: '%c'
   extended_data:
     description:
-      - "By default, the module gathers: id, name, serial, hostname, network_adapters, path,
-        creation_time, processor_count, memory, min_memory, max_memory, state and hypervisor.
+      - "By default, the module gathers: id, name, serial, hard_drives, hostname, network_adapters,
+        path, creation_time, processor_count, memory, min_memory, max_memory, state and hypervisor.
         By setting this option to true, all the information related to the virtual machine is
         gathered, extending the module's output."
     type: bool
@@ -59,6 +59,18 @@ virtual_machines:
     sample: [
         {
             "creation_time": "ju. oct. 27 19:42:05 2022",
+            "hard_drives": [
+                {
+                    "attached": true,
+                    "computer_name": "EXAMPLE",
+                    "disk_identifier": "1C1AA8FC-9E1A-004E-8542-A1C3C87FA3D4",
+                    "file_size": 1680867328,
+                    "minimum_size": 12884901888,
+                    "parent_path": "C:\\Users\\Public\\Documents\\Hyper-V\\Virtual hard disks\\Example.vhdx",
+                    "path": "C:\\Users\\Public\\Documents\\Hyper-V\\Virtual hard disks\\Example_37ED822E-EEDD-45DD-93EA-8F55D2B9CAC7.avhdx",
+                    "size": 12884901888
+                }
+            ],
             "hostname": "vm1.mshome.net",
             "id": "f3abe0f9-3ba0-49a7-ae48-e2f0808cca9d",
             "max_memory": 1099511627776,
