@@ -62,8 +62,8 @@ try {
     Get-CimInstance -ClassName Win32_Process | ForEach-Object {
         $process_data = @{
             cmdline = $_.CommandLine
-            pid = $_.ProcessId
-            ppid = $_.ParentProcessId
+            pid = $_.ProcessId.ToString()
+            ppid = $_.ParentProcessId.ToString()
             user = Get-Owner $_
         }
 

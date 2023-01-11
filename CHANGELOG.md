@@ -1,3 +1,11 @@
+# 1.2.0
+
+## Features
+- win_hyperv_facts module now shows hard_drives by default
+
+## Fixes
+- win_process_facts module now uses same field types as process_facts
+
 # 1.1.1
 
 ## Fixes

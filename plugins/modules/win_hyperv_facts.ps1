@@ -70,6 +70,7 @@ try {
             id = $_.VMId
             name = $_.VMName
             serial = Get-SerialNumber $_.VMName
+            hard_drives = @()
             hostname = $null
             network_adapters = @()
             path = $_.Path
@@ -91,6 +92,37 @@ try {
                 status = $_.Status
                 ip_addresses = $_.IPAddresses
             }
+        }
+
+        Get-VHD -VMId $_.VMId | ForEach-Object {
+            $hard_drive = @{
+                attached = $_.Attached
+                computer_name = $_.ComputerName
+                disk_identifier = $_.DiskIdentifier
+                file_size = $_.FileSize
+                minimum_size = $_.MinimumSize
+                parent_path = $_.ParentPath
+                path = $_.Path
+                size = $_.Size
+            }
+
+            if ($extended_data) {
+                $hard_drive += @{
+                    address_abstraction_type = $_.AddressAbstractionType
+                    alignment = $_.Alignment
+                    block_size = $_.BlockSize
+                    disk_number = $_.DiskNumber
+                    fragmentation_percentage = $_.FragmentationPercentage
+                    is_pmem_compatible = $_.IsPMEMCompatible
+                    logical_sector_size = $_.LogicalSectorSize
+                    number = $_.Number
+                    physical_sector_size = $_.PhysicalSectorSize
+                    vhd_format = $_.VhdFormat
+                    vhd_type = $_.VhdType
+                }
+            }
+
+            $vm.hard_drives += $hard_drive
         }
 
         foreach ($network_adapter in $vm.network_adapters) {
@@ -156,7 +188,6 @@ try {
                 dvd_drives = $_.DVDDrives
                 fibre_channel_host_bus_adapters = $_.FibreChannelHostBusAdapters
                 floppy_drive = $_.FloppyDrive
-                hard_drives = $_.HardDrives
                 remote_fx_adapter = $_.RemoteFxAdapter
                 vm_integration_service = $_.VMIntegrationService
                 dynamic_memory_enabled = $_.DynamicMemoryEnabled
