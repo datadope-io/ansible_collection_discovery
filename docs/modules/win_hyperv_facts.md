@@ -15,7 +15,7 @@ Establishes the format of the date fields gathered.
 Applies to the field creation_time
 
 ### extended_data (optional, bool, False)
-By default, the module gathers: id, name, serial, hostname, network_adapters, path, creation_time, processor_count, memory, min_memory, max_memory, state and hypervisor. By setting this option to true, all the information related to the virtual machine is gathered, extending the module's output.
+By default, the module gathers: id, name, serial, hard_drives, hostname, network_adapters, path, creation_time, processor_count, memory, min_memory, max_memory, state and hypervisor. By setting this option to true, all the information related to the virtual machine is gathered, extending the module's output.
 
 
 ## Notes
