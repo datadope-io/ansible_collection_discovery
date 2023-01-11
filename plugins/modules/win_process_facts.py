@@ -57,8 +57,8 @@ processes:
     sample: [
         {
             "cmdline": "\"C:\\Program Files\\Microsoft SQL Server\\MSSQL14.SQLEXPRESS\\MSSQL\\Binn\\sqlservr.exe",
-            "pid": 1560,
-            "ppid": 444,
+            "pid": "1560",
+            "ppid": "444",
             "user": "NT SERVICE\\MSSQL$SQLEXPRESS"
         }
     ]
