@@ -1,3 +1,9 @@
+# 1.3.0
+
+## Features
+- Added support for PostgreSQL Database for Windows OS.
+- The `run_command` builtin plugin now supports Windows hosts.
+
 # 1.2.0
 
 ## Features
