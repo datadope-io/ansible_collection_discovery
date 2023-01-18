@@ -303,8 +303,8 @@ mocked_plugin_tasks:
       - expected_args:
           argv: null
           cmd: >-
-            psql -U user_b -d postgres -w -t -A
-            -c 'select datname from pg_database;' -p 5432
+            "/usr/local/binpsql.exe" -U user_a -d  postgres -w -t -A
+            -c "select datname from pg_database;" -p 5432
             -h 127.0.0.1
           in_docker: true
         plugin_result:
@@ -312,10 +312,24 @@ mocked_plugin_tasks:
       - expected_args:
           argv: null
           cmd: >-
-            su - user_b
-            -c 'psql -d postgres -w -t -A
-            -c "select datname from pg_database;" -p 5432
-            -h 127.0.0.1'
+            psql -U user_b -d postgres -w -t -A
+            -c 'select datname from pg_database;' -p 5432 -h 127.0.0.1
+          in_docker: true
+        plugin_result:
+          failed: true
+      - expected_args:
+          argv: null
+          cmd: >-
+            su - user_b -c 'psql -d postgres -w -t -A -c "select datname from
+            pg_database;" -p 5432 -h 127.0.0.1'
+          in_docker: true
+        plugin_result:
+          failed: true
+      - expected_args:
+          argv: null
+          cmd: >-
+            "/usr/local/binpsql.exe" -U user_b -d  postgres -w -t -A -c "select
+            datname from pg_database;" -p 5432 -h 127.0.0.1
           in_docker: true
         plugin_result:
           failed: true
@@ -341,28 +355,40 @@ mocked_plugin_tasks:
       - expected_args:
           argv: null
           cmd: >-
-            psql -U postgres -d postgres -w -t -A
-            -c 'select datname from pg_database;' -p 5432
-            -h 127.0.0.1
+            "/usr/local/binpsql.exe" -U admin -d  postgres -w -t -A -c "select
+            datname from pg_database;" -p 5432 -h 127.0.0.1
           in_docker: true
         plugin_result:
           failed: true
       - expected_args:
           argv: null
           cmd: >-
-            su - postgres
-            -c 'psql -d postgres -w -t -A
-            -c "select datname from pg_database;" -p 5432
-            -h 127.0.0.1'
+            psql -U postgres -d postgres -w -t -A -c 'select datname from
+            pg_database;' -p 5432 -h 127.0.0.1
           in_docker: true
         plugin_result:
           failed: true
       - expected_args:
           argv: null
           cmd: >-
-            psql -U user_a -d gitea -w -t -A
-            -c 'select datname from pg_database;' -p 5432
-            -h 127.0.0.1
+            su - postgres -c 'psql -d postgres -w -t -A -c "select datname from
+            pg_database;" -p 5432 -h 127.0.0.1'
+          in_docker: true
+        plugin_result:
+          failed: true
+      - expected_args:
+          argv: null
+          cmd: >-
+            "/usr/local/binpsql.exe" -U postgres -d  postgres -w -t -A -c "select
+            datname from pg_database;" -p 5432 -h 127.0.0.1
+          in_docker: true
+        plugin_result:
+          failed: true
+      - expected_args:
+          argv: null
+          cmd: >-
+            psql -U user_a -d gitea -w -t -A -c 'select datname from
+            pg_database;' -p 5432 -h 127.0.0.1
           in_docker: true
         plugin_result:
           failed: true
@@ -379,57 +405,16 @@ mocked_plugin_tasks:
       - expected_args:
           argv: null
           cmd: >-
-            psql -U user_b -d gitea -w -t -A
-            -c 'select datname from pg_database;' -p 5432
-            -h 127.0.0.1
+            "/usr/local/binpsql.exe" -U user_a -d  gitea -w -t -A -c "select
+            datname from pg_database;" -p 5432 -h 127.0.0.1
           in_docker: true
         plugin_result:
           failed: true
       - expected_args:
           argv: null
           cmd: >-
-            su - user_b
-            -c 'psql -d gitea -w -t -A
-            -c "select datname from pg_database;" -p 5432
-            -h 127.0.0.1'
-          in_docker: true
-        plugin_result:
-          failed: true
-      - expected_args:
-          argv: null
-          cmd: >-
-            psql -U admin -d gitea -w -t -A
-            -c 'select datname from pg_database;' -p 5432
-            -h 127.0.0.1
-          in_docker: true
-        plugin_result:
-          failed: true
-      - expected_args:
-          argv: null
-          cmd: >-
-            su - admin
-            -c 'psql -d gitea -w -t -A
-            -c "select datname from pg_database;" -p 5432
-            -h 127.0.0.1'
-          in_docker: true
-        plugin_result:
-          failed: true
-      - expected_args:
-          argv: null
-          cmd: >-
-            psql -U postgres -d gitea -w -t -A
-            -c 'select datname from pg_database;' -p 5432
-            -h 127.0.0.1
-          in_docker: true
-        plugin_result:
-          failed: true
-      - expected_args:
-          argv: null
-          cmd: >-
-            su - postgres
-            -c 'psql -d gitea -w -t -A
-            -c "select datname from pg_database;" -p 5432
-            -h 127.0.0.1'
+            psql -U user_b -d gitea -w -t -A -c 'select datname from
+            pg_database;' -p 5432 -h 127.0.0.1
           in_docker: true
         plugin_result:
           failed: false

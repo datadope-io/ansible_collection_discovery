@@ -2,6 +2,7 @@
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
 from __future__ import (absolute_import, division, print_function)
+
 __metaclass__ = type
 
 DOCUMENTATION = r'''
@@ -9,18 +10,21 @@ DOCUMENTATION = r'''
 software_facts_plugin: run_command
 short_description: Executes a command on the target host.
 description:
-     - This plugin executes a command on the target host, using ansible's command module.
+     - This plugin executes a command on the target host, using ansible's command module
+       or win_command if it's being executed on a windows host.
      - "It manages if the software instance is running in a docker container.
        If that is the case, then executes the command in the container."
 options:
   cmd:
     description:
-      - Full command to execute.
+      - Full command to execute. If on a Windows host, this argument takes priority if 'argv' is
+        present too.
     type: str
     required: false
   argv:
     description:
-      - Command and arguments provided as a list.
+      - Command and arguments provided as a list. This argument is ignored if on a Windows
+        host and the argument 'cmd' is also present.
     type: list
     required: false
   in_docker:
@@ -83,7 +87,8 @@ class RunCommand(SoftwareFactsPlugin):
         return args
 
     def run(self, args=None, attributes=None, software_instance=None):
-        module_name = 'command'
+        module_name = 'win_command' if self._task_vars.get('ansible_facts', {}).get('os_family', '').lower() \
+            .startswith('windows') else 'command'
         module_args = {}
         for key, value in iteritems(args):
             if key == 'cmd' and value:
@@ -93,6 +98,12 @@ class RunCommand(SoftwareFactsPlugin):
                 continue
             else:
                 module_args[key] = value
+
+        # win_command module '_raw_params' and 'argv' arguments are mutually exclusive, avoid using them both if present
+        if 'win_command' in module_name and '_raw_params' in module_args and 'argv' in module_args:
+            display.warning("'_raw_params' and 'argv' are mutually exclusive when using the"
+                            " 'win_command' ansible module, 'argv' will be ignored")
+            module_args.pop('argv')
 
         in_docker = args['in_docker']
         if in_docker \
