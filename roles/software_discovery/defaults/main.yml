@@ -18,8 +18,8 @@ software_discovery__post_tasks: []
 # (list) Definition of the types of software that will be tried to be discovered in the target hosts.
 software_discovery__software_list:
   - name: PostgreSQL Database
-    cmd_regexp: 'postgres:'
-    pkg_regexp: 'postgresql.*-server|postgresql-\d'
+    cmd_regexp: 'postgres:|postgres\.exe.*?--fork'
+    pkg_regexp: 'postgresql.*-server|postgresql-\d|PostgreSQL.*'
     process_type: child
     return_children: true
     return_packages: true

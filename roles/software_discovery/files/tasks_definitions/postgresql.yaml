@@ -38,13 +38,14 @@
   block:
     - name: Attempt to extract conf path
       set_instance_fact:
-        _conf_path: "<< __instance__.process.cmdline | regex_search('-D\\s+\"?([^\\s\"]+)', '\\1') | first >>"
+        _conf_path: "<< __instance__.process.cmdline | regex_search('-D\\s+\\\\?\"?([^\"\\-]+)', '\\1') | first >>"
       ignore_errors: yes
     - name: Extract binary file
       block:
         - name: Attempt to extract binary file
           set_instance_fact:
-            _raw_bin_file: "<< __instance__.process.cmdline | regex_search('^\\s*(.+/bin/\\w+)', ignorecase=True) >>"
+            _raw_bin_file: "<< __instance__.process.cmdline | regex_search('\\s*((.+\\/bin\\/\\w+)|[^\"]+(.+\\w.exe))', ignorecase=True) >>"
+
         - name: Other try to extract binary file
           block:
             - name: Try other expression for binary file
@@ -314,6 +315,10 @@
                     su - << __user_info__.username >>
                     -c 'psql -d << __db_instance__ >> -w -t -A -c "select datname from pg_database;" -p << pg_port >>
                     << sql_connection_extra_params | default('') >>'
+                - >-
+                    "<< __instance__._raw_bin_file | regex_search('^.*bin\\?\\?') >>psql.exe" -U << __user_info__.username >> -d 
+                    << __db_instance__ >> -w -t -A -c "select datname from pg_database;" -p << pg_port >>
+                    << sql_connection_extra_params | default('') >>
               loop_control:
                 loop_var: __db_command__
           when: __instance__._databases is not defined
