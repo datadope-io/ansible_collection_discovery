@@ -6,6 +6,7 @@
         ansible.windows.win_shell:
          _raw_params: "hostname"
       register: result
+      ignore_errors: yes
     - name: Format hostname
       set_instance_fact:
         _hostname: "<< result.stdout_lines | first >>"
@@ -15,6 +16,7 @@
         ansible.windows.win_shell:
          _raw_params: "(Get-ItemProperty 'HKLM:\\SOFTWARE\\Microsoft\\Microsoft SQL Server').InstalledInstances"
       register: result
+      ignore_errors: yes
     - name: Format instances
       set_instance_fact:
         _instances: "<< result.stdout_lines >>"
@@ -42,6 +44,7 @@
             __databases__: << result.stdout_lines | default([]) | difference(ignore_databases | default([])) >>
           when:
             - result is not failed
+      when: __instance__._hostname is defined
       loop: "<< __instance__._instances | default([]) >>"
       loop_control:
         loop_var: __bd_instance__
