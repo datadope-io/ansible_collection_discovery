@@ -6,6 +6,7 @@
         ansible.windows.win_shell:
          _raw_params: '[System.Diagnostics.FileVersionInfo]::GetVersionInfo("$env:SystemRoot\system32\inetsrv\InetMgr.exe").ProductVersion'
       register: result
+      ignore_errors: yes
     - name: Format command output
       set_instance_fact:
         _version: "<< result.stdout_lines | first >>"
@@ -24,6 +25,7 @@
         ansible.windows.win_shell:
           _raw_params: 'Foreach ($Site in get-website) { Foreach ($Bind in $Site.bindings.collection) {[pscustomobject]@{name=$Site.name;protocol=$Bind.Protocol;bindings=$Bind.BindingInformation;physical_path=$Site.PhysicalPath} | ConvertTo-Json -Compress }}'
       register: result
+      ignore_errors: yes
     - name: Iterate over bindings
       block:
         - name: Format data
