@@ -1,3 +1,8 @@
+# 1.3.1
+
+## Fixes
+- Unexpected errors handling for SQL Server and IIS
+
 # 1.3.0
 
 ## Features
