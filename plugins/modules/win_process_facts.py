@@ -22,7 +22,7 @@ options:
     default: '%c'
   extended_data:
     description:
-      - "By default, the module gathers: cmdline, pid, ppid and user. By setting
+      - "By default, the module gathers: cmdline, cwd, pid, ppid and user. By setting
         this option to true, all the information related to the process is gathered,
         extending the module's output."
     type: bool
@@ -30,6 +30,9 @@ options:
 notes:
 - The extended_data flag is disabled by default as the gathered information that is
   collected by default is usually enough to achieve the goal of the module.
+- Due to Windows limitations, the field 'cwd' refers to the path of the executable and not the
+  actual path the process is working on for interoperability purposes, since it's not possible
+  to gather de working directory in a stable, standard way.
 author:
 - David Nieto (@david-ns)
 '''
@@ -57,6 +60,7 @@ processes:
     sample: [
         {
             "cmdline": "\"C:\\Program Files\\Microsoft SQL Server\\MSSQL14.SQLEXPRESS\\MSSQL\\Binn\\sqlservr.exe",
+            "cwd": "\"C:\\Program Files\\Microsoft SQL Server\\MSSQL14.SQLEXPRESS\\MSSQL\\Binn\\",
             "pid": "1560",
             "ppid": "444",
             "user": "NT SERVICE\\MSSQL$SQLEXPRESS"

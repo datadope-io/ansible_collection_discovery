@@ -13,55 +13,64 @@
       "cmdline": "/usr/lib/systemd/systemd --switched-root --system --deserialize 21",
       "pid": "1",
       "ppid": "0",
-      "user": "root"
+      "user": "root",
+      "cwd": "/usr/lib/systemd/"
     },
     {
       "cmdline": "/usr/pgsql-11/bin/postmaster -D /var/lib/pgsql/11/data/",
       "pid": "24895",
       "ppid": "1",
-      "user": "root"
+      "user": "root",
+      "cwd": "/usr/pgsql-11/bin/"
     },
     {
       "cmdline": "postgres: logger",
       "pid": "24898",
       "ppid": "24895",
-      "user": "root"
+      "user": "root",
+      "cwd": "/"
     },
     {
       "cmdline": "postgres: checkpointer",
       "pid": "24900",
       "ppid": "24895",
-      "user": "root"
+      "user": "root",
+      "cwd": "/"
     },
     {
       "cmdline": "postgres: background writer",
       "pid": "24901",
       "ppid": "24895",
-      "user": "root"
+      "user": "root",
+      "cwd": "/"
     },
     {
       "cmdline": "postgres: walwriter",
       "pid": "24902",
       "ppid": "24895",
-      "user": "root"
+      "user": "root",
+      "cwd": "/"
     },
     {
       "cmdline": "postgres: autovacuum launcher",
       "pid": "24903",
       "ppid": "24895",
-      "user": "root"
+      "user": "root",
+      "cwd": "/"
     },
     {
       "cmdline": "postgres: stats collector",
       "pid": "24904",
       "ppid": "24895",
-      "user": "root"
+      "user": "root",
+      "cwd": "/"
     },
     {
       "cmdline": "postgres: logical replication launcher",
       "pid": "24905",
       "ppid": "24895",
-      "user": "root"
+      "user": "root",
+      "cwd": "/"
     }
   ],
   "tcp_listen": [
@@ -78,10 +87,14 @@
   "udp_listen": [],
   "expected_result": [
     {
-      "bindings": [{"address": "127.0.0.1",
-                "class": "service",
-                "port": 5432,
-                "protocol": "tcp"}],
+      "bindings": [
+        {
+          "address": "127.0.0.1",
+          "class": "service",
+          "port": 5432,
+          "protocol": "tcp"
+        }
+      ],
       "type": "PostgreSQL Database",
       "discovery_time": "2022-05-26T18:00:00+02:00",
       "process": {
@@ -91,49 +104,56 @@
             "cmdline": "postgres: logger",
             "pid": "24898",
             "ppid": "24895",
-            "user": "root"
+            "user": "root",
+            "cwd": "/"
           },
           {
             "children": [],
             "cmdline": "postgres: checkpointer",
             "pid": "24900",
             "ppid": "24895",
-            "user": "root"
+            "user": "root",
+            "cwd": "/"
           },
           {
             "children": [],
             "cmdline": "postgres: background writer",
             "pid": "24901",
             "ppid": "24895",
-            "user": "root"
+            "user": "root",
+            "cwd": "/"
           },
           {
             "children": [],
             "cmdline": "postgres: walwriter",
             "pid": "24902",
             "ppid": "24895",
-            "user": "root"
+            "user": "root",
+            "cwd": "/"
           },
           {
             "children": [],
             "cmdline": "postgres: autovacuum launcher",
             "pid": "24903",
             "ppid": "24895",
-            "user": "root"
+            "user": "root",
+            "cwd": "/"
           },
           {
             "children": [],
             "cmdline": "postgres: stats collector",
             "pid": "24904",
             "ppid": "24895",
-            "user": "root"
+            "user": "root",
+            "cwd": "/"
           },
           {
             "children": [],
             "cmdline": "postgres: logical replication launcher",
             "pid": "24905",
             "ppid": "24895",
-            "user": "root"
+            "user": "root",
+            "cwd": "/"
           }
         ],
         "cmdline": "/usr/pgsql-11/bin/postmaster -D /var/lib/pgsql/11/data/",
@@ -142,7 +162,8 @@
         ],
         "pid": "24895",
         "ppid": "1",
-        "user": "root"
+        "user": "root",
+        "cwd": "/usr/pgsql-11/bin/"
       },
       "listening_ports": [
         5432

@@ -84,6 +84,7 @@
       - item.process.pid is defined
       - item.process.ppid is defined
       - item.process.cmdline is defined
+      - item.process.cwd is defined
       - item.process.children is defined
       - item.process.listening_ports is defined
       - item.listening_ports is defined

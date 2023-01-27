@@ -1,169 +1,173 @@
----
-expected_result:
-  - bindings:
-      - address: '0.0.0.0'
-        class: 'service'
-        port: 8082
-        protocol: 'tcp'
-      - address: '0.0.0.0'
-        class: 'service'
-        port: 111
-        protocol: 'udp'
-      - class: service
-        address: 127.0.0.1
-        port: 34515
-    discovery_time: '2022-06-24T13:24:09+02:00'
-    listening_ports:
-      - 111
-      - 8082
-    packages: []
-    process:
-      cmdline: /usr/lib/systemd/hdbindexserver
-      listening_ports:
-        - 111
-        - 8082
-      pid: '1'
-      ppid: '0'
-      user: root
-    type: SAP HANA DatabaseServer
-    version:
-      []
-software_list:
-  - name: SAP HANA DatabaseServer
-    cmd_regexp: hdbindexserver
-    process_type: parent
-    return_children: false
-    return_packages: true
-    custom_tasks:
-      - name: Include skydive specific plugins
-        include_tasks:
-          file: "{{ software_discovery__custom_tasks_definition_files_path }}/sap_hana.yaml"
 dockers:
-  containers: [ ]
-
-processes:
-  - cmdline: /usr/lib/systemd/hdbindexserver
+  containers: []
+expected_result:
+- bindings:
+  - address: 0.0.0.0
+    class: service
+    port: 8082
+    protocol: tcp
+  - address: 0.0.0.0
+    class: service
+    port: 111
+    protocol: udp
+  - address: 127.0.0.1
+    class: service
+    port: 34515
+  discovery_time: '2022-06-24T13:24:09+02:00'
+  listening_ports:
+  - 111
+  - 8082
+  packages: []
+  process:
+    cmdline: /usr/lib/systemd/hdbindexserver
+    cwd: /usr/lib/systemd/
+    listening_ports:
+    - 111
+    - 8082
     pid: '1'
     ppid: '0'
     user: root
-  - cmdline: ''
-    pid: '2'
-    ppid: '0'
-    user: root
-  - cmdline: ''
-    pid: '3'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '5'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '7'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '8'
-    ppid: '2'
-    user: root
+  type: SAP HANA DatabaseServer
+  version: []
 packages:
   GeoIP:
-    - arch: x86_64
-      epoch: null
-      name: GeoIP
-      release: 13.el7
-      source: rpm
-      version: 1.5.0
+  - arch: x86_64
+    epoch: null
+    name: GeoIP
+    release: 13.el7
+    source: rpm
+    version: 1.5.0
   PyYAML:
-    - arch: x86_64
-      epoch: null
-      name: PyYAML
-      release: 11.el7
-      source: rpm
-      version: '3.10'
+  - arch: x86_64
+    epoch: null
+    name: PyYAML
+    release: 11.el7
+    source: rpm
+    version: '3.10'
   acl:
-    - arch: x86_64
-      epoch: null
-      name: acl
-      release: 14.el7
-      source: rpm
-      version: 2.2.51
+  - arch: x86_64
+    epoch: null
+    name: acl
+    release: 14.el7
+    source: rpm
+    version: 2.2.51
   audit:
-    - arch: x86_64
-      epoch: null
-      name: audit
-      release: 4.el7
-      source: rpm
-      version: 2.8.4
+  - arch: x86_64
+    epoch: null
+    name: audit
+    release: 4.el7
+    source: rpm
+    version: 2.8.4
   audit-libs:
-    - arch: x86_64
-      epoch: null
-      name: audit-libs
-      release: 4.el7
-      source: rpm
-      version: 2.8.4
+  - arch: x86_64
+    epoch: null
+    name: audit-libs
+    release: 4.el7
+    source: rpm
+    version: 2.8.4
   audit-libs-python:
-    - arch: x86_64
-      epoch: null
-      name: audit-libs-python
-      release: 4.el7
-      source: rpm
-      version: 2.8.4
+  - arch: x86_64
+    epoch: null
+    name: audit-libs-python
+    release: 4.el7
+    source: rpm
+    version: 2.8.4
+processes:
+- cmdline: /usr/lib/systemd/hdbindexserver
+  cwd: /usr/lib/systemd/
+  pid: '1'
+  ppid: '0'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '2'
+  ppid: '0'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '3'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '5'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '7'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '8'
+  ppid: '2'
+  user: root
+software_list:
+- cmd_regexp: hdbindexserver
+  custom_tasks:
+  - include_tasks:
+      file: '{{ software_discovery__custom_tasks_definition_files_path }}/sap_hana.yaml'
+    name: Include skydive specific plugins
+  name: SAP HANA DatabaseServer
+  process_type: parent
+  return_children: false
+  return_packages: true
 tcp_listen:
-  - address: 127.0.0.1
-    name: master
-    pid: 1055
-    port: 8080
-    protocol: tcp
-    stime: 'Tue Apr 26 15:54:02 2022'
-    user: root
-  - address: 127.0.0.1
-    name: sap hana
-    pid: 5410
-    port: 4000
-    protocol: tcp
-    stime: 'Tue Apr 26 15:54:44 2022'
-    user: root
-  - address: 127.0.0.1
-    name: sap hana
-    pid: 5410
-    port: 12379
-    protocol: tcp
-    stime: 'Tue Apr 26 15:54:44 2022'
-    user: root
-  - address: 0.0.0.0
-    name: systemd
-    pid: 1
-    port: 8082
-    protocol: tcp
-    stime: 'Tue Apr 26 15:53:41 2022'
-    user: root
+- address: 127.0.0.1
+  name: master
+  pid: 1055
+  port: 8080
+  protocol: tcp
+  stime: Tue Apr 26 15:54:02 2022
+  user: root
+- address: 127.0.0.1
+  name: sap hana
+  pid: 5410
+  port: 4000
+  protocol: tcp
+  stime: Tue Apr 26 15:54:44 2022
+  user: root
+- address: 127.0.0.1
+  name: sap hana
+  pid: 5410
+  port: 12379
+  protocol: tcp
+  stime: Tue Apr 26 15:54:44 2022
+  user: root
+- address: 0.0.0.0
+  name: systemd
+  pid: 1
+  port: 8082
+  protocol: tcp
+  stime: Tue Apr 26 15:53:41 2022
+  user: root
 udp_listen:
-  - address: 127.0.0.1
-    name: dhclient
-    pid: 865
-    port: 34515
-    protocol: udp
-    stime: 'Tue Apr 26 15:53:59 2022'
-    user: root
-  - address: 0.0.0.0
-    name: systemd
-    pid: 1
-    port: 111
-    protocol: udp
-    stime: 'Tue Apr 26 15:53:41 2022'
-    user: root
-  - address: 127.0.0.1
-    name: chronyd
-    pid: 626
-    port: 323
-    protocol: udp
-    stime: 'Tue Apr 26 15:53:48 2022'
-    user: chrony
-  - address: 0.0.0.0
-    name: rpcbind
-    pid: 618
-    port: 781
-    protocol: udp
-    stime: 'Tue Apr 26 15:53:47 2022'
-    user: rpc
+- address: 127.0.0.1
+  name: dhclient
+  pid: 865
+  port: 34515
+  protocol: udp
+  stime: Tue Apr 26 15:53:59 2022
+  user: root
+- address: 0.0.0.0
+  name: systemd
+  pid: 1
+  port: 111
+  protocol: udp
+  stime: Tue Apr 26 15:53:41 2022
+  user: root
+- address: 127.0.0.1
+  name: chronyd
+  pid: 626
+  port: 323
+  protocol: udp
+  stime: Tue Apr 26 15:53:48 2022
+  user: chrony
+- address: 0.0.0.0
+  name: rpcbind
+  pid: 618
+  port: 781
+  protocol: udp
+  stime: Tue Apr 26 15:53:47 2022
+  user: rpc

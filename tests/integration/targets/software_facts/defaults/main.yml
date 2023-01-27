@@ -95,30 +95,39 @@ postgres_software_list:
 
 postgres_processes:
   - cmdline: /usr/lib/systemd/systemd --switched-root --system --deserialize 21
+    cwd: /usr/lib/systemd/
     pid: '1'
     ppid: '0'
   - cmdline: /usr/pgsql-11/bin/postmaster -D /var/lib/pgsql/11/data/
+    cwd: /usr/pgsql-11/bin/
     pid: '24895'
     ppid: '1'
   - cmdline: 'postgres: logger'
+    cwd: /
     pid: '24898'
     ppid: '24895'
   - cmdline: 'postgres: checkpointer'
+    cwd: /
     pid: '24900'
     ppid: '24895'
   - cmdline: 'postgres: background writer'
+    cwd: /
     pid: '24901'
     ppid: '24895'
   - cmdline: 'postgres: walwriter'
+    cwd: /
     pid: '24902'
     ppid: '24895'
   - cmdline: 'postgres: autovacuum launcher'
+    cwd: /
     pid: '24903'
     ppid: '24895'
   - cmdline: 'postgres: stats collector'
+    cwd: /
     pid: '24904'
     ppid: '24895'
   - cmdline: 'postgres: logical replication launcher'
+    cwd: /
     pid: '24905'
     ppid: '24895'
 

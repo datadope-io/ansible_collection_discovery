@@ -297,7 +297,7 @@
                   run_command:
                     cmd: << __db_command__ >>
                   register: result
-                  timeout: 5
+                  timeout: 10
                   environment:
                     PGPASSWORD: << __user_info__.password | default('') >>
                   ignore_errors: yes

@@ -3,9 +3,8 @@ from __future__ import (absolute_import, division, print_function)
 __metaclass__ = type
 
 import pytest
-from pytest_lazyfixture import lazy_fixture
-
 from ansible.module_utils.six.moves import builtins  # noqa
+from pytest_lazyfixture import lazy_fixture
 
 from ansible_collections.datadope.discovery.plugins.action.software_facts import ActionModule
 
@@ -45,9 +44,10 @@ def params_set_one_sw(sw_config, read_json_file):
                 {
                     "children": [],
                     "cmdline": "nginx: worker process",
-                    'pid': '23356',
-                    'ppid': '23339',
-                    "user": "root"
+                    "pid": "23356",
+                    "ppid": "23339",
+                    "user": "root",
+                    "cwd": "/"
                 }
             ],
             "cmdline": "nginx: master process nginx -g daemon off;",
@@ -57,7 +57,8 @@ def params_set_one_sw(sw_config, read_json_file):
             ],
             "pid": "23339",
             "ppid": "23319",
-            "user": "root"
+            "user": "root",
+            "cwd": "/"
         },
         "listening_ports": [
             80,
@@ -71,18 +72,20 @@ def params_set_one_sw(sw_config, read_json_file):
 def params_set_no_sw(sw_config):
     params = {
         'software_list': [sw_config],
-        'processes': [
+        "processes": [
             {
                 "cmdline": "/usr/lib/systemd/systemd --switched-root --system --deserialize 21",
                 "pid": "1",
                 "ppid": "0",
-                "user": "root"
+                "user": "root",
+                "cwd": "/usr/lib/systemd/"
             },
             {
                 "cmdline": "/usr/bin/nginx_client must not match regex",
                 "pid": "24895",
                 "ppid": "1",
-                "user": "root"
+                "user": "root",
+                "cwd": "/usr/bin/"
             }
         ],
         'tcp_listen': [
@@ -107,6 +110,7 @@ def params_set_two_sw(sw_config, params_set_one_sw):
     params_set_one_sw[0]['processes'].append(
         {
             "cmdline": "nginx: master process nginx -g daemon off;",
+            "cwd": "/",
             "pid": "53339",
             "ppid": "53319",
             "user": "root"
@@ -134,6 +138,7 @@ def params_set_two_sw(sw_config, params_set_one_sw):
             "process": {
                 "children": [],
                 "cmdline": "nginx: master process nginx -g daemon off;",
+                "cwd": "/",
                 "listening_ports": [
                     543
                 ],
