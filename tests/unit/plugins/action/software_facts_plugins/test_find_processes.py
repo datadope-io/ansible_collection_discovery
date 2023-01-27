@@ -23,9 +23,9 @@ def test_get_args_spec():
 @pytest.mark.parametrize(
     ('args', 'expected_result'),
     (
-        (dict(filter={'foo': 'bar'}), True),
-        (dict(), True),
-        (dict(filter='fail'), False)
+            (dict(filter={'foo': 'bar'}), True),
+            (dict(), True),
+            (dict(filter='fail'), False)
     )
 )
 def test_validate_args(action_module, args, expected_result):
@@ -49,6 +49,7 @@ def test_run(action_module):
     expected_result = [
         {
             "cmdline": "/usr/sbin/sshd -D",
+            "cwd": "/usr/sbin/",
             "pid": "1071",
             "ppid": "1",
             "user": "root"
@@ -60,25 +61,29 @@ def test_run(action_module):
                 "cmdline": "/usr/lib/systemd/systemd --switched-root --system --deserialize 21",
                 "pid": "1",
                 "ppid": "0",
-                "user": "root"
+                "user": "root",
+                "cwd": "/usr/lib/systemd/"
             },
             {
                 "cmdline": "/usr/sbin/sshd -D",
                 "pid": "1071",
                 "ppid": "1",
-                "user": "root"
+                "user": "root",
+                "cwd": "/usr/sbin/"
             },
             {
                 "cmdline": "/usr/sbin/crond -n",
                 "pid": "1073",
                 "ppid": "1",
-                "user": "root"
+                "user": "root",
+                "cwd": "/usr/sbin/"
             },
             {
                 "cmdline": "/sbin/agetty --keep-baud 115200,38400,9600 ttyS0 vt220",
                 "pid": "1074",
                 "ppid": "1",
-                "user": "root"
+                "user": "root",
+                "cwd": "/sbin/"
             }
         ]
     }
@@ -101,49 +106,57 @@ def test_run_no_filter(action_module):
             "cmdline": "/usr/lib/systemd/systemd --switched-root --system --deserialize 21",
             "pid": "1",
             "ppid": "0",
-            "user": "root"
+            "user": "root",
+            "cwd": "/usr/lib/systemd/"
         },
         {
             "cmdline": "/usr/sbin/sshd -D",
             "pid": "1071",
             "ppid": "1",
-            "user": "root"
+            "user": "root",
+            "cwd": "/usr/sbin/"
         },
         {
             "cmdline": "/usr/sbin/crond -n",
             "pid": "1073",
             "ppid": "1",
-            "user": "root"
+            "user": "root",
+            "cwd": "/usr/sbin/"
         },
         {
             "cmdline": "/sbin/agetty --keep-baud 115200,38400,9600 ttyS0 vt220",
             "pid": "1074",
             "ppid": "1",
-            "user": "root"
+            "user": "root",
+            "cwd": "/sbin/"
         }
     ]
     task_vars = {
         "processes": [
             {
                 "cmdline": "/usr/lib/systemd/systemd --switched-root --system --deserialize 21",
+                "cwd": "/usr/lib/systemd/",
                 "pid": "1",
                 "ppid": "0",
                 "user": "root"
             },
             {
                 "cmdline": "/usr/sbin/sshd -D",
+                "cwd": "/usr/sbin/",
                 "pid": "1071",
                 "ppid": "1",
                 "user": "root"
             },
             {
                 "cmdline": "/usr/sbin/crond -n",
+                "cwd": "/usr/sbin/",
                 "pid": "1073",
                 "ppid": "1",
                 "user": "root"
             },
             {
                 "cmdline": "/sbin/agetty --keep-baud 115200,38400,9600 ttyS0 vt220",
+                "cwd": "/sbin/",
                 "pid": "1074",
                 "ppid": "1",
                 "user": "root"

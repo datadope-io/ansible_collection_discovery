@@ -1,2656 +1,2906 @@
+dockers: {}
+task_vars:
+  ansible_facts:
+    os_family: windows
+expected_result:
+- bindings:
+  - address: '::'
+    class: service
+    port: 5432
+    protocol: tcp
+  - address: 0.0.0.0
+    class: service
+    port: 5432
+    protocol: tcp
+  configuration:
+    datestyle: iso, mdy
+    default_text_search_config: pg_catalog.english
+    dynamic_shared_memory_type: windows
+    lc_messages: English_United States.1252
+    lc_monetary: English_United States.1252
+    lc_numeric: English_United States.1252
+    lc_time: English_United States.1252
+    listen_addresses: '*'
+    log_destination: stderr
+    log_file_mode: '0640'
+    log_timezone: UTC
+    logging_collector: 'on'
+    max_connections: '100'
+    max_wal_size: 1GB
+    min_wal_size: 80MB
+    port: '5432'
+    shared_buffers: 128MB
+    timezone: UTC
+  discovery_time: '2023-01-13T12:27:22+02:00'
+  extra_data:
+    active_databases: []
+    databases: []
+  files:
+  - path: 'C:\Program Files\PostgreSQL\14\bin\postgres.exe'
+    subtype: generic
+    type: binary
+  - name: postgresql.conf
+    path: 'C:\Program Files\PostgreSQL\14\data'
+    subtype: generic
+    type: conf
+  - path: 'C:\Program Files\PostgreSQL\14\data'
+    subtype: generic
+    type: data
+  listening_ports:
+  - 5432
+  packages: []
+  process:
+    children:
+    - children: []
+      cmdline: 'C:\windows\system32\conhost.exe 0x4'
+      cwd: 'C:\windows\system32\'
+      pid: '1640'
+      ppid: '1628'
+      user: NT AUTHORITY\NETWORK SERVICE
+    - children: []
+      cmdline: 'C:/Program Files/PostgreSQL/14/bin/postgres.exe --forklog 5308 5312 0'
+      cwd: 'C:/Program Files/PostgreSQL/14/bin/'
+      pid: '1908'
+      ppid: '1628'
+      user: NT AUTHORITY\NETWORK SERVICE
+    - children: []
+      cmdline: 'C:/Program Files/PostgreSQL/14/bin/postgres.exe --forkboot 5212 -x5'
+      cwd: 'C:/Program Files/PostgreSQL/14/bin/'
+      pid: '1028'
+      ppid: '1628'
+      user: NT AUTHORITY\NETWORK SERVICE
+    - children: []
+      cmdline: 'C:/Program Files/PostgreSQL/14/bin/postgres.exe --forkboot 5224 -x3'
+      cwd: 'C:/Program Files/PostgreSQL/14/bin/'
+      pid: '72'
+      ppid: '1628'
+      user: NT AUTHORITY\NETWORK SERVICE
+    - children: []
+      cmdline: 'C:/Program Files/PostgreSQL/14/bin/postgres.exe --forkboot 5204 -x6'
+      cwd: 'C:/Program Files/PostgreSQL/14/bin/'
+      pid: '224'
+      ppid: '1628'
+      user: NT AUTHORITY\NETWORK SERVICE
+    - children: []
+      cmdline: 'C:/Program Files/PostgreSQL/14/bin/postgres.exe --forkavlauncher 5196'
+      cwd: 'C:/Program Files/PostgreSQL/14/bin/'
+      pid: '1312'
+      ppid: '1628'
+      user: NT AUTHORITY\NETWORK SERVICE
+    - children: []
+      cmdline: 'C:/Program Files/PostgreSQL/14/bin/postgres.exe --forkcol 5188'
+      cwd: 'C:/Program Files/PostgreSQL/14/bin/'
+      pid: '1336'
+      ppid: '1628'
+      user: NT AUTHORITY\NETWORK SERVICE
+    - children: []
+      cmdline: 'C:/Program Files/PostgreSQL/14/bin/postgres.exe --forkbgworker=0 5180'
+      cwd: 'C:/Program Files/PostgreSQL/14/bin/'
+      pid: '1468'
+      ppid: '1628'
+      user: NT AUTHORITY\NETWORK SERVICE
+    cmdline: 'C:\Program Files\PostgreSQL\14\bin\postgres.exe -D C:\Program Files\PostgreSQL\14\data'
+    cwd: 'C:\Program Files\PostgreSQL\14\bin\'
+    listening_ports:
+    - 5432
+    pid: '1628'
+    ppid: '1432'
+    user: NT AUTHORITY\NETWORK SERVICE
+  type: PostgreSQL Database
+  version:
+  - number: '14'
+    type: file
+  - number: '14.2'
+    type: active
 mocked_plugin_tasks:
-  Read process environment:
+  Add users from pg_hba, pg process and 'postgres':
     calls:
-      - expected_args:
-          pid: "1628"
-        execute_module_result:
-          failed: true
+    - expected_args:
+        _connect_with_users:
+        - password: password
+          username: postgres
+        - username: NT AUTHORITY\NETWORK SERVICE
   Attempt to extract conf path:
     expected_module_result:
       failed: false
   Extract port:
     expected_exception:
-      message: "'NoneType' object is not iterable"
-  Read configuration file as dict:
+      message: '''NoneType'' object is not iterable'
+  Get from child processes cmdline:
     calls:
-      - expected_args:
-          delegate_reading: false
-          file_path: C:\Program Files\PostgreSQL\14\data/postgresql.conf
-          in_docker: true
-          parser: key_value
-          parser_params:
-            separators: [ "=", " " ]
-        expected_attributes:
-          register: result
-        plugin_result:
-          failed: false
-          parsed:
-            datestyle: iso, mdy
-            default_text_search_config: pg_catalog.english
-            dynamic_shared_memory_type: windows
-            lc_messages: English_United States.1252
-            lc_monetary: English_United States.1252
-            lc_numeric: English_United States.1252
-            lc_time: English_United States.1252
-            listen_addresses: '*'
-            log_destination: stderr
-            log_file_mode: '0640'
-            log_timezone: UTC
-            logging_collector: 'on'
-            max_connections: '100'
-            max_wal_size: 1GB
-            min_wal_size: 80MB
-            port: '5432'
-            shared_buffers: 128MB
-            timezone: UTC
+    - expected_exception:
+        message: '''NoneType'' object is not iterable'
+    - expected_exception:
+        message: '''NoneType'' object is not iterable'
+    - expected_exception:
+        message: '''NoneType'' object is not iterable'
+    - expected_exception:
+        message: '''NoneType'' object is not iterable'
+    - expected_exception:
+        message: '''NoneType'' object is not iterable'
+    - expected_exception:
+        message: '''NoneType'' object is not iterable'
+    - expected_exception:
+        message: '''NoneType'' object is not iterable'
+    - expected_exception:
+        message: '''NoneType'' object is not iterable'
+  Get user if available:
+    calls:
+    - expected_exception:
+        message: '''NoneType'' object is not iterable'
   Read VERSION file from path:
-    number_of_calls: 1
     expected_args:
       delegate_reading: false
       file_path: C:\Program Files\PostgreSQL\14\data/PG_VERSION
       in_docker: true
       parser: null
       parser_params: null
+    number_of_calls: 1
     plugin_result:
+      content: '14'
       failed: false
-      content: "14"
-  Run command version:
-    number_of_calls: 1
-    expected_args:
-      argv:
-        - C:\Program Files\PostgreSQL\14\bin\postgres.exe
-        - --version
-      cmd: null
-      in_docker: true
-    execute_module_result:
-      failed: false
-      stdout: postgres (PostgreSQL) 14.2
-  Get from child processes cmdline:
+  Read configuration file as dict:
     calls:
-      - expected_exception:
-          message: "'NoneType' object is not iterable"
-      - expected_exception:
-          message: "'NoneType' object is not iterable"
-      - expected_exception:
-          message: "'NoneType' object is not iterable"
-      - expected_exception:
-          message: "'NoneType' object is not iterable"
-      - expected_exception:
-          message: "'NoneType' object is not iterable"
-      - expected_exception:
-          message: "'NoneType' object is not iterable"
-      - expected_exception:
-          message: "'NoneType' object is not iterable"
-      - expected_exception:
-          message: "'NoneType' object is not iterable"
+    - expected_args:
+        delegate_reading: false
+        file_path: C:\Program Files\PostgreSQL\14\data/postgresql.conf
+        in_docker: true
+        parser: key_value
+        parser_params:
+          separators:
+          - '='
+          - ' '
+      expected_attributes:
+        register: result
+      plugin_result:
+        failed: false
+        parsed:
+          datestyle: iso, mdy
+          default_text_search_config: pg_catalog.english
+          dynamic_shared_memory_type: windows
+          lc_messages: English_United States.1252
+          lc_monetary: English_United States.1252
+          lc_numeric: English_United States.1252
+          lc_time: English_United States.1252
+          listen_addresses: '*'
+          log_destination: stderr
+          log_file_mode: '0640'
+          log_timezone: UTC
+          logging_collector: 'on'
+          max_connections: '100'
+          max_wal_size: 1GB
+          min_wal_size: 80MB
+          port: '5432'
+          shared_buffers: 128MB
+          timezone: UTC
   Read pg_hba file from path:
-    number_of_calls: 1
+    execute_module_result:
+      content: '# TYPE  DATABASE        USER            ADDRESS                 METHOD
+
+        # \"local\" is for Unix domain socket connections only
+
+        local   all             all                                     scram-sha-256
+
+        # IPv4 local connections:
+
+        host    all             all             127.0.0.1/32            scram-sha-256
+
+        # IPv6 local connections:
+
+        host    all             all             ::1/128                 scram-sha-256
+
+        # Allow replication connections from localhost, by a user with the
+
+        # replication privilege.
+
+        local   replication     all                                     scram-sha-256
+
+        host    replication     all             127.0.0.1/32            scram-sha-256
+
+        host    replication     all             ::1/128                 scram-sha-256'
+      encoding: plain
+      failed: false
     expected_args:
       delegate_reading: false
       file_path: C:\Program Files\PostgreSQL\14\data/pg_hba.conf
       in_docker: true
       parser: null
       parser_params: null
-    execute_module_result:
-      failed: false
-      encoding: plain
-      content: |-
-        # TYPE  DATABASE        USER            ADDRESS                 METHOD
-        # \"local\" is for Unix domain socket connections only
-        local   all             all                                     scram-sha-256
-        # IPv4 local connections:
-        host    all             all             127.0.0.1/32            scram-sha-256
-        # IPv6 local connections:
-        host    all             all             ::1/128                 scram-sha-256
-        # Allow replication connections from localhost, by a user with the
-        # replication privilege.
-        local   replication     all                                     scram-sha-256
-        host    replication     all             127.0.0.1/32            scram-sha-256
-        host    replication     all             ::1/128                 scram-sha-256
-  Get user if available:
+    number_of_calls: 1
+  Read process environment:
     calls:
-      - expected_exception:
-          message: "'NoneType' object is not iterable"
-  Add users from pg_hba, pg process and 'postgres':
-    calls:
-      - expected_args:
-          _connect_with_users:
-            - username: postgres
-              password: password
-            - username: NT AUTHORITY\NETWORK SERVICE
+    - execute_module_result:
+        failed: true
+      expected_args:
+        pid: '1628'
   Run command to get databases:
     calls:
-      - expected_args:
-          argv: null
-          cmd: >-
-            psql -U postgres -d postgres -w -t -A -c 'select datname from pg_database;' -p 5432 -h 127.0.0.1
-          in_docker: true
-        plugin_result:
-          failed: true
-      - expected_args:
-          argv: null
-          cmd: >-
-            su - postgres -c 'psql -d postgres -w -t -A -c "select datname from pg_database;" -p 5432 -h 127.0.0.1'
-          in_docker: true
-        plugin_result:
-          failed: true
-      - expected_args:
-          argv: null
-          cmd: >-
-            "C:\Program Files\PostgreSQL\14\bin\psql.exe" -U postgres -d  postgres -w -t -A -c
-            "select datname from pg_database;" -p 5432 -h 127.0.0.1
-          in_docker: true
-        plugin_result:
-          failed: false
-          stdout_lines:
-            - postgres
-            - template1
-            - template0
-
-
-expected_result:
-  - bindings:
-      - address: '::'
-        class: service
-        port: 5432
-        protocol: tcp
-      - address: 0.0.0.0
-        class: service
-        port: 5432
-        protocol: tcp
-    configuration:
-      datestyle: iso, mdy
-      default_text_search_config: pg_catalog.english
-      dynamic_shared_memory_type: windows
-      lc_messages: English_United States.1252
-      lc_monetary: English_United States.1252
-      lc_numeric: English_United States.1252
-      lc_time: English_United States.1252
-      listen_addresses: '*'
-      log_destination: stderr
-      log_file_mode: '0640'
-      log_timezone: UTC
-      logging_collector: 'on'
-      max_connections: '100'
-      max_wal_size: 1GB
-      min_wal_size: 80MB
-      port: '5432'
-      shared_buffers: 128MB
-      timezone: UTC
-    discovery_time: '2023-01-13T12:27:22+02:00'
-    extra_data:
-      active_databases: [ ]
-      databases: [ ]
-    files:
-      - path: C:\Program Files\PostgreSQL\14\bin\postgres.exe
-        subtype: generic
-        type: binary
-      - name: postgresql.conf
-        path: C:\Program Files\PostgreSQL\14\data
-        subtype: generic
-        type: conf
-      - path: C:\Program Files\PostgreSQL\14\data
-        subtype: generic
-        type: data
-    listening_ports:
-      - 5432
-    packages: [ ]
-    process:
-      children:
-        - children: [ ]
-          cmdline: \??\C:\windows\system32\conhost.exe 0x4
-          pid: '1640'
-          ppid: '1628'
-          user: NT AUTHORITY\NETWORK SERVICE
-        - children: [ ]
-          cmdline: '"C:/Program Files/PostgreSQL/14/bin/postgres.exe" "--forklog" "5308" "5312" "0"'
-          pid: '1908'
-          ppid: '1628'
-          user: NT AUTHORITY\NETWORK SERVICE
-        - children: [ ]
-          cmdline: '"C:/Program Files/PostgreSQL/14/bin/postgres.exe" "--forkboot" "5212" "-x5"'
-          pid: '1028'
-          ppid: '1628'
-          user: NT AUTHORITY\NETWORK SERVICE
-        - children: [ ]
-          cmdline: '"C:/Program Files/PostgreSQL/14/bin/postgres.exe" "--forkboot" "5224" "-x3"'
-          pid: '72'
-          ppid: '1628'
-          user: NT AUTHORITY\NETWORK SERVICE
-        - children: [ ]
-          cmdline: '"C:/Program Files/PostgreSQL/14/bin/postgres.exe" "--forkboot" "5204" "-x6"'
-          pid: '224'
-          ppid: '1628'
-          user: NT AUTHORITY\NETWORK SERVICE
-        - children: [ ]
-          cmdline: '"C:/Program Files/PostgreSQL/14/bin/postgres.exe" "--forkavlauncher" "5196"'
-          pid: '1312'
-          ppid: '1628'
-          user: NT AUTHORITY\NETWORK SERVICE
-        - children: [ ]
-          cmdline: '"C:/Program Files/PostgreSQL/14/bin/postgres.exe" "--forkcol" "5188"'
-          pid: '1336'
-          ppid: '1628'
-          user: NT AUTHORITY\NETWORK SERVICE
-        - children: [ ]
-          cmdline: '"C:/Program Files/PostgreSQL/14/bin/postgres.exe" "--forkbgworker=0" "5180"'
-          pid: '1468'
-          ppid: '1628'
-          user: NT AUTHORITY\NETWORK SERVICE
-      cmdline: '"C:\Program Files\PostgreSQL\14\bin\postgres.exe" -D "C:\Program Files\PostgreSQL\14\data" '
-      listening_ports:
-        - 5432
-      pid: '1628'
-      ppid: '1432'
-      user: NT AUTHORITY\NETWORK SERVICE
-    type: PostgreSQL Database
-    version:
-      - number: '14'
-        type: file
-      - number: '14.2'
-        type: active
+    - expected_args:
+        argv: null
+        cmd: psql -U postgres -d postgres -w -t -A -c 'select datname from pg_database;'
+          -p 5432 -h 127.0.0.1
+        in_docker: true
+      plugin_result:
+        failed: true
+    - expected_args:
+        argv: null
+        cmd: su - postgres -c 'psql -d postgres -w -t -A -c "select datname from pg_database;"
+          -p 5432 -h 127.0.0.1'
+        in_docker: true
+      plugin_result:
+        failed: true
+    - expected_args:
+        argv: null
+        cmd: '"C:\Program Files\PostgreSQL\14\bin\psql.exe" -U postgres -d  postgres
+          -w -t -A -c "select datname from pg_database;" -p 5432 -h 127.0.0.1'
+        in_docker: true
+      plugin_result:
+        failed: false
+        stdout_lines:
+        - postgres
+        - template1
+        - template0
+  Run command version:
+    execute_module_result:
+      failed: false
+      stdout: postgres (PostgreSQL) 14.2
+    expected_args:
+      argv:
+      - C:\Program Files\PostgreSQL\14\bin\postgres.exe
+      - --version
+      cmd: null
+      in_docker: true
+    number_of_calls: 1
 packages:
   Azure Data Studio:
-    - arch: AMD64
-      authorized_cdf_prefix: null
-      comments: null
-      contact: null
-      estimated_size: 543259
-      help_link: https://github.com/Microsoft/azuredatastudio
-      help_telephone: null
-      install_date: '20220530'
-      install_location: C:\Program Files\Azure Data Studio\
-      install_source: null
-      language: null
-      modify_path: null
-      name: Azure Data Studio
-      no_repair: 1
-      publisher: Microsoft Corporation
-      readme: null
-      size: null
-      source: windows_registry
-      system_component: null
-      uninstall_string: '"C:\Program Files\Azure Data Studio\unins000.exe"'
-      url_info_about: https://github.com/Microsoft/azuredatastudio
-      url_update_info: https://github.com/Microsoft/azuredatastudio
-      vendor: null
-      version: 1.35.0
-      version_major: 1
-      version_minor: 35
-      windows_installer: null
+  - arch: AMD64
+    authorized_cdf_prefix: null
+    comments: null
+    contact: null
+    estimated_size: 543259
+    help_link: https://github.com/Microsoft/azuredatastudio
+    help_telephone: null
+    install_date: '20220530'
+    install_location: C:\Program Files\Azure Data Studio\
+    install_source: null
+    language: null
+    modify_path: null
+    name: Azure Data Studio
+    no_repair: 1
+    publisher: Microsoft Corporation
+    readme: null
+    size: null
+    source: windows_registry
+    system_component: null
+    uninstall_string: '"C:\Program Files\Azure Data Studio\unins000.exe"'
+    url_info_about: https://github.com/Microsoft/azuredatastudio
+    url_update_info: https://github.com/Microsoft/azuredatastudio
+    vendor: null
+    version: 1.35.0
+    version_major: 1
+    version_minor: 35
+    windows_installer: null
   Browser for SQL Server 2017:
-    - arch: x86
-      authorized_cdf_prefix: ''
-      comments: ''
-      contact: ''
-      estimated_size: 11312
-      help_link: https://go.microsoft.com/fwlink/?LinkId=90959
-      help_telephone: ''
-      install_date: '20220224'
-      install_location: ''
-      install_source: C:\SQLServer2017Media\Express_ENU\1033_ENU_LP\x64\setup\
-      language: 1033
-      modify_path: MsiExec.exe /X{CF8EEB96-E7E7-4EF7-A0A1-559F09953156}
-      name: Browser for SQL Server 2017
-      no_repair: null
-      publisher: Microsoft Corporation
-      readme: ''
-      size: ''
-      source: windows_registry
-      system_component: null
-      uninstall_string: MsiExec.exe /X{CF8EEB96-E7E7-4EF7-A0A1-559F09953156}
-      url_info_about: ''
-      url_update_info: ''
-      vendor: null
-      version: 14.0.1000.169
-      version_major: 14
-      version_minor: 0
-      windows_installer: 1
+  - arch: x86
+    authorized_cdf_prefix: ''
+    comments: ''
+    contact: ''
+    estimated_size: 11312
+    help_link: https://go.microsoft.com/fwlink/?LinkId=90959
+    help_telephone: ''
+    install_date: '20220224'
+    install_location: ''
+    install_source: C:\SQLServer2017Media\Express_ENU\1033_ENU_LP\x64\setup\
+    language: 1033
+    modify_path: MsiExec.exe /X{CF8EEB96-E7E7-4EF7-A0A1-559F09953156}
+    name: Browser for SQL Server 2017
+    no_repair: null
+    publisher: Microsoft Corporation
+    readme: ''
+    size: ''
+    source: windows_registry
+    system_component: null
+    uninstall_string: MsiExec.exe /X{CF8EEB96-E7E7-4EF7-A0A1-559F09953156}
+    url_info_about: ''
+    url_update_info: ''
+    vendor: null
+    version: 14.0.1000.169
+    version_major: 14
+    version_minor: 0
+    windows_installer: 1
   Cloudbase-Init 0.9.11:
-    - arch: AMD64
-      authorized_cdf_prefix: ''
-      comments: ''
-      contact: ''
-      estimated_size: 121670
-      help_link: ''
-      help_telephone: ''
-      install_date: '20170320'
-      install_location: ''
-      install_source: C:\UnattendResources\
-      language: 1033
-      modify_path: MsiExec.exe /I{ED85F19F-057A-4EE6-BC8D-F576DEACE78D}
-      name: Cloudbase-Init 0.9.11
-      no_repair: null
-      publisher: Cloudbase Solutions Srl
-      readme: ''
-      size: ''
-      source: windows_registry
-      system_component: null
-      uninstall_string: MsiExec.exe /I{ED85F19F-057A-4EE6-BC8D-F576DEACE78D}
-      url_info_about: ''
-      url_update_info: ''
-      vendor: null
-      version: 0.9.11.0
-      version_major: 0
-      version_minor: 9
-      windows_installer: 1
+  - arch: AMD64
+    authorized_cdf_prefix: ''
+    comments: ''
+    contact: ''
+    estimated_size: 121670
+    help_link: ''
+    help_telephone: ''
+    install_date: '20170320'
+    install_location: ''
+    install_source: C:\UnattendResources\
+    language: 1033
+    modify_path: MsiExec.exe /I{ED85F19F-057A-4EE6-BC8D-F576DEACE78D}
+    name: Cloudbase-Init 0.9.11
+    no_repair: null
+    publisher: Cloudbase Solutions Srl
+    readme: ''
+    size: ''
+    source: windows_registry
+    system_component: null
+    uninstall_string: MsiExec.exe /I{ED85F19F-057A-4EE6-BC8D-F576DEACE78D}
+    url_info_about: ''
+    url_update_info: ''
+    vendor: null
+    version: 0.9.11.0
+    version_major: 0
+    version_minor: 9
+    windows_installer: 1
   Integration Services:
-    - arch: x86
-      authorized_cdf_prefix: ''
-      comments: ''
-      contact: ''
-      estimated_size: 91264
-      help_link: https://support.microsoft.com
-      help_telephone: ''
-      install_date: '20220530'
-      install_location: ''
-      install_source: C:\ProgramData\Package Cache\{4938A647-7EA4-4496-A843-5E338B91C07E}v15.0.2000.168\x86\
-      language: 1033
-      modify_path: MsiExec.exe /I{4938A647-7EA4-4496-A843-5E338B91C07E}
-      name: Integration Services
-      no_repair: null
-      publisher: Microsoft Corporation
-      readme: ''
-      size: ''
-      source: windows_registry
-      system_component: 1
-      uninstall_string: MsiExec.exe /I{4938A647-7EA4-4496-A843-5E338B91C07E}
-      url_info_about: ''
-      url_update_info: ''
-      vendor: null
-      version: 15.0.2000.168
-      version_major: 15
-      version_minor: 0
-      windows_installer: 1
+  - arch: x86
+    authorized_cdf_prefix: ''
+    comments: ''
+    contact: ''
+    estimated_size: 91264
+    help_link: https://support.microsoft.com
+    help_telephone: ''
+    install_date: '20220530'
+    install_location: ''
+    install_source: C:\ProgramData\Package Cache\{4938A647-7EA4-4496-A843-5E338B91C07E}v15.0.2000.168\x86\
+    language: 1033
+    modify_path: MsiExec.exe /I{4938A647-7EA4-4496-A843-5E338B91C07E}
+    name: Integration Services
+    no_repair: null
+    publisher: Microsoft Corporation
+    readme: ''
+    size: ''
+    source: windows_registry
+    system_component: 1
+    uninstall_string: MsiExec.exe /I{4938A647-7EA4-4496-A843-5E338B91C07E}
+    url_info_about: ''
+    url_update_info: ''
+    vendor: null
+    version: 15.0.2000.168
+    version_major: 15
+    version_minor: 0
+    windows_installer: 1
   Microsoft Analysis Services OLE DB Provider:
-    - arch: x86
-      authorized_cdf_prefix: ''
-      comments: ''
-      contact: ''
-      estimated_size: 243952
-      help_link: https://go.microsoft.com/fwlink/?LinkId=52159
-      help_telephone: ''
-      install_date: '20220530'
-      install_location: ''
-      install_source: C:\ProgramData\Package Cache\{8CE89D3D-FBC5-4964-B6AD-2F52060304C3}v15.0.2000.832\x86\
-      language: 1033
-      modify_path: MsiExec.exe /I{8CE89D3D-FBC5-4964-B6AD-2F52060304C3}
-      name: Microsoft Analysis Services OLE DB Provider
-      no_repair: null
-      publisher: Microsoft Corporation
-      readme: ''
-      size: ''
-      source: windows_registry
-      system_component: 1
-      uninstall_string: MsiExec.exe /I{8CE89D3D-FBC5-4964-B6AD-2F52060304C3}
-      url_info_about: ''
-      url_update_info: ''
-      vendor: null
-      version: 15.0.2000.832
-      version_major: 15
-      version_minor: 0
-      windows_installer: 1
-    - arch: AMD64
-      authorized_cdf_prefix: ''
-      comments: ''
-      contact: ''
-      estimated_size: 499504
-      help_link: https://go.microsoft.com/fwlink/?LinkId=52159
-      help_telephone: ''
-      install_date: '20220530'
-      install_location: ''
-      install_source: C:\ProgramData\Package Cache\{7EA2A3F7-A6D2-4D28-B3C4-4C32BCF4A0A2}v15.0.2000.832\x64\
-      language: 1033
-      modify_path: MsiExec.exe /I{7EA2A3F7-A6D2-4D28-B3C4-4C32BCF4A0A2}
-      name: Microsoft Analysis Services OLE DB Provider
-      no_repair: null
-      publisher: Microsoft Corporation
-      readme: ''
-      size: ''
-      source: windows_registry
-      system_component: 1
-      uninstall_string: MsiExec.exe /I{7EA2A3F7-A6D2-4D28-B3C4-4C32BCF4A0A2}
-      url_info_about: ''
-      url_update_info: ''
-      vendor: null
-      version: 15.0.2000.832
-      version_major: 15
-      version_minor: 0
-      windows_installer: 1
+  - arch: x86
+    authorized_cdf_prefix: ''
+    comments: ''
+    contact: ''
+    estimated_size: 243952
+    help_link: https://go.microsoft.com/fwlink/?LinkId=52159
+    help_telephone: ''
+    install_date: '20220530'
+    install_location: ''
+    install_source: C:\ProgramData\Package Cache\{8CE89D3D-FBC5-4964-B6AD-2F52060304C3}v15.0.2000.832\x86\
+    language: 1033
+    modify_path: MsiExec.exe /I{8CE89D3D-FBC5-4964-B6AD-2F52060304C3}
+    name: Microsoft Analysis Services OLE DB Provider
+    no_repair: null
+    publisher: Microsoft Corporation
+    readme: ''
+    size: ''
+    source: windows_registry
+    system_component: 1
+    uninstall_string: MsiExec.exe /I{8CE89D3D-FBC5-4964-B6AD-2F52060304C3}
+    url_info_about: ''
+    url_update_info: ''
+    vendor: null
+    version: 15.0.2000.832
+    version_major: 15
+    version_minor: 0
+    windows_installer: 1
+  - arch: AMD64
+    authorized_cdf_prefix: ''
+    comments: ''
+    contact: ''
+    estimated_size: 499504
+    help_link: https://go.microsoft.com/fwlink/?LinkId=52159
+    help_telephone: ''
+    install_date: '20220530'
+    install_location: ''
+    install_source: C:\ProgramData\Package Cache\{7EA2A3F7-A6D2-4D28-B3C4-4C32BCF4A0A2}v15.0.2000.832\x64\
+    language: 1033
+    modify_path: MsiExec.exe /I{7EA2A3F7-A6D2-4D28-B3C4-4C32BCF4A0A2}
+    name: Microsoft Analysis Services OLE DB Provider
+    no_repair: null
+    publisher: Microsoft Corporation
+    readme: ''
+    size: ''
+    source: windows_registry
+    system_component: 1
+    uninstall_string: MsiExec.exe /I{7EA2A3F7-A6D2-4D28-B3C4-4C32BCF4A0A2}
+    url_info_about: ''
+    url_update_info: ''
+    vendor: null
+    version: 15.0.2000.832
+    version_major: 15
+    version_minor: 0
+    windows_installer: 1
   Microsoft Help Viewer 2.3:
-    - arch: x86
-      authorized_cdf_prefix: null
-      comments: null
-      contact: null
-      estimated_size: 12438
-      help_link: https://go.microsoft.com/fwlink/?LinkId=133405
-      help_telephone: null
-      install_date: null
-      install_location: C:\Program Files (x86)\Microsoft Help Viewer\v2.3\
-      install_source: null
-      language: null
-      modify_path: msiexec.exe /I{99DC6816-30B2-32EB-9E12-AF8944C4FA4E}
-      name: Microsoft Help Viewer 2.3
-      no_repair: null
-      publisher: Microsoft Corporation
-      readme: null
-      size: null
-      source: windows_registry
-      system_component: null
-      uninstall_string: msiexec.exe /X{99DC6816-30B2-32EB-9E12-AF8944C4FA4E}
-      url_info_about: null
-      url_update_info: https://go.microsoft.com/fwlink/?LinkId=133408
-      vendor: null
-      version: 2.3.28307
-      version_major: '2'
-      version_minor: '0'
-      windows_installer: null
-    - arch: x86
-      authorized_cdf_prefix: ''
-      comments: ''
-      contact: ''
-      estimated_size: 13260
-      help_link: https://go.microsoft.com/fwlink/?LinkId=133405
-      help_telephone: ''
-      install_date: '20220530'
-      install_location: ''
-      install_source: C:\ProgramData\Package Cache\{99DC6816-30B2-32EB-9E12-AF8944C4FA4E}v2.3.28307\redist\
-      language: 1033
-      modify_path: MsiExec.exe /X{99DC6816-30B2-32EB-9E12-AF8944C4FA4E}
-      name: Microsoft Help Viewer 2.3
-      no_repair: null
-      publisher: Microsoft Corporation
-      readme: ''
-      size: ''
-      source: windows_registry
-      system_component: 1
-      uninstall_string: MsiExec.exe /X{99DC6816-30B2-32EB-9E12-AF8944C4FA4E}
-      url_info_about: ''
-      url_update_info: ''
-      vendor: null
-      version: 2.3.28307
-      version_major: 2
-      version_minor: 3
-      windows_installer: 1
+  - arch: x86
+    authorized_cdf_prefix: null
+    comments: null
+    contact: null
+    estimated_size: 12438
+    help_link: https://go.microsoft.com/fwlink/?LinkId=133405
+    help_telephone: null
+    install_date: null
+    install_location: C:\Program Files (x86)\Microsoft Help Viewer\v2.3\
+    install_source: null
+    language: null
+    modify_path: msiexec.exe /I{99DC6816-30B2-32EB-9E12-AF8944C4FA4E}
+    name: Microsoft Help Viewer 2.3
+    no_repair: null
+    publisher: Microsoft Corporation
+    readme: null
+    size: null
+    source: windows_registry
+    system_component: null
+    uninstall_string: msiexec.exe /X{99DC6816-30B2-32EB-9E12-AF8944C4FA4E}
+    url_info_about: null
+    url_update_info: https://go.microsoft.com/fwlink/?LinkId=133408
+    vendor: null
+    version: 2.3.28307
+    version_major: '2'
+    version_minor: '0'
+    windows_installer: null
+  - arch: x86
+    authorized_cdf_prefix: ''
+    comments: ''
+    contact: ''
+    estimated_size: 13260
+    help_link: https://go.microsoft.com/fwlink/?LinkId=133405
+    help_telephone: ''
+    install_date: '20220530'
+    install_location: ''
+    install_source: C:\ProgramData\Package Cache\{99DC6816-30B2-32EB-9E12-AF8944C4FA4E}v2.3.28307\redist\
+    language: 1033
+    modify_path: MsiExec.exe /X{99DC6816-30B2-32EB-9E12-AF8944C4FA4E}
+    name: Microsoft Help Viewer 2.3
+    no_repair: null
+    publisher: Microsoft Corporation
+    readme: ''
+    size: ''
+    source: windows_registry
+    system_component: 1
+    uninstall_string: MsiExec.exe /X{99DC6816-30B2-32EB-9E12-AF8944C4FA4E}
+    url_info_about: ''
+    url_update_info: ''
+    vendor: null
+    version: 2.3.28307
+    version_major: 2
+    version_minor: 3
+    windows_installer: 1
   Microsoft ODBC Driver 13 for SQL Server:
-    - arch: AMD64
-      authorized_cdf_prefix: ''
-      comments: ''
-      contact: ''
-      estimated_size: 5124
-      help_link: https://go.microsoft.com/fwlink/?LinkId=191752
-      help_telephone: ''
-      install_date: '20220224'
-      install_location: ''
-      install_source: C:\SQLServer2017Media\Express_ENU\1033_ENU_LP\x64\setup\x64\
-      language: 1033
-      modify_path: MsiExec.exe /I{76CF9EF4-ABA0-484E-8042-12B99499AF5F}
-      name: Microsoft ODBC Driver 13 for SQL Server
-      no_repair: null
-      publisher: Microsoft Corporation
-      readme: ''
-      size: ''
-      source: windows_registry
-      system_component: null
-      uninstall_string: MsiExec.exe /I{76CF9EF4-ABA0-484E-8042-12B99499AF5F}
-      url_info_about: ''
-      url_update_info: ''
-      vendor: null
-      version: 14.0.1000.169
-      version_major: 14
-      version_minor: 0
-      windows_installer: 1
+  - arch: AMD64
+    authorized_cdf_prefix: ''
+    comments: ''
+    contact: ''
+    estimated_size: 5124
+    help_link: https://go.microsoft.com/fwlink/?LinkId=191752
+    help_telephone: ''
+    install_date: '20220224'
+    install_location: ''
+    install_source: C:\SQLServer2017Media\Express_ENU\1033_ENU_LP\x64\setup\x64\
+    language: 1033
+    modify_path: MsiExec.exe /I{76CF9EF4-ABA0-484E-8042-12B99499AF5F}
+    name: Microsoft ODBC Driver 13 for SQL Server
+    no_repair: null
+    publisher: Microsoft Corporation
+    readme: ''
+    size: ''
+    source: windows_registry
+    system_component: null
+    uninstall_string: MsiExec.exe /I{76CF9EF4-ABA0-484E-8042-12B99499AF5F}
+    url_info_about: ''
+    url_update_info: ''
+    vendor: null
+    version: 14.0.1000.169
+    version_major: 14
+    version_minor: 0
+    windows_installer: 1
   Microsoft ODBC Driver 17 for SQL Server:
-    - arch: AMD64
-      authorized_cdf_prefix: ''
-      comments: ''
-      contact: ''
-      estimated_size: 7184
-      help_link: https://go.microsoft.com/fwlink/?LinkId=191752
-      help_telephone: ''
-      install_date: '20220530'
-      install_location: ''
-      install_source: C:\ProgramData\Package Cache\{853997DA-6FCB-4FB9-918E-E0FF881FAF65}v17.7.2.1\x64\
-      language: 1033
-      modify_path: MsiExec.exe /I{853997DA-6FCB-4FB9-918E-E0FF881FAF65}
-      name: Microsoft ODBC Driver 17 for SQL Server
-      no_repair: null
-      publisher: Microsoft Corporation
-      readme: ''
-      size: ''
-      source: windows_registry
-      system_component: null
-      uninstall_string: MsiExec.exe /I{853997DA-6FCB-4FB9-918E-E0FF881FAF65}
-      url_info_about: ''
-      url_update_info: ''
-      vendor: null
-      version: 17.7.2.1
-      version_major: 17
-      version_minor: 7
-      windows_installer: 1
+  - arch: AMD64
+    authorized_cdf_prefix: ''
+    comments: ''
+    contact: ''
+    estimated_size: 7184
+    help_link: https://go.microsoft.com/fwlink/?LinkId=191752
+    help_telephone: ''
+    install_date: '20220530'
+    install_location: ''
+    install_source: C:\ProgramData\Package Cache\{853997DA-6FCB-4FB9-918E-E0FF881FAF65}v17.7.2.1\x64\
+    language: 1033
+    modify_path: MsiExec.exe /I{853997DA-6FCB-4FB9-918E-E0FF881FAF65}
+    name: Microsoft ODBC Driver 17 for SQL Server
+    no_repair: null
+    publisher: Microsoft Corporation
+    readme: ''
+    size: ''
+    source: windows_registry
+    system_component: null
+    uninstall_string: MsiExec.exe /I{853997DA-6FCB-4FB9-918E-E0FF881FAF65}
+    url_info_about: ''
+    url_update_info: ''
+    vendor: null
+    version: 17.7.2.1
+    version_major: 17
+    version_minor: 7
+    windows_installer: 1
   Microsoft OLE DB Driver for SQL Server:
-    - arch: AMD64
-      authorized_cdf_prefix: ''
-      comments: ''
-      contact: ''
-      estimated_size: 8480
-      help_link: https://go.microsoft.com/fwlink/?linkid=870127
-      help_telephone: ''
-      install_date: '20220530'
-      install_location: ''
-      install_source: C:\ProgramData\Package Cache\{9D6F8754-28E9-4940-B319-3FC8588CF18F}v18.5.0.0\x64\
-      language: 1033
-      modify_path: MsiExec.exe /I{9D6F8754-28E9-4940-B319-3FC8588CF18F}
-      name: Microsoft OLE DB Driver for SQL Server
-      no_repair: null
-      publisher: Microsoft Corporation
-      readme: ''
-      size: ''
-      source: windows_registry
-      system_component: null
-      uninstall_string: MsiExec.exe /I{9D6F8754-28E9-4940-B319-3FC8588CF18F}
-      url_info_about: ''
-      url_update_info: ''
-      vendor: null
-      version: 18.5.0.0
-      version_major: 18
-      version_minor: 5
-      windows_installer: 1
+  - arch: AMD64
+    authorized_cdf_prefix: ''
+    comments: ''
+    contact: ''
+    estimated_size: 8480
+    help_link: https://go.microsoft.com/fwlink/?linkid=870127
+    help_telephone: ''
+    install_date: '20220530'
+    install_location: ''
+    install_source: C:\ProgramData\Package Cache\{9D6F8754-28E9-4940-B319-3FC8588CF18F}v18.5.0.0\x64\
+    language: 1033
+    modify_path: MsiExec.exe /I{9D6F8754-28E9-4940-B319-3FC8588CF18F}
+    name: Microsoft OLE DB Driver for SQL Server
+    no_repair: null
+    publisher: Microsoft Corporation
+    readme: ''
+    size: ''
+    source: windows_registry
+    system_component: null
+    uninstall_string: MsiExec.exe /I{9D6F8754-28E9-4940-B319-3FC8588CF18F}
+    url_info_about: ''
+    url_update_info: ''
+    vendor: null
+    version: 18.5.0.0
+    version_major: 18
+    version_minor: 5
+    windows_installer: 1
   'Microsoft SQL Server 2012 Native Client ':
-    - arch: AMD64
-      authorized_cdf_prefix: ''
-      comments: ''
-      contact: ''
-      estimated_size: 8160
-      help_link: http://go.microsoft.com/fwlink/?LinkId=191752
-      help_telephone: ''
-      install_date: '20220530'
-      install_location: ''
-      install_source: C:\ProgramData\Package Cache\{9D93D367-A2CC-4378-BD63-79EF3FE76C78}v11.4.7462.6\x64\
-      language: 1033
-      modify_path: MsiExec.exe /I{9D93D367-A2CC-4378-BD63-79EF3FE76C78}
-      name: 'Microsoft SQL Server 2012 Native Client '
-      no_repair: null
-      publisher: Microsoft Corporation
-      readme: ''
-      size: ''
-      source: windows_registry
-      system_component: null
-      uninstall_string: MsiExec.exe /I{9D93D367-A2CC-4378-BD63-79EF3FE76C78}
-      url_info_about: ''
-      url_update_info: ''
-      vendor: null
-      version: 11.4.7462.6
-      version_major: 11
-      version_minor: 4
-      windows_installer: 1
+  - arch: AMD64
+    authorized_cdf_prefix: ''
+    comments: ''
+    contact: ''
+    estimated_size: 8160
+    help_link: http://go.microsoft.com/fwlink/?LinkId=191752
+    help_telephone: ''
+    install_date: '20220530'
+    install_location: ''
+    install_source: C:\ProgramData\Package Cache\{9D93D367-A2CC-4378-BD63-79EF3FE76C78}v11.4.7462.6\x64\
+    language: 1033
+    modify_path: MsiExec.exe /I{9D93D367-A2CC-4378-BD63-79EF3FE76C78}
+    name: 'Microsoft SQL Server 2012 Native Client '
+    no_repair: null
+    publisher: Microsoft Corporation
+    readme: ''
+    size: ''
+    source: windows_registry
+    system_component: null
+    uninstall_string: MsiExec.exe /I{9D93D367-A2CC-4378-BD63-79EF3FE76C78}
+    url_info_about: ''
+    url_update_info: ''
+    vendor: null
+    version: 11.4.7462.6
+    version_major: 11
+    version_minor: 4
+    windows_installer: 1
   Microsoft SQL Server 2017 (64-bit):
-    - arch: AMD64
-      authorized_cdf_prefix: null
-      comments: null
-      contact: null
-      estimated_size: null
-      help_link: null
-      help_telephone: null
-      install_date: null
-      install_location: null
-      install_source: null
-      language: null
-      modify_path: null
-      name: Microsoft SQL Server 2017 (64-bit)
-      no_repair: null
-      publisher: null
-      readme: null
-      size: null
-      source: windows_registry
-      system_component: 1
-      uninstall_string: null
-      url_info_about: null
-      url_update_info: null
-      vendor: null
-      version: null
-      version_major: null
-      version_minor: null
-      windows_installer: null
-    - arch: AMD64
-      authorized_cdf_prefix: null
-      comments: null
-      contact: null
-      estimated_size: null
-      help_link: https://go.microsoft.com/fwlink/?LinkId=154582
-      help_telephone: ''
-      install_date: null
-      install_location: null
-      install_source: null
-      language: null
-      modify_path: null
-      name: Microsoft SQL Server 2017 (64-bit)
-      no_repair: null
-      publisher: Microsoft Corporation
-      readme: null
-      size: null
-      source: windows_registry
-      system_component: null
-      uninstall_string: '"C:\Program Files\Microsoft SQL Server\140\Setup Bootstrap\SQL2017\x64\SetupARP.exe"'
-      url_info_about: null
-      url_update_info: null
-      vendor: null
-      version: null
-      version_major: null
-      version_minor: null
-      windows_installer: null
+  - arch: AMD64
+    authorized_cdf_prefix: null
+    comments: null
+    contact: null
+    estimated_size: null
+    help_link: null
+    help_telephone: null
+    install_date: null
+    install_location: null
+    install_source: null
+    language: null
+    modify_path: null
+    name: Microsoft SQL Server 2017 (64-bit)
+    no_repair: null
+    publisher: null
+    readme: null
+    size: null
+    source: windows_registry
+    system_component: 1
+    uninstall_string: null
+    url_info_about: null
+    url_update_info: null
+    vendor: null
+    version: null
+    version_major: null
+    version_minor: null
+    windows_installer: null
+  - arch: AMD64
+    authorized_cdf_prefix: null
+    comments: null
+    contact: null
+    estimated_size: null
+    help_link: https://go.microsoft.com/fwlink/?LinkId=154582
+    help_telephone: ''
+    install_date: null
+    install_location: null
+    install_source: null
+    language: null
+    modify_path: null
+    name: Microsoft SQL Server 2017 (64-bit)
+    no_repair: null
+    publisher: Microsoft Corporation
+    readme: null
+    size: null
+    source: windows_registry
+    system_component: null
+    uninstall_string: '"C:\Program Files\Microsoft SQL Server\140\Setup Bootstrap\SQL2017\x64\SetupARP.exe"'
+    url_info_about: null
+    url_update_info: null
+    vendor: null
+    version: null
+    version_major: null
+    version_minor: null
+    windows_installer: null
   Microsoft SQL Server 2017 RsFx Driver:
-    - arch: AMD64
-      authorized_cdf_prefix: ''
-      comments: ''
-      contact: ''
-      estimated_size: 344
-      help_link: https://go.microsoft.com/fwlink/?LinkId=101173
-      help_telephone: ''
-      install_date: '20220224'
-      install_location: ''
-      install_source: C:\SQLServer2017Media\Express_ENU\x64\setup\
-      language: 1033
-      modify_path: MsiExec.exe /I{7123D29F-9197-4686-A619-C7E8EA289718}
-      name: Microsoft SQL Server 2017 RsFx Driver
-      no_repair: 1
-      publisher: Microsoft Corporation
-      readme: ''
-      size: ''
-      source: windows_registry
-      system_component: 1
-      uninstall_string: MsiExec.exe /I{7123D29F-9197-4686-A619-C7E8EA289718}
-      url_info_about: ''
-      url_update_info: ''
-      vendor: null
-      version: 14.0.1000.169
-      version_major: 14
-      version_minor: 0
-      windows_installer: 1
+  - arch: AMD64
+    authorized_cdf_prefix: ''
+    comments: ''
+    contact: ''
+    estimated_size: 344
+    help_link: https://go.microsoft.com/fwlink/?LinkId=101173
+    help_telephone: ''
+    install_date: '20220224'
+    install_location: ''
+    install_source: C:\SQLServer2017Media\Express_ENU\x64\setup\
+    language: 1033
+    modify_path: MsiExec.exe /I{7123D29F-9197-4686-A619-C7E8EA289718}
+    name: Microsoft SQL Server 2017 RsFx Driver
+    no_repair: 1
+    publisher: Microsoft Corporation
+    readme: ''
+    size: ''
+    source: windows_registry
+    system_component: 1
+    uninstall_string: MsiExec.exe /I{7123D29F-9197-4686-A619-C7E8EA289718}
+    url_info_about: ''
+    url_update_info: ''
+    vendor: null
+    version: 14.0.1000.169
+    version_major: 14
+    version_minor: 0
+    windows_installer: 1
   Microsoft SQL Server 2017 Setup (English):
-    - arch: AMD64
-      authorized_cdf_prefix: ''
-      comments: ''
-      contact: ''
-      estimated_size: 39588
-      help_link: https://go.microsoft.com/fwlink/?LinkId=101173
-      help_telephone: ''
-      install_date: '20220224'
-      install_location: ''
-      install_source: C:\SQLServer2017Media\Express_ENU\1033_ENU_LP\x64\setup\
-      language: 1033
-      modify_path: MsiExec.exe /X{405252DC-ADF7-4BC8-95F5-F89DE513DD62}
-      name: Microsoft SQL Server 2017 Setup (English)
-      no_repair: null
-      publisher: Microsoft Corporation
-      readme: ''
-      size: ''
-      source: windows_registry
-      system_component: null
-      uninstall_string: MsiExec.exe /X{405252DC-ADF7-4BC8-95F5-F89DE513DD62}
-      url_info_about: ''
-      url_update_info: ''
-      vendor: null
-      version: 14.0.1000.169
-      version_major: 14
-      version_minor: 0
-      windows_installer: 1
+  - arch: AMD64
+    authorized_cdf_prefix: ''
+    comments: ''
+    contact: ''
+    estimated_size: 39588
+    help_link: https://go.microsoft.com/fwlink/?LinkId=101173
+    help_telephone: ''
+    install_date: '20220224'
+    install_location: ''
+    install_source: C:\SQLServer2017Media\Express_ENU\1033_ENU_LP\x64\setup\
+    language: 1033
+    modify_path: MsiExec.exe /X{405252DC-ADF7-4BC8-95F5-F89DE513DD62}
+    name: Microsoft SQL Server 2017 Setup (English)
+    no_repair: null
+    publisher: Microsoft Corporation
+    readme: ''
+    size: ''
+    source: windows_registry
+    system_component: null
+    uninstall_string: MsiExec.exe /X{405252DC-ADF7-4BC8-95F5-F89DE513DD62}
+    url_info_about: ''
+    url_update_info: ''
+    vendor: null
+    version: 14.0.1000.169
+    version_major: 14
+    version_minor: 0
+    windows_installer: 1
   'Microsoft SQL Server 2017 T-SQL Language Service ':
-    - arch: AMD64
-      authorized_cdf_prefix: ''
-      comments: ''
-      contact: ''
-      estimated_size: 8116
-      help_link: https://go.microsoft.com/fwlink/?LinkID=150605
-      help_telephone: ''
-      install_date: '20220224'
-      install_location: ''
-      install_source: C:\SQLServer2017Media\Express_ENU\1033_ENU_LP\x64\setup\x64\
-      language: 1033
-      modify_path: MsiExec.exe /I{C8A51693-98B9-4AB1-91B8-9A1B86729D5F}
-      name: 'Microsoft SQL Server 2017 T-SQL Language Service '
-      no_repair: null
-      publisher: Microsoft Corporation
-      readme: ''
-      size: ''
-      source: windows_registry
-      system_component: null
-      uninstall_string: MsiExec.exe /I{C8A51693-98B9-4AB1-91B8-9A1B86729D5F}
-      url_info_about: ''
-      url_update_info: ''
-      vendor: null
-      version: 14.0.1000.169
-      version_major: 14
-      version_minor: 0
-      windows_installer: 1
+  - arch: AMD64
+    authorized_cdf_prefix: ''
+    comments: ''
+    contact: ''
+    estimated_size: 8116
+    help_link: https://go.microsoft.com/fwlink/?LinkID=150605
+    help_telephone: ''
+    install_date: '20220224'
+    install_location: ''
+    install_source: C:\SQLServer2017Media\Express_ENU\1033_ENU_LP\x64\setup\x64\
+    language: 1033
+    modify_path: MsiExec.exe /I{C8A51693-98B9-4AB1-91B8-9A1B86729D5F}
+    name: 'Microsoft SQL Server 2017 T-SQL Language Service '
+    no_repair: null
+    publisher: Microsoft Corporation
+    readme: ''
+    size: ''
+    source: windows_registry
+    system_component: null
+    uninstall_string: MsiExec.exe /I{C8A51693-98B9-4AB1-91B8-9A1B86729D5F}
+    url_info_about: ''
+    url_update_info: ''
+    vendor: null
+    version: 14.0.1000.169
+    version_major: 14
+    version_minor: 0
+    windows_installer: 1
   Microsoft SQL Server Management Studio - 18.11.1:
-    - arch: x86
-      authorized_cdf_prefix: null
-      comments: null
-      contact: null
-      estimated_size: 2881605
-      help_link: null
-      help_telephone: null
-      install_date: null
-      install_location: null
-      install_source: null
-      language: null
-      modify_path: null
-      name: Microsoft SQL Server Management Studio - 18.11.1
-      no_repair: null
-      publisher: Microsoft Corporation
-      readme: null
-      size: null
-      source: windows_registry
-      system_component: null
-      uninstall_string: '"C:\ProgramData\Package Cache\{88f77b67-7f88-4b59-b93b-c9f2546b649c}\SSMS-Setup-ENU.exe"  /uninstall'
-      url_info_about: null
-      url_update_info: null
-      vendor: null
-      version: 15.0.18410.0
-      version_major: null
-      version_minor: null
-      windows_installer: null
+  - arch: x86
+    authorized_cdf_prefix: null
+    comments: null
+    contact: null
+    estimated_size: 2881605
+    help_link: null
+    help_telephone: null
+    install_date: null
+    install_location: null
+    install_source: null
+    language: null
+    modify_path: null
+    name: Microsoft SQL Server Management Studio - 18.11.1
+    no_repair: null
+    publisher: Microsoft Corporation
+    readme: null
+    size: null
+    source: windows_registry
+    system_component: null
+    uninstall_string: '"C:\ProgramData\Package Cache\{88f77b67-7f88-4b59-b93b-c9f2546b649c}\SSMS-Setup-ENU.exe"  /uninstall'
+    url_info_about: null
+    url_update_info: null
+    vendor: null
+    version: 15.0.18410.0
+    version_major: null
+    version_minor: null
+    windows_installer: null
   Microsoft VSS Writer for SQL Server 2017:
-    - arch: AMD64
-      authorized_cdf_prefix: ''
-      comments: ''
-      contact: ''
-      estimated_size: 3256
-      help_link: https://go.microsoft.com/fwlink/?LinkId=90958
-      help_telephone: ''
-      install_date: '20220224'
-      install_location: ''
-      install_source: C:\SQLServer2017Media\Express_ENU\1033_ENU_LP\x64\setup\x64\
-      language: 1033
-      modify_path: MsiExec.exe /I{20B328C9-C6BB-434A-928A-00F05CD820B8}
-      name: Microsoft VSS Writer for SQL Server 2017
-      no_repair: null
-      publisher: Microsoft Corporation
-      readme: ''
-      size: ''
-      source: windows_registry
-      system_component: null
-      uninstall_string: MsiExec.exe /I{20B328C9-C6BB-434A-928A-00F05CD820B8}
-      url_info_about: ''
-      url_update_info: ''
-      vendor: null
-      version: 14.0.1000.169
-      version_major: 14
-      version_minor: 0
-      windows_installer: 1
+  - arch: AMD64
+    authorized_cdf_prefix: ''
+    comments: ''
+    contact: ''
+    estimated_size: 3256
+    help_link: https://go.microsoft.com/fwlink/?LinkId=90958
+    help_telephone: ''
+    install_date: '20220224'
+    install_location: ''
+    install_source: C:\SQLServer2017Media\Express_ENU\1033_ENU_LP\x64\setup\x64\
+    language: 1033
+    modify_path: MsiExec.exe /I{20B328C9-C6BB-434A-928A-00F05CD820B8}
+    name: Microsoft VSS Writer for SQL Server 2017
+    no_repair: null
+    publisher: Microsoft Corporation
+    readme: ''
+    size: ''
+    source: windows_registry
+    system_component: null
+    uninstall_string: MsiExec.exe /I{20B328C9-C6BB-434A-928A-00F05CD820B8}
+    url_info_about: ''
+    url_update_info: ''
+    vendor: null
+    version: 14.0.1000.169
+    version_major: 14
+    version_minor: 0
+    windows_installer: 1
   Microsoft Visual C++ 2013 Redistributable (x64) - 12.0.40664:
-    - arch: x86
-      authorized_cdf_prefix: null
-      comments: null
-      contact: null
-      estimated_size: 21062
-      help_link: null
-      help_telephone: null
-      install_date: null
-      install_location: null
-      install_source: null
-      language: null
-      modify_path: '"C:\ProgramData\Package Cache\{042d26ef-3dbe-4c25-95d3-4c1b11b235a7}\vcredist_x64.exe" /modify'
-      name: Microsoft Visual C++ 2013 Redistributable (x64) - 12.0.40664
-      no_repair: null
-      publisher: Microsoft Corporation
-      readme: null
-      size: null
-      source: windows_registry
-      system_component: null
-      uninstall_string: '"C:\ProgramData\Package Cache\{042d26ef-3dbe-4c25-95d3-4c1b11b235a7}\vcredist_x64.exe"  /uninstall'
-      url_info_about: null
-      url_update_info: null
-      vendor: null
-      version: 12.0.40664.0
-      version_major: null
-      version_minor: null
-      windows_installer: null
+  - arch: x86
+    authorized_cdf_prefix: null
+    comments: null
+    contact: null
+    estimated_size: 21062
+    help_link: null
+    help_telephone: null
+    install_date: null
+    install_location: null
+    install_source: null
+    language: null
+    modify_path: '"C:\ProgramData\Package Cache\{042d26ef-3dbe-4c25-95d3-4c1b11b235a7}\vcredist_x64.exe"
+      /modify'
+    name: Microsoft Visual C++ 2013 Redistributable (x64) - 12.0.40664
+    no_repair: null
+    publisher: Microsoft Corporation
+    readme: null
+    size: null
+    source: windows_registry
+    system_component: null
+    uninstall_string: '"C:\ProgramData\Package Cache\{042d26ef-3dbe-4c25-95d3-4c1b11b235a7}\vcredist_x64.exe"  /uninstall'
+    url_info_about: null
+    url_update_info: null
+    vendor: null
+    version: 12.0.40664.0
+    version_major: null
+    version_minor: null
+    windows_installer: null
   Microsoft Visual C++ 2013 Redistributable (x86) - 12.0.40664:
-    - arch: x86
-      authorized_cdf_prefix: null
-      comments: null
-      contact: null
-      estimated_size: 17602
-      help_link: null
-      help_telephone: null
-      install_date: null
-      install_location: null
-      install_source: null
-      language: null
-      modify_path: '"C:\ProgramData\Package Cache\{9dff3540-fc85-4ed5-ac84-9e3c7fd8bece}\vcredist_x86.exe" /modify'
-      name: Microsoft Visual C++ 2013 Redistributable (x86) - 12.0.40664
-      no_repair: null
-      publisher: Microsoft Corporation
-      readme: null
-      size: null
-      source: windows_registry
-      system_component: null
-      uninstall_string: '"C:\ProgramData\Package Cache\{9dff3540-fc85-4ed5-ac84-9e3c7fd8bece}\vcredist_x86.exe"  /uninstall'
-      url_info_about: null
-      url_update_info: null
-      vendor: null
-      version: 12.0.40664.0
-      version_major: null
-      version_minor: null
-      windows_installer: null
+  - arch: x86
+    authorized_cdf_prefix: null
+    comments: null
+    contact: null
+    estimated_size: 17602
+    help_link: null
+    help_telephone: null
+    install_date: null
+    install_location: null
+    install_source: null
+    language: null
+    modify_path: '"C:\ProgramData\Package Cache\{9dff3540-fc85-4ed5-ac84-9e3c7fd8bece}\vcredist_x86.exe"
+      /modify'
+    name: Microsoft Visual C++ 2013 Redistributable (x86) - 12.0.40664
+    no_repair: null
+    publisher: Microsoft Corporation
+    readme: null
+    size: null
+    source: windows_registry
+    system_component: null
+    uninstall_string: '"C:\ProgramData\Package Cache\{9dff3540-fc85-4ed5-ac84-9e3c7fd8bece}\vcredist_x86.exe"  /uninstall'
+    url_info_about: null
+    url_update_info: null
+    vendor: null
+    version: 12.0.40664.0
+    version_major: null
+    version_minor: null
+    windows_installer: null
   Microsoft Visual C++ 2013 x64 Additional Runtime - 12.0.40664:
-    - arch: AMD64
-      authorized_cdf_prefix: ''
-      comments: Caution. Removing this product might prevent some applications from running.
-      contact: ''
-      estimated_size: 11784
-      help_link: http://go.microsoft.com/fwlink/?LinkId=133405
-      help_telephone: ''
-      install_date: '20220215'
-      install_location: ''
-      install_source: C:\ProgramData\Package Cache\{010792BA-551A-3AC0-A7EF-0FAB4156C382}v12.0.40664\packages\vcRuntimeAdditional_amd64\
-      language: 1033
-      modify_path: MsiExec.exe /X{010792BA-551A-3AC0-A7EF-0FAB4156C382}
-      name: Microsoft Visual C++ 2013 x64 Additional Runtime - 12.0.40664
-      no_repair: null
-      publisher: Microsoft Corporation
-      readme: ''
-      size: ''
-      source: windows_registry
-      system_component: 1
-      uninstall_string: MsiExec.exe /X{010792BA-551A-3AC0-A7EF-0FAB4156C382}
-      url_info_about: ''
-      url_update_info: ''
-      vendor: null
-      version: 12.0.40664
-      version_major: 12
-      version_minor: 0
-      windows_installer: 1
+  - arch: AMD64
+    authorized_cdf_prefix: ''
+    comments: Caution. Removing this product might prevent some applications from
+      running.
+    contact: ''
+    estimated_size: 11784
+    help_link: http://go.microsoft.com/fwlink/?LinkId=133405
+    help_telephone: ''
+    install_date: '20220215'
+    install_location: ''
+    install_source: C:\ProgramData\Package Cache\{010792BA-551A-3AC0-A7EF-0FAB4156C382}v12.0.40664\packages\vcRuntimeAdditional_amd64\
+    language: 1033
+    modify_path: MsiExec.exe /X{010792BA-551A-3AC0-A7EF-0FAB4156C382}
+    name: Microsoft Visual C++ 2013 x64 Additional Runtime - 12.0.40664
+    no_repair: null
+    publisher: Microsoft Corporation
+    readme: ''
+    size: ''
+    source: windows_registry
+    system_component: 1
+    uninstall_string: MsiExec.exe /X{010792BA-551A-3AC0-A7EF-0FAB4156C382}
+    url_info_about: ''
+    url_update_info: ''
+    vendor: null
+    version: 12.0.40664
+    version_major: 12
+    version_minor: 0
+    windows_installer: 1
   Microsoft Visual C++ 2013 x64 Minimum Runtime - 12.0.40664:
-    - arch: AMD64
-      authorized_cdf_prefix: ''
-      comments: Caution. Removing this product might prevent some applications from running.
-      contact: ''
-      estimated_size: 2524
-      help_link: http://go.microsoft.com/fwlink/?LinkId=133405
-      help_telephone: ''
-      install_date: '20220215'
-      install_location: ''
-      install_source: C:\ProgramData\Package Cache\{53CF6934-A98D-3D84-9146-FC4EDF3D5641}v12.0.40664\packages\vcRuntimeMinimum_amd64\
-      language: 1033
-      modify_path: MsiExec.exe /X{53CF6934-A98D-3D84-9146-FC4EDF3D5641}
-      name: Microsoft Visual C++ 2013 x64 Minimum Runtime - 12.0.40664
-      no_repair: null
-      publisher: Microsoft Corporation
-      readme: ''
-      size: ''
-      source: windows_registry
-      system_component: 1
-      uninstall_string: MsiExec.exe /X{53CF6934-A98D-3D84-9146-FC4EDF3D5641}
-      url_info_about: ''
-      url_update_info: ''
-      vendor: null
-      version: 12.0.40664
-      version_major: 12
-      version_minor: 0
-      windows_installer: 1
+  - arch: AMD64
+    authorized_cdf_prefix: ''
+    comments: Caution. Removing this product might prevent some applications from
+      running.
+    contact: ''
+    estimated_size: 2524
+    help_link: http://go.microsoft.com/fwlink/?LinkId=133405
+    help_telephone: ''
+    install_date: '20220215'
+    install_location: ''
+    install_source: C:\ProgramData\Package Cache\{53CF6934-A98D-3D84-9146-FC4EDF3D5641}v12.0.40664\packages\vcRuntimeMinimum_amd64\
+    language: 1033
+    modify_path: MsiExec.exe /X{53CF6934-A98D-3D84-9146-FC4EDF3D5641}
+    name: Microsoft Visual C++ 2013 x64 Minimum Runtime - 12.0.40664
+    no_repair: null
+    publisher: Microsoft Corporation
+    readme: ''
+    size: ''
+    source: windows_registry
+    system_component: 1
+    uninstall_string: MsiExec.exe /X{53CF6934-A98D-3D84-9146-FC4EDF3D5641}
+    url_info_about: ''
+    url_update_info: ''
+    vendor: null
+    version: 12.0.40664
+    version_major: 12
+    version_minor: 0
+    windows_installer: 1
   Microsoft Visual C++ 2013 x86 Additional Runtime - 12.0.40664:
-    - arch: x86
-      authorized_cdf_prefix: ''
-      comments: Caution. Removing this product might prevent some applications from running.
-      contact: ''
-      estimated_size: 9456
-      help_link: http://go.microsoft.com/fwlink/?LinkId=133405
-      help_telephone: ''
-      install_date: '20220215'
-      install_location: ''
-      install_source: C:\ProgramData\Package Cache\{D401961D-3A20-3AC7-943B-6139D5BD490A}v12.0.40664\packages\vcRuntimeAdditional_x86\
-      language: 1033
-      modify_path: MsiExec.exe /X{D401961D-3A20-3AC7-943B-6139D5BD490A}
-      name: Microsoft Visual C++ 2013 x86 Additional Runtime - 12.0.40664
-      no_repair: null
-      publisher: Microsoft Corporation
-      readme: ''
-      size: ''
-      source: windows_registry
-      system_component: 1
-      uninstall_string: MsiExec.exe /X{D401961D-3A20-3AC7-943B-6139D5BD490A}
-      url_info_about: ''
-      url_update_info: ''
-      vendor: null
-      version: 12.0.40664
-      version_major: 12
-      version_minor: 0
-      windows_installer: 1
+  - arch: x86
+    authorized_cdf_prefix: ''
+    comments: Caution. Removing this product might prevent some applications from
+      running.
+    contact: ''
+    estimated_size: 9456
+    help_link: http://go.microsoft.com/fwlink/?LinkId=133405
+    help_telephone: ''
+    install_date: '20220215'
+    install_location: ''
+    install_source: C:\ProgramData\Package Cache\{D401961D-3A20-3AC7-943B-6139D5BD490A}v12.0.40664\packages\vcRuntimeAdditional_x86\
+    language: 1033
+    modify_path: MsiExec.exe /X{D401961D-3A20-3AC7-943B-6139D5BD490A}
+    name: Microsoft Visual C++ 2013 x86 Additional Runtime - 12.0.40664
+    no_repair: null
+    publisher: Microsoft Corporation
+    readme: ''
+    size: ''
+    source: windows_registry
+    system_component: 1
+    uninstall_string: MsiExec.exe /X{D401961D-3A20-3AC7-943B-6139D5BD490A}
+    url_info_about: ''
+    url_update_info: ''
+    vendor: null
+    version: 12.0.40664
+    version_major: 12
+    version_minor: 0
+    windows_installer: 1
   Microsoft Visual C++ 2013 x86 Minimum Runtime - 12.0.40664:
-    - arch: x86
-      authorized_cdf_prefix: ''
-      comments: Caution. Removing this product might prevent some applications from running.
-      contact: ''
-      estimated_size: 2076
-      help_link: http://go.microsoft.com/fwlink/?LinkId=133405
-      help_telephone: ''
-      install_date: '20220215'
-      install_location: ''
-      install_source: C:\ProgramData\Package Cache\{8122DAB1-ED4D-3676-BB0A-CA368196543E}v12.0.40664\packages\vcRuntimeMinimum_x86\
-      language: 1033
-      modify_path: MsiExec.exe /X{8122DAB1-ED4D-3676-BB0A-CA368196543E}
-      name: Microsoft Visual C++ 2013 x86 Minimum Runtime - 12.0.40664
-      no_repair: null
-      publisher: Microsoft Corporation
-      readme: ''
-      size: ''
-      source: windows_registry
-      system_component: 1
-      uninstall_string: MsiExec.exe /X{8122DAB1-ED4D-3676-BB0A-CA368196543E}
-      url_info_about: ''
-      url_update_info: ''
-      vendor: null
-      version: 12.0.40664
-      version_major: 12
-      version_minor: 0
-      windows_installer: 1
+  - arch: x86
+    authorized_cdf_prefix: ''
+    comments: Caution. Removing this product might prevent some applications from
+      running.
+    contact: ''
+    estimated_size: 2076
+    help_link: http://go.microsoft.com/fwlink/?LinkId=133405
+    help_telephone: ''
+    install_date: '20220215'
+    install_location: ''
+    install_source: C:\ProgramData\Package Cache\{8122DAB1-ED4D-3676-BB0A-CA368196543E}v12.0.40664\packages\vcRuntimeMinimum_x86\
+    language: 1033
+    modify_path: MsiExec.exe /X{8122DAB1-ED4D-3676-BB0A-CA368196543E}
+    name: Microsoft Visual C++ 2013 x86 Minimum Runtime - 12.0.40664
+    no_repair: null
+    publisher: Microsoft Corporation
+    readme: ''
+    size: ''
+    source: windows_registry
+    system_component: 1
+    uninstall_string: MsiExec.exe /X{8122DAB1-ED4D-3676-BB0A-CA368196543E}
+    url_info_about: ''
+    url_update_info: ''
+    vendor: null
+    version: 12.0.40664
+    version_major: 12
+    version_minor: 0
+    windows_installer: 1
   Microsoft Visual C++ 2015-2022 Redistributable (x64) - 14.30.30704:
-    - arch: x86
-      authorized_cdf_prefix: null
-      comments: null
-      contact: null
-      estimated_size: 22598
-      help_link: null
-      help_telephone: null
-      install_date: null
-      install_location: null
-      install_source: null
-      language: null
-      modify_path: '"C:\ProgramData\Package Cache\{57a73df6-4ba9-4c1d-bbbb-517289ff6c13}\VC_redist.x64.exe" /modify'
-      name: Microsoft Visual C++ 2015-2022 Redistributable (x64) - 14.30.30704
-      no_repair: null
-      publisher: Microsoft Corporation
-      readme: null
-      size: null
-      source: windows_registry
-      system_component: null
-      uninstall_string: '"C:\ProgramData\Package Cache\{57a73df6-4ba9-4c1d-bbbb-517289ff6c13}\VC_redist.x64.exe"  /uninstall'
-      url_info_about: null
-      url_update_info: null
-      vendor: null
-      version: 14.30.30704.0
-      version_major: null
-      version_minor: null
-      windows_installer: null
+  - arch: x86
+    authorized_cdf_prefix: null
+    comments: null
+    contact: null
+    estimated_size: 22598
+    help_link: null
+    help_telephone: null
+    install_date: null
+    install_location: null
+    install_source: null
+    language: null
+    modify_path: '"C:\ProgramData\Package Cache\{57a73df6-4ba9-4c1d-bbbb-517289ff6c13}\VC_redist.x64.exe"
+      /modify'
+    name: Microsoft Visual C++ 2015-2022 Redistributable (x64) - 14.30.30704
+    no_repair: null
+    publisher: Microsoft Corporation
+    readme: null
+    size: null
+    source: windows_registry
+    system_component: null
+    uninstall_string: '"C:\ProgramData\Package Cache\{57a73df6-4ba9-4c1d-bbbb-517289ff6c13}\VC_redist.x64.exe"  /uninstall'
+    url_info_about: null
+    url_update_info: null
+    vendor: null
+    version: 14.30.30704.0
+    version_major: null
+    version_minor: null
+    windows_installer: null
   Microsoft Visual C++ 2015-2022 Redistributable (x86) - 14.30.30704:
-    - arch: x86
-      authorized_cdf_prefix: null
-      comments: null
-      contact: null
-      estimated_size: 19969
-      help_link: null
-      help_telephone: null
-      install_date: null
-      install_location: null
-      install_source: null
-      language: null
-      modify_path: '"C:\ProgramData\Package Cache\{4d8dcf8c-a72a-43e1-9833-c12724db736e}\VC_redist.x86.exe" /modify'
-      name: Microsoft Visual C++ 2015-2022 Redistributable (x86) - 14.30.30704
-      no_repair: null
-      publisher: Microsoft Corporation
-      readme: null
-      size: null
-      source: windows_registry
-      system_component: null
-      uninstall_string: '"C:\ProgramData\Package Cache\{4d8dcf8c-a72a-43e1-9833-c12724db736e}\VC_redist.x86.exe"  /uninstall'
-      url_info_about: null
-      url_update_info: null
-      vendor: null
-      version: 14.30.30704.0
-      version_major: null
-      version_minor: null
-      windows_installer: null
+  - arch: x86
+    authorized_cdf_prefix: null
+    comments: null
+    contact: null
+    estimated_size: 19969
+    help_link: null
+    help_telephone: null
+    install_date: null
+    install_location: null
+    install_source: null
+    language: null
+    modify_path: '"C:\ProgramData\Package Cache\{4d8dcf8c-a72a-43e1-9833-c12724db736e}\VC_redist.x86.exe"
+      /modify'
+    name: Microsoft Visual C++ 2015-2022 Redistributable (x86) - 14.30.30704
+    no_repair: null
+    publisher: Microsoft Corporation
+    readme: null
+    size: null
+    source: windows_registry
+    system_component: null
+    uninstall_string: '"C:\ProgramData\Package Cache\{4d8dcf8c-a72a-43e1-9833-c12724db736e}\VC_redist.x86.exe"  /uninstall'
+    url_info_about: null
+    url_update_info: null
+    vendor: null
+    version: 14.30.30704.0
+    version_major: null
+    version_minor: null
+    windows_installer: null
   Microsoft Visual C++ 2022 X64 Additional Runtime - 14.30.30704:
-    - arch: AMD64
-      authorized_cdf_prefix: ''
-      comments: ''
-      contact: ''
-      estimated_size: 11724
-      help_link: ''
-      help_telephone: ''
-      install_date: '20220215'
-      install_location: ''
-      install_source: C:\ProgramData\Package Cache\{6DB765A8-05AF-49A1-A71D-6F645EE3CE41}v14.30.30704\packages\vcRuntimeAdditional_amd64\
-      language: 1033
-      modify_path: MsiExec.exe /I{6DB765A8-05AF-49A1-A71D-6F645EE3CE41}
-      name: Microsoft Visual C++ 2022 X64 Additional Runtime - 14.30.30704
-      no_repair: null
-      publisher: Microsoft Corporation
-      readme: ''
-      size: ''
-      source: windows_registry
-      system_component: 1
-      uninstall_string: MsiExec.exe /I{6DB765A8-05AF-49A1-A71D-6F645EE3CE41}
-      url_info_about: ''
-      url_update_info: ''
-      vendor: null
-      version: 14.30.30704
-      version_major: 14
-      version_minor: 30
-      windows_installer: 1
+  - arch: AMD64
+    authorized_cdf_prefix: ''
+    comments: ''
+    contact: ''
+    estimated_size: 11724
+    help_link: ''
+    help_telephone: ''
+    install_date: '20220215'
+    install_location: ''
+    install_source: C:\ProgramData\Package Cache\{6DB765A8-05AF-49A1-A71D-6F645EE3CE41}v14.30.30704\packages\vcRuntimeAdditional_amd64\
+    language: 1033
+    modify_path: MsiExec.exe /I{6DB765A8-05AF-49A1-A71D-6F645EE3CE41}
+    name: Microsoft Visual C++ 2022 X64 Additional Runtime - 14.30.30704
+    no_repair: null
+    publisher: Microsoft Corporation
+    readme: ''
+    size: ''
+    source: windows_registry
+    system_component: 1
+    uninstall_string: MsiExec.exe /I{6DB765A8-05AF-49A1-A71D-6F645EE3CE41}
+    url_info_about: ''
+    url_update_info: ''
+    vendor: null
+    version: 14.30.30704
+    version_major: 14
+    version_minor: 30
+    windows_installer: 1
   Microsoft Visual C++ 2022 X64 Minimum Runtime - 14.30.30704:
-    - arch: AMD64
-      authorized_cdf_prefix: ''
-      comments: ''
-      contact: ''
-      estimated_size: 2168
-      help_link: ''
-      help_telephone: ''
-      install_date: '20220215'
-      install_location: ''
-      install_source: C:\ProgramData\Package Cache\{662A0088-6FCD-45DD-9EA7-68674058AED5}v14.30.30704\packages\vcRuntimeMinimum_amd64\
-      language: 1033
-      modify_path: MsiExec.exe /I{662A0088-6FCD-45DD-9EA7-68674058AED5}
-      name: Microsoft Visual C++ 2022 X64 Minimum Runtime - 14.30.30704
-      no_repair: null
-      publisher: Microsoft Corporation
-      readme: ''
-      size: ''
-      source: windows_registry
-      system_component: 1
-      uninstall_string: MsiExec.exe /I{662A0088-6FCD-45DD-9EA7-68674058AED5}
-      url_info_about: ''
-      url_update_info: ''
-      vendor: null
-      version: 14.30.30704
-      version_major: 14
-      version_minor: 30
-      windows_installer: 1
+  - arch: AMD64
+    authorized_cdf_prefix: ''
+    comments: ''
+    contact: ''
+    estimated_size: 2168
+    help_link: ''
+    help_telephone: ''
+    install_date: '20220215'
+    install_location: ''
+    install_source: C:\ProgramData\Package Cache\{662A0088-6FCD-45DD-9EA7-68674058AED5}v14.30.30704\packages\vcRuntimeMinimum_amd64\
+    language: 1033
+    modify_path: MsiExec.exe /I{662A0088-6FCD-45DD-9EA7-68674058AED5}
+    name: Microsoft Visual C++ 2022 X64 Minimum Runtime - 14.30.30704
+    no_repair: null
+    publisher: Microsoft Corporation
+    readme: ''
+    size: ''
+    source: windows_registry
+    system_component: 1
+    uninstall_string: MsiExec.exe /I{662A0088-6FCD-45DD-9EA7-68674058AED5}
+    url_info_about: ''
+    url_update_info: ''
+    vendor: null
+    version: 14.30.30704
+    version_major: 14
+    version_minor: 30
+    windows_installer: 1
   Microsoft Visual C++ 2022 X86 Additional Runtime - 14.30.30704:
-    - arch: x86
-      authorized_cdf_prefix: ''
-      comments: ''
-      contact: ''
-      estimated_size: 10164
-      help_link: ''
-      help_telephone: ''
-      install_date: '20220215'
-      install_location: ''
-      install_source: C:\ProgramData\Package Cache\{BF08E976-B92E-4336-B56F-2171179476C4}v14.30.30704\packages\vcRuntimeAdditional_x86\
-      language: 1033
-      modify_path: MsiExec.exe /I{BF08E976-B92E-4336-B56F-2171179476C4}
-      name: Microsoft Visual C++ 2022 X86 Additional Runtime - 14.30.30704
-      no_repair: null
-      publisher: Microsoft Corporation
-      readme: ''
-      size: ''
-      source: windows_registry
-      system_component: 1
-      uninstall_string: MsiExec.exe /I{BF08E976-B92E-4336-B56F-2171179476C4}
-      url_info_about: ''
-      url_update_info: ''
-      vendor: null
-      version: 14.30.30704
-      version_major: 14
-      version_minor: 30
-      windows_installer: 1
+  - arch: x86
+    authorized_cdf_prefix: ''
+    comments: ''
+    contact: ''
+    estimated_size: 10164
+    help_link: ''
+    help_telephone: ''
+    install_date: '20220215'
+    install_location: ''
+    install_source: C:\ProgramData\Package Cache\{BF08E976-B92E-4336-B56F-2171179476C4}v14.30.30704\packages\vcRuntimeAdditional_x86\
+    language: 1033
+    modify_path: MsiExec.exe /I{BF08E976-B92E-4336-B56F-2171179476C4}
+    name: Microsoft Visual C++ 2022 X86 Additional Runtime - 14.30.30704
+    no_repair: null
+    publisher: Microsoft Corporation
+    readme: ''
+    size: ''
+    source: windows_registry
+    system_component: 1
+    uninstall_string: MsiExec.exe /I{BF08E976-B92E-4336-B56F-2171179476C4}
+    url_info_about: ''
+    url_update_info: ''
+    vendor: null
+    version: 14.30.30704
+    version_major: 14
+    version_minor: 30
+    windows_installer: 1
   Microsoft Visual C++ 2022 X86 Minimum Runtime - 14.30.30704:
-    - arch: x86
-      authorized_cdf_prefix: ''
-      comments: ''
-      contact: ''
-      estimated_size: 1744
-      help_link: ''
-      help_telephone: ''
-      install_date: '20220215'
-      install_location: ''
-      install_source: C:\ProgramData\Package Cache\{F6080405-9FA8-4CAA-9982-14E95D1A3DAC}v14.30.30704\packages\vcRuntimeMinimum_x86\
-      language: 1033
-      modify_path: MsiExec.exe /I{F6080405-9FA8-4CAA-9982-14E95D1A3DAC}
-      name: Microsoft Visual C++ 2022 X86 Minimum Runtime - 14.30.30704
-      no_repair: null
-      publisher: Microsoft Corporation
-      readme: ''
-      size: ''
-      source: windows_registry
-      system_component: 1
-      uninstall_string: MsiExec.exe /I{F6080405-9FA8-4CAA-9982-14E95D1A3DAC}
-      url_info_about: ''
-      url_update_info: ''
-      vendor: null
-      version: 14.30.30704
-      version_major: 14
-      version_minor: 30
-      windows_installer: 1
+  - arch: x86
+    authorized_cdf_prefix: ''
+    comments: ''
+    contact: ''
+    estimated_size: 1744
+    help_link: ''
+    help_telephone: ''
+    install_date: '20220215'
+    install_location: ''
+    install_source: C:\ProgramData\Package Cache\{F6080405-9FA8-4CAA-9982-14E95D1A3DAC}v14.30.30704\packages\vcRuntimeMinimum_x86\
+    language: 1033
+    modify_path: MsiExec.exe /I{F6080405-9FA8-4CAA-9982-14E95D1A3DAC}
+    name: Microsoft Visual C++ 2022 X86 Minimum Runtime - 14.30.30704
+    no_repair: null
+    publisher: Microsoft Corporation
+    readme: ''
+    size: ''
+    source: windows_registry
+    system_component: 1
+    uninstall_string: MsiExec.exe /I{F6080405-9FA8-4CAA-9982-14E95D1A3DAC}
+    url_info_about: ''
+    url_update_info: ''
+    vendor: null
+    version: 14.30.30704
+    version_major: 14
+    version_minor: 30
+    windows_installer: 1
   Microsoft Visual Studio Tools for Applications 2017:
-    - arch: x86
-      authorized_cdf_prefix: null
-      comments: null
-      contact: null
-      estimated_size: 19606
-      help_link: null
-      help_telephone: null
-      install_date: null
-      install_location: null
-      install_source: null
-      language: null
-      modify_path: '"C:\ProgramData\Package Cache\{5a7dc0ad-cdb2-43b5-8b82-f81065fe6092}\vsta_setup.exe" /modify'
-      name: Microsoft Visual Studio Tools for Applications 2017
-      no_repair: null
-      publisher: Microsoft Corporation
-      readme: null
-      size: null
-      source: windows_registry
-      system_component: null
-      uninstall_string: '"C:\ProgramData\Package Cache\{5a7dc0ad-cdb2-43b5-8b82-f81065fe6092}\vsta_setup.exe"  /uninstall'
-      url_info_about: null
-      url_update_info: null
-      vendor: null
-      version: 15.0.26717
-      version_major: null
-      version_minor: null
-      windows_installer: null
+  - arch: x86
+    authorized_cdf_prefix: null
+    comments: null
+    contact: null
+    estimated_size: 19606
+    help_link: null
+    help_telephone: null
+    install_date: null
+    install_location: null
+    install_source: null
+    language: null
+    modify_path: '"C:\ProgramData\Package Cache\{5a7dc0ad-cdb2-43b5-8b82-f81065fe6092}\vsta_setup.exe"
+      /modify'
+    name: Microsoft Visual Studio Tools for Applications 2017
+    no_repair: null
+    publisher: Microsoft Corporation
+    readme: null
+    size: null
+    source: windows_registry
+    system_component: null
+    uninstall_string: '"C:\ProgramData\Package Cache\{5a7dc0ad-cdb2-43b5-8b82-f81065fe6092}\vsta_setup.exe"  /uninstall'
+    url_info_about: null
+    url_update_info: null
+    vendor: null
+    version: 15.0.26717
+    version_major: null
+    version_minor: null
+    windows_installer: null
   Microsoft Visual Studio Tools for Applications 2017 x64 Hosting Support:
-    - arch: AMD64
-      authorized_cdf_prefix: ''
-      comments: ''
-      contact: ''
-      estimated_size: 2844
-      help_link: ''
-      help_telephone: ''
-      install_date: '20220530'
-      install_location: ''
-      install_source: C:\ProgramData\Package Cache\{10AB056B-1B8C-3E9E-95CC-43C33EB88513}v15.0.26717\packages\vsta_hostingcore_amd64\
-      language: 1033
-      modify_path: MsiExec.exe /X{10AB056B-1B8C-3E9E-95CC-43C33EB88513}
-      name: Microsoft Visual Studio Tools for Applications 2017 x64 Hosting Support
-      no_repair: null
-      publisher: Microsoft Corporation
-      readme: ''
-      size: ''
-      source: windows_registry
-      system_component: 1
-      uninstall_string: MsiExec.exe /X{10AB056B-1B8C-3E9E-95CC-43C33EB88513}
-      url_info_about: ''
-      url_update_info: ''
-      vendor: null
-      version: 15.0.26717
-      version_major: 15
-      version_minor: 0
-      windows_installer: 1
+  - arch: AMD64
+    authorized_cdf_prefix: ''
+    comments: ''
+    contact: ''
+    estimated_size: 2844
+    help_link: ''
+    help_telephone: ''
+    install_date: '20220530'
+    install_location: ''
+    install_source: C:\ProgramData\Package Cache\{10AB056B-1B8C-3E9E-95CC-43C33EB88513}v15.0.26717\packages\vsta_hostingcore_amd64\
+    language: 1033
+    modify_path: MsiExec.exe /X{10AB056B-1B8C-3E9E-95CC-43C33EB88513}
+    name: Microsoft Visual Studio Tools for Applications 2017 x64 Hosting Support
+    no_repair: null
+    publisher: Microsoft Corporation
+    readme: ''
+    size: ''
+    source: windows_registry
+    system_component: 1
+    uninstall_string: MsiExec.exe /X{10AB056B-1B8C-3E9E-95CC-43C33EB88513}
+    url_info_about: ''
+    url_update_info: ''
+    vendor: null
+    version: 15.0.26717
+    version_major: 15
+    version_minor: 0
+    windows_installer: 1
   Microsoft Visual Studio Tools for Applications 2017 x86 Hosting Support:
-    - arch: x86
-      authorized_cdf_prefix: ''
-      comments: ''
-      contact: ''
-      estimated_size: 3828
-      help_link: ''
-      help_telephone: ''
-      install_date: '20220530'
-      install_location: ''
-      install_source: C:\ProgramData\Package Cache\{AB46A6EF-12D2-3146-A38D-1D6FF1AFFF69}v15.0.26717\packages\vsta_hostingcore_x86\
-      language: 1033
-      modify_path: MsiExec.exe /X{AB46A6EF-12D2-3146-A38D-1D6FF1AFFF69}
-      name: Microsoft Visual Studio Tools for Applications 2017 x86 Hosting Support
-      no_repair: null
-      publisher: Microsoft Corporation
-      readme: ''
-      size: ''
-      source: windows_registry
-      system_component: 1
-      uninstall_string: MsiExec.exe /X{AB46A6EF-12D2-3146-A38D-1D6FF1AFFF69}
-      url_info_about: ''
-      url_update_info: ''
-      vendor: null
-      version: 15.0.26717
-      version_major: 15
-      version_minor: 0
-      windows_installer: 1
+  - arch: x86
+    authorized_cdf_prefix: ''
+    comments: ''
+    contact: ''
+    estimated_size: 3828
+    help_link: ''
+    help_telephone: ''
+    install_date: '20220530'
+    install_location: ''
+    install_source: C:\ProgramData\Package Cache\{AB46A6EF-12D2-3146-A38D-1D6FF1AFFF69}v15.0.26717\packages\vsta_hostingcore_x86\
+    language: 1033
+    modify_path: MsiExec.exe /X{AB46A6EF-12D2-3146-A38D-1D6FF1AFFF69}
+    name: Microsoft Visual Studio Tools for Applications 2017 x86 Hosting Support
+    no_repair: null
+    publisher: Microsoft Corporation
+    readme: ''
+    size: ''
+    source: windows_registry
+    system_component: 1
+    uninstall_string: MsiExec.exe /X{AB46A6EF-12D2-3146-A38D-1D6FF1AFFF69}
+    url_info_about: ''
+    url_update_info: ''
+    vendor: null
+    version: 15.0.26717
+    version_major: 15
+    version_minor: 0
+    windows_installer: 1
   PgBouncer 1.16.1:
-    - arch: x86
-      authorized_cdf_prefix: null
-      comments: 'PgBouncer: Connection pooler for PostgreSQL, packaged by EnterpriseDB'
-      contact: ''
-      estimated_size: 25101
-      help_link: ''
-      help_telephone: null
-      install_date: '20220215'
-      install_location: C:\Program Files (x86)\PgBouncer
-      install_source: null
-      language: null
-      modify_path: null
-      name: PgBouncer 1.16.1
-      no_repair: '1'
-      publisher: EnterpriseDB
-      readme: null
-      size: null
-      source: windows_registry
-      system_component: null
-      uninstall_string: '"C:\Program Files (x86)\PgBouncer\uninstall-pgbouncer.exe"'
-      url_info_about: ''
-      url_update_info: null
-      vendor: null
-      version: 1.16.1-1
-      version_major: 1
-      version_minor: 16
-      windows_installer: null
+  - arch: x86
+    authorized_cdf_prefix: null
+    comments: 'PgBouncer: Connection pooler for PostgreSQL, packaged by EnterpriseDB'
+    contact: ''
+    estimated_size: 25101
+    help_link: ''
+    help_telephone: null
+    install_date: '20220215'
+    install_location: C:\Program Files (x86)\PgBouncer
+    install_source: null
+    language: null
+    modify_path: null
+    name: PgBouncer 1.16.1
+    no_repair: '1'
+    publisher: EnterpriseDB
+    readme: null
+    size: null
+    source: windows_registry
+    system_component: null
+    uninstall_string: '"C:\Program Files (x86)\PgBouncer\uninstall-pgbouncer.exe"'
+    url_info_about: ''
+    url_update_info: null
+    vendor: null
+    version: 1.16.1-1
+    version_major: 1
+    version_minor: 16
+    windows_installer: null
   'PostgreSQL 14 ':
-    - arch: AMD64
-      authorized_cdf_prefix: null
-      comments: The PostgreSQL RDBMS, version 14, packaged by EnterpriseDB
-      contact: ''
-      estimated_size: 829400
-      help_link: http://www.postgresql.org/docs
-      help_telephone: null
-      install_date: '20220215'
-      install_location: C:\Program Files\PostgreSQL\14
-      install_source: null
-      language: null
-      modify_path: null
-      name: 'PostgreSQL 14 '
-      no_repair: '1'
-      publisher: PostgreSQL Global Development Group
-      readme: null
-      size: null
-      source: windows_registry
-      system_component: null
-      uninstall_string: '"C:\Program Files\PostgreSQL\14\uninstall-postgresql.exe"'
-      url_info_about: http://www.postgresql.org/
-      url_update_info: null
-      vendor: null
-      version: '14'
-      version_major: 14
-      version_minor: 0
-      windows_installer: null
+  - arch: AMD64
+    authorized_cdf_prefix: null
+    comments: The PostgreSQL RDBMS, version 14, packaged by EnterpriseDB
+    contact: ''
+    estimated_size: 829400
+    help_link: http://www.postgresql.org/docs
+    help_telephone: null
+    install_date: '20220215'
+    install_location: C:\Program Files\PostgreSQL\14
+    install_source: null
+    language: null
+    modify_path: null
+    name: 'PostgreSQL 14 '
+    no_repair: '1'
+    publisher: PostgreSQL Global Development Group
+    readme: null
+    size: null
+    source: windows_registry
+    system_component: null
+    uninstall_string: '"C:\Program Files\PostgreSQL\14\uninstall-postgresql.exe"'
+    url_info_about: http://www.postgresql.org/
+    url_update_info: null
+    vendor: null
+    version: '14'
+    version_major: 14
+    version_minor: 0
+    windows_installer: null
   SQL Server 2017 Batch Parser:
-    - arch: AMD64
-      authorized_cdf_prefix: ''
-      comments: ''
-      contact: ''
-      estimated_size: 744
-      help_link: https://go.microsoft.com/fwlink/?LinkId=154582
-      help_telephone: ''
-      install_date: '20220224'
-      install_location: ''
-      install_source: C:\SQLServer2017Media\Express_ENU\x64\setup\
-      language: 1033
-      modify_path: MsiExec.exe /I{2C6E8311-28BD-4615-9545-6E39E8E83A4B}
-      name: SQL Server 2017 Batch Parser
-      no_repair: 1
-      publisher: Microsoft Corporation
-      readme: Placeholder for ARP readme in case of no UI
-      size: ''
-      source: windows_registry
-      system_component: 1
-      uninstall_string: MsiExec.exe /I{2C6E8311-28BD-4615-9545-6E39E8E83A4B}
-      url_info_about: ''
-      url_update_info: ''
-      vendor: null
-      version: 14.0.1000.169
-      version_major: 14
-      version_minor: 0
-      windows_installer: 1
+  - arch: AMD64
+    authorized_cdf_prefix: ''
+    comments: ''
+    contact: ''
+    estimated_size: 744
+    help_link: https://go.microsoft.com/fwlink/?LinkId=154582
+    help_telephone: ''
+    install_date: '20220224'
+    install_location: ''
+    install_source: C:\SQLServer2017Media\Express_ENU\x64\setup\
+    language: 1033
+    modify_path: MsiExec.exe /I{2C6E8311-28BD-4615-9545-6E39E8E83A4B}
+    name: SQL Server 2017 Batch Parser
+    no_repair: 1
+    publisher: Microsoft Corporation
+    readme: Placeholder for ARP readme in case of no UI
+    size: ''
+    source: windows_registry
+    system_component: 1
+    uninstall_string: MsiExec.exe /I{2C6E8311-28BD-4615-9545-6E39E8E83A4B}
+    url_info_about: ''
+    url_update_info: ''
+    vendor: null
+    version: 14.0.1000.169
+    version_major: 14
+    version_minor: 0
+    windows_installer: 1
   SQL Server 2017 Common Files:
-    - arch: AMD64
-      authorized_cdf_prefix: ''
-      comments: ''
-      contact: ''
-      estimated_size: 21464
-      help_link: https://go.microsoft.com/fwlink/?LinkId=154582
-      help_telephone: ''
-      install_date: '20220224'
-      install_location: ''
-      install_source: C:\SQLServer2017Media\Express_ENU\x64\setup\
-      language: 1033
-      modify_path: MsiExec.exe /I{9D1C0509-D490-4E9E-ACF5-A73E5C53742D}
-      name: SQL Server 2017 Common Files
-      no_repair: 1
-      publisher: Microsoft Corporation
-      readme: Placeholder for ARP readme in case of no UI
-      size: ''
-      source: windows_registry
-      system_component: 1
-      uninstall_string: MsiExec.exe /I{9D1C0509-D490-4E9E-ACF5-A73E5C53742D}
-      url_info_about: ''
-      url_update_info: ''
-      vendor: null
-      version: 14.0.1000.169
-      version_major: 14
-      version_minor: 0
-      windows_installer: 1
-    - arch: AMD64
-      authorized_cdf_prefix: ''
-      comments: ''
-      contact: ''
-      estimated_size: 760
-      help_link: https://go.microsoft.com/fwlink/?LinkId=154582
-      help_telephone: ''
-      install_date: '20220224'
-      install_location: ''
-      install_source: C:\SQLServer2017Media\Express_ENU\1033_ENU_LP\x64\setup\
-      language: 1033
-      modify_path: MsiExec.exe /I{B777C4C0-A1CD-4AB9-99B1-AD5FBED6F8E5}
-      name: SQL Server 2017 Common Files
-      no_repair: 1
-      publisher: Microsoft Corporation
-      readme: Placeholder for ARP readme in case of no UI
-      size: ''
-      source: windows_registry
-      system_component: 1
-      uninstall_string: MsiExec.exe /I{B777C4C0-A1CD-4AB9-99B1-AD5FBED6F8E5}
-      url_info_about: ''
-      url_update_info: ''
-      vendor: null
-      version: 14.0.1000.169
-      version_major: 14
-      version_minor: 0
-      windows_installer: 1
+  - arch: AMD64
+    authorized_cdf_prefix: ''
+    comments: ''
+    contact: ''
+    estimated_size: 21464
+    help_link: https://go.microsoft.com/fwlink/?LinkId=154582
+    help_telephone: ''
+    install_date: '20220224'
+    install_location: ''
+    install_source: C:\SQLServer2017Media\Express_ENU\x64\setup\
+    language: 1033
+    modify_path: MsiExec.exe /I{9D1C0509-D490-4E9E-ACF5-A73E5C53742D}
+    name: SQL Server 2017 Common Files
+    no_repair: 1
+    publisher: Microsoft Corporation
+    readme: Placeholder for ARP readme in case of no UI
+    size: ''
+    source: windows_registry
+    system_component: 1
+    uninstall_string: MsiExec.exe /I{9D1C0509-D490-4E9E-ACF5-A73E5C53742D}
+    url_info_about: ''
+    url_update_info: ''
+    vendor: null
+    version: 14.0.1000.169
+    version_major: 14
+    version_minor: 0
+    windows_installer: 1
+  - arch: AMD64
+    authorized_cdf_prefix: ''
+    comments: ''
+    contact: ''
+    estimated_size: 760
+    help_link: https://go.microsoft.com/fwlink/?LinkId=154582
+    help_telephone: ''
+    install_date: '20220224'
+    install_location: ''
+    install_source: C:\SQLServer2017Media\Express_ENU\1033_ENU_LP\x64\setup\
+    language: 1033
+    modify_path: MsiExec.exe /I{B777C4C0-A1CD-4AB9-99B1-AD5FBED6F8E5}
+    name: SQL Server 2017 Common Files
+    no_repair: 1
+    publisher: Microsoft Corporation
+    readme: Placeholder for ARP readme in case of no UI
+    size: ''
+    source: windows_registry
+    system_component: 1
+    uninstall_string: MsiExec.exe /I{B777C4C0-A1CD-4AB9-99B1-AD5FBED6F8E5}
+    url_info_about: ''
+    url_update_info: ''
+    vendor: null
+    version: 14.0.1000.169
+    version_major: 14
+    version_minor: 0
+    windows_installer: 1
   SQL Server 2017 Connection Info:
-    - arch: AMD64
-      authorized_cdf_prefix: ''
-      comments: ''
-      contact: ''
-      estimated_size: 264
-      help_link: https://go.microsoft.com/fwlink/?LinkId=154582
-      help_telephone: ''
-      install_date: '20220224'
-      install_location: ''
-      install_source: C:\SQLServer2017Media\Express_ENU\1033_ENU_LP\x64\setup\
-      language: 1033
-      modify_path: MsiExec.exe /I{89A7644F-E056-4EC1-BFDE-9D1A531D6855}
-      name: SQL Server 2017 Connection Info
-      no_repair: 1
-      publisher: Microsoft Corporation
-      readme: Placeholder for ARP readme in case of no UI
-      size: ''
-      source: windows_registry
-      system_component: 1
-      uninstall_string: MsiExec.exe /I{89A7644F-E056-4EC1-BFDE-9D1A531D6855}
-      url_info_about: ''
-      url_update_info: ''
-      vendor: null
-      version: 14.0.1000.169
-      version_major: 14
-      version_minor: 0
-      windows_installer: 1
-    - arch: AMD64
-      authorized_cdf_prefix: ''
-      comments: ''
-      contact: ''
-      estimated_size: 884
-      help_link: https://go.microsoft.com/fwlink/?LinkId=154582
-      help_telephone: ''
-      install_date: '20220224'
-      install_location: ''
-      install_source: C:\SQLServer2017Media\Express_ENU\x64\setup\
-      language: 1033
-      modify_path: MsiExec.exe /I{A9A443F5-56E1-4FC6-937C-5F481345A843}
-      name: SQL Server 2017 Connection Info
-      no_repair: 1
-      publisher: Microsoft Corporation
-      readme: Placeholder for ARP readme in case of no UI
-      size: ''
-      source: windows_registry
-      system_component: 1
-      uninstall_string: MsiExec.exe /I{A9A443F5-56E1-4FC6-937C-5F481345A843}
-      url_info_about: ''
-      url_update_info: ''
-      vendor: null
-      version: 14.0.1000.169
-      version_major: 14
-      version_minor: 0
-      windows_installer: 1
+  - arch: AMD64
+    authorized_cdf_prefix: ''
+    comments: ''
+    contact: ''
+    estimated_size: 264
+    help_link: https://go.microsoft.com/fwlink/?LinkId=154582
+    help_telephone: ''
+    install_date: '20220224'
+    install_location: ''
+    install_source: C:\SQLServer2017Media\Express_ENU\1033_ENU_LP\x64\setup\
+    language: 1033
+    modify_path: MsiExec.exe /I{89A7644F-E056-4EC1-BFDE-9D1A531D6855}
+    name: SQL Server 2017 Connection Info
+    no_repair: 1
+    publisher: Microsoft Corporation
+    readme: Placeholder for ARP readme in case of no UI
+    size: ''
+    source: windows_registry
+    system_component: 1
+    uninstall_string: MsiExec.exe /I{89A7644F-E056-4EC1-BFDE-9D1A531D6855}
+    url_info_about: ''
+    url_update_info: ''
+    vendor: null
+    version: 14.0.1000.169
+    version_major: 14
+    version_minor: 0
+    windows_installer: 1
+  - arch: AMD64
+    authorized_cdf_prefix: ''
+    comments: ''
+    contact: ''
+    estimated_size: 884
+    help_link: https://go.microsoft.com/fwlink/?LinkId=154582
+    help_telephone: ''
+    install_date: '20220224'
+    install_location: ''
+    install_source: C:\SQLServer2017Media\Express_ENU\x64\setup\
+    language: 1033
+    modify_path: MsiExec.exe /I{A9A443F5-56E1-4FC6-937C-5F481345A843}
+    name: SQL Server 2017 Connection Info
+    no_repair: 1
+    publisher: Microsoft Corporation
+    readme: Placeholder for ARP readme in case of no UI
+    size: ''
+    source: windows_registry
+    system_component: 1
+    uninstall_string: MsiExec.exe /I{A9A443F5-56E1-4FC6-937C-5F481345A843}
+    url_info_about: ''
+    url_update_info: ''
+    vendor: null
+    version: 14.0.1000.169
+    version_major: 14
+    version_minor: 0
+    windows_installer: 1
   SQL Server 2017 DMF:
-    - arch: AMD64
-      authorized_cdf_prefix: ''
-      comments: ''
-      contact: ''
-      estimated_size: 1376
-      help_link: https://go.microsoft.com/fwlink/?LinkId=154582
-      help_telephone: ''
-      install_date: '20220224'
-      install_location: ''
-      install_source: C:\SQLServer2017Media\Express_ENU\x64\setup\
-      language: 1033
-      modify_path: MsiExec.exe /I{B9998A13-5563-496C-B95E-597FFC70B670}
-      name: SQL Server 2017 DMF
-      no_repair: 1
-      publisher: Microsoft Corporation
-      readme: Placeholder for ARP readme in case of no UI
-      size: ''
-      source: windows_registry
-      system_component: 1
-      uninstall_string: MsiExec.exe /I{B9998A13-5563-496C-B95E-597FFC70B670}
-      url_info_about: ''
-      url_update_info: ''
-      vendor: null
-      version: 14.0.1000.169
-      version_major: 14
-      version_minor: 0
-      windows_installer: 1
-    - arch: AMD64
-      authorized_cdf_prefix: ''
-      comments: ''
-      contact: ''
-      estimated_size: 408
-      help_link: https://go.microsoft.com/fwlink/?LinkId=154582
-      help_telephone: ''
-      install_date: '20220224'
-      install_location: ''
-      install_source: C:\SQLServer2017Media\Express_ENU\1033_ENU_LP\x64\setup\
-      language: 1033
-      modify_path: MsiExec.exe /I{D7D28BBF-3B0E-43F0-A457-331F1CD9E9EB}
-      name: SQL Server 2017 DMF
-      no_repair: 1
-      publisher: Microsoft Corporation
-      readme: Placeholder for ARP readme in case of no UI
-      size: ''
-      source: windows_registry
-      system_component: 1
-      uninstall_string: MsiExec.exe /I{D7D28BBF-3B0E-43F0-A457-331F1CD9E9EB}
-      url_info_about: ''
-      url_update_info: ''
-      vendor: null
-      version: 14.0.1000.169
-      version_major: 14
-      version_minor: 0
-      windows_installer: 1
+  - arch: AMD64
+    authorized_cdf_prefix: ''
+    comments: ''
+    contact: ''
+    estimated_size: 1376
+    help_link: https://go.microsoft.com/fwlink/?LinkId=154582
+    help_telephone: ''
+    install_date: '20220224'
+    install_location: ''
+    install_source: C:\SQLServer2017Media\Express_ENU\x64\setup\
+    language: 1033
+    modify_path: MsiExec.exe /I{B9998A13-5563-496C-B95E-597FFC70B670}
+    name: SQL Server 2017 DMF
+    no_repair: 1
+    publisher: Microsoft Corporation
+    readme: Placeholder for ARP readme in case of no UI
+    size: ''
+    source: windows_registry
+    system_component: 1
+    uninstall_string: MsiExec.exe /I{B9998A13-5563-496C-B95E-597FFC70B670}
+    url_info_about: ''
+    url_update_info: ''
+    vendor: null
+    version: 14.0.1000.169
+    version_major: 14
+    version_minor: 0
+    windows_installer: 1
+  - arch: AMD64
+    authorized_cdf_prefix: ''
+    comments: ''
+    contact: ''
+    estimated_size: 408
+    help_link: https://go.microsoft.com/fwlink/?LinkId=154582
+    help_telephone: ''
+    install_date: '20220224'
+    install_location: ''
+    install_source: C:\SQLServer2017Media\Express_ENU\1033_ENU_LP\x64\setup\
+    language: 1033
+    modify_path: MsiExec.exe /I{D7D28BBF-3B0E-43F0-A457-331F1CD9E9EB}
+    name: SQL Server 2017 DMF
+    no_repair: 1
+    publisher: Microsoft Corporation
+    readme: Placeholder for ARP readme in case of no UI
+    size: ''
+    source: windows_registry
+    system_component: 1
+    uninstall_string: MsiExec.exe /I{D7D28BBF-3B0E-43F0-A457-331F1CD9E9EB}
+    url_info_about: ''
+    url_update_info: ''
+    vendor: null
+    version: 14.0.1000.169
+    version_major: 14
+    version_minor: 0
+    windows_installer: 1
   SQL Server 2017 Database Engine Services:
-    - arch: AMD64
-      authorized_cdf_prefix: ''
-      comments: ''
-      contact: ''
-      estimated_size: 72372
-      help_link: https://go.microsoft.com/fwlink/?LinkId=154582
-      help_telephone: ''
-      install_date: '20220224'
-      install_location: ''
-      install_source: C:\SQLServer2017Media\Express_ENU\1033_ENU_LP\x64\setup\
-      language: 1033
-      modify_path: MsiExec.exe /I{28EEF6BA-A23A-42D2-86BA-A6BEE723B969}
-      name: SQL Server 2017 Database Engine Services
-      no_repair: 1
-      publisher: Microsoft Corporation
-      readme: Placeholder for ARP readme in case of no UI
-      size: ''
-      source: windows_registry
-      system_component: 1
-      uninstall_string: MsiExec.exe /I{28EEF6BA-A23A-42D2-86BA-A6BEE723B969}
-      url_info_about: ''
-      url_update_info: ''
-      vendor: null
-      version: 14.0.1000.169
-      version_major: 14
-      version_minor: 0
-      windows_installer: 1
-    - arch: AMD64
-      authorized_cdf_prefix: ''
-      comments: ''
-      contact: ''
-      estimated_size: 285556
-      help_link: https://go.microsoft.com/fwlink/?LinkId=154582
-      help_telephone: ''
-      install_date: '20220224'
-      install_location: ''
-      install_source: C:\SQLServer2017Media\Express_ENU\x64\setup\
-      language: 1033
-      modify_path: MsiExec.exe /I{DED314CA-0EFE-4593-9D66-EF75E5289A4C}
-      name: SQL Server 2017 Database Engine Services
-      no_repair: 1
-      publisher: Microsoft Corporation
-      readme: Placeholder for ARP readme in case of no UI
-      size: ''
-      source: windows_registry
-      system_component: 1
-      uninstall_string: MsiExec.exe /I{DED314CA-0EFE-4593-9D66-EF75E5289A4C}
-      url_info_about: ''
-      url_update_info: ''
-      vendor: null
-      version: 14.0.1000.169
-      version_major: 14
-      version_minor: 0
-      windows_installer: 1
+  - arch: AMD64
+    authorized_cdf_prefix: ''
+    comments: ''
+    contact: ''
+    estimated_size: 72372
+    help_link: https://go.microsoft.com/fwlink/?LinkId=154582
+    help_telephone: ''
+    install_date: '20220224'
+    install_location: ''
+    install_source: C:\SQLServer2017Media\Express_ENU\1033_ENU_LP\x64\setup\
+    language: 1033
+    modify_path: MsiExec.exe /I{28EEF6BA-A23A-42D2-86BA-A6BEE723B969}
+    name: SQL Server 2017 Database Engine Services
+    no_repair: 1
+    publisher: Microsoft Corporation
+    readme: Placeholder for ARP readme in case of no UI
+    size: ''
+    source: windows_registry
+    system_component: 1
+    uninstall_string: MsiExec.exe /I{28EEF6BA-A23A-42D2-86BA-A6BEE723B969}
+    url_info_about: ''
+    url_update_info: ''
+    vendor: null
+    version: 14.0.1000.169
+    version_major: 14
+    version_minor: 0
+    windows_installer: 1
+  - arch: AMD64
+    authorized_cdf_prefix: ''
+    comments: ''
+    contact: ''
+    estimated_size: 285556
+    help_link: https://go.microsoft.com/fwlink/?LinkId=154582
+    help_telephone: ''
+    install_date: '20220224'
+    install_location: ''
+    install_source: C:\SQLServer2017Media\Express_ENU\x64\setup\
+    language: 1033
+    modify_path: MsiExec.exe /I{DED314CA-0EFE-4593-9D66-EF75E5289A4C}
+    name: SQL Server 2017 Database Engine Services
+    no_repair: 1
+    publisher: Microsoft Corporation
+    readme: Placeholder for ARP readme in case of no UI
+    size: ''
+    source: windows_registry
+    system_component: 1
+    uninstall_string: MsiExec.exe /I{DED314CA-0EFE-4593-9D66-EF75E5289A4C}
+    url_info_about: ''
+    url_update_info: ''
+    vendor: null
+    version: 14.0.1000.169
+    version_major: 14
+    version_minor: 0
+    windows_installer: 1
   SQL Server 2017 Database Engine Shared:
-    - arch: AMD64
-      authorized_cdf_prefix: ''
-      comments: ''
-      contact: ''
-      estimated_size: 87436
-      help_link: https://go.microsoft.com/fwlink/?LinkId=154582
-      help_telephone: ''
-      install_date: '20220224'
-      install_location: ''
-      install_source: C:\SQLServer2017Media\Express_ENU\x64\setup\
-      language: 1033
-      modify_path: MsiExec.exe /I{0E22DBB4-691B-400C-B52D-8DFE8EC421AA}
-      name: SQL Server 2017 Database Engine Shared
-      no_repair: 1
-      publisher: Microsoft Corporation
-      readme: Placeholder for ARP readme in case of no UI
-      size: ''
-      source: windows_registry
-      system_component: 1
-      uninstall_string: MsiExec.exe /I{0E22DBB4-691B-400C-B52D-8DFE8EC421AA}
-      url_info_about: ''
-      url_update_info: ''
-      vendor: null
-      version: 14.0.1000.169
-      version_major: 14
-      version_minor: 0
-      windows_installer: 1
-    - arch: AMD64
-      authorized_cdf_prefix: ''
-      comments: ''
-      contact: ''
-      estimated_size: 11884
-      help_link: https://go.microsoft.com/fwlink/?LinkId=154582
-      help_telephone: ''
-      install_date: '20220224'
-      install_location: ''
-      install_source: C:\SQLServer2017Media\Express_ENU\1033_ENU_LP\x64\setup\
-      language: 1033
-      modify_path: MsiExec.exe /I{793F1C1E-5C83-4E33-A29B-6EAA7C1E791C}
-      name: SQL Server 2017 Database Engine Shared
-      no_repair: 1
-      publisher: Microsoft Corporation
-      readme: Placeholder for ARP readme in case of no UI
-      size: ''
-      source: windows_registry
-      system_component: 1
-      uninstall_string: MsiExec.exe /I{793F1C1E-5C83-4E33-A29B-6EAA7C1E791C}
-      url_info_about: ''
-      url_update_info: ''
-      vendor: null
-      version: 14.0.1000.169
-      version_major: 14
-      version_minor: 0
-      windows_installer: 1
+  - arch: AMD64
+    authorized_cdf_prefix: ''
+    comments: ''
+    contact: ''
+    estimated_size: 87436
+    help_link: https://go.microsoft.com/fwlink/?LinkId=154582
+    help_telephone: ''
+    install_date: '20220224'
+    install_location: ''
+    install_source: C:\SQLServer2017Media\Express_ENU\x64\setup\
+    language: 1033
+    modify_path: MsiExec.exe /I{0E22DBB4-691B-400C-B52D-8DFE8EC421AA}
+    name: SQL Server 2017 Database Engine Shared
+    no_repair: 1
+    publisher: Microsoft Corporation
+    readme: Placeholder for ARP readme in case of no UI
+    size: ''
+    source: windows_registry
+    system_component: 1
+    uninstall_string: MsiExec.exe /I{0E22DBB4-691B-400C-B52D-8DFE8EC421AA}
+    url_info_about: ''
+    url_update_info: ''
+    vendor: null
+    version: 14.0.1000.169
+    version_major: 14
+    version_minor: 0
+    windows_installer: 1
+  - arch: AMD64
+    authorized_cdf_prefix: ''
+    comments: ''
+    contact: ''
+    estimated_size: 11884
+    help_link: https://go.microsoft.com/fwlink/?LinkId=154582
+    help_telephone: ''
+    install_date: '20220224'
+    install_location: ''
+    install_source: C:\SQLServer2017Media\Express_ENU\1033_ENU_LP\x64\setup\
+    language: 1033
+    modify_path: MsiExec.exe /I{793F1C1E-5C83-4E33-A29B-6EAA7C1E791C}
+    name: SQL Server 2017 Database Engine Shared
+    no_repair: 1
+    publisher: Microsoft Corporation
+    readme: Placeholder for ARP readme in case of no UI
+    size: ''
+    source: windows_registry
+    system_component: 1
+    uninstall_string: MsiExec.exe /I{793F1C1E-5C83-4E33-A29B-6EAA7C1E791C}
+    url_info_about: ''
+    url_update_info: ''
+    vendor: null
+    version: 14.0.1000.169
+    version_major: 14
+    version_minor: 0
+    windows_installer: 1
   SQL Server 2017 SQL Diagnostics:
-    - arch: AMD64
-      authorized_cdf_prefix: ''
-      comments: ''
-      contact: ''
-      estimated_size: 516
-      help_link: https://go.microsoft.com/fwlink/?LinkId=154582
-      help_telephone: ''
-      install_date: '20220224'
-      install_location: ''
-      install_source: C:\SQLServer2017Media\Express_ENU\x64\setup\
-      language: 1033
-      modify_path: MsiExec.exe /I{DFA6A906-3024-49DE-87AD-750EAED2FA49}
-      name: SQL Server 2017 SQL Diagnostics
-      no_repair: 1
-      publisher: Microsoft Corporation
-      readme: Placeholder for ARP readme in case of no UI
-      size: ''
-      source: windows_registry
-      system_component: 1
-      uninstall_string: MsiExec.exe /I{DFA6A906-3024-49DE-87AD-750EAED2FA49}
-      url_info_about: ''
-      url_update_info: ''
-      vendor: null
-      version: 14.0.1000.169
-      version_major: 14
-      version_minor: 0
-      windows_installer: 1
+  - arch: AMD64
+    authorized_cdf_prefix: ''
+    comments: ''
+    contact: ''
+    estimated_size: 516
+    help_link: https://go.microsoft.com/fwlink/?LinkId=154582
+    help_telephone: ''
+    install_date: '20220224'
+    install_location: ''
+    install_source: C:\SQLServer2017Media\Express_ENU\x64\setup\
+    language: 1033
+    modify_path: MsiExec.exe /I{DFA6A906-3024-49DE-87AD-750EAED2FA49}
+    name: SQL Server 2017 SQL Diagnostics
+    no_repair: 1
+    publisher: Microsoft Corporation
+    readme: Placeholder for ARP readme in case of no UI
+    size: ''
+    source: windows_registry
+    system_component: 1
+    uninstall_string: MsiExec.exe /I{DFA6A906-3024-49DE-87AD-750EAED2FA49}
+    url_info_about: ''
+    url_update_info: ''
+    vendor: null
+    version: 14.0.1000.169
+    version_major: 14
+    version_minor: 0
+    windows_installer: 1
   SQL Server 2017 Shared Management Objects:
-    - arch: AMD64
-      authorized_cdf_prefix: ''
-      comments: ''
-      contact: ''
-      estimated_size: 5908
-      help_link: https://go.microsoft.com/fwlink/?LinkId=154582
-      help_telephone: ''
-      install_date: '20220224'
-      install_location: ''
-      install_source: C:\SQLServer2017Media\Express_ENU\1033_ENU_LP\x64\setup\
-      language: 1033
-      modify_path: MsiExec.exe /I{10855B1A-F7F2-4D8A-A725-9287C73BED5A}
-      name: SQL Server 2017 Shared Management Objects
-      no_repair: 1
-      publisher: Microsoft Corporation
-      readme: Placeholder for ARP readme in case of no UI
-      size: ''
-      source: windows_registry
-      system_component: 1
-      uninstall_string: MsiExec.exe /I{10855B1A-F7F2-4D8A-A725-9287C73BED5A}
-      url_info_about: ''
-      url_update_info: ''
-      vendor: null
-      version: 14.0.1000.169
-      version_major: 14
-      version_minor: 0
-      windows_installer: 1
-    - arch: AMD64
-      authorized_cdf_prefix: ''
-      comments: ''
-      contact: ''
-      estimated_size: 12528
-      help_link: https://go.microsoft.com/fwlink/?LinkId=154582
-      help_telephone: ''
-      install_date: '20220224'
-      install_location: ''
-      install_source: C:\SQLServer2017Media\Express_ENU\x64\setup\
-      language: 1033
-      modify_path: MsiExec.exe /I{6CBBF624-696C-499E-948D-ADBAFFA2F548}
-      name: SQL Server 2017 Shared Management Objects
-      no_repair: 1
-      publisher: Microsoft Corporation
-      readme: Placeholder for ARP readme in case of no UI
-      size: ''
-      source: windows_registry
-      system_component: 1
-      uninstall_string: MsiExec.exe /I{6CBBF624-696C-499E-948D-ADBAFFA2F548}
-      url_info_about: ''
-      url_update_info: ''
-      vendor: null
-      version: 14.0.1000.169
-      version_major: 14
-      version_minor: 0
-      windows_installer: 1
+  - arch: AMD64
+    authorized_cdf_prefix: ''
+    comments: ''
+    contact: ''
+    estimated_size: 5908
+    help_link: https://go.microsoft.com/fwlink/?LinkId=154582
+    help_telephone: ''
+    install_date: '20220224'
+    install_location: ''
+    install_source: C:\SQLServer2017Media\Express_ENU\1033_ENU_LP\x64\setup\
+    language: 1033
+    modify_path: MsiExec.exe /I{10855B1A-F7F2-4D8A-A725-9287C73BED5A}
+    name: SQL Server 2017 Shared Management Objects
+    no_repair: 1
+    publisher: Microsoft Corporation
+    readme: Placeholder for ARP readme in case of no UI
+    size: ''
+    source: windows_registry
+    system_component: 1
+    uninstall_string: MsiExec.exe /I{10855B1A-F7F2-4D8A-A725-9287C73BED5A}
+    url_info_about: ''
+    url_update_info: ''
+    vendor: null
+    version: 14.0.1000.169
+    version_major: 14
+    version_minor: 0
+    windows_installer: 1
+  - arch: AMD64
+    authorized_cdf_prefix: ''
+    comments: ''
+    contact: ''
+    estimated_size: 12528
+    help_link: https://go.microsoft.com/fwlink/?LinkId=154582
+    help_telephone: ''
+    install_date: '20220224'
+    install_location: ''
+    install_source: C:\SQLServer2017Media\Express_ENU\x64\setup\
+    language: 1033
+    modify_path: MsiExec.exe /I{6CBBF624-696C-499E-948D-ADBAFFA2F548}
+    name: SQL Server 2017 Shared Management Objects
+    no_repair: 1
+    publisher: Microsoft Corporation
+    readme: Placeholder for ARP readme in case of no UI
+    size: ''
+    source: windows_registry
+    system_component: 1
+    uninstall_string: MsiExec.exe /I{6CBBF624-696C-499E-948D-ADBAFFA2F548}
+    url_info_about: ''
+    url_update_info: ''
+    vendor: null
+    version: 14.0.1000.169
+    version_major: 14
+    version_minor: 0
+    windows_installer: 1
   SQL Server 2017 Shared Management Objects Extensions:
-    - arch: AMD64
-      authorized_cdf_prefix: ''
-      comments: ''
-      contact: ''
-      estimated_size: 4952
-      help_link: https://go.microsoft.com/fwlink/?LinkId=154582
-      help_telephone: ''
-      install_date: '20220224'
-      install_location: ''
-      install_source: C:\SQLServer2017Media\Express_ENU\x64\setup\
-      language: 1033
-      modify_path: MsiExec.exe /I{8C515C22-BE07-4908-985C-0AA9349E1ED4}
-      name: SQL Server 2017 Shared Management Objects Extensions
-      no_repair: 1
-      publisher: Microsoft Corporation
-      readme: Placeholder for ARP readme in case of no UI
-      size: ''
-      source: windows_registry
-      system_component: 1
-      uninstall_string: MsiExec.exe /I{8C515C22-BE07-4908-985C-0AA9349E1ED4}
-      url_info_about: ''
-      url_update_info: ''
-      vendor: null
-      version: 14.0.1000.169
-      version_major: 14
-      version_minor: 0
-      windows_installer: 1
-    - arch: AMD64
-      authorized_cdf_prefix: ''
-      comments: ''
-      contact: ''
-      estimated_size: 532
-      help_link: https://go.microsoft.com/fwlink/?LinkId=154582
-      help_telephone: ''
-      install_date: '20220224'
-      install_location: ''
-      install_source: C:\SQLServer2017Media\Express_ENU\1033_ENU_LP\x64\setup\
-      language: 1033
-      modify_path: MsiExec.exe /I{C6D92730-3EC0-47B1-8F6C-6F5635D1EFAC}
-      name: SQL Server 2017 Shared Management Objects Extensions
-      no_repair: 1
-      publisher: Microsoft Corporation
-      readme: Placeholder for ARP readme in case of no UI
-      size: ''
-      source: windows_registry
-      system_component: 1
-      uninstall_string: MsiExec.exe /I{C6D92730-3EC0-47B1-8F6C-6F5635D1EFAC}
-      url_info_about: ''
-      url_update_info: ''
-      vendor: null
-      version: 14.0.1000.169
-      version_major: 14
-      version_minor: 0
-      windows_installer: 1
+  - arch: AMD64
+    authorized_cdf_prefix: ''
+    comments: ''
+    contact: ''
+    estimated_size: 4952
+    help_link: https://go.microsoft.com/fwlink/?LinkId=154582
+    help_telephone: ''
+    install_date: '20220224'
+    install_location: ''
+    install_source: C:\SQLServer2017Media\Express_ENU\x64\setup\
+    language: 1033
+    modify_path: MsiExec.exe /I{8C515C22-BE07-4908-985C-0AA9349E1ED4}
+    name: SQL Server 2017 Shared Management Objects Extensions
+    no_repair: 1
+    publisher: Microsoft Corporation
+    readme: Placeholder for ARP readme in case of no UI
+    size: ''
+    source: windows_registry
+    system_component: 1
+    uninstall_string: MsiExec.exe /I{8C515C22-BE07-4908-985C-0AA9349E1ED4}
+    url_info_about: ''
+    url_update_info: ''
+    vendor: null
+    version: 14.0.1000.169
+    version_major: 14
+    version_minor: 0
+    windows_installer: 1
+  - arch: AMD64
+    authorized_cdf_prefix: ''
+    comments: ''
+    contact: ''
+    estimated_size: 532
+    help_link: https://go.microsoft.com/fwlink/?LinkId=154582
+    help_telephone: ''
+    install_date: '20220224'
+    install_location: ''
+    install_source: C:\SQLServer2017Media\Express_ENU\1033_ENU_LP\x64\setup\
+    language: 1033
+    modify_path: MsiExec.exe /I{C6D92730-3EC0-47B1-8F6C-6F5635D1EFAC}
+    name: SQL Server 2017 Shared Management Objects Extensions
+    no_repair: 1
+    publisher: Microsoft Corporation
+    readme: Placeholder for ARP readme in case of no UI
+    size: ''
+    source: windows_registry
+    system_component: 1
+    uninstall_string: MsiExec.exe /I{C6D92730-3EC0-47B1-8F6C-6F5635D1EFAC}
+    url_info_about: ''
+    url_update_info: ''
+    vendor: null
+    version: 14.0.1000.169
+    version_major: 14
+    version_minor: 0
+    windows_installer: 1
   SQL Server 2017 XEvent:
-    - arch: AMD64
-      authorized_cdf_prefix: ''
-      comments: ''
-      contact: ''
-      estimated_size: 84
-      help_link: https://go.microsoft.com/fwlink/?LinkId=154582
-      help_telephone: ''
-      install_date: '20220224'
-      install_location: ''
-      install_source: C:\SQLServer2017Media\Express_ENU\1033_ENU_LP\x64\setup\
-      language: 1033
-      modify_path: MsiExec.exe /I{12D2DB8D-80FF-4152-8F51-EDB3BD3C6976}
-      name: SQL Server 2017 XEvent
-      no_repair: 1
-      publisher: Microsoft Corporation
-      readme: Placeholder for ARP readme in case of no UI
-      size: ''
-      source: windows_registry
-      system_component: 1
-      uninstall_string: MsiExec.exe /I{12D2DB8D-80FF-4152-8F51-EDB3BD3C6976}
-      url_info_about: ''
-      url_update_info: ''
-      vendor: null
-      version: 14.0.1000.169
-      version_major: 14
-      version_minor: 0
-      windows_installer: 1
-    - arch: AMD64
-      authorized_cdf_prefix: ''
-      comments: ''
-      contact: ''
-      estimated_size: 732
-      help_link: https://go.microsoft.com/fwlink/?LinkId=154582
-      help_telephone: ''
-      install_date: '20220224'
-      install_location: ''
-      install_source: C:\SQLServer2017Media\Express_ENU\x64\setup\
-      language: 1033
-      modify_path: MsiExec.exe /I{AA2A015C-C210-413B-95F6-BF9D3CDD6E0D}
-      name: SQL Server 2017 XEvent
-      no_repair: 1
-      publisher: Microsoft Corporation
-      readme: Placeholder for ARP readme in case of no UI
-      size: ''
-      source: windows_registry
-      system_component: 1
-      uninstall_string: MsiExec.exe /I{AA2A015C-C210-413B-95F6-BF9D3CDD6E0D}
-      url_info_about: ''
-      url_update_info: ''
-      vendor: null
-      version: 14.0.1000.169
-      version_major: 14
-      version_minor: 0
-      windows_installer: 1
+  - arch: AMD64
+    authorized_cdf_prefix: ''
+    comments: ''
+    contact: ''
+    estimated_size: 84
+    help_link: https://go.microsoft.com/fwlink/?LinkId=154582
+    help_telephone: ''
+    install_date: '20220224'
+    install_location: ''
+    install_source: C:\SQLServer2017Media\Express_ENU\1033_ENU_LP\x64\setup\
+    language: 1033
+    modify_path: MsiExec.exe /I{12D2DB8D-80FF-4152-8F51-EDB3BD3C6976}
+    name: SQL Server 2017 XEvent
+    no_repair: 1
+    publisher: Microsoft Corporation
+    readme: Placeholder for ARP readme in case of no UI
+    size: ''
+    source: windows_registry
+    system_component: 1
+    uninstall_string: MsiExec.exe /I{12D2DB8D-80FF-4152-8F51-EDB3BD3C6976}
+    url_info_about: ''
+    url_update_info: ''
+    vendor: null
+    version: 14.0.1000.169
+    version_major: 14
+    version_minor: 0
+    windows_installer: 1
+  - arch: AMD64
+    authorized_cdf_prefix: ''
+    comments: ''
+    contact: ''
+    estimated_size: 732
+    help_link: https://go.microsoft.com/fwlink/?LinkId=154582
+    help_telephone: ''
+    install_date: '20220224'
+    install_location: ''
+    install_source: C:\SQLServer2017Media\Express_ENU\x64\setup\
+    language: 1033
+    modify_path: MsiExec.exe /I{AA2A015C-C210-413B-95F6-BF9D3CDD6E0D}
+    name: SQL Server 2017 XEvent
+    no_repair: 1
+    publisher: Microsoft Corporation
+    readme: Placeholder for ARP readme in case of no UI
+    size: ''
+    source: windows_registry
+    system_component: 1
+    uninstall_string: MsiExec.exe /I{AA2A015C-C210-413B-95F6-BF9D3CDD6E0D}
+    url_info_about: ''
+    url_update_info: ''
+    vendor: null
+    version: 14.0.1000.169
+    version_major: 14
+    version_minor: 0
+    windows_installer: 1
   SQL Server Management Studio:
-    - arch: AMD64
-      authorized_cdf_prefix: ''
-      comments: ''
-      contact: ''
-      estimated_size: 4796
-      help_link: http://go.microsoft.com/fwlink/?LinkId=154582
-      help_telephone: ''
-      install_date: '20220530'
-      install_location: ''
-      install_source: C:\ProgramData\Package Cache\{3A6E604C-766B-46F2-8E2D-4371B4CDF858}v15.0.18410.0\x64\
-      language: 1033
-      modify_path: MsiExec.exe /I{3A6E604C-766B-46F2-8E2D-4371B4CDF858}
-      name: SQL Server Management Studio
-      no_repair: 1
-      publisher: Microsoft Corporation
-      readme: Placeholder for ARP readme in case of no UI
-      size: ''
-      source: windows_registry
-      system_component: 1
-      uninstall_string: MsiExec.exe /I{3A6E604C-766B-46F2-8E2D-4371B4CDF858}
-      url_info_about: ''
-      url_update_info: ''
-      vendor: null
-      version: 15.0.18410.0
-      version_major: 15
-      version_minor: 0
-      windows_installer: 1
-    - arch: AMD64
-      authorized_cdf_prefix: ''
-      comments: ''
-      contact: ''
-      estimated_size: 215640
-      help_link: http://go.microsoft.com/fwlink/?LinkId=154582
-      help_telephone: ''
-      install_date: '20220530'
-      install_location: ''
-      install_source: C:\ProgramData\Package Cache\{F36F0BAF-ADF8-4865-83C5-6E947A1A579C}v15.0.18410.0\x64\
-      language: 1033
-      modify_path: MsiExec.exe /I{F36F0BAF-ADF8-4865-83C5-6E947A1A579C}
-      name: SQL Server Management Studio
-      no_repair: 1
-      publisher: Microsoft Corporation
-      readme: Placeholder for ARP readme in case of no UI
-      size: ''
-      source: windows_registry
-      system_component: 1
-      uninstall_string: MsiExec.exe /I{F36F0BAF-ADF8-4865-83C5-6E947A1A579C}
-      url_info_about: ''
-      url_update_info: ''
-      vendor: null
-      version: 15.0.18410.0
-      version_major: 15
-      version_minor: 0
-      windows_installer: 1
+  - arch: AMD64
+    authorized_cdf_prefix: ''
+    comments: ''
+    contact: ''
+    estimated_size: 4796
+    help_link: http://go.microsoft.com/fwlink/?LinkId=154582
+    help_telephone: ''
+    install_date: '20220530'
+    install_location: ''
+    install_source: C:\ProgramData\Package Cache\{3A6E604C-766B-46F2-8E2D-4371B4CDF858}v15.0.18410.0\x64\
+    language: 1033
+    modify_path: MsiExec.exe /I{3A6E604C-766B-46F2-8E2D-4371B4CDF858}
+    name: SQL Server Management Studio
+    no_repair: 1
+    publisher: Microsoft Corporation
+    readme: Placeholder for ARP readme in case of no UI
+    size: ''
+    source: windows_registry
+    system_component: 1
+    uninstall_string: MsiExec.exe /I{3A6E604C-766B-46F2-8E2D-4371B4CDF858}
+    url_info_about: ''
+    url_update_info: ''
+    vendor: null
+    version: 15.0.18410.0
+    version_major: 15
+    version_minor: 0
+    windows_installer: 1
+  - arch: AMD64
+    authorized_cdf_prefix: ''
+    comments: ''
+    contact: ''
+    estimated_size: 215640
+    help_link: http://go.microsoft.com/fwlink/?LinkId=154582
+    help_telephone: ''
+    install_date: '20220530'
+    install_location: ''
+    install_source: C:\ProgramData\Package Cache\{F36F0BAF-ADF8-4865-83C5-6E947A1A579C}v15.0.18410.0\x64\
+    language: 1033
+    modify_path: MsiExec.exe /I{F36F0BAF-ADF8-4865-83C5-6E947A1A579C}
+    name: SQL Server Management Studio
+    no_repair: 1
+    publisher: Microsoft Corporation
+    readme: Placeholder for ARP readme in case of no UI
+    size: ''
+    source: windows_registry
+    system_component: 1
+    uninstall_string: MsiExec.exe /I{F36F0BAF-ADF8-4865-83C5-6E947A1A579C}
+    url_info_about: ''
+    url_update_info: ''
+    vendor: null
+    version: 15.0.18410.0
+    version_major: 15
+    version_minor: 0
+    windows_installer: 1
   SQL Server Management Studio for Analysis Services:
-    - arch: AMD64
-      authorized_cdf_prefix: ''
-      comments: ''
-      contact: ''
-      estimated_size: 358312
-      help_link: http://go.microsoft.com/fwlink/?LinkId=154582
-      help_telephone: ''
-      install_date: '20220530'
-      install_location: ''
-      install_source: C:\ProgramData\Package Cache\{F6FCF9DB-1242-45FB-A1D5-CFDDA82FA70D}v15.0.18410.0\x64\
-      language: 1033
-      modify_path: MsiExec.exe /I{F6FCF9DB-1242-45FB-A1D5-CFDDA82FA70D}
-      name: SQL Server Management Studio for Analysis Services
-      no_repair: 1
-      publisher: Microsoft Corporation
-      readme: Placeholder for ARP readme in case of no UI
-      size: ''
-      source: windows_registry
-      system_component: 1
-      uninstall_string: MsiExec.exe /I{F6FCF9DB-1242-45FB-A1D5-CFDDA82FA70D}
-      url_info_about: ''
-      url_update_info: ''
-      vendor: null
-      version: 15.0.18410.0
-      version_major: 15
-      version_minor: 0
-      windows_installer: 1
+  - arch: AMD64
+    authorized_cdf_prefix: ''
+    comments: ''
+    contact: ''
+    estimated_size: 358312
+    help_link: http://go.microsoft.com/fwlink/?LinkId=154582
+    help_telephone: ''
+    install_date: '20220530'
+    install_location: ''
+    install_source: C:\ProgramData\Package Cache\{F6FCF9DB-1242-45FB-A1D5-CFDDA82FA70D}v15.0.18410.0\x64\
+    language: 1033
+    modify_path: MsiExec.exe /I{F6FCF9DB-1242-45FB-A1D5-CFDDA82FA70D}
+    name: SQL Server Management Studio for Analysis Services
+    no_repair: 1
+    publisher: Microsoft Corporation
+    readme: Placeholder for ARP readme in case of no UI
+    size: ''
+    source: windows_registry
+    system_component: 1
+    uninstall_string: MsiExec.exe /I{F6FCF9DB-1242-45FB-A1D5-CFDDA82FA70D}
+    url_info_about: ''
+    url_update_info: ''
+    vendor: null
+    version: 15.0.18410.0
+    version_major: 15
+    version_minor: 0
+    windows_installer: 1
   SQL Server Management Studio for Reporting Services:
-    - arch: AMD64
-      authorized_cdf_prefix: ''
-      comments: ''
-      contact: ''
-      estimated_size: 26840
-      help_link: http://go.microsoft.com/fwlink/?LinkId=154582
-      help_telephone: ''
-      install_date: '20220530'
-      install_location: ''
-      install_source: C:\ProgramData\Package Cache\{D91AA5D8-1080-487B-83B6-622061902012}v15.0.18410.0\x64\
-      language: 1033
-      modify_path: MsiExec.exe /I{D91AA5D8-1080-487B-83B6-622061902012}
-      name: SQL Server Management Studio for Reporting Services
-      no_repair: 1
-      publisher: Microsoft Corporation
-      readme: Placeholder for ARP readme in case of no UI
-      size: ''
-      source: windows_registry
-      system_component: 1
-      uninstall_string: MsiExec.exe /I{D91AA5D8-1080-487B-83B6-622061902012}
-      url_info_about: ''
-      url_update_info: ''
-      vendor: null
-      version: 15.0.18410.0
-      version_major: 15
-      version_minor: 0
-      windows_installer: 1
+  - arch: AMD64
+    authorized_cdf_prefix: ''
+    comments: ''
+    contact: ''
+    estimated_size: 26840
+    help_link: http://go.microsoft.com/fwlink/?LinkId=154582
+    help_telephone: ''
+    install_date: '20220530'
+    install_location: ''
+    install_source: C:\ProgramData\Package Cache\{D91AA5D8-1080-487B-83B6-622061902012}v15.0.18410.0\x64\
+    language: 1033
+    modify_path: MsiExec.exe /I{D91AA5D8-1080-487B-83B6-622061902012}
+    name: SQL Server Management Studio for Reporting Services
+    no_repair: 1
+    publisher: Microsoft Corporation
+    readme: Placeholder for ARP readme in case of no UI
+    size: ''
+    source: windows_registry
+    system_component: 1
+    uninstall_string: MsiExec.exe /I{D91AA5D8-1080-487B-83B6-622061902012}
+    url_info_about: ''
+    url_update_info: ''
+    vendor: null
+    version: 15.0.18410.0
+    version_major: 15
+    version_minor: 0
+    windows_installer: 1
   SSMS Post Install Tasks:
-    - arch: AMD64
-      authorized_cdf_prefix: ''
-      comments: ''
-      contact: ''
-      estimated_size: 296
-      help_link: ''
-      help_telephone: ''
-      install_date: '20220530'
-      install_location: ''
-      install_source: C:\ProgramData\Package Cache\{7AEA9B43-10CD-4D33-B116-621B81A45490}v15.0.18410.0\x64\
-      language: 1033
-      modify_path: MsiExec.exe /I{7AEA9B43-10CD-4D33-B116-621B81A45490}
-      name: SSMS Post Install Tasks
-      no_repair: null
-      publisher: Microsoft Corporation
-      readme: ''
-      size: ''
-      source: windows_registry
-      system_component: 1
-      uninstall_string: MsiExec.exe /I{7AEA9B43-10CD-4D33-B116-621B81A45490}
-      url_info_about: ''
-      url_update_info: ''
-      vendor: null
-      version: 15.0.18410.0
-      version_major: 15
-      version_minor: 0
-      windows_installer: 1
+  - arch: AMD64
+    authorized_cdf_prefix: ''
+    comments: ''
+    contact: ''
+    estimated_size: 296
+    help_link: ''
+    help_telephone: ''
+    install_date: '20220530'
+    install_location: ''
+    install_source: C:\ProgramData\Package Cache\{7AEA9B43-10CD-4D33-B116-621B81A45490}v15.0.18410.0\x64\
+    language: 1033
+    modify_path: MsiExec.exe /I{7AEA9B43-10CD-4D33-B116-621B81A45490}
+    name: SSMS Post Install Tasks
+    no_repair: null
+    publisher: Microsoft Corporation
+    readme: ''
+    size: ''
+    source: windows_registry
+    system_component: 1
+    uninstall_string: MsiExec.exe /I{7AEA9B43-10CD-4D33-B116-621B81A45490}
+    url_info_about: ''
+    url_update_info: ''
+    vendor: null
+    version: 15.0.18410.0
+    version_major: 15
+    version_minor: 0
+    windows_installer: 1
   Visual Studio 2017 Isolated Shell for SSMS:
-    - arch: x86
-      authorized_cdf_prefix: ''
-      comments: ''
-      contact: ''
-      estimated_size: 412588
-      help_link: ''
-      help_telephone: ''
-      install_date: '20220530'
-      install_location: ''
-      install_source: C:\ProgramData\Package Cache\{AAA9F15B-AF45-4562-9991-93A848D3A902}v15.0.28307.421\redist\
-      language: 1033
-      modify_path: MsiExec.exe /I{AAA9F15B-AF45-4562-9991-93A848D3A902}
-      name: Visual Studio 2017 Isolated Shell for SSMS
-      no_repair: null
-      publisher: Microsoft Corporation
-      readme: ''
-      size: ''
-      source: windows_registry
-      system_component: 1
-      uninstall_string: MsiExec.exe /I{AAA9F15B-AF45-4562-9991-93A848D3A902}
-      url_info_about: ''
-      url_update_info: ''
-      vendor: null
-      version: 15.0.28307.421
-      version_major: 15
-      version_minor: 0
-      windows_installer: 1
+  - arch: x86
+    authorized_cdf_prefix: ''
+    comments: ''
+    contact: ''
+    estimated_size: 412588
+    help_link: ''
+    help_telephone: ''
+    install_date: '20220530'
+    install_location: ''
+    install_source: C:\ProgramData\Package Cache\{AAA9F15B-AF45-4562-9991-93A848D3A902}v15.0.28307.421\redist\
+    language: 1033
+    modify_path: MsiExec.exe /I{AAA9F15B-AF45-4562-9991-93A848D3A902}
+    name: Visual Studio 2017 Isolated Shell for SSMS
+    no_repair: null
+    publisher: Microsoft Corporation
+    readme: ''
+    size: ''
+    source: windows_registry
+    system_component: 1
+    uninstall_string: MsiExec.exe /I{AAA9F15B-AF45-4562-9991-93A848D3A902}
+    url_info_about: ''
+    url_update_info: ''
+    vendor: null
+    version: 15.0.28307.421
+    version_major: 15
+    version_minor: 0
+    windows_installer: 1
   psqlODBC 13.00.0000:
-    - arch: AMD64
-      authorized_cdf_prefix: null
-      comments: ODBC drivers for PostgreSQL, packaged by EnterpriseDB
-      contact: ''
-      estimated_size: 13676
-      help_link: ''
-      help_telephone: null
-      install_date: '20220215'
-      install_location: C:\Program Files\PostgreSQL\psqlODBC
-      install_source: null
-      language: null
-      modify_path: null
-      name: psqlODBC 13.00.0000
-      no_repair: '1'
-      publisher: EnterpriseDB
-      readme: null
-      size: null
-      source: windows_registry
-      system_component: null
-      uninstall_string: '"C:\Program Files\PostgreSQL\psqlODBC\uninstall-psqlodbc.exe"'
-      url_info_about: ''
-      url_update_info: null
-      vendor: null
-      version: 13.00.0000-2
-      version_major: 13
-      version_minor: 0
-      windows_installer: null
-processes:
-  - cmdline: null
-    pid: '0'
-    ppid: '0'
-    user: null
-  - cmdline: null
-    pid: '4'
-    ppid: '0'
-    user: null
-  - cmdline: null
-    pid: '192'
-    ppid: '4'
-    user: NT AUTHORITY\SYSTEM
-  - cmdline: null
-    pid: '280'
-    ppid: '272'
-    user: NT AUTHORITY\SYSTEM
-  - cmdline: null
-    pid: '332'
-    ppid: '324'
-    user: NT AUTHORITY\SYSTEM
-  - cmdline: wininit.exe
-    pid: '340'
-    ppid: '272'
-    user: NT AUTHORITY\SYSTEM
-  - cmdline: winlogon.exe
-    pid: '368'
-    ppid: '324'
-    user: NT AUTHORITY\SYSTEM
-  - cmdline: null
-    pid: '428'
-    ppid: '340'
-    user: NT AUTHORITY\SYSTEM
-  - cmdline: C:\windows\system32\lsass.exe
-    pid: '436'
-    ppid: '340'
-    user: NT AUTHORITY\SYSTEM
-  - cmdline: C:\windows\system32\svchost.exe -k DcomLaunch
-    pid: '492'
-    ppid: '428'
-    user: NT AUTHORITY\SYSTEM
-  - cmdline: C:\windows\system32\svchost.exe -k RPCSS
-    pid: '520'
-    ppid: '428'
-    user: NT AUTHORITY\NETWORK SERVICE
-  - cmdline: '"dwm.exe"'
-    pid: '628'
-    ppid: '368'
-    user: Window Manager\DWM-1
-  - cmdline: C:\windows\System32\svchost.exe -k LocalServiceNetworkRestricted
-    pid: '648'
-    ppid: '428'
-    user: NT AUTHORITY\LOCAL SERVICE
-  - cmdline: C:\windows\system32\svchost.exe -k netsvcs
-    pid: '696'
-    ppid: '428'
-    user: NT AUTHORITY\SYSTEM
-  - cmdline: C:\windows\system32\svchost.exe -k LocalService
-    pid: '740'
-    ppid: '428'
-    user: NT AUTHORITY\LOCAL SERVICE
-  - cmdline: C:\windows\system32\svchost.exe -k NetworkService
-    pid: '836'
-    ppid: '428'
-    user: NT AUTHORITY\NETWORK SERVICE
-  - cmdline: C:\windows\system32\svchost.exe -k LocalServiceNoNetwork
-    pid: '984'
-    ppid: '428'
-    user: NT AUTHORITY\LOCAL SERVICE
-  - cmdline: C:\windows\System32\spoolsv.exe
-    pid: '516'
-    ppid: '428'
-    user: NT AUTHORITY\SYSTEM
-  - cmdline: C:\windows\system32\svchost.exe -k apphost
-    pid: '756'
-    ppid: '428'
-    user: NT AUTHORITY\SYSTEM
-  - cmdline: C:\windows\System32\svchost.exe -k utcsvc
-    pid: '912'
-    ppid: '428'
-    user: NT AUTHORITY\SYSTEM
-  - cmdline: C:\windows\system32\mqsvc.exe
-    pid: '236'
-    ppid: '428'
-    user: NT AUTHORITY\NETWORK SERVICE
-  - cmdline: '"C:\Program Files\Microsoft SQL Server\MSSQL14.SQLEXPRESS\MSSQL\Binn\sqlservr.exe" -sSQLEXPRESS'
-    pid: '1144'
-    ppid: '428'
-    user: NT SERVICE\MSSQL$SQLEXPRESS
-  - cmdline: C:\windows\Microsoft.NET\Framework64\v4.0.30319\SMSvcHost.exe
-    pid: '1216'
-    ppid: '428'
-    user: NT AUTHORITY\LOCAL SERVICE
-  - cmdline: '"C:\Program Files (x86)\PgBouncer\bin\pgbouncer.exe" --service "C:\Program Files (x86)\PgBouncer\share\pgbouncer.ini"'
-    pid: '1324'
-    ppid: '428'
-    user: NT AUTHORITY\SYSTEM
-  - cmdline: '"C:\Program Files\PostgreSQL\14\bin\pg_ctl.exe" runservice -N "postgresql-x64-14" -D "C:\Program Files\PostgreSQL\14\data" -w'
-    pid: '1432'
-    ppid: '428'
-    user: NT AUTHORITY\NETWORK SERVICE
-  - cmdline: '"C:\Program Files\Microsoft SQL Server\MSSQL14.SQLEXPRESS\MSSQL\Binn\sqlceip.exe" -Service SQLEXPRESS'
-    pid: '1492'
-    ppid: '428'
-    user: NT SERVICE\SQLTELEMETRY$SQLEXPRESS
-  - cmdline: '"C:\Program Files\Microsoft SQL Server\90\Shared\sqlwriter.exe"'
-    pid: '1544'
-    ppid: '428'
-    user: NT AUTHORITY\SYSTEM
-  - cmdline: C:\windows\System32\svchost.exe -k LocalSystemNetworkRestricted
-    pid: '1560'
-    ppid: '428'
-    user: NT AUTHORITY\SYSTEM
-  - cmdline: C:\windows\system32\svchost.exe -k iissvcs
-    pid: '1580'
-    ppid: '428'
-    user: NT AUTHORITY\SYSTEM
-  - cmdline: '"C:\Program Files\PostgreSQL\14\bin\postgres.exe" -D "C:\Program Files\PostgreSQL\14\data" '
-    pid: '1628'
-    ppid: '1432'
-    user: NT AUTHORITY\NETWORK SERVICE
-  - cmdline: \??\C:\windows\system32\conhost.exe 0x4
-    pid: '1640'
-    ppid: '1628'
-    user: NT AUTHORITY\NETWORK SERVICE
-  - cmdline: '"C:\windows\Microsoft.NET\Framework64\v4.0.30319\SMSvcHost.exe" -NetMsmqActivator'
-    pid: '1816'
-    ppid: '428'
-    user: NT AUTHORITY\NETWORK SERVICE
-  - cmdline: '"C:/Program Files/PostgreSQL/14/bin/postgres.exe" "--forklog" "5308" "5312" "0"'
-    pid: '1908'
-    ppid: '1628'
-    user: NT AUTHORITY\NETWORK SERVICE
-  - cmdline: '"C:/Program Files/PostgreSQL/14/bin/postgres.exe" "--forkboot" "5212" "-x5"'
-    pid: '1028'
-    ppid: '1628'
-    user: NT AUTHORITY\NETWORK SERVICE
-  - cmdline: '"C:/Program Files/PostgreSQL/14/bin/postgres.exe" "--forkboot" "5224" "-x3"'
-    pid: '72'
-    ppid: '1628'
-    user: NT AUTHORITY\NETWORK SERVICE
-  - cmdline: '"C:/Program Files/PostgreSQL/14/bin/postgres.exe" "--forkboot" "5204" "-x6"'
-    pid: '224'
-    ppid: '1628'
-    user: NT AUTHORITY\NETWORK SERVICE
-  - cmdline: '"C:/Program Files/PostgreSQL/14/bin/postgres.exe" "--forkavlauncher" "5196"'
-    pid: '1312'
-    ppid: '1628'
-    user: NT AUTHORITY\NETWORK SERVICE
-  - cmdline: '"C:/Program Files/PostgreSQL/14/bin/postgres.exe" "--forkcol" "5188"'
-    pid: '1336'
-    ppid: '1628'
-    user: NT AUTHORITY\NETWORK SERVICE
-  - cmdline: '"C:/Program Files/PostgreSQL/14/bin/postgres.exe" "--forkbgworker=0" "5180"'
-    pid: '1468'
-    ppid: '1628'
-    user: NT AUTHORITY\NETWORK SERVICE
-  - cmdline: C:\windows\System32\svchost.exe -k termsvcs
-    pid: '1644'
-    ppid: '428'
-    user: NT AUTHORITY\NETWORK SERVICE
-  - cmdline: C:\windows\system32\svchost.exe -k NetworkServiceNetworkRestricted
-    pid: '1748'
-    ppid: '428'
-    user: NT AUTHORITY\NETWORK SERVICE
-  - cmdline: 'taskhostex.exe '
-    pid: '2852'
-    ppid: '696'
-    user: TEST-NORM-WIN01\Administrator
-  - cmdline: C:\windows\Explorer.EXE
-    pid: '2980'
-    ppid: '2968'
-    user: TEST-NORM-WIN01\Administrator
-  - cmdline: '"C:\windows\system32\ServerManager.exe" '
-    pid: '2600'
-    ppid: '2860'
-    user: TEST-NORM-WIN01\Administrator
-  - cmdline: '"C:\Program Files\Internet Explorer\iexplore.exe" '
-    pid: '656'
-    ppid: '2980'
-    user: TEST-NORM-WIN01\Administrator
-  - cmdline: '"C:\Program Files (x86)\Internet Explorer\IEXPLORE.EXE" SCODEF:656 CREDAT:209921 /prefetch:2'
-    pid: '1960'
-    ppid: '656'
-    user: TEST-NORM-WIN01\Administrator
-  - cmdline: '"C:\Program Files (x86)\Internet Explorer\IEXPLORE.EXE" SCODEF:656 CREDAT:3879945 /prefetch:2'
-    pid: '2912'
-    ppid: '656'
-    user: TEST-NORM-WIN01\Administrator
-  - cmdline: C:\windows\System32\msdtc.exe
-    pid: '3004'
-    ppid: '428'
-    user: NT AUTHORITY\NETWORK SERVICE
-  - cmdline: C:/telegraf/telegraf.exe -config C:/telegraf/telegraf.conf -config-directory C:/telegraf/telegraf.d/
-    pid: '3088'
-    ppid: '428'
-    user: NT AUTHORITY\SYSTEM
-  - cmdline: '"C:\winlogbeat\winlogbeat.exe" -c "C:\winlogbeat\winlogbeat.yml" -path.home "C:\winlogbeat" -path.data "C:\ProgramData\winlogbeat" -path.logs "C:\ProgramData\winlogbeat\logs"'
-    pid: '2712'
-    ppid: '428'
-    user: NT AUTHORITY\SYSTEM
-  - cmdline: null
-    pid: '4032'
-    ppid: '2764'
-    user: NT AUTHORITY\SYSTEM
-  - cmdline: winlogon.exe
-    pid: '2108'
-    ppid: '2764'
-    user: NT AUTHORITY\SYSTEM
-  - cmdline: '"dwm.exe"'
-    pid: '2636'
-    ppid: '2108'
-    user: Window Manager\DWM-2
-  - cmdline: 'taskhostex.exe '
-    pid: '3696'
-    ppid: '696'
-    user: TEST-NORM-WIN01\iometrics
-  - cmdline: rdpclip
-    pid: '2584'
-    ppid: '1644'
-    user: TEST-NORM-WIN01\iometrics
-  - cmdline: C:\windows\Explorer.EXE
-    pid: '144'
-    ppid: '3588'
-    user: TEST-NORM-WIN01\iometrics
-  - cmdline: '"C:\windows\system32\ServerManager.exe" '
-    pid: '1304'
-    ppid: '548'
-    user: TEST-NORM-WIN01\iometrics
-  - cmdline: null
-    pid: '612'
-    ppid: '1716'
-    user: NT AUTHORITY\SYSTEM
-  - cmdline: winlogon.exe
-    pid: '2484'
-    ppid: '1716'
-    user: NT AUTHORITY\SYSTEM
-  - cmdline: '"LogonUI.exe" /flags:0x0'
-    pid: '3144'
-    ppid: '2484'
-    user: NT AUTHORITY\SYSTEM
-  - cmdline: '"dwm.exe"'
-    pid: '3356'
-    ppid: '2484'
-    user: Window Manager\DWM-4
-  - cmdline: rdpclip
-    pid: '3820'
-    ppid: '1644'
-    user: TEST-NORM-WIN01\Administrator
-  - cmdline: C:\windows\system32\wbem\wmiprvse.exe
-    pid: '5552'
-    ppid: '492'
-    user: NT AUTHORITY\NETWORK SERVICE
-  - cmdline: C:\windows\system32\WinrsHost.exe -Embedding
-    pid: '5184'
-    ppid: '492'
-    user: TEST-NORM-WIN01\Administrator
-  - cmdline: \??\C:\windows\system32\conhost.exe 0x4
-    pid: '9024'
-    ppid: '5184'
-    user: TEST-NORM-WIN01\Administrator
-  - cmdline: C:\windows\system32\WinrsHost.exe -Embedding
-    pid: '7264'
-    ppid: '492'
-    user: TEST-NORM-WIN01\Administrator
-  - cmdline: \??\C:\windows\system32\conhost.exe 0x4
-    pid: '5048'
-    ppid: '7264'
-    user: TEST-NORM-WIN01\Administrator
-  - cmdline: C:\windows\system32\wbem\wmiprvse.exe
-    pid: '4468'
-    ppid: '492'
-    user: NT AUTHORITY\SYSTEM
-  - cmdline: C:\windows\system32\WinrsHost.exe -Embedding
-    pid: '7944'
-    ppid: '492'
-    user: TEST-NORM-WIN01\Administrator
-  - cmdline: \??\C:\windows\system32\conhost.exe 0x4
-    pid: '6472'
-    ppid: '7944'
-    user: TEST-NORM-WIN01\Administrator
-  - cmdline: C:\windows\system32\cmd.exe /C PowerShell -NoProfile -NonInteractive -ExecutionPolicy Unrestricted -EncodedCommand UABvAHcAZQByAFMAaABlAGwAbAAgAC0ATgBvAFAAcgBvAGYAaQBsAGUAIAAtAE4AbwBuAEkAbgB0AGUAcgBhAGMAdABpAHYAZQAgAC0ARQB4AGUAYwB1AHQAaQBvAG4AUABvAGwAaQBjAHkAIABVAG4AcgBlAHMAdAByAGkAYwB0AGUAZAAgAC0ARQBuAGMAbwBkAGUAZABDAG8AbQBtAGEAbgBkACAASgBnAEIAagBBAEcAZwBBAFkAdwBCAHcAQQBDADQAQQBZAHcAQgB2AEEARwAwAEEASQBBAEEAMgBBAEQAVQBBAE0AQQBBAHcAQQBEAEUAQQBJAEEAQQArAEEAQwBBAEEASgBBAEIAdQBBAEgAVQBBAGIAQQBCAHMAQQBBAG8AQQBhAFEAQgBtAEEAQwBBAEEASwBBAEEAawBBAEYAQQBBAFUAdwBCAFcAQQBHAFUAQQBjAGcAQgB6AEEARwBrAEEAYgB3AEIAdQBBAEYAUQBBAFkAUQBCAGkAQQBHAHcAQQBaAFEAQQB1AEEARgBBAEEAVQB3AEIAVwBBAEcAVQBBAGMAZwBCAHoAQQBHAGsAQQBiAHcAQgB1AEEAQwBBAEEATABRAEIAcwBBAEgAUQBBAEkAQQBCAGIAQQBGAFkAQQBaAFEAQgB5AEEASABNAEEAYQBRAEIAdgBBAEcANABBAFgAUQBBAGkAQQBEAE0AQQBMAGcAQQB3AEEAQwBJAEEASwBRAEEAZwBBAEgAcwBBAEMAZwBBAG4AQQBIAHMAQQBJAGcAQgBtAEEARwBFAEEAYQBRAEIAcwBBAEcAVQBBAFoAQQBBAGkAQQBEAG8AQQBkAEEAQgB5AEEASABVAEEAWgBRAEEAcwBBAEMASQBBAGIAUQBCAHoAQQBHAGMAQQBJAGcAQQA2AEEAQwBJAEEAUQBRAEIAdQBBAEgATQBBAGEAUQBCAGkAQQBHAHcAQQBaAFEAQQBnAEEASABJAEEAWgBRAEIAeABBAEgAVQBBAGEAUQBCAHkAQQBHAFUAQQBjAHcAQQBnAEEARgBBAEEAYgB3AEIAMwBBAEcAVQBBAGMAZwBCAFQAQQBHAGcAQQBaAFEAQgBzAEEARwB3AEEASQBBAEIAMgBBAEQATQBBAEwAZwBBAHcAQQBDAEEAQQBiAHcAQgB5AEEAQwBBAEEAYgBnAEIAbABBAEgAYwBBAFoAUQBCAHkAQQBDAEkAQQBmAFEAQQBuAEEAQQBvAEEAWgBRAEIANABBAEcAawBBAGQAQQBBAGcAQQBEAEUAQQBDAGcAQgA5AEEAQQBvAEEASgBBAEIAbABBAEgAZwBBAFoAUQBCAGoAQQBGADgAQQBkAHcAQgB5AEEARwBFAEEAYwBBAEIAdwBBAEcAVQBBAGMAZwBCAGYAQQBIAE0AQQBkAEEAQgB5AEEAQwBBAEEAUABRAEEAZwBBAEMAUQBBAGEAUQBCAHUAQQBIAEEAQQBkAFEAQgAwAEEAQwBBAEEAZgBBAEEAZwBBAEUAOABBAGQAUQBCADAAQQBDADAAQQBVAHcAQgAwAEEASABJAEEAYQBRAEIAdQBBAEcAYwBBAEMAZwBBAGsAQQBIAE0AQQBjAEEAQgBzAEEARwBrAEEAZABBAEIAZgBBAEgAQQBBAFkAUQBCAHkAQQBIAFEAQQBjAHcAQQBnAEEARAAwAEEASQBBAEEAawBBAEcAVQBBAGUAQQBCAGwAQQBHAE0AQQBYAHcAQgAzAEEASABJAEEAWQBRAEIAdwBBAEgAQQBBAFoAUQBCAHkAQQBGADgAQQBjAHcAQgAwAEEASABJAEEATABnAEIAVABBAEgAQQBBAGIAQQBCAHAAQQBIAFEAQQBLAEEAQgBBAEEAQwBnAEEASQBnAEIAZwBBAEQAQQBBAFkAQQBBAHcAQQBHAEEAQQBNAEEAQgBnAEEARABBAEEASQBnAEEAcABBAEMAdwBBAEkAQQBBAHkAQQBDAHcAQQBJAEEAQgBiAEEARgBNAEEAZABBAEIAeQBBAEcAawBBAGIAZwBCAG4AQQBGAE0AQQBjAEEAQgBzAEEARwBrAEEAZABBAEIAUABBAEgAQQBBAGQAQQBCAHAAQQBHADgAQQBiAGcAQgB6AEEARgAwAEEATwBnAEEANgBBAEYASQBBAFoAUQBCAHQAQQBHADgAQQBkAGcAQgBsAEEARQBVAEEAYgBRAEIAdwBBAEgAUQBBAGUAUQBCAEYAQQBHADQAQQBkAEEAQgB5AEEARwBrAEEAWgBRAEIAegBBAEMAawBBAEMAZwBCAEoAQQBHAFkAQQBJAEEAQQBvAEEAQwAwAEEAYgBnAEIAdgBBAEgAUQBBAEkAQQBBAGsAQQBIAE0AQQBjAEEAQgBzAEEARwBrAEEAZABBAEIAZgBBAEgAQQBBAFkAUQBCAHkAQQBIAFEAQQBjAHcAQQB1AEEARQB3AEEAWgBRAEIAdQBBAEcAYwBBAGQAQQBCAG8AQQBDAEEAQQBMAFEAQgBsAEEASABFAEEASQBBAEEAeQBBAEMAawBBAEkAQQBCADcAQQBDAEEAQQBkAEEAQgBvAEEASABJAEEAYgB3AEIAMwBBAEMAQQBBAEkAZwBCAHAAQQBHADQAQQBkAGcAQgBoAEEARwB3AEEAYQBRAEIAawBBAEMAQQBBAGMAQQBCAGgAQQBIAGsAQQBiAEEAQgB2AEEARwBFAEEAWgBBAEEAaQBBAEMAQQBBAGYAUQBBAEsAQQBGAE0AQQBaAFEAQgAwAEEAQwAwAEEAVgBnAEIAaABBAEgASQBBAGEAUQBCAGgAQQBHAEkAQQBiAEEAQgBsAEEAQwBBAEEATABRAEIATwBBAEcARQBBAGIAUQBCAGwAQQBDAEEAQQBhAGcAQgB6AEEARwA4AEEAYgBnAEIAZgBBAEgASQBBAFkAUQBCADMAQQBDAEEAQQBMAFEAQgBXAEEARwBFAEEAYgBBAEIAMQBBAEcAVQBBAEkAQQBBAGsAQQBIAE0AQQBjAEEAQgBzAEEARwBrAEEAZABBAEIAZgBBAEgAQQBBAFkAUQBCAHkAQQBIAFEAQQBjAHcAQgBiAEEARABFAEEAWABRAEEASwBBAEMAUQBBAFoAUQBCADQAQQBHAFUAQQBZAHcAQgBmAEEASABjAEEAYwBnAEIAaABBAEgAQQBBAGMAQQBCAGwAQQBIAEkAQQBJAEEAQQA5AEEAQwBBAEEAVwB3AEIAVABBAEcATQBBAGMAZwBCAHAAQQBIAEEAQQBkAEEAQgBDAEEARwB3AEEAYgB3AEIAagBBAEcAcwBBAFgAUQBBADYAQQBEAG8AQQBRAHcAQgB5AEEARwBVAEEAWQBRAEIAMABBAEcAVQBBAEsAQQBBAGsAQQBIAE0AQQBjAEEAQgBzAEEARwBrAEEAZABBAEIAZgBBAEgAQQBBAFkAUQBCAHkAQQBIAFEAQQBjAHcAQgBiAEEARABBAEEAWABRAEEAcABBAEEAbwBBAEoAZwBBAGsAQQBHAFUAQQBlAEEAQgBsAEEARwBNAEEAWAB3AEIAMwBBAEgASQBBAFkAUQBCAHcAQQBIAEEAQQBaAFEAQgB5AEEAQQA9AD0A
-    pid: '8252'
-    ppid: '7944'
-    user: TEST-NORM-WIN01\Administrator
-  - cmdline: PowerShell  -NoProfile -NonInteractive -ExecutionPolicy Unrestricted -EncodedCommand UABvAHcAZQByAFMAaABlAGwAbAAgAC0ATgBvAFAAcgBvAGYAaQBsAGUAIAAtAE4AbwBuAEkAbgB0AGUAcgBhAGMAdABpAHYAZQAgAC0ARQB4AGUAYwB1AHQAaQBvAG4AUABvAGwAaQBjAHkAIABVAG4AcgBlAHMAdAByAGkAYwB0AGUAZAAgAC0ARQBuAGMAbwBkAGUAZABDAG8AbQBtAGEAbgBkACAASgBnAEIAagBBAEcAZwBBAFkAdwBCAHcAQQBDADQAQQBZAHcAQgB2AEEARwAwAEEASQBBAEEAMgBBAEQAVQBBAE0AQQBBAHcAQQBEAEUAQQBJAEEAQQArAEEAQwBBAEEASgBBAEIAdQBBAEgAVQBBAGIAQQBCAHMAQQBBAG8AQQBhAFEAQgBtAEEAQwBBAEEASwBBAEEAawBBAEYAQQBBAFUAdwBCAFcAQQBHAFUAQQBjAGcAQgB6AEEARwBrAEEAYgB3AEIAdQBBAEYAUQBBAFkAUQBCAGkAQQBHAHcAQQBaAFEAQQB1AEEARgBBAEEAVQB3AEIAVwBBAEcAVQBBAGMAZwBCAHoAQQBHAGsAQQBiAHcAQgB1AEEAQwBBAEEATABRAEIAcwBBAEgAUQBBAEkAQQBCAGIAQQBGAFkAQQBaAFEAQgB5AEEASABNAEEAYQBRAEIAdgBBAEcANABBAFgAUQBBAGkAQQBEAE0AQQBMAGcAQQB3AEEAQwBJAEEASwBRAEEAZwBBAEgAcwBBAEMAZwBBAG4AQQBIAHMAQQBJAGcAQgBtAEEARwBFAEEAYQBRAEIAcwBBAEcAVQBBAFoAQQBBAGkAQQBEAG8AQQBkAEEAQgB5AEEASABVAEEAWgBRAEEAcwBBAEMASQBBAGIAUQBCAHoAQQBHAGMAQQBJAGcAQQA2AEEAQwBJAEEAUQBRAEIAdQBBAEgATQBBAGEAUQBCAGkAQQBHAHcAQQBaAFEAQQBnAEEASABJAEEAWgBRAEIAeABBAEgAVQBBAGEAUQBCAHkAQQBHAFUAQQBjAHcAQQBnAEEARgBBAEEAYgB3AEIAMwBBAEcAVQBBAGMAZwBCAFQAQQBHAGcAQQBaAFEAQgBzAEEARwB3AEEASQBBAEIAMgBBAEQATQBBAEwAZwBBAHcAQQBDAEEAQQBiAHcAQgB5AEEAQwBBAEEAYgBnAEIAbABBAEgAYwBBAFoAUQBCAHkAQQBDAEkAQQBmAFEAQQBuAEEAQQBvAEEAWgBRAEIANABBAEcAawBBAGQAQQBBAGcAQQBEAEUAQQBDAGcAQgA5AEEAQQBvAEEASgBBAEIAbABBAEgAZwBBAFoAUQBCAGoAQQBGADgAQQBkAHcAQgB5AEEARwBFAEEAYwBBAEIAdwBBAEcAVQBBAGMAZwBCAGYAQQBIAE0AQQBkAEEAQgB5AEEAQwBBAEEAUABRAEEAZwBBAEMAUQBBAGEAUQBCAHUAQQBIAEEAQQBkAFEAQgAwAEEAQwBBAEEAZgBBAEEAZwBBAEUAOABBAGQAUQBCADAAQQBDADAAQQBVAHcAQgAwAEEASABJAEEAYQBRAEIAdQBBAEcAYwBBAEMAZwBBAGsAQQBIAE0AQQBjAEEAQgBzAEEARwBrAEEAZABBAEIAZgBBAEgAQQBBAFkAUQBCAHkAQQBIAFEAQQBjAHcAQQBnAEEARAAwAEEASQBBAEEAawBBAEcAVQBBAGUAQQBCAGwAQQBHAE0AQQBYAHcAQgAzAEEASABJAEEAWQBRAEIAdwBBAEgAQQBBAFoAUQBCAHkAQQBGADgAQQBjAHcAQgAwAEEASABJAEEATABnAEIAVABBAEgAQQBBAGIAQQBCAHAAQQBIAFEAQQBLAEEAQgBBAEEAQwBnAEEASQBnAEIAZwBBAEQAQQBBAFkAQQBBAHcAQQBHAEEAQQBNAEEAQgBnAEEARABBAEEASQBnAEEAcABBAEMAdwBBAEkAQQBBAHkAQQBDAHcAQQBJAEEAQgBiAEEARgBNAEEAZABBAEIAeQBBAEcAawBBAGIAZwBCAG4AQQBGAE0AQQBjAEEAQgBzAEEARwBrAEEAZABBAEIAUABBAEgAQQBBAGQAQQBCAHAAQQBHADgAQQBiAGcAQgB6AEEARgAwAEEATwBnAEEANgBBAEYASQBBAFoAUQBCAHQAQQBHADgAQQBkAGcAQgBsAEEARQBVAEEAYgBRAEIAdwBBAEgAUQBBAGUAUQBCAEYAQQBHADQAQQBkAEEAQgB5AEEARwBrAEEAWgBRAEIAegBBAEMAawBBAEMAZwBCAEoAQQBHAFkAQQBJAEEAQQBvAEEAQwAwAEEAYgBnAEIAdgBBAEgAUQBBAEkAQQBBAGsAQQBIAE0AQQBjAEEAQgBzAEEARwBrAEEAZABBAEIAZgBBAEgAQQBBAFkAUQBCAHkAQQBIAFEAQQBjAHcAQQB1AEEARQB3AEEAWgBRAEIAdQBBAEcAYwBBAGQAQQBCAG8AQQBDAEEAQQBMAFEAQgBsAEEASABFAEEASQBBAEEAeQBBAEMAawBBAEkAQQBCADcAQQBDAEEAQQBkAEEAQgBvAEEASABJAEEAYgB3AEIAMwBBAEMAQQBBAEkAZwBCAHAAQQBHADQAQQBkAGcAQgBoAEEARwB3AEEAYQBRAEIAawBBAEMAQQBBAGMAQQBCAGgAQQBIAGsAQQBiAEEAQgB2AEEARwBFAEEAWgBBAEEAaQBBAEMAQQBBAGYAUQBBAEsAQQBGAE0AQQBaAFEAQgAwAEEAQwAwAEEAVgBnAEIAaABBAEgASQBBAGEAUQBCAGgAQQBHAEkAQQBiAEEAQgBsAEEAQwBBAEEATABRAEIATwBBAEcARQBBAGIAUQBCAGwAQQBDAEEAQQBhAGcAQgB6AEEARwA4AEEAYgBnAEIAZgBBAEgASQBBAFkAUQBCADMAQQBDAEEAQQBMAFEAQgBXAEEARwBFAEEAYgBBAEIAMQBBAEcAVQBBAEkAQQBBAGsAQQBIAE0AQQBjAEEAQgBzAEEARwBrAEEAZABBAEIAZgBBAEgAQQBBAFkAUQBCAHkAQQBIAFEAQQBjAHcAQgBiAEEARABFAEEAWABRAEEASwBBAEMAUQBBAFoAUQBCADQAQQBHAFUAQQBZAHcAQgBmAEEASABjAEEAYwBnAEIAaABBAEgAQQBBAGMAQQBCAGwAQQBIAEkAQQBJAEEAQQA5AEEAQwBBAEEAVwB3AEIAVABBAEcATQBBAGMAZwBCAHAAQQBIAEEAQQBkAEEAQgBDAEEARwB3AEEAYgB3AEIAagBBAEcAcwBBAFgAUQBBADYAQQBEAG8AQQBRAHcAQgB5AEEARwBVAEEAWQBRAEIAMABBAEcAVQBBAEsAQQBBAGsAQQBIAE0AQQBjAEEAQgBzAEEARwBrAEEAZABBAEIAZgBBAEgAQQBBAFkAUQBCAHkAQQBIAFEAQQBjAHcAQgBiAEEARABBAEEAWABRAEEAcABBAEEAbwBBAEoAZwBBAGsAQQBHAFUAQQBlAEEAQgBsAEEARwBNAEEAWAB3AEIAMwBBAEgASQBBAFkAUQBCAHcAQQBIAEEAQQBaAFEAQgB5AEEAQQA9AD0A
-    pid: '2696'
-    ppid: '8252'
-    user: TEST-NORM-WIN01\Administrator
-  - cmdline: '"C:\windows\System32\WindowsPowerShell\v1.0\powershell.exe"  -NoProfile -NonInteractive -ExecutionPolicy Unrestricted -EncodedCommand JgBjAGgAYwBwAC4AYwBvAG0AIAA2ADUAMAAwADEAIAA+ACAAJABuAHUAbABsAAoAaQBmACAAKAAkAFAAUwBWAGUAcgBzAGkAbwBuAFQAYQBiAGwAZQAuAFAAUwBWAGUAcgBzAGkAbwBuACAALQBsAHQAIABbAFYAZQByAHMAaQBvAG4AXQAiADMALgAwACIAKQAgAHsACgAnAHsAIgBmAGEAaQBsAGUAZAAiADoAdAByAHUAZQAsACIAbQBzAGcAIgA6ACIAQQBuAHMAaQBiAGwAZQAgAHIAZQBxAHUAaQByAGUAcwAgAFAAbwB3AGUAcgBTAGgAZQBsAGwAIAB2ADMALgAwACAAbwByACAAbgBlAHcAZQByACIAfQAnAAoAZQB4AGkAdAAgADEACgB9AAoAJABlAHgAZQBjAF8AdwByAGEAcABwAGUAcgBfAHMAdAByACAAPQAgACQAaQBuAHAAdQB0ACAAfAAgAE8AdQB0AC0AUwB0AHIAaQBuAGcACgAkAHMAcABsAGkAdABfAHAAYQByAHQAcwAgAD0AIAAkAGUAeABlAGMAXwB3AHIAYQBwAHAAZQByAF8AcwB0AHIALgBTAHAAbABpAHQAKABAACgAIgBgADAAYAAwAGAAMABgADAAIgApACwAIAAyACwAIABbAFMAdAByAGkAbgBnAFMAcABsAGkAdABPAHAAdABpAG8AbgBzAF0AOgA6AFIAZQBtAG8AdgBlAEUAbQBwAHQAeQBFAG4AdAByAGkAZQBzACkACgBJAGYAIAAoAC0AbgBvAHQAIAAkAHMAcABsAGkAdABfAHAAYQByAHQAcwAuAEwAZQBuAGcAdABoACAALQBlAHEAIAAyACkAIAB7ACAAdABoAHIAbwB3ACAAIgBpAG4AdgBhAGwAaQBkACAAcABhAHkAbABvAGEAZAAiACAAfQAKAFMAZQB0AC0AVgBhAHIAaQBhAGIAbABlACAALQBOAGEAbQBlACAAagBzAG8AbgBfAHIAYQB3ACAALQBWAGEAbAB1AGUAIAAkAHMAcABsAGkAdABfAHAAYQByAHQAcwBbADEAXQAKACQAZQB4AGUAYwBfAHcAcgBhAHAAcABlAHIAIAA9ACAAWwBTAGMAcgBpAHAAdABCAGwAbwBjAGsAXQA6ADoAQwByAGUAYQB0AGUAKAAkAHMAcABsAGkAdABfAHAAYQByAHQAcwBbADAAXQApAAoAJgAkAGUAeABlAGMAXwB3AHIAYQBwAHAAZQByAA=='
-    pid: '2124'
-    ppid: '2696'
-    user: TEST-NORM-WIN01\Administrator
-dockers: { }
+  - arch: AMD64
+    authorized_cdf_prefix: null
+    comments: ODBC drivers for PostgreSQL, packaged by EnterpriseDB
+    contact: ''
+    estimated_size: 13676
+    help_link: ''
+    help_telephone: null
+    install_date: '20220215'
+    install_location: C:\Program Files\PostgreSQL\psqlODBC
+    install_source: null
+    language: null
+    modify_path: null
+    name: psqlODBC 13.00.0000
+    no_repair: '1'
+    publisher: EnterpriseDB
+    readme: null
+    size: null
+    source: windows_registry
+    system_component: null
+    uninstall_string: '"C:\Program Files\PostgreSQL\psqlODBC\uninstall-psqlodbc.exe"'
+    url_info_about: ''
+    url_update_info: null
+    vendor: null
+    version: 13.00.0000-2
+    version_major: 13
+    version_minor: 0
+    windows_installer: null
+"processes": [
+        {
+            "cmdline": null,
+            "cwd": "",
+            "pid": "0",
+            "ppid": "0",
+            "user": null
+        },
+        {
+            "cmdline": null,
+            "cwd": "",
+            "pid": "4",
+            "ppid": "0",
+            "user": null
+        },
+        {
+            "cmdline": null,
+            "cwd": "",
+            "pid": "192",
+            "ppid": "4",
+            "user": "NT AUTHORITY\\SYSTEM"
+        },
+        {
+            "cmdline": null,
+            "cwd": "",
+            "pid": "280",
+            "ppid": "272",
+            "user": "NT AUTHORITY\\SYSTEM"
+        },
+        {
+            "cmdline": null,
+            "cwd": "",
+            "pid": "332",
+            "ppid": "324",
+            "user": "NT AUTHORITY\\SYSTEM"
+        },
+        {
+            "cmdline": "wininit.exe",
+            "cwd": "",
+            "pid": "340",
+            "ppid": "272",
+            "user": "NT AUTHORITY\\SYSTEM"
+        },
+        {
+            "cmdline": "winlogon.exe",
+            "cwd": "",
+            "pid": "368",
+            "ppid": "324",
+            "user": "NT AUTHORITY\\SYSTEM"
+        },
+        {
+            "cmdline": null,
+            "cwd": "",
+            "pid": "428",
+            "ppid": "340",
+            "user": "NT AUTHORITY\\SYSTEM"
+        },
+        {
+            "cmdline": "C:\\windows\\system32\\lsass.exe",
+            "cwd": "C:\\windows\\system32\\",
+            "pid": "436",
+            "ppid": "340",
+            "user": "NT AUTHORITY\\SYSTEM"
+        },
+        {
+            "cmdline": "C:\\windows\\system32\\svchost.exe -k DcomLaunch",
+            "cwd": "C:\\windows\\system32\\",
+            "pid": "492",
+            "ppid": "428",
+            "user": "NT AUTHORITY\\SYSTEM"
+        },
+        {
+            "cmdline": "C:\\windows\\system32\\svchost.exe -k RPCSS",
+            "cwd": "C:\\windows\\system32\\",
+            "pid": "520",
+            "ppid": "428",
+            "user": "NT AUTHORITY\\NETWORK SERVICE"
+        },
+        {
+            "cmdline": "dwm.exe",
+            "cwd": "",
+            "pid": "628",
+            "ppid": "368",
+            "user": "Window Manager\\DWM-1"
+        },
+        {
+            "cmdline": "C:\\windows\\System32\\svchost.exe -k LocalServiceNetworkRestricted",
+            "cwd": "C:\\windows\\System32\\",
+            "pid": "648",
+            "ppid": "428",
+            "user": "NT AUTHORITY\\LOCAL SERVICE"
+        },
+        {
+            "cmdline": "C:\\windows\\system32\\svchost.exe -k netsvcs",
+            "cwd": "C:\\windows\\system32\\",
+            "pid": "696",
+            "ppid": "428",
+            "user": "NT AUTHORITY\\SYSTEM"
+        },
+        {
+            "cmdline": "C:\\windows\\system32\\svchost.exe -k LocalService",
+            "cwd": "C:\\windows\\system32\\",
+            "pid": "740",
+            "ppid": "428",
+            "user": "NT AUTHORITY\\LOCAL SERVICE"
+        },
+        {
+            "cmdline": "C:\\windows\\system32\\svchost.exe -k NetworkService",
+            "cwd": "C:\\windows\\system32\\",
+            "pid": "836",
+            "ppid": "428",
+            "user": "NT AUTHORITY\\NETWORK SERVICE"
+        },
+        {
+            "cmdline": "C:\\windows\\system32\\svchost.exe -k LocalServiceNoNetwork",
+            "cwd": "C:\\windows\\system32\\",
+            "pid": "984",
+            "ppid": "428",
+            "user": "NT AUTHORITY\\LOCAL SERVICE"
+        },
+        {
+            "cmdline": "C:\\windows\\System32\\spoolsv.exe",
+            "cwd": "C:\\windows\\System32\\",
+            "pid": "516",
+            "ppid": "428",
+            "user": "NT AUTHORITY\\SYSTEM"
+        },
+        {
+            "cmdline": "C:\\windows\\system32\\svchost.exe -k apphost",
+            "cwd": "C:\\windows\\system32\\",
+            "pid": "756",
+            "ppid": "428",
+            "user": "NT AUTHORITY\\SYSTEM"
+        },
+        {
+            "cmdline": "C:\\windows\\System32\\svchost.exe -k utcsvc",
+            "cwd": "C:\\windows\\System32\\",
+            "pid": "912",
+            "ppid": "428",
+            "user": "NT AUTHORITY\\SYSTEM"
+        },
+        {
+            "cmdline": "C:\\windows\\system32\\mqsvc.exe",
+            "cwd": "C:\\windows\\system32\\",
+            "pid": "236",
+            "ppid": "428",
+            "user": "NT AUTHORITY\\NETWORK SERVICE"
+        },
+        {
+            "cmdline": "C:\\Program Files\\Microsoft SQL Server\\MSSQL14.SQLEXPRESS\\MSSQL\\Binn\\sqlservr.exe\" -sSQLEXPRESS",
+            "cwd": "C:\\",
+            "pid": "1144",
+            "ppid": "428",
+            "user": "NT SERVICE\\MSSQL$SQLEXPRESS"
+        },
+        {
+            "cmdline": "C:\\windows\\Microsoft.NET\\Framework64\\v4.0.30319\\SMSvcHost.exe",
+            "cwd": "C:\\windows\\Microsoft.NET\\Framework64\\v4.0.30319\\",
+            "pid": "1216",
+            "ppid": "428",
+            "user": "NT AUTHORITY\\LOCAL SERVICE"
+        },
+        {
+            "cmdline": "C:\\Program Files (x86)\\PgBouncer\\bin\\pgbouncer.exe\" --service \"C:\\Program Files (x86)\\PgBouncer\\share\\pgbouncer.ini",
+            "cwd": "C:\\",
+            "pid": "1324",
+            "ppid": "428",
+            "user": "NT AUTHORITY\\SYSTEM"
+        },
+        {
+            "cmdline": "C:\\Program Files\\PostgreSQL\\14\\bin\\pg_ctl.exe\" runservice -N \"postgresql-x64-14\" -D \"C:\\Program Files\\PostgreSQL\\14\\data\" -w",
+            "cwd": "C:\\Program Files\\PostgreSQL\\14\\bin\\",
+            "pid": "1432",
+            "ppid": "428",
+            "user": "NT AUTHORITY\\NETWORK SERVICE"
+        },
+        {
+            "cmdline": "C:\\Program Files\\Microsoft SQL Server\\MSSQL14.SQLEXPRESS\\MSSQL\\Binn\\sqlceip.exe\" -Service SQLEXPRESS",
+            "cwd": "C:\\",
+            "pid": "1492",
+            "ppid": "428",
+            "user": "NT SERVICE\\SQLTELEMETRY$SQLEXPRESS"
+        },
+        {
+            "cmdline": "C:\\Program Files\\Microsoft SQL Server\\90\\Shared\\sqlwriter.exe",
+            "cwd": "C:\\",
+            "pid": "1544",
+            "ppid": "428",
+            "user": "NT AUTHORITY\\SYSTEM"
+        },
+        {
+            "cmdline": "C:\\windows\\System32\\svchost.exe -k LocalSystemNetworkRestricted",
+            "cwd": "C:\\windows\\System32\\",
+            "pid": "1560",
+            "ppid": "428",
+            "user": "NT AUTHORITY\\SYSTEM"
+        },
+        {
+            "cmdline": "C:\\windows\\system32\\svchost.exe -k iissvcs",
+            "cwd": "C:\\windows\\system32\\",
+            "pid": "1580",
+            "ppid": "428",
+            "user": "NT AUTHORITY\\SYSTEM"
+        },
+        {
+            "cmdline": "C:\\Program Files\\PostgreSQL\\14\\bin\\postgres.exe -D C:\\Program Files\\PostgreSQL\\14\\data",
+            "cwd": "C:\\Program Files\\PostgreSQL\\14\\bin\\",
+            "pid": "1628",
+            "ppid": "1432",
+            "user": "NT AUTHORITY\\NETWORK SERVICE"
+        },
+        {
+            "cmdline": "C:\\windows\\system32\\conhost.exe 0x4",
+            "cwd": "C:\\windows\\system32\\",
+            "pid": "1640",
+            "ppid": "1628",
+            "user": "NT AUTHORITY\\NETWORK SERVICE"
+        },
+        {
+            "cmdline": "C:\\windows\\Microsoft.NET\\Framework64\\v4.0.30319\\SMSvcHost.exe\" -NetMsmqActivator",
+            "cwd": "C:\\windows\\Microsoft.NET\\Framework64\\v4.0.30319\\",
+            "pid": "1816",
+            "ppid": "428",
+            "user": "NT AUTHORITY\\NETWORK SERVICE"
+        },
+        {
+            "cmdline": "C:/Program Files/PostgreSQL/14/bin/postgres.exe --forklog 5308 5312 0",
+            "cwd": "C:/Program Files/PostgreSQL/14/bin/",
+            "pid": "1908",
+            "ppid": "1628",
+            "user": "NT AUTHORITY\\NETWORK SERVICE"
+        },
+        {
+            "cmdline": "C:/Program Files/PostgreSQL/14/bin/postgres.exe --forkboot 5212 -x5",
+            "cwd": "C:/Program Files/PostgreSQL/14/bin/",
+            "pid": "1028",
+            "ppid": "1628",
+            "user": "NT AUTHORITY\\NETWORK SERVICE"
+        },
+        {
+            "cmdline": "C:/Program Files/PostgreSQL/14/bin/postgres.exe --forkboot 5224 -x3",
+            "cwd": "C:/Program Files/PostgreSQL/14/bin/",
+            "pid": "72",
+            "ppid": "1628",
+            "user": "NT AUTHORITY\\NETWORK SERVICE"
+        },
+        {
+            "cmdline": "C:/Program Files/PostgreSQL/14/bin/postgres.exe --forkboot 5204 -x6",
+            "cwd": "C:/Program Files/PostgreSQL/14/bin/",
+            "pid": "224",
+            "ppid": "1628",
+            "user": "NT AUTHORITY\\NETWORK SERVICE"
+        },
+        {
+            "cmdline": "C:/Program Files/PostgreSQL/14/bin/postgres.exe --forkavlauncher 5196",
+            "cwd": "C:/Program Files/PostgreSQL/14/bin/",
+            "pid": "1312",
+            "ppid": "1628",
+            "user": "NT AUTHORITY\\NETWORK SERVICE"
+        },
+        {
+            "cmdline": "C:/Program Files/PostgreSQL/14/bin/postgres.exe --forkcol 5188",
+            "cwd": "C:/Program Files/PostgreSQL/14/bin/",
+            "pid": "1336",
+            "ppid": "1628",
+            "user": "NT AUTHORITY\\NETWORK SERVICE"
+        },
+        {
+            "cmdline": "C:/Program Files/PostgreSQL/14/bin/postgres.exe --forkbgworker=0 5180",
+            "cwd": "C:/Program Files/PostgreSQL/14/bin/",
+            "pid": "1468",
+            "ppid": "1628",
+            "user": "NT AUTHORITY\\NETWORK SERVICE"
+        },
+        {
+            "cmdline": "C:\\windows\\System32\\svchost.exe -k termsvcs",
+            "cwd": "C:\\windows\\System32\\",
+            "pid": "1644",
+            "ppid": "428",
+            "user": "NT AUTHORITY\\NETWORK SERVICE"
+        },
+        {
+            "cmdline": "C:\\windows\\system32\\svchost.exe -k NetworkServiceNetworkRestricted",
+            "cwd": "C:\\windows\\system32\\",
+            "pid": "1748",
+            "ppid": "428",
+            "user": "NT AUTHORITY\\NETWORK SERVICE"
+        },
+        {
+            "cmdline": "taskhostex.exe ",
+            "cwd": "",
+            "pid": "2852",
+            "ppid": "696",
+            "user": "TEST-NORM-WIN01\\Administrator"
+        },
+        {
+            "cmdline": "C:\\windows\\Explorer.EXE",
+            "cwd": "C:\\windows\\",
+            "pid": "2980",
+            "ppid": "2968",
+            "user": "TEST-NORM-WIN01\\Administrator"
+        },
+        {
+            "cmdline": "C:\\windows\\system32\\ServerManager.exe\" ",
+            "cwd": "C:\\windows\\system32\\",
+            "pid": "2600",
+            "ppid": "2860",
+            "user": "TEST-NORM-WIN01\\Administrator"
+        },
+        {
+            "cmdline": "C:\\Program Files\\Internet Explorer\\iexplore.exe\" ",
+            "cwd": "C:\\",
+            "pid": "656",
+            "ppid": "2980",
+            "user": "TEST-NORM-WIN01\\Administrator"
+        },
+        {
+            "cmdline": "C:\\Program Files (x86)\\Internet Explorer\\IEXPLORE.EXE\" SCODEF:656 CREDAT:209921 /prefetch:2",
+            "cwd": "C:\\",
+            "pid": "1960",
+            "ppid": "656",
+            "user": "TEST-NORM-WIN01\\Administrator"
+        },
+        {
+            "cmdline": "C:\\Program Files (x86)\\Internet Explorer\\IEXPLORE.EXE\" SCODEF:656 CREDAT:3879945 /prefetch:2",
+            "cwd": "C:\\",
+            "pid": "2912",
+            "ppid": "656",
+            "user": "TEST-NORM-WIN01\\Administrator"
+        },
+        {
+            "cmdline": "C:\\windows\\System32\\msdtc.exe",
+            "cwd": "C:\\windows\\System32\\",
+            "pid": "3004",
+            "ppid": "428",
+            "user": "NT AUTHORITY\\NETWORK SERVICE"
+        },
+        {
+            "cmdline": "C:/telegraf/telegraf.exe -config C:/telegraf/telegraf.conf -config-directory C:/telegraf/telegraf.d/",
+            "cwd": "",
+            "pid": "3088",
+            "ppid": "428",
+            "user": "NT AUTHORITY\\SYSTEM"
+        },
+        {
+            "cmdline": "C:\\winlogbeat\\winlogbeat.exe\" -c \"C:\\winlogbeat\\winlogbeat.yml\" -path.home \"C:\\winlogbeat\" -path.data \"C:\\ProgramData\\winlogbeat\" -path.logs \"C:\\ProgramData\\winlogbeat\\logs",
+            "cwd": "C:\\winlogbeat\\",
+            "pid": "2712",
+            "ppid": "428",
+            "user": "NT AUTHORITY\\SYSTEM"
+        },
+        {
+            "cmdline": null,
+            "cwd": "",
+            "pid": "4032",
+            "ppid": "2764",
+            "user": "NT AUTHORITY\\SYSTEM"
+        },
+        {
+            "cmdline": "winlogon.exe",
+            "cwd": "",
+            "pid": "2108",
+            "ppid": "2764",
+            "user": "NT AUTHORITY\\SYSTEM"
+        },
+        {
+            "cmdline": "dwm.exe",
+            "cwd": "",
+            "pid": "2636",
+            "ppid": "2108",
+            "user": "Window Manager\\DWM-2"
+        },
+        {
+            "cmdline": "taskhostex.exe ",
+            "cwd": "",
+            "pid": "3696",
+            "ppid": "696",
+            "user": "TEST-NORM-WIN01\\iometrics"
+        },
+        {
+            "cmdline": "rdpclip",
+            "cwd": "",
+            "pid": "2584",
+            "ppid": "1644",
+            "user": "TEST-NORM-WIN01\\iometrics"
+        },
+        {
+            "cmdline": "C:\\windows\\Explorer.EXE",
+            "cwd": "C:\\windows\\",
+            "pid": "144",
+            "ppid": "3588",
+            "user": "TEST-NORM-WIN01\\iometrics"
+        },
+        {
+            "cmdline": "C:\\windows\\system32\\ServerManager.exe\" ",
+            "cwd": "C:\\windows\\system32\\",
+            "pid": "1304",
+            "ppid": "548",
+            "user": "TEST-NORM-WIN01\\iometrics"
+        },
+        {
+            "cmdline": null,
+            "cwd": "",
+            "pid": "612",
+            "ppid": "1716",
+            "user": "NT AUTHORITY\\SYSTEM"
+        },
+        {
+            "cmdline": "winlogon.exe",
+            "cwd": "",
+            "pid": "2484",
+            "ppid": "1716",
+            "user": "NT AUTHORITY\\SYSTEM"
+        },
+        {
+            "cmdline": "LogonUI.exe\" /flags:0x0",
+            "cwd": "",
+            "pid": "3144",
+            "ppid": "2484",
+            "user": "NT AUTHORITY\\SYSTEM"
+        },
+        {
+            "cmdline": "dwm.exe",
+            "cwd": "",
+            "pid": "3356",
+            "ppid": "2484",
+            "user": "Window Manager\\DWM-4"
+        },
+        {
+            "cmdline": "rdpclip",
+            "cwd": "",
+            "pid": "3820",
+            "ppid": "1644",
+            "user": "TEST-NORM-WIN01\\Administrator"
+        },
+        {
+            "cmdline": "C:\\windows\\system32\\wbem\\wmiprvse.exe",
+            "cwd": "C:\\windows\\system32\\wbem\\",
+            "pid": "5552",
+            "ppid": "492",
+            "user": "NT AUTHORITY\\NETWORK SERVICE"
+        },
+        {
+            "cmdline": "C:\\windows\\system32\\WinrsHost.exe -Embedding",
+            "cwd": "C:\\windows\\system32\\",
+            "pid": "5184",
+            "ppid": "492",
+            "user": "TEST-NORM-WIN01\\Administrator"
+        },
+        {
+            "cmdline": "\\??\\C:\\windows\\system32\\conhost.exe 0x4",
+            "cwd": "\\??\\C:\\windows\\system32\\",
+            "pid": "9024",
+            "ppid": "5184",
+            "user": "TEST-NORM-WIN01\\Administrator"
+        },
+        {
+            "cmdline": "C:\\windows\\system32\\WinrsHost.exe -Embedding",
+            "cwd": "C:\\windows\\system32\\",
+            "pid": "7264",
+            "ppid": "492",
+            "user": "TEST-NORM-WIN01\\Administrator"
+        },
+        {
+            "cmdline": "\\??\\C:\\windows\\system32\\conhost.exe 0x4",
+            "cwd": "\\??\\C:\\windows\\system32\\",
+            "pid": "5048",
+            "ppid": "7264",
+            "user": "TEST-NORM-WIN01\\Administrator"
+        },
+        {
+            "cmdline": "C:\\windows\\system32\\wbem\\wmiprvse.exe",
+            "cwd": "C:\\windows\\system32\\wbem\\",
+            "pid": "4468",
+            "ppid": "492",
+            "user": "NT AUTHORITY\\SYSTEM"
+        },
+        {
+            "cmdline": "C:\\windows\\system32\\WinrsHost.exe -Embedding",
+            "cwd": "C:\\windows\\system32\\",
+            "pid": "7944",
+            "ppid": "492",
+            "user": "TEST-NORM-WIN01\\Administrator"
+        },
+        {
+            "cmdline": "\\??\\C:\\windows\\system32\\conhost.exe 0x4",
+            "cwd": "\\??\\C:\\windows\\system32\\",
+            "pid": "6472",
+            "ppid": "7944",
+            "user": "TEST-NORM-WIN01\\Administrator"
+        },
+        {
+            "cmdline": "C:\\windows\\system32\\cmd.exe /C PowerShell -NoProfile -NonInteractive -ExecutionPolicy Unrestricted -EncodedCommand UABvAHcAZQByAFMAaABlAGwAbAAgAC0ATgBvAFAAcgBvAGYAaQBsAGUAIAAtAE4AbwBuAEkAbgB0AGUAcgBhAGMAdABpAHYAZQAgAC0ARQB4AGUAYwB1AHQAaQBvAG4AUABvAGwAaQBjAHkAIABVAG4AcgBlAHMAdAByAGkAYwB0AGUAZAAgAC0ARQBuAGMAbwBkAGUAZABDAG8AbQBtAGEAbgBkACAASgBnAEIAagBBAEcAZwBBAFkAdwBCAHcAQQBDADQAQQBZAHcAQgB2AEEARwAwAEEASQBBAEEAMgBBAEQAVQBBAE0AQQBBAHcAQQBEAEUAQQBJAEEAQQArAEEAQwBBAEEASgBBAEIAdQBBAEgAVQBBAGIAQQBCAHMAQQBBAG8AQQBhAFEAQgBtAEEAQwBBAEEASwBBAEEAawBBAEYAQQBBAFUAdwBCAFcAQQBHAFUAQQBjAGcAQgB6AEEARwBrAEEAYgB3AEIAdQBBAEYAUQBBAFkAUQBCAGkAQQBHAHcAQQBaAFEAQQB1AEEARgBBAEEAVQB3AEIAVwBBAEcAVQBBAGMAZwBCAHoAQQBHAGsAQQBiAHcAQgB1AEEAQwBBAEEATABRAEIAcwBBAEgAUQBBAEkAQQBCAGIAQQBGAFkAQQBaAFEAQgB5AEEASABNAEEAYQBRAEIAdgBBAEcANABBAFgAUQBBAGkAQQBEAE0AQQBMAGcAQQB3AEEAQwBJAEEASwBRAEEAZwBBAEgAcwBBAEMAZwBBAG4AQQBIAHMAQQBJAGcAQgBtAEEARwBFAEEAYQBRAEIAcwBBAEcAVQBBAFoAQQBBAGkAQQBEAG8AQQBkAEEAQgB5AEEASABVAEEAWgBRAEEAcwBBAEMASQBBAGIAUQBCAHoAQQBHAGMAQQBJAGcAQQA2AEEAQwBJAEEAUQBRAEIAdQBBAEgATQBBAGEAUQBCAGkAQQBHAHcAQQBaAFEAQQBnAEEASABJAEEAWgBRAEIAeABBAEgAVQBBAGEAUQBCAHkAQQBHAFUAQQBjAHcAQQBnAEEARgBBAEEAYgB3AEIAMwBBAEcAVQBBAGMAZwBCAFQAQQBHAGcAQQBaAFEAQgBzAEEARwB3AEEASQBBAEIAMgBBAEQATQBBAEwAZwBBAHcAQQBDAEEAQQBiAHcAQgB5AEEAQwBBAEEAYgBnAEIAbABBAEgAYwBBAFoAUQBCAHkAQQBDAEkAQQBmAFEAQQBuAEEAQQBvAEEAWgBRAEIANABBAEcAawBBAGQAQQBBAGcAQQBEAEUAQQBDAGcAQgA5AEEAQQBvAEEASgBBAEIAbABBAEgAZwBBAFoAUQBCAGoAQQBGADgAQQBkAHcAQgB5AEEARwBFAEEAYwBBAEIAdwBBAEcAVQBBAGMAZwBCAGYAQQBIAE0AQQBkAEEAQgB5AEEAQwBBAEEAUABRAEEAZwBBAEMAUQBBAGEAUQBCAHUAQQBIAEEAQQBkAFEAQgAwAEEAQwBBAEEAZgBBAEEAZwBBAEUAOABBAGQAUQBCADAAQQBDADAAQQBVAHcAQgAwAEEASABJAEEAYQBRAEIAdQBBAEcAYwBBAEMAZwBBAGsAQQBIAE0AQQBjAEEAQgBzAEEARwBrAEEAZABBAEIAZgBBAEgAQQBBAFkAUQBCAHkAQQBIAFEAQQBjAHcAQQBnAEEARAAwAEEASQBBAEEAawBBAEcAVQBBAGUAQQBCAGwAQQBHAE0AQQBYAHcAQgAzAEEASABJAEEAWQBRAEIAdwBBAEgAQQBBAFoAUQBCAHkAQQBGADgAQQBjAHcAQgAwAEEASABJAEEATABnAEIAVABBAEgAQQBBAGIAQQBCAHAAQQBIAFEAQQBLAEEAQgBBAEEAQwBnAEEASQBnAEIAZwBBAEQAQQBBAFkAQQBBAHcAQQBHAEEAQQBNAEEAQgBnAEEARABBAEEASQBnAEEAcABBAEMAdwBBAEkAQQBBAHkAQQBDAHcAQQBJAEEAQgBiAEEARgBNAEEAZABBAEIAeQBBAEcAawBBAGIAZwBCAG4AQQBGAE0AQQBjAEEAQgBzAEEARwBrAEEAZABBAEIAUABBAEgAQQBBAGQAQQBCAHAAQQBHADgAQQBiAGcAQgB6AEEARgAwAEEATwBnAEEANgBBAEYASQBBAFoAUQBCAHQAQQBHADgAQQBkAGcAQgBsAEEARQBVAEEAYgBRAEIAdwBBAEgAUQBBAGUAUQBCAEYAQQBHADQAQQBkAEEAQgB5AEEARwBrAEEAWgBRAEIAegBBAEMAawBBAEMAZwBCAEoAQQBHAFkAQQBJAEEAQQBvAEEAQwAwAEEAYgBnAEIAdgBBAEgAUQBBAEkAQQBBAGsAQQBIAE0AQQBjAEEAQgBzAEEARwBrAEEAZABBAEIAZgBBAEgAQQBBAFkAUQBCAHkAQQBIAFEAQQBjAHcAQQB1AEEARQB3AEEAWgBRAEIAdQBBAEcAYwBBAGQAQQBCAG8AQQBDAEEAQQBMAFEAQgBsAEEASABFAEEASQBBAEEAeQBBAEMAawBBAEkAQQBCADcAQQBDAEEAQQBkAEEAQgBvAEEASABJAEEAYgB3AEIAMwBBAEMAQQBBAEkAZwBCAHAAQQBHADQAQQBkAGcAQgBoAEEARwB3AEEAYQBRAEIAawBBAEMAQQBBAGMAQQBCAGgAQQBIAGsAQQBiAEEAQgB2AEEARwBFAEEAWgBBAEEAaQBBAEMAQQBBAGYAUQBBAEsAQQBGAE0AQQBaAFEAQgAwAEEAQwAwAEEAVgBnAEIAaABBAEgASQBBAGEAUQBCAGgAQQBHAEkAQQBiAEEAQgBsAEEAQwBBAEEATABRAEIATwBBAEcARQBBAGIAUQBCAGwAQQBDAEEAQQBhAGcAQgB6AEEARwA4AEEAYgBnAEIAZgBBAEgASQBBAFkAUQBCADMAQQBDAEEAQQBMAFEAQgBXAEEARwBFAEEAYgBBAEIAMQBBAEcAVQBBAEkAQQBBAGsAQQBIAE0AQQBjAEEAQgBzAEEARwBrAEEAZABBAEIAZgBBAEgAQQBBAFkAUQBCAHkAQQBIAFEAQQBjAHcAQgBiAEEARABFAEEAWABRAEEASwBBAEMAUQBBAFoAUQBCADQAQQBHAFUAQQBZAHcAQgBmAEEASABjAEEAYwBnAEIAaABBAEgAQQBBAGMAQQBCAGwAQQBIAEkAQQBJAEEAQQA5AEEAQwBBAEEAVwB3AEIAVABBAEcATQBBAGMAZwBCAHAAQQBIAEEAQQBkAEEAQgBDAEEARwB3AEEAYgB3AEIAagBBAEcAcwBBAFgAUQBBADYAQQBEAG8AQQBRAHcAQgB5AEEARwBVAEEAWQBRAEIAMABBAEcAVQBBAEsAQQBBAGsAQQBIAE0AQQBjAEEAQgBzAEEARwBrAEEAZABBAEIAZgBBAEgAQQBBAFkAUQBCAHkAQQBIAFEAQQBjAHcAQgBiAEEARABBAEEAWABRAEEAcABBAEEAbwBBAEoAZwBBAGsAQQBHAFUAQQBlAEEAQgBsAEEARwBNAEEAWAB3AEIAMwBBAEgASQBBAFkAUQBCAHcAQQBIAEEAQQBaAFEAQgB5AEEAQQA9AD0A",
+            "cwd": "C:\\windows\\system32\\",
+            "pid": "8252",
+            "ppid": "7944",
+            "user": "TEST-NORM-WIN01\\Administrator"
+        },
+        {
+            "cmdline": "PowerShell  -NoProfile -NonInteractive -ExecutionPolicy Unrestricted -EncodedCommand UABvAHcAZQByAFMAaABlAGwAbAAgAC0ATgBvAFAAcgBvAGYAaQBsAGUAIAAtAE4AbwBuAEkAbgB0AGUAcgBhAGMAdABpAHYAZQAgAC0ARQB4AGUAYwB1AHQAaQBvAG4AUABvAGwAaQBjAHkAIABVAG4AcgBlAHMAdAByAGkAYwB0AGUAZAAgAC0ARQBuAGMAbwBkAGUAZABDAG8AbQBtAGEAbgBkACAASgBnAEIAagBBAEcAZwBBAFkAdwBCAHcAQQBDADQAQQBZAHcAQgB2AEEARwAwAEEASQBBAEEAMgBBAEQAVQBBAE0AQQBBAHcAQQBEAEUAQQBJAEEAQQArAEEAQwBBAEEASgBBAEIAdQBBAEgAVQBBAGIAQQBCAHMAQQBBAG8AQQBhAFEAQgBtAEEAQwBBAEEASwBBAEEAawBBAEYAQQBBAFUAdwBCAFcAQQBHAFUAQQBjAGcAQgB6AEEARwBrAEEAYgB3AEIAdQBBAEYAUQBBAFkAUQBCAGkAQQBHAHcAQQBaAFEAQQB1AEEARgBBAEEAVQB3AEIAVwBBAEcAVQBBAGMAZwBCAHoAQQBHAGsAQQBiAHcAQgB1AEEAQwBBAEEATABRAEIAcwBBAEgAUQBBAEkAQQBCAGIAQQBGAFkAQQBaAFEAQgB5AEEASABNAEEAYQBRAEIAdgBBAEcANABBAFgAUQBBAGkAQQBEAE0AQQBMAGcAQQB3AEEAQwBJAEEASwBRAEEAZwBBAEgAcwBBAEMAZwBBAG4AQQBIAHMAQQBJAGcAQgBtAEEARwBFAEEAYQBRAEIAcwBBAEcAVQBBAFoAQQBBAGkAQQBEAG8AQQBkAEEAQgB5AEEASABVAEEAWgBRAEEAcwBBAEMASQBBAGIAUQBCAHoAQQBHAGMAQQBJAGcAQQA2AEEAQwBJAEEAUQBRAEIAdQBBAEgATQBBAGEAUQBCAGkAQQBHAHcAQQBaAFEAQQBnAEEASABJAEEAWgBRAEIAeABBAEgAVQBBAGEAUQBCAHkAQQBHAFUAQQBjAHcAQQBnAEEARgBBAEEAYgB3AEIAMwBBAEcAVQBBAGMAZwBCAFQAQQBHAGcAQQBaAFEAQgBzAEEARwB3AEEASQBBAEIAMgBBAEQATQBBAEwAZwBBAHcAQQBDAEEAQQBiAHcAQgB5AEEAQwBBAEEAYgBnAEIAbABBAEgAYwBBAFoAUQBCAHkAQQBDAEkAQQBmAFEAQQBuAEEAQQBvAEEAWgBRAEIANABBAEcAawBBAGQAQQBBAGcAQQBEAEUAQQBDAGcAQgA5AEEAQQBvAEEASgBBAEIAbABBAEgAZwBBAFoAUQBCAGoAQQBGADgAQQBkAHcAQgB5AEEARwBFAEEAYwBBAEIAdwBBAEcAVQBBAGMAZwBCAGYAQQBIAE0AQQBkAEEAQgB5AEEAQwBBAEEAUABRAEEAZwBBAEMAUQBBAGEAUQBCAHUAQQBIAEEAQQBkAFEAQgAwAEEAQwBBAEEAZgBBAEEAZwBBAEUAOABBAGQAUQBCADAAQQBDADAAQQBVAHcAQgAwAEEASABJAEEAYQBRAEIAdQBBAEcAYwBBAEMAZwBBAGsAQQBIAE0AQQBjAEEAQgBzAEEARwBrAEEAZABBAEIAZgBBAEgAQQBBAFkAUQBCAHkAQQBIAFEAQQBjAHcAQQBnAEEARAAwAEEASQBBAEEAawBBAEcAVQBBAGUAQQBCAGwAQQBHAE0AQQBYAHcAQgAzAEEASABJAEEAWQBRAEIAdwBBAEgAQQBBAFoAUQBCAHkAQQBGADgAQQBjAHcAQgAwAEEASABJAEEATABnAEIAVABBAEgAQQBBAGIAQQBCAHAAQQBIAFEAQQBLAEEAQgBBAEEAQwBnAEEASQBnAEIAZwBBAEQAQQBBAFkAQQBBAHcAQQBHAEEAQQBNAEEAQgBnAEEARABBAEEASQBnAEEAcABBAEMAdwBBAEkAQQBBAHkAQQBDAHcAQQBJAEEAQgBiAEEARgBNAEEAZABBAEIAeQBBAEcAawBBAGIAZwBCAG4AQQBGAE0AQQBjAEEAQgBzAEEARwBrAEEAZABBAEIAUABBAEgAQQBBAGQAQQBCAHAAQQBHADgAQQBiAGcAQgB6AEEARgAwAEEATwBnAEEANgBBAEYASQBBAFoAUQBCAHQAQQBHADgAQQBkAGcAQgBsAEEARQBVAEEAYgBRAEIAdwBBAEgAUQBBAGUAUQBCAEYAQQBHADQAQQBkAEEAQgB5AEEARwBrAEEAWgBRAEIAegBBAEMAawBBAEMAZwBCAEoAQQBHAFkAQQBJAEEAQQBvAEEAQwAwAEEAYgBnAEIAdgBBAEgAUQBBAEkAQQBBAGsAQQBIAE0AQQBjAEEAQgBzAEEARwBrAEEAZABBAEIAZgBBAEgAQQBBAFkAUQBCAHkAQQBIAFEAQQBjAHcAQQB1AEEARQB3AEEAWgBRAEIAdQBBAEcAYwBBAGQAQQBCAG8AQQBDAEEAQQBMAFEAQgBsAEEASABFAEEASQBBAEEAeQBBAEMAawBBAEkAQQBCADcAQQBDAEEAQQBkAEEAQgBvAEEASABJAEEAYgB3AEIAMwBBAEMAQQBBAEkAZwBCAHAAQQBHADQAQQBkAGcAQgBoAEEARwB3AEEAYQBRAEIAawBBAEMAQQBBAGMAQQBCAGgAQQBIAGsAQQBiAEEAQgB2AEEARwBFAEEAWgBBAEEAaQBBAEMAQQBBAGYAUQBBAEsAQQBGAE0AQQBaAFEAQgAwAEEAQwAwAEEAVgBnAEIAaABBAEgASQBBAGEAUQBCAGgAQQBHAEkAQQBiAEEAQgBsAEEAQwBBAEEATABRAEIATwBBAEcARQBBAGIAUQBCAGwAQQBDAEEAQQBhAGcAQgB6AEEARwA4AEEAYgBnAEIAZgBBAEgASQBBAFkAUQBCADMAQQBDAEEAQQBMAFEAQgBXAEEARwBFAEEAYgBBAEIAMQBBAEcAVQBBAEkAQQBBAGsAQQBIAE0AQQBjAEEAQgBzAEEARwBrAEEAZABBAEIAZgBBAEgAQQBBAFkAUQBCAHkAQQBIAFEAQQBjAHcAQgBiAEEARABFAEEAWABRAEEASwBBAEMAUQBBAFoAUQBCADQAQQBHAFUAQQBZAHcAQgBmAEEASABjAEEAYwBnAEIAaABBAEgAQQBBAGMAQQBCAGwAQQBIAEkAQQBJAEEAQQA5AEEAQwBBAEEAVwB3AEIAVABBAEcATQBBAGMAZwBCAHAAQQBIAEEAQQBkAEEAQgBDAEEARwB3AEEAYgB3AEIAagBBAEcAcwBBAFgAUQBBADYAQQBEAG8AQQBRAHcAQgB5AEEARwBVAEEAWQBRAEIAMABBAEcAVQBBAEsAQQBBAGsAQQBIAE0AQQBjAEEAQgBzAEEARwBrAEEAZABBAEIAZgBBAEgAQQBBAFkAUQBCAHkAQQBIAFEAQQBjAHcAQgBiAEEARABBAEEAWABRAEEAcABBAEEAbwBBAEoAZwBBAGsAQQBHAFUAQQBlAEEAQgBsAEEARwBNAEEAWAB3AEIAMwBBAEgASQBBAFkAUQBCAHcAQQBIAEEAQQBaAFEAQgB5AEEAQQA9AD0A",
+            "cwd": "",
+            "pid": "2696",
+            "ppid": "8252",
+            "user": "TEST-NORM-WIN01\\Administrator"
+        },
+        {
+            "cmdline": "C:\\windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\"  -NoProfile -NonInteractive -ExecutionPolicy Unrestricted -EncodedCommand JgBjAGgAYwBwAC4AYwBvAG0AIAA2ADUAMAAwADEAIAA+ACAAJABuAHUAbABsAAoAaQBmACAAKAAkAFAAUwBWAGUAcgBzAGkAbwBuAFQAYQBiAGwAZQAuAFAAUwBWAGUAcgBzAGkAbwBuACAALQBsAHQAIABbAFYAZQByAHMAaQBvAG4AXQAiADMALgAwACIAKQAgAHsACgAnAHsAIgBmAGEAaQBsAGUAZAAiADoAdAByAHUAZQAsACIAbQBzAGcAIgA6ACIAQQBuAHMAaQBiAGwAZQAgAHIAZQBxAHUAaQByAGUAcwAgAFAAbwB3AGUAcgBTAGgAZQBsAGwAIAB2ADMALgAwACAAbwByACAAbgBlAHcAZQByACIAfQAnAAoAZQB4AGkAdAAgADEACgB9AAoAJABlAHgAZQBjAF8AdwByAGEAcABwAGUAcgBfAHMAdAByACAAPQAgACQAaQBuAHAAdQB0ACAAfAAgAE8AdQB0AC0AUwB0AHIAaQBuAGcACgAkAHMAcABsAGkAdABfAHAAYQByAHQAcwAgAD0AIAAkAGUAeABlAGMAXwB3AHIAYQBwAHAAZQByAF8AcwB0AHIALgBTAHAAbABpAHQAKABAACgAIgBgADAAYAAwAGAAMABgADAAIgApACwAIAAyACwAIABbAFMAdAByAGkAbgBnAFMAcABsAGkAdABPAHAAdABpAG8AbgBzAF0AOgA6AFIAZQBtAG8AdgBlAEUAbQBwAHQAeQBFAG4AdAByAGkAZQBzACkACgBJAGYAIAAoAC0AbgBvAHQAIAAkAHMAcABsAGkAdABfAHAAYQByAHQAcwAuAEwAZQBuAGcAdABoACAALQBlAHEAIAAyACkAIAB7ACAAdABoAHIAbwB3ACAAIgBpAG4AdgBhAGwAaQBkACAAcABhAHkAbABvAGEAZAAiACAAfQAKAFMAZQB0AC0AVgBhAHIAaQBhAGIAbABlACAALQBOAGEAbQBlACAAagBzAG8AbgBfAHIAYQB3ACAALQBWAGEAbAB1AGUAIAAkAHMAcABsAGkAdABfAHAAYQByAHQAcwBbADEAXQAKACQAZQB4AGUAYwBfAHcAcgBhAHAAcABlAHIAIAA9ACAAWwBTAGMAcgBpAHAAdABCAGwAbwBjAGsAXQA6ADoAQwByAGUAYQB0AGUAKAAkAHMAcABsAGkAdABfAHAAYQByAHQAcwBbADAAXQApAAoAJgAkAGUAeABlAGMAXwB3AHIAYQBwAHAAZQByAA==",
+            "cwd": "C:\\windows\\System32\\WindowsPowerShell\\v1.0\\",
+            "pid": "2124",
+            "ppid": "2696",
+            "user": "TEST-NORM-WIN01\\Administrator"
+        }
+    ]
 software_list:
-  - cmd_regexp: postgres:|postgres\.exe.*?--fork
-    custom_tasks:
-      - include_tasks:
-          file: "{{ software_discovery__custom_tasks_definition_files_path }}/postgresql.yaml"
-        name: Include postgres specific plugins
-    name: PostgreSQL Database
-    pkg_regexp: postgresql.*-server|postgresql-\d
-    process_type: child
-    return_children: true
-    return_packages: true
-    vars:
-      connect_with_users:
-        - password: password
-          username: postgres
-      ignore_databases:
-        - postgres
-        - template0
-        - template1
-      sql_connection_extra_params: -h 127.0.0.1
+- cmd_regexp: postgres:|postgres\.exe.*?--fork
+  custom_tasks:
+  - include_tasks:
+      file: '{{ software_discovery__custom_tasks_definition_files_path }}/postgresql.yaml'
+    name: Include postgres specific plugins
+  name: PostgreSQL Database
+  pkg_regexp: postgresql.*-server|postgresql-\d
+  process_type: child
+  return_children: true
+  return_packages: true
+  vars:
+    connect_with_users:
+    - password: password
+      username: postgres
+    ignore_databases:
+    - postgres
+    - template0
+    - template1
+    sql_connection_extra_params: -h 127.0.0.1
 tcp_listen:
-  - address: '::'
-    name: sqlservr.exe
-    pid: 1144
-    port: 49350
-    protocol: tcp
-    stime: Wed Dec 21 12:02:28 2022
-    user: NT SERVICE\MSSQL$SQLEXPRESS
-  - address: '::'
-    name: services.exe
-    pid: 428
-    port: 49160
-    protocol: tcp
-    stime: Wed Dec 21 12:02:23 2022
-    user: NT AUTHORITY\SYSTEM
-  - address: '::'
-    name: lsass.exe
-    pid: 436
-    port: 49159
-    protocol: tcp
-    stime: Wed Dec 21 12:02:23 2022
-    user: NT AUTHORITY\SYSTEM
-  - address: '::'
-    name: mqsvc.exe
-    pid: 236
-    port: 49156
-    protocol: tcp
-    stime: Wed Dec 21 12:02:27 2022
-    user: NT AUTHORITY\NETWORK SERVICE
-  - address: '::'
-    name: spoolsv.exe
-    pid: 516
-    port: 49155
-    protocol: tcp
-    stime: Wed Dec 21 12:02:27 2022
-    user: NT AUTHORITY\SYSTEM
-  - address: '::'
-    name: svchost.exe
-    pid: 696
-    port: 49154
-    protocol: tcp
-    stime: Wed Dec 21 12:02:25 2022
-    user: NT AUTHORITY\SYSTEM
-  - address: '::'
-    name: svchost.exe
-    pid: 648
-    port: 49153
-    protocol: tcp
-    stime: Wed Dec 21 12:02:25 2022
-    user: NT AUTHORITY\LOCAL SERVICE
-  - address: '::'
-    name: wininit.exe
-    pid: 340
-    port: 49152
-    protocol: tcp
-    stime: Wed Dec 21 12:02:22 2022
-    user: NT AUTHORITY\SYSTEM
-  - address: '::'
-    name: System
-    pid: 4
-    port: 47001
-    protocol: tcp
-    stime: Wed Dec 21 12:02:20 2022
-    user: null
-  - address: ::1
-    name: pgbouncer.exe
-    pid: 1324
-    port: 6432
-    protocol: tcp
-    stime: Wed Dec 21 12:02:30 2022
-    user: NT AUTHORITY\SYSTEM
-  - address: '::'
-    name: System
-    pid: 4
-    port: 5986
-    protocol: tcp
-    stime: Wed Dec 21 12:02:20 2022
-    user: null
-  - address: '::'
-    name: System
-    pid: 4
-    port: 5985
-    protocol: tcp
-    stime: Wed Dec 21 12:02:20 2022
-    user: null
-  - address: '::'
-    name: postgres.exe
-    pid: 1628
-    port: 5432
-    protocol: tcp
-    stime: Wed Dec 21 12:02:34 2022
-    user: NT AUTHORITY\NETWORK SERVICE
-  - address: '::'
-    name: svchost.exe
-    pid: 1644
-    port: 3389
-    protocol: tcp
-    stime: Wed Dec 21 12:02:35 2022
-    user: NT AUTHORITY\NETWORK SERVICE
-  - address: '::'
-    name: mqsvc.exe
-    pid: 236
-    port: 2107
-    protocol: tcp
-    stime: Wed Dec 21 12:02:27 2022
-    user: NT AUTHORITY\NETWORK SERVICE
-  - address: '::'
-    name: mqsvc.exe
-    pid: 236
-    port: 2105
-    protocol: tcp
-    stime: Wed Dec 21 12:02:27 2022
-    user: NT AUTHORITY\NETWORK SERVICE
-  - address: '::'
-    name: mqsvc.exe
-    pid: 236
-    port: 2103
-    protocol: tcp
-    stime: Wed Dec 21 12:02:27 2022
-    user: NT AUTHORITY\NETWORK SERVICE
-  - address: '::'
-    name: mqsvc.exe
-    pid: 236
-    port: 1801
-    protocol: tcp
-    stime: Wed Dec 21 12:02:27 2022
-    user: NT AUTHORITY\NETWORK SERVICE
-  - address: '::'
-    name: SMSvcHost.exe
-    pid: 1216
-    port: 808
-    protocol: tcp
-    stime: Wed Dec 21 12:02:29 2022
-    user: NT AUTHORITY\LOCAL SERVICE
-  - address: '::'
-    name: System
-    pid: 4
-    port: 800
-    protocol: tcp
-    stime: Wed Dec 21 12:02:20 2022
-    user: null
-  - address: '::'
-    name: System
-    pid: 4
-    port: 445
-    protocol: tcp
-    stime: Wed Dec 21 12:02:20 2022
-    user: null
-  - address: '::'
-    name: System
-    pid: 4
-    port: 443
-    protocol: tcp
-    stime: Wed Dec 21 12:02:20 2022
-    user: null
-  - address: '::'
-    name: svchost.exe
-    pid: 520
-    port: 135
-    protocol: tcp
-    stime: Wed Dec 21 12:02:24 2022
-    user: NT AUTHORITY\NETWORK SERVICE
-  - address: '::'
-    name: System
-    pid: 4
-    port: 80
-    protocol: tcp
-    stime: Wed Dec 21 12:02:20 2022
-    user: null
-  - address: 0.0.0.0
-    name: sqlservr.exe
-    pid: 1144
-    port: 49350
-    protocol: tcp
-    stime: Wed Dec 21 12:02:28 2022
-    user: NT SERVICE\MSSQL$SQLEXPRESS
-  - address: 0.0.0.0
-    name: services.exe
-    pid: 428
-    port: 49160
-    protocol: tcp
-    stime: Wed Dec 21 12:02:23 2022
-    user: NT AUTHORITY\SYSTEM
-  - address: 0.0.0.0
-    name: lsass.exe
-    pid: 436
-    port: 49159
-    protocol: tcp
-    stime: Wed Dec 21 12:02:23 2022
-    user: NT AUTHORITY\SYSTEM
-  - address: 0.0.0.0
-    name: mqsvc.exe
-    pid: 236
-    port: 49156
-    protocol: tcp
-    stime: Wed Dec 21 12:02:27 2022
-    user: NT AUTHORITY\NETWORK SERVICE
-  - address: 0.0.0.0
-    name: spoolsv.exe
-    pid: 516
-    port: 49155
-    protocol: tcp
-    stime: Wed Dec 21 12:02:27 2022
-    user: NT AUTHORITY\SYSTEM
-  - address: 0.0.0.0
-    name: svchost.exe
-    pid: 696
-    port: 49154
-    protocol: tcp
-    stime: Wed Dec 21 12:02:25 2022
-    user: NT AUTHORITY\SYSTEM
-  - address: 0.0.0.0
-    name: svchost.exe
-    pid: 648
-    port: 49153
-    protocol: tcp
-    stime: Wed Dec 21 12:02:25 2022
-    user: NT AUTHORITY\LOCAL SERVICE
-  - address: 0.0.0.0
-    name: wininit.exe
-    pid: 340
-    port: 49152
-    protocol: tcp
-    stime: Wed Dec 21 12:02:22 2022
-    user: NT AUTHORITY\SYSTEM
-  - address: 127.0.0.1
-    name: pgbouncer.exe
-    pid: 1324
-    port: 6432
-    protocol: tcp
-    stime: Wed Dec 21 12:02:30 2022
-    user: NT AUTHORITY\SYSTEM
-  - address: 0.0.0.0
-    name: postgres.exe
-    pid: 1628
-    port: 5432
-    protocol: tcp
-    stime: Wed Dec 21 12:02:34 2022
-    user: NT AUTHORITY\NETWORK SERVICE
-  - address: 0.0.0.0
-    name: svchost.exe
-    pid: 1644
-    port: 3389
-    protocol: tcp
-    stime: Wed Dec 21 12:02:35 2022
-    user: NT AUTHORITY\NETWORK SERVICE
-  - address: 0.0.0.0
-    name: mqsvc.exe
-    pid: 236
-    port: 2107
-    protocol: tcp
-    stime: Wed Dec 21 12:02:27 2022
-    user: NT AUTHORITY\NETWORK SERVICE
-  - address: 0.0.0.0
-    name: mqsvc.exe
-    pid: 236
-    port: 2105
-    protocol: tcp
-    stime: Wed Dec 21 12:02:27 2022
-    user: NT AUTHORITY\NETWORK SERVICE
-  - address: 0.0.0.0
-    name: mqsvc.exe
-    pid: 236
-    port: 2103
-    protocol: tcp
-    stime: Wed Dec 21 12:02:27 2022
-    user: NT AUTHORITY\NETWORK SERVICE
-  - address: 0.0.0.0
-    name: mqsvc.exe
-    pid: 236
-    port: 1801
-    protocol: tcp
-    stime: Wed Dec 21 12:02:27 2022
-    user: NT AUTHORITY\NETWORK SERVICE
-  - address: 0.0.0.0
-    name: SMSvcHost.exe
-    pid: 1216
-    port: 808
-    protocol: tcp
-    stime: Wed Dec 21 12:02:29 2022
-    user: NT AUTHORITY\LOCAL SERVICE
-  - address: 172.16.0.94
-    name: System
-    pid: 4
-    port: 139
-    protocol: tcp
-    stime: Wed Dec 21 12:02:20 2022
-    user: null
-  - address: 0.0.0.0
-    name: svchost.exe
-    pid: 520
-    port: 135
-    protocol: tcp
-    stime: Wed Dec 21 12:02:24 2022
-    user: NT AUTHORITY\NETWORK SERVICE
+- address: '::'
+  name: sqlservr.exe
+  pid: 1144
+  port: 49350
+  protocol: tcp
+  stime: Wed Dec 21 12:02:28 2022
+  user: NT SERVICE\MSSQL$SQLEXPRESS
+- address: '::'
+  name: services.exe
+  pid: 428
+  port: 49160
+  protocol: tcp
+  stime: Wed Dec 21 12:02:23 2022
+  user: NT AUTHORITY\SYSTEM
+- address: '::'
+  name: lsass.exe
+  pid: 436
+  port: 49159
+  protocol: tcp
+  stime: Wed Dec 21 12:02:23 2022
+  user: NT AUTHORITY\SYSTEM
+- address: '::'
+  name: mqsvc.exe
+  pid: 236
+  port: 49156
+  protocol: tcp
+  stime: Wed Dec 21 12:02:27 2022
+  user: NT AUTHORITY\NETWORK SERVICE
+- address: '::'
+  name: spoolsv.exe
+  pid: 516
+  port: 49155
+  protocol: tcp
+  stime: Wed Dec 21 12:02:27 2022
+  user: NT AUTHORITY\SYSTEM
+- address: '::'
+  name: svchost.exe
+  pid: 696
+  port: 49154
+  protocol: tcp
+  stime: Wed Dec 21 12:02:25 2022
+  user: NT AUTHORITY\SYSTEM
+- address: '::'
+  name: svchost.exe
+  pid: 648
+  port: 49153
+  protocol: tcp
+  stime: Wed Dec 21 12:02:25 2022
+  user: NT AUTHORITY\LOCAL SERVICE
+- address: '::'
+  name: wininit.exe
+  pid: 340
+  port: 49152
+  protocol: tcp
+  stime: Wed Dec 21 12:02:22 2022
+  user: NT AUTHORITY\SYSTEM
+- address: '::'
+  name: System
+  pid: 4
+  port: 47001
+  protocol: tcp
+  stime: Wed Dec 21 12:02:20 2022
+  user: null
+- address: ::1
+  name: pgbouncer.exe
+  pid: 1324
+  port: 6432
+  protocol: tcp
+  stime: Wed Dec 21 12:02:30 2022
+  user: NT AUTHORITY\SYSTEM
+- address: '::'
+  name: System
+  pid: 4
+  port: 5986
+  protocol: tcp
+  stime: Wed Dec 21 12:02:20 2022
+  user: null
+- address: '::'
+  name: System
+  pid: 4
+  port: 5985
+  protocol: tcp
+  stime: Wed Dec 21 12:02:20 2022
+  user: null
+- address: '::'
+  name: postgres.exe
+  pid: 1628
+  port: 5432
+  protocol: tcp
+  stime: Wed Dec 21 12:02:34 2022
+  user: NT AUTHORITY\NETWORK SERVICE
+- address: '::'
+  name: svchost.exe
+  pid: 1644
+  port: 3389
+  protocol: tcp
+  stime: Wed Dec 21 12:02:35 2022
+  user: NT AUTHORITY\NETWORK SERVICE
+- address: '::'
+  name: mqsvc.exe
+  pid: 236
+  port: 2107
+  protocol: tcp
+  stime: Wed Dec 21 12:02:27 2022
+  user: NT AUTHORITY\NETWORK SERVICE
+- address: '::'
+  name: mqsvc.exe
+  pid: 236
+  port: 2105
+  protocol: tcp
+  stime: Wed Dec 21 12:02:27 2022
+  user: NT AUTHORITY\NETWORK SERVICE
+- address: '::'
+  name: mqsvc.exe
+  pid: 236
+  port: 2103
+  protocol: tcp
+  stime: Wed Dec 21 12:02:27 2022
+  user: NT AUTHORITY\NETWORK SERVICE
+- address: '::'
+  name: mqsvc.exe
+  pid: 236
+  port: 1801
+  protocol: tcp
+  stime: Wed Dec 21 12:02:27 2022
+  user: NT AUTHORITY\NETWORK SERVICE
+- address: '::'
+  name: SMSvcHost.exe
+  pid: 1216
+  port: 808
+  protocol: tcp
+  stime: Wed Dec 21 12:02:29 2022
+  user: NT AUTHORITY\LOCAL SERVICE
+- address: '::'
+  name: System
+  pid: 4
+  port: 800
+  protocol: tcp
+  stime: Wed Dec 21 12:02:20 2022
+  user: null
+- address: '::'
+  name: System
+  pid: 4
+  port: 445
+  protocol: tcp
+  stime: Wed Dec 21 12:02:20 2022
+  user: null
+- address: '::'
+  name: System
+  pid: 4
+  port: 443
+  protocol: tcp
+  stime: Wed Dec 21 12:02:20 2022
+  user: null
+- address: '::'
+  name: svchost.exe
+  pid: 520
+  port: 135
+  protocol: tcp
+  stime: Wed Dec 21 12:02:24 2022
+  user: NT AUTHORITY\NETWORK SERVICE
+- address: '::'
+  name: System
+  pid: 4
+  port: 80
+  protocol: tcp
+  stime: Wed Dec 21 12:02:20 2022
+  user: null
+- address: 0.0.0.0
+  name: sqlservr.exe
+  pid: 1144
+  port: 49350
+  protocol: tcp
+  stime: Wed Dec 21 12:02:28 2022
+  user: NT SERVICE\MSSQL$SQLEXPRESS
+- address: 0.0.0.0
+  name: services.exe
+  pid: 428
+  port: 49160
+  protocol: tcp
+  stime: Wed Dec 21 12:02:23 2022
+  user: NT AUTHORITY\SYSTEM
+- address: 0.0.0.0
+  name: lsass.exe
+  pid: 436
+  port: 49159
+  protocol: tcp
+  stime: Wed Dec 21 12:02:23 2022
+  user: NT AUTHORITY\SYSTEM
+- address: 0.0.0.0
+  name: mqsvc.exe
+  pid: 236
+  port: 49156
+  protocol: tcp
+  stime: Wed Dec 21 12:02:27 2022
+  user: NT AUTHORITY\NETWORK SERVICE
+- address: 0.0.0.0
+  name: spoolsv.exe
+  pid: 516
+  port: 49155
+  protocol: tcp
+  stime: Wed Dec 21 12:02:27 2022
+  user: NT AUTHORITY\SYSTEM
+- address: 0.0.0.0
+  name: svchost.exe
+  pid: 696
+  port: 49154
+  protocol: tcp
+  stime: Wed Dec 21 12:02:25 2022
+  user: NT AUTHORITY\SYSTEM
+- address: 0.0.0.0
+  name: svchost.exe
+  pid: 648
+  port: 49153
+  protocol: tcp
+  stime: Wed Dec 21 12:02:25 2022
+  user: NT AUTHORITY\LOCAL SERVICE
+- address: 0.0.0.0
+  name: wininit.exe
+  pid: 340
+  port: 49152
+  protocol: tcp
+  stime: Wed Dec 21 12:02:22 2022
+  user: NT AUTHORITY\SYSTEM
+- address: 127.0.0.1
+  name: pgbouncer.exe
+  pid: 1324
+  port: 6432
+  protocol: tcp
+  stime: Wed Dec 21 12:02:30 2022
+  user: NT AUTHORITY\SYSTEM
+- address: 0.0.0.0
+  name: postgres.exe
+  pid: 1628
+  port: 5432
+  protocol: tcp
+  stime: Wed Dec 21 12:02:34 2022
+  user: NT AUTHORITY\NETWORK SERVICE
+- address: 0.0.0.0
+  name: svchost.exe
+  pid: 1644
+  port: 3389
+  protocol: tcp
+  stime: Wed Dec 21 12:02:35 2022
+  user: NT AUTHORITY\NETWORK SERVICE
+- address: 0.0.0.0
+  name: mqsvc.exe
+  pid: 236
+  port: 2107
+  protocol: tcp
+  stime: Wed Dec 21 12:02:27 2022
+  user: NT AUTHORITY\NETWORK SERVICE
+- address: 0.0.0.0
+  name: mqsvc.exe
+  pid: 236
+  port: 2105
+  protocol: tcp
+  stime: Wed Dec 21 12:02:27 2022
+  user: NT AUTHORITY\NETWORK SERVICE
+- address: 0.0.0.0
+  name: mqsvc.exe
+  pid: 236
+  port: 2103
+  protocol: tcp
+  stime: Wed Dec 21 12:02:27 2022
+  user: NT AUTHORITY\NETWORK SERVICE
+- address: 0.0.0.0
+  name: mqsvc.exe
+  pid: 236
+  port: 1801
+  protocol: tcp
+  stime: Wed Dec 21 12:02:27 2022
+  user: NT AUTHORITY\NETWORK SERVICE
+- address: 0.0.0.0
+  name: SMSvcHost.exe
+  pid: 1216
+  port: 808
+  protocol: tcp
+  stime: Wed Dec 21 12:02:29 2022
+  user: NT AUTHORITY\LOCAL SERVICE
+- address: 172.16.0.94
+  name: System
+  pid: 4
+  port: 139
+  protocol: tcp
+  stime: Wed Dec 21 12:02:20 2022
+  user: null
+- address: 0.0.0.0
+  name: svchost.exe
+  pid: 520
+  port: 135
+  protocol: tcp
+  stime: Wed Dec 21 12:02:24 2022
+  user: NT AUTHORITY\NETWORK SERVICE
 udp_listen:
-  - address: fe80::1002:b306:e05b:c850%12
-    name: System Idle Process
-    pid: null
-    port: 546
-    protocol: udp
-    stime: Wed Dec 21 12:02:20 2022
-    user: null
-  - address: ::1
-    name: System Idle Process
-    pid: null
-    port: 57908
-    protocol: udp
-    stime: Wed Dec 21 12:02:20 2022
-    user: null
-  - address: '::'
-    name: System Idle Process
-    pid: null
-    port: 5355
-    protocol: udp
-    stime: Wed Dec 21 12:02:20 2022
-    user: null
-  - address: '::'
-    name: System Idle Process
-    pid: null
-    port: 4500
-    protocol: udp
-    stime: Wed Dec 21 12:02:20 2022
-    user: null
-  - address: '::'
-    name: System Idle Process
-    pid: null
-    port: 3389
-    protocol: udp
-    stime: Wed Dec 21 12:02:20 2022
-    user: null
-  - address: '::'
-    name: System Idle Process
-    pid: null
-    port: 500
-    protocol: udp
-    stime: Wed Dec 21 12:02:20 2022
-    user: null
-  - address: '::'
-    name: System Idle Process
-    pid: null
-    port: 123
-    protocol: udp
-    stime: Wed Dec 21 12:02:20 2022
-    user: null
-  - address: 0.0.0.0
-    name: System Idle Process
-    pid: null
-    port: 5355
-    protocol: udp
-    stime: Wed Dec 21 12:02:20 2022
-    user: null
-  - address: 0.0.0.0
-    name: System Idle Process
-    pid: null
-    port: 4500
-    protocol: udp
-    stime: Wed Dec 21 12:02:20 2022
-    user: null
-  - address: 0.0.0.0
-    name: System Idle Process
-    pid: null
-    port: 3389
-    protocol: udp
-    stime: Wed Dec 21 12:02:20 2022
-    user: null
-  - address: 0.0.0.0
-    name: System Idle Process
-    pid: null
-    port: 500
-    protocol: udp
-    stime: Wed Dec 21 12:02:20 2022
-    user: null
-  - address: 172.16.0.94
-    name: System Idle Process
-    pid: null
-    port: 138
-    protocol: udp
-    stime: Wed Dec 21 12:02:20 2022
-    user: null
-  - address: 172.16.0.94
-    name: System Idle Process
-    pid: null
-    port: 137
-    protocol: udp
-    stime: Wed Dec 21 12:02:20 2022
-    user: null
-  - address: 0.0.0.0
-    name: System Idle Process
-    pid: null
-    port: 123
-    protocol: udp
-    stime: Wed Dec 21 12:02:20 2022
-    user: null
+- address: fe80::1002:b306:e05b:c850%12
+  name: System Idle Process
+  pid: null
+  port: 546
+  protocol: udp
+  stime: Wed Dec 21 12:02:20 2022
+  user: null
+- address: ::1
+  name: System Idle Process
+  pid: null
+  port: 57908
+  protocol: udp
+  stime: Wed Dec 21 12:02:20 2022
+  user: null
+- address: '::'
+  name: System Idle Process
+  pid: null
+  port: 5355
+  protocol: udp
+  stime: Wed Dec 21 12:02:20 2022
+  user: null
+- address: '::'
+  name: System Idle Process
+  pid: null
+  port: 4500
+  protocol: udp
+  stime: Wed Dec 21 12:02:20 2022
+  user: null
+- address: '::'
+  name: System Idle Process
+  pid: null
+  port: 3389
+  protocol: udp
+  stime: Wed Dec 21 12:02:20 2022
+  user: null
+- address: '::'
+  name: System Idle Process
+  pid: null
+  port: 500
+  protocol: udp
+  stime: Wed Dec 21 12:02:20 2022
+  user: null
+- address: '::'
+  name: System Idle Process
+  pid: null
+  port: 123
+  protocol: udp
+  stime: Wed Dec 21 12:02:20 2022
+  user: null
+- address: 0.0.0.0
+  name: System Idle Process
+  pid: null
+  port: 5355
+  protocol: udp
+  stime: Wed Dec 21 12:02:20 2022
+  user: null
+- address: 0.0.0.0
+  name: System Idle Process
+  pid: null
+  port: 4500
+  protocol: udp
+  stime: Wed Dec 21 12:02:20 2022
+  user: null
+- address: 0.0.0.0
+  name: System Idle Process
+  pid: null
+  port: 3389
+  protocol: udp
+  stime: Wed Dec 21 12:02:20 2022
+  user: null
+- address: 0.0.0.0
+  name: System Idle Process
+  pid: null
+  port: 500
+  protocol: udp
+  stime: Wed Dec 21 12:02:20 2022
+  user: null
+- address: 172.16.0.94
+  name: System Idle Process
+  pid: null
+  port: 138
+  protocol: udp
+  stime: Wed Dec 21 12:02:20 2022
+  user: null
+- address: 172.16.0.94
+  name: System Idle Process
+  pid: null
+  port: 137
+  protocol: udp
+  stime: Wed Dec 21 12:02:20 2022
+  user: null
+- address: 0.0.0.0
+  name: System Idle Process
+  pid: null
+  port: 123
+  protocol: udp
+  stime: Wed Dec 21 12:02:20 2022
+  user: null

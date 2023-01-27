@@ -62,9 +62,14 @@ try {
     Get-CimInstance -ClassName Win32_Process | ForEach-Object {
         $process_data = @{
             cmdline = $_.CommandLine
+            cwd = $null
             pid = $_.ProcessId.ToString()
             ppid = $_.ParentProcessId.ToString()
             user = Get-Owner $_
+        }
+
+        if ($null -ne $_.ExecutablePath) {
+            $process_data.cwd = Split-Path -LiteralPath $_.ExecutablePath
         }
 
         if ($extended_data) {

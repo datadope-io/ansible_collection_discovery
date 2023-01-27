@@ -97,6 +97,10 @@ options:
         description: Command line of the process.
         required: true
         type: str
+      cwd:
+        description: Working directory of the process.
+        required: true
+        type: str
   tcp_listen:
     description:
       - List of tcp ports listening in the host.
