@@ -1,12 +1,13 @@
 from __future__ import (absolute_import, division, print_function)
+
 __metaclass__ = type
 
 import pytest
-
 from ansible.module_utils.six import iteritems
 from ansible.module_utils.six.moves import builtins  # noqa
-from ansible_collections.community.internal_test_tools.tests.unit.compat.mock import MagicMock, patch
+
 import ansible_collections.datadope.discovery.plugins.modules.process_facts as module_to_test
+from ansible_collections.community.internal_test_tools.tests.unit.compat.mock import MagicMock, patch
 from .conftest import AnsibleExitJson
 
 
@@ -14,9 +15,10 @@ def test_main(ansible_module_patch):
     ansible_module = ansible_module_patch(ansible_args={},
                                           argument_spec=module_to_test.argument_spec,
                                           supports_check_mode=True)
-    expected_result = [{'pid': '1', 'ppid': '0', 'cmdline': '/sbin/launchd'},
-                       {'pid': '317', 'ppid': '1', 'cmdline': '/usr/libexec/logd'},
-                       {'pid': '318', 'ppid': '1', 'cmdline': '/usr/libexec/UserEventAgent (System)'}]
+    expected_result = [{'pid': '1', 'ppid': '0', 'cmdline': '/sbin/launchd', 'cwd': '/sbin/'},
+                       {'pid': '317', 'ppid': '1', 'cmdline': '/usr/libexec/logd', 'cwd': '/usr/libexec/'},
+                       {'pid': '318', 'ppid': '1', 'cmdline': '/usr/libexec/UserEventAgent (System)',
+                        'cwd': '/usr/libexec/'}]
     with pytest.raises(AnsibleExitJson) as result:
         with patch.object(module_to_test, 'setup_module_object', return_value=ansible_module) as mock_setup:
             with patch.object(module_to_test, 'get_os_processes', return_value=expected_result) as mock_process:
@@ -99,15 +101,15 @@ def test_function_to_execute_for_platform(get_os_processes_default_mock, platfor
         if f_name.startswith('get_os_processes') and f != func:
             assert not f.called
 
-
+@patch('os.readlink')
 @patch('os.listdir')
 @patch.object(builtins, 'open')
-def test_get_ps_processes_default(open_mock, listdir_mock):
+def test_get_ps_processes_default(open_mock, listdir_mock, readlink_mock):
     processes_info = {
         "1": (b'/bin/sh\x00-c\x00/usr/local/bin/process1.sh\x00parameter1_1\x00parameter1_2\x00',
-              'Name:\tpython\nUmask:\t0022\nState:\tR (running)\nTgid:\t1\nNgid:\t0\nPid:\t1\nPPid:\t10\nTracerPid:\t0'
-              '\nUid:\t0\t0\t0\t0\nGid:\t0\t0\t0\t0\nFDSize:\t64\nGroups:\t \nNStgid:\t1\nNSpid:\t1\nNSpgid:\t1\n'
-              'NSsid:\t1\nVmPeak:\t    8684 kB\nVmSize:\t    8684 kB\nVmLck:\t       0 kB\nVmPin:\t       0 kB\n'
+              'Name:\tpython\nUmask:\t0022\nState:\tR (running)\nTgid:\t1\nNgid:\t0\nPid:\t1\nPPid:\t10\ncwd:\t/bin/'
+              '\nTracerPid:\t0\nUid:\t0\t0\t0\t0\nGid:\t0\t0\t0\t0\nFDSize:\t64\nGroups:\t \nNStgid:\t1\nNSpid:\t1\n'
+              'NSpgid:\t1\nNSsid:\t1\nVmPeak:\t    8684 kB\nVmSize:\t    8684 kB\nVmLck:\t       0 kB\nVmPin:\t  0 kB\n'
               'VmHWM:\t    6488 kB\nVmRSS:\t    6488 kB\nRssAnon:\t    2868 kB\nRssFile:\t    3620 kB\n'
               'RssShmem:\t       0 kB\nVmData:\t    3024 kB\nVmStk:\t     132 kB\nVmExe:\t       4 kB\n'
               'VmLib:\t    4600 kB\nVmPTE:\t      52 kB\nVmSwap:\t       0 kB\nHugetlbPages:\t       0 kB\n'
@@ -121,7 +123,7 @@ def test_get_ps_processes_default(open_mock, listdir_mock):
         "2": (b'/bin/sh\x00-c\x00/usr/local/bin/process2.sh\x00parameter2_1\x00parameter2_2\x00',
               'Name:\tpython\nUmask:\t0022\nState:\tR (running)\nTgid:\t1\nNgid:\t0\nPid:\t1\nPPid:\t20\nTracerPid:\t0'
               '\nUid:\t0\t0\t0\t0\nGid:\t0\t0\t0\t0\nFDSize:\t64\nGroups:\t \nNStgid:\t1\nNSpid:\t1\nNSpgid:\t1\n'
-              'NSsid:\t1\nVmPeak:\t    8684 kB\nVmSize:\t    8684 kB\nVmLck:\t       0 kB\nVmPin:\t       0 kB\n'
+              'cwd:\t/bin/\nNSsid:\t1\nVmPeak:\t    8684 kB\nVmSize:\t    8684 kB\nVmLck:\t       0 kB\nVmPin:\t 0 kB\n'
               'VmHWM:\t    6488 kB\nVmRSS:\t    6488 kB\nRssAnon:\t    2868 kB\nRssFile:\t    3620 kB\n'
               'RssShmem:\t       0 kB\nVmData:\t    3024 kB\nVmStk:\t     132 kB\nVmExe:\t       4 kB\n'
               'VmLib:\t    4600 kB\nVmPTE:\t      52 kB\nVmSwap:\t       0 kB\nHugetlbPages:\t       0 kB\n'
@@ -135,7 +137,7 @@ def test_get_ps_processes_default(open_mock, listdir_mock):
         "3": (b'/bin/sh\x00-c\x00/usr/local/bin/process3.sh\x00parameter3_1\x00parameter3_2\x00ca\xc3\xb1\xc3\xb3n\x00',
               'Name:\tpython\nUmask:\t0022\nState:\tR (running)\nTgid:\t1\nNgid:\t0\nPid:\t1\nPPid:\t30\nTracerPid:\t0'
               '\nUid:\t0\t0\t0\t0\nGid:\t0\t0\t0\t0\nFDSize:\t64\nGroups:\t \nNStgid:\t1\nNSpid:\t1\nNSpgid:\t1\n'
-              'NSsid:\t1\nVmPeak:\t    8684 kB\nVmSize:\t    8684 kB\nVmLck:\t       0 kB\nVmPin:\t       0 kB\n'
+              'cwd:\t/bin/\nNSsid:\t1\nVmPeak:\t    8684 kB\nVmSize:\t    8684 kB\nVmLck:\t       0 kB\nVmPin:\t 0 kB\n'
               'VmHWM:\t    6488 kB\nVmRSS:\t    6488 kB\nRssAnon:\t    2868 kB\nRssFile:\t    3620 kB\n'
               'RssShmem:\t       0 kB\nVmData:\t    3024 kB\nVmStk:\t     132 kB\nVmExe:\t       4 kB\n'
               'VmLib:\t    4600 kB\nVmPTE:\t      52 kB\nVmSwap:\t       0 kB\nHugetlbPages:\t       0 kB\n'
@@ -149,7 +151,8 @@ def test_get_ps_processes_default(open_mock, listdir_mock):
     }
     expected_result = [{'pid': x,
                         'ppid': str(10 * int(x)),
-                        'user': 'root'}
+                        'user': 'root',
+                        'cwd': '/'}
                        for x, y in iteritems(processes_info)]
     expected_result[0]['cmdline'] = '/bin/sh -c /usr/local/bin/process1.sh parameter1_1 parameter1_2'
     expected_result[1]['cmdline'] = '/bin/sh -c /usr/local/bin/process2.sh parameter2_1 parameter2_2'
@@ -196,6 +199,7 @@ def test_get_ps_processes_default(open_mock, listdir_mock):
         return stream_mock
 
     listdir_mock.return_value = list(processes_info.keys()) + ["other"]
+    readlink_mock.return_value = '/'
     open_mock.side_effect = _open
     expected_open_calls = [('/proc/{0}/cmdline'.format(x), 'rb') for x in processes_info]
     expected_open_calls += [('/proc/{0}/status'.format(x),) for x in processes_info]
@@ -214,7 +218,8 @@ def test_get_ps_processes_default(open_mock, listdir_mock):
 def test_get_ps_processes_hpux_nok():
     ansible_module_mock = MagicMock(spec=module_to_test.AnsibleModule)
     ansible_module_mock.run_command.return_value = (1, None, None)
-    result = module_to_test.get_os_processes_hpux(ansible_module_mock)
+    with patch.object(module_to_test, '_get_pid_cwd', return_value='/'):
+        result = module_to_test.get_os_processes_hpux(ansible_module_mock)
     assert result == []
 
 
@@ -223,20 +228,24 @@ def test_get_ps_processes_hpux_ok():
     317     1     root     /usr/libexec/logd
     318     1     root     /usr/libexec/UserEventAgent (System)
     """
-    expected_result = [{'pid': '1', 'ppid': '0', 'user': 'root', 'cmdline': '/sbin/launchd'},
-                       {'pid': '317', 'ppid': '1', 'user': 'root', 'cmdline': '/usr/libexec/logd'},
-                       {'pid': '318', 'ppid': '1', 'user': 'root', 'cmdline': '/usr/libexec/UserEventAgent (System)'}]
+    expected_result = [{'pid': '1', 'ppid': '0', 'user': 'root', 'cmdline': '/sbin/launchd', 'cwd': '/'},
+                       {'pid': '317', 'ppid': '1', 'user': 'root', 'cmdline': '/usr/libexec/logd',
+                        'cwd': '/'},
+                       {'pid': '318', 'ppid': '1', 'user': 'root', 'cmdline': '/usr/libexec/UserEventAgent (System)',
+                        'cwd': '/'}]
 
     ansible_module_mock = MagicMock(spec=module_to_test.AnsibleModule)
     ansible_module_mock.run_command.return_value = (0, ps_command_stdout, "")
-    result = module_to_test.get_os_processes_hpux(ansible_module_mock)
+    with patch.object(module_to_test, '_get_pid_cwd', return_value='/'):
+        result = module_to_test.get_os_processes_hpux(ansible_module_mock)
     assert result == expected_result
 
 
 def test_get_ps_processes_aix_nok():
     ansible_module_mock = MagicMock(spec=module_to_test.AnsibleModule)
     ansible_module_mock.run_command.return_value = (1, None, None)
-    result = module_to_test.get_os_processes_aix(ansible_module_mock)
+    with patch.object(module_to_test, '_get_pid_cwd', return_value='/'):
+        result = module_to_test.get_os_processes_aix(ansible_module_mock)
     assert result == []
 
 
@@ -245,11 +254,14 @@ def test_get_ps_processes_aix_ok():
     317     1     root     /usr/libexec/logd
     318     1     root     /usr/libexec/UserEventAgent (System)
     """
-    expected_result = [{'pid': '1', 'ppid': '0', 'user': 'root', 'cmdline': '/sbin/launchd'},
-                       {'pid': '317', 'ppid': '1', 'user': 'root', 'cmdline': '/usr/libexec/logd'},
-                       {'pid': '318', 'ppid': '1', 'user': 'root', 'cmdline': '/usr/libexec/UserEventAgent (System)'}]
+    expected_result = [{'pid': '1', 'ppid': '0', 'user': 'root', 'cmdline': '/sbin/launchd', 'cwd': '/'},
+                       {'pid': '317', 'ppid': '1', 'user': 'root', 'cmdline': '/usr/libexec/logd',
+                        'cwd': '/'},
+                       {'pid': '318', 'ppid': '1', 'user': 'root', 'cmdline': '/usr/libexec/UserEventAgent (System)',
+                        'cwd': '/'}]
 
     ansible_module_mock = MagicMock(spec=module_to_test.AnsibleModule)
     ansible_module_mock.run_command.return_value = (0, ps_command_stdout, "")
-    result = module_to_test.get_os_processes_aix(ansible_module_mock)
+    with patch.object(module_to_test, '_get_pid_cwd', return_value='/'):
+        result = module_to_test.get_os_processes_aix(ansible_module_mock)
     assert result == expected_result

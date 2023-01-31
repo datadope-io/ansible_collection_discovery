@@ -3,9 +3,8 @@ from __future__ import (absolute_import, division, print_function)
 __metaclass__ = type
 
 import pytest
-from pytest_lazyfixture import lazy_fixture
-
 from ansible.module_utils.six.moves import builtins  # noqa
+from pytest_lazyfixture import lazy_fixture
 
 from ansible_collections.datadope.discovery.plugins.action.software_facts import ActionModule
 
@@ -60,13 +59,18 @@ def params_set_one_sw(sw_config, read_json_file):
                                " -Djava.io.tmpdir=/usr/local/tomcat/temp org.apache.catalina.startup.Bootstrap start",
                     "pid": "30748",
                     "ppid": "30709",
-                    "user": "root"
-                }],
+                    "user": "root",
+                    "cwd": "/usr/local/openjdk-17/bin/"
+                }
+            ],
             "cmdline": "/bin/sh -c /usr/local/bin/docker-entrypoint.sh catalina.sh run",
             "pid": "30709",
             "ppid": "30689",
             "user": "root",
-            'listening_ports': [8443]
+            "listening_ports": [
+                8443
+            ],
+            "cwd": "/bin/"
         },
         "listening_ports": [8443],
         "version": [
@@ -92,18 +96,20 @@ def params_set_one_sw(sw_config, read_json_file):
 def params_set_no_sw(sw_config):
     params = {
         'software_list': [sw_config],
-        'processes': [
+        "processes": [
             {
                 "cmdline": "/usr/lib/systemd/systemd --switched-root --system --deserialize 21",
                 "pid": "1",
                 "ppid": "0",
-                "user": "root"
+                "user": "root",
+                "cwd": "/usr/lib/systemd/"
             },
             {
                 "cmdline": "/usr/bin/postgres_client must not match regex",
                 "pid": "24895",
                 "ppid": "1",
-                "user": "root"
+                "user": "root",
+                "cwd": "/usr/bin/"
             }
         ],
         'tcp_listen': [
@@ -129,6 +135,7 @@ def params_set_two_sw(sw_config, params_set_one_sw):
         {
             "children": [],
             "cmdline": "/bin/sh -c /usr/local/bin/docker-entrypoint.sh catalina.sh run",
+            "cwd": "/bin/",
             "pid": "50709",
             "ppid": "50689",
             "user": "root"
@@ -153,6 +160,7 @@ def params_set_two_sw(sw_config, params_set_one_sw):
                        " -classpath /usr/local/tomcat/bin/bootstrap.jar:/usr/local/tomcat/bin/tomcat-juli.jar"
                        " -Dcatalina.base=/usr/local/tomcat -Dcatalina.home=/usr/local/tomcat"
                        " -Djava.io.tmpdir=/usr/local/tomcat/temp org.apache.catalina.startup.Bootstrap start",
+            "cwd": "/usr/local/openjdk-17/bin/",
             "pid": "50748",
             "ppid": "50709",
             "user": "root"
@@ -201,11 +209,13 @@ def params_set_two_sw(sw_config, params_set_one_sw):
                                    " -Dcatalina.base=/usr/local/tomcat -Dcatalina.home=/usr/local/tomcat"
                                    " -Djava.io.tmpdir=/usr/local/tomcat/temp"
                                    " org.apache.catalina.startup.Bootstrap start",
+                        "cwd": "/usr/local/openjdk-17/bin/",
                         "pid": "50748",
                         "ppid": "50709",
                         "user": "root"
                     }],
                 "cmdline": "/bin/sh -c /usr/local/bin/docker-entrypoint.sh catalina.sh run",
+                "cwd": "/bin/",
                 "pid": "50709",
                 "ppid": "50689",
                 "user": "root",

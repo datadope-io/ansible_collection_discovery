@@ -3,9 +3,8 @@ from __future__ import (absolute_import, division, print_function)
 __metaclass__ = type
 
 import pytest
-from pytest_lazyfixture import lazy_fixture
-
 from ansible.module_utils.six.moves import builtins  # noqa
+from pytest_lazyfixture import lazy_fixture
 
 from ansible_collections.datadope.discovery.plugins.action.software_facts import ActionModule
 
@@ -45,7 +44,8 @@ def params_set_one_sw(sw_config, read_json_file):
             ],
             "pid": "73979",
             "ppid": "1",
-            "user": "root"
+            "user": "root",
+            "cwd": "/usr/sbin/"
         },
         "listening_ports": [
             3306
@@ -74,18 +74,20 @@ def params_set_one_sw(sw_config, read_json_file):
 def params_set_no_sw(sw_config):
     params = {
         'software_list': [sw_config],
-        'processes': [
+        "processes": [
             {
                 "cmdline": "/usr/lib/systemd/systemd --switched-root --system --deserialize 21",
                 "pid": "1",
                 "ppid": "0",
-                "user": "root"
+                "user": "root",
+                "cwd": "/usr/lib/systemd/"
             },
             {
                 "cmdline": "/usr/bin/postgres_client must not match regex",
                 "pid": "24895",
                 "ppid": "1",
-                "user": "root"
+                "user": "root",
+                "cwd": "/usr/bin/"
             }
         ],
         'tcp_listen': [
@@ -123,6 +125,7 @@ def params_set_two_sw(sw_config, params_set_one_sw):
     params_set_one_sw[0]['processes'].append(
         {
             "cmdline": "/usr/sbin/mariadbd",
+            "cwd": "/usr/sbin/",
             "pid": "93979",
             "ppid": "1",
             "user": "root"
@@ -149,6 +152,7 @@ def params_set_two_sw(sw_config, params_set_one_sw):
             "discovery_time": "2022-05-26T18:00:00+02:00",
             "process": {
                 "cmdline": "/usr/sbin/mariadbd",
+                "cwd": "/usr/sbin/",
                 "listening_ports": [
                     9306
                 ],

@@ -33,46 +33,55 @@ def params_set_child_with_children():
         'processes': [
             {
                 "cmdline": "/usr/lib/systemd/systemd --switched-root --system --deserialize 21",
+                "cwd": "/usr/lib/systemd/",
                 "pid": "1",
                 "ppid": "0"
             },
             {
                 "cmdline": "/usr/pgsql-11/bin/postmaster -D /var/lib/pgsql/11/data/",
+                "cwd": "/usr/pgsql-11/bin/",
                 "pid": "24895",
                 "ppid": "1"
             },
             {
                 "cmdline": "postgres: logger",
+                "cwd": "/",
                 "pid": "24898",
                 "ppid": "24895"
             },
             {
                 "cmdline": "postgres: checkpointer",
+                "cwd": "/",
                 "pid": "24900",
                 "ppid": "24895"
             },
             {
                 "cmdline": "postgres: background writer",
+                "cwd": "/",
                 "pid": "24901",
                 "ppid": "24895"
             },
             {
                 "cmdline": "postgres: walwriter",
+                "cwd": "/",
                 "pid": "24902",
                 "ppid": "24895"
             },
             {
                 "cmdline": "postgres: autovacuum launcher",
+                "cwd": "/",
                 "pid": "24903",
                 "ppid": "24895"
             },
             {
                 "cmdline": "postgres: stats collector",
+                "cwd": "/",
                 "pid": "24904",
                 "ppid": "24895"
             },
             {
                 "cmdline": "postgres: logical replication launcher",
+                "cwd": "/",
                 "pid": "24905",
                 "ppid": "24895"
             },
@@ -181,47 +190,55 @@ def params_set_child_with_children():
                 {
                     "children": [],
                     "cmdline": "postgres: logger",
+                    "cwd": "/",
                     "pid": "24898",
                     "ppid": "24895"
                 },
                 {
                     "children": [],
                     "cmdline": "postgres: checkpointer",
+                    "cwd": "/",
                     "pid": "24900",
                     "ppid": "24895"
                 },
                 {
                     "children": [],
                     "cmdline": "postgres: background writer",
+                    "cwd": "/",
                     "pid": "24901",
                     "ppid": "24895"
                 },
                 {
                     "children": [],
                     "cmdline": "postgres: walwriter",
+                    "cwd": "/",
                     "pid": "24902",
                     "ppid": "24895"
                 },
                 {
                     "children": [],
                     "cmdline": "postgres: autovacuum launcher",
+                    "cwd": "/",
                     "pid": "24903",
                     "ppid": "24895"
                 },
                 {
                     "children": [],
                     "cmdline": "postgres: stats collector",
+                    "cwd": "/",
                     "pid": "24904",
                     "ppid": "24895"
                 },
                 {
                     "children": [],
                     "cmdline": "postgres: logical replication launcher",
+                    "cwd": "/",
                     "pid": "24905",
                     "ppid": "24895"
                 }
             ],
             "cmdline": "/usr/pgsql-11/bin/postmaster -D /var/lib/pgsql/11/data/",
+            "cwd": "/usr/pgsql-11/bin/",
             "listening_ports": [
                 5432
             ],
@@ -255,52 +272,61 @@ def params_set_child_without_children():
             'process_type': 'child',
             'return_children': False
         }],
-        'processes': [
+        "processes": [
             {
                 "cmdline": "/usr/lib/systemd/systemd --switched-root --system --deserialize 21",
+                "cwd": "/usr/lib/systemd/",
                 "pid": "1",
                 "ppid": "0"
             },
             {
                 "cmdline": "/usr/pgsql-11/bin/postmaster -D /var/lib/pgsql/11/data/",
                 "pid": "24895",
-                "ppid": "1"
+                "ppid": "1",
+                "cwd": "/usr/pgsql-11/bin/"
             },
             {
                 "cmdline": "postgres: logger",
                 "pid": "24898",
-                "ppid": "24895"
+                "ppid": "24895",
+                "cwd": "/"
             },
             {
                 "cmdline": "postgres: checkpointer",
                 "pid": "24900",
-                "ppid": "24895"
+                "ppid": "24895",
+                "cwd": "/"
             },
             {
                 "cmdline": "postgres: background writer",
                 "pid": "24901",
-                "ppid": "24895"
+                "ppid": "24895",
+                "cwd": "/"
             },
             {
                 "cmdline": "postgres: walwriter",
                 "pid": "24902",
-                "ppid": "24895"
+                "ppid": "24895",
+                "cwd": "/"
             },
             {
                 "cmdline": "postgres: autovacuum launcher",
                 "pid": "24903",
-                "ppid": "24895"
+                "ppid": "24895",
+                "cwd": "/"
             },
             {
                 "cmdline": "postgres: stats collector",
                 "pid": "24904",
-                "ppid": "24895"
+                "ppid": "24895",
+                "cwd": "/"
             },
             {
                 "cmdline": "postgres: logical replication launcher",
                 "pid": "24905",
-                "ppid": "24895"
-            },
+                "ppid": "24895",
+                "cwd": "/"
+            }
         ],
         'tcp_listen': [
             {
@@ -324,6 +350,7 @@ def params_set_child_without_children():
         "discovery_time": '2022-05-26T17:03:00+02:00',
         "process": {
             "cmdline": "/usr/pgsql-11/bin/postmaster -D /var/lib/pgsql/11/data/",
+            "cwd": "/usr/pgsql-11/bin/",
             "listening_ports": [
                 5432
             ],
@@ -348,52 +375,61 @@ def params_set_parent_with_children():
             'process_type': 'parent',
             'return_children': True
         }],
-        'processes': [
+        "processes": [
             {
                 "cmdline": "/usr/lib/systemd/systemd --switched-root --system --deserialize 21",
                 "pid": "1",
-                "ppid": "0"
+                "ppid": "0",
+                "cwd": "/usr/lib/systemd/"
             },
             {
                 "cmdline": "/usr/pgsql-11/bin/postmaster -D /var/lib/pgsql/11/data/",
                 "pid": "24895",
-                "ppid": "1"
+                "ppid": "1",
+                "cwd": "/usr/pgsql-11/bin/"
             },
             {
                 "cmdline": "postgres: logger",
                 "pid": "24898",
-                "ppid": "24895"
+                "ppid": "24895",
+                "cwd": "/"
             },
             {
                 "cmdline": "postgres: checkpointer",
                 "pid": "24900",
-                "ppid": "24895"
+                "ppid": "24895",
+                "cwd": "/"
             },
             {
                 "cmdline": "postgres: background writer",
                 "pid": "24901",
-                "ppid": "24895"
+                "ppid": "24895",
+                "cwd": "/"
             },
             {
                 "cmdline": "postgres: walwriter",
                 "pid": "24902",
-                "ppid": "24895"
+                "ppid": "24895",
+                "cwd": "/"
             },
             {
                 "cmdline": "postgres: autovacuum launcher",
                 "pid": "24903",
-                "ppid": "24895"
+                "ppid": "24895",
+                "cwd": "/"
             },
             {
                 "cmdline": "postgres: stats collector",
                 "pid": "24904",
-                "ppid": "24895"
+                "ppid": "24895",
+                "cwd": "/"
             },
             {
                 "cmdline": "postgres: logical replication launcher",
                 "pid": "24905",
-                "ppid": "24895"
-            },
+                "ppid": "24895",
+                "cwd": "/"
+            }
         ],
         'tcp_listen': [
             {
@@ -454,47 +490,55 @@ def params_set_parent_with_children():
                 {
                     "children": [],
                     "cmdline": "postgres: logger",
+                    "cwd": "/",
                     "pid": "24898",
                     "ppid": "24895"
                 },
                 {
                     "children": [],
                     "cmdline": "postgres: checkpointer",
+                    "cwd": "/",
                     "pid": "24900",
                     "ppid": "24895"
                 },
                 {
                     "children": [],
                     "cmdline": "postgres: background writer",
+                    "cwd": "/",
                     "pid": "24901",
                     "ppid": "24895"
                 },
                 {
                     "children": [],
                     "cmdline": "postgres: walwriter",
+                    "cwd": "/",
                     "pid": "24902",
                     "ppid": "24895"
                 },
                 {
                     "children": [],
                     "cmdline": "postgres: autovacuum launcher",
+                    "cwd": "/",
                     "pid": "24903",
                     "ppid": "24895"
                 },
                 {
                     "children": [],
                     "cmdline": "postgres: stats collector",
+                    "cwd": "/",
                     "pid": "24904",
                     "ppid": "24895"
                 },
                 {
                     "children": [],
                     "cmdline": "postgres: logical replication launcher",
+                    "cwd": "/",
                     "pid": "24905",
                     "ppid": "24895"
                 }
             ],
             "cmdline": "/usr/pgsql-11/bin/postmaster -D /var/lib/pgsql/11/data/",
+            "cwd": "/usr/pgsql-11/bin/",
             "listening_ports": [
                 5432
             ],
@@ -525,52 +569,61 @@ def params_set_parent_without_children():
             'process_type': 'parent',
             'return_children': False
         }],
-        'processes': [
+        "processes": [
             {
                 "cmdline": "/usr/lib/systemd/systemd --switched-root --system --deserialize 21",
                 "pid": "1",
-                "ppid": "0"
+                "ppid": "0",
+                "cwd": "/usr/lib/systemd/"
             },
             {
                 "cmdline": "/usr/pgsql-11/bin/postmaster -D /var/lib/pgsql/11/data/",
                 "pid": "24895",
-                "ppid": "1"
+                "ppid": "1",
+                "cwd": "/usr/pgsql-11/bin/"
             },
             {
                 "cmdline": "postgres: logger",
                 "pid": "24898",
-                "ppid": "24895"
+                "ppid": "24895",
+                "cwd": "/"
             },
             {
                 "cmdline": "postgres: checkpointer",
                 "pid": "24900",
-                "ppid": "24895"
+                "ppid": "24895",
+                "cwd": "/"
             },
             {
                 "cmdline": "postgres: background writer",
                 "pid": "24901",
-                "ppid": "24895"
+                "ppid": "24895",
+                "cwd": "/"
             },
             {
                 "cmdline": "postgres: walwriter",
                 "pid": "24902",
-                "ppid": "24895"
+                "ppid": "24895",
+                "cwd": "/"
             },
             {
                 "cmdline": "postgres: autovacuum launcher",
                 "pid": "24903",
-                "ppid": "24895"
+                "ppid": "24895",
+                "cwd": "/"
             },
             {
                 "cmdline": "postgres: stats collector",
                 "pid": "24904",
-                "ppid": "24895"
+                "ppid": "24895",
+                "cwd": "/"
             },
             {
                 "cmdline": "postgres: logical replication launcher",
                 "pid": "24905",
-                "ppid": "24895"
-            },
+                "ppid": "24895",
+                "cwd": "/"
+            }
         ],
         'tcp_listen': [
             {
@@ -628,6 +681,7 @@ def params_set_parent_without_children():
         "discovery_time": '2022-05-26T17:03:00+02:00',
         "process": {
             "cmdline": "/usr/pgsql-11/bin/postmaster -D /var/lib/pgsql/11/data/",
+            "cwd": "/usr/pgsql-11/bin/",
             "listening_ports": [
                 5432
             ],
@@ -653,62 +707,76 @@ def params_set_dockers_with_children():
             'process_type': 'child',
             'return_children': True
         }],
-        'processes': [
+        "processes": [
             {
                 "cmdline": "/bin/sh -c /usr/local/bin/docker-entrypoint.sh catalina.sh run",
                 "pid": "30709",
-                "ppid": "30689"
+                "ppid": "30689",
+                "cwd": "/bin/"
             },
             {
-                "cmdline": "/usr/local/openjdk-17/bin/java "
-                           "-Djava.util.logging.config.file=/usr/local/tomcat/conf/logging.properties "
-                           "-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Xmx7876m -Xms3846m "
-                           "-Djdk.tls.ephemeralDHKeySize=2048 "
-                           "-Djava.protocol.handler.pkgs=org.apache.catalina.webresources "
-                           "-Dorg.apache.catalina.security.SecurityListener.UMASK=0027 "
-                           "-Xlog:gc=debug:file=logs/gc.log:time,uptime,level,tags:filecount=10,filesize=100m "
-                           "-javaagent:/usr/local/tomcat/lib/elastic-apm-agent-1.28.1.jar "
-                           "-Delastic.apm.service_name=cmdb -Delastic.apm.server_url=http://192.168.8.53:8200 "
-                           "-Delastic.apm.environment=dev -Delastic.apm.enabled=true "
-                           "-Delastic.apm.profiling_inferred_spans_enabled=true "
-                           "-Delastic.apm.profiling_inferred_spans_min_duration=250ms "
-                           "-Delastic.apm.profiling_inferred_spans_included_classes=org.cmdbuild.* "
-                           "-Dignore.endorsed.dirs= "
-                           "-classpath /usr/local/tomcat/bin/bootstrap.jar:/usr/local/tomcat/bin/tomcat-juli.jar "
-                           "-Dcatalina.base=/usr/local/tomcat -Dcatalina.home=/usr/local/tomcat "
-                           "-Djava.io.tmpdir=/usr/local/tomcat/temp org.apache.catalina.startup.Bootstrap start",
+                "cmdline":
+                    "/usr/local/openjdk-17/bin/java "
+                    "-Djava.util.logging.config.file=/usr/local/tomcat/conf/logging.properties "
+                    "-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager "
+                    "-Xmx7876m -Xms3846m "
+                    "-Djdk.tls.ephemeralDHKeySize=2048 "
+                    "-Djava.protocol.handler.pkgs=org.apache.catalina.webresources "
+                    "-Dorg.apache.catalina.security.SecurityListener.UMASK=0027 "
+                    "-Xlog:gc=debug:file=logs/gc.log:time,uptime,level,tags:filecount=10,filesize=100m "
+                    "-javaagent:/usr/local/tomcat/lib/elastic-apm-agent-1.28.1.jar "
+                    "-Delastic.apm.service_name=cmdb "
+                    "-Delastic.apm.server_url=http://192.168.8.53:8200 "
+                    "-Delastic.apm.environment=dev "
+                    "-Delastic.apm.enabled=true "
+                    "-Delastic.apm.profiling_inferred_spans_enabled=true "
+                    "-Delastic.apm.profiling_inferred_spans_min_duration=250ms "
+                    "-Delastic.apm.profiling_inferred_spans_included_classes=org.cmdbuild.* "
+                    "-Dignore.endorsed.dirs= -classpath "
+                    "/usr/local/tomcat/bin/bootstrap.jar:/usr/local/tomcat/bin/tomcat-juli.jar "
+                    "-Dcatalina.base=/usr/local/tomcat "
+                    "-Dcatalina.home=/usr/local/tomcat "
+                    "-Djava.io.tmpdir=/usr/local/tomcat/temp "
+                    "org.apache.catalina.startup.Bootstrap "
+                    "start",
                 "pid": "30748",
-                "ppid": "30709"
+                "ppid": "30709",
+                "cwd": "/usr/local/openjdk-17/bin/"
             },
             {
-                "cmdline": "/usr/bin/docker-proxy -proto tcp -host-ip :: -host-port 9443 "
-                           "-container-ip :: -container-port 9443",
+                "cmdline": "/usr/bin/docker-proxy -proto tcp -host-ip :: "
+                           "-host-port 9443 -container-ip :: -container-port 9443",
                 "pid": "50674",
-                "ppid": "80677"
+                "ppid": "80677",
+                "cwd": "/usr/bin/"
             },
             {
                 "cmdline": "/usr/bin/docker-proxy -host-ip 0.0.0.0 -host-port 8543 "
                            "-container-ip 192.168.1.3 -container-port 8543",
                 "pid": "60674",
-                "ppid": "70677"
+                "ppid": "70677",
+                "cwd": "/usr/bin/"
             },
             {
                 "cmdline": "/usr/bin/docker-proxy -host-ip 0.0.0.0 -host-port 8643 "
                            "-container-ip 192.168.1.4 -container-port 8543",
                 "pid": "70674",
-                "ppid": "90677"
+                "ppid": "90677",
+                "cwd": "/usr/bin/"
             },
             {
                 "cmdline": "/usr/bin/docker-proxy -proto tcp -host-ip 0.0.0.0 -host-port 8743 "
                            "-container-ip 192.168.1.5 -container-port 8543",
                 "pid": "80674",
-                "ppid": "90679"
+                "ppid": "90679",
+                "cwd": "/usr/bin/"
             },
             {
                 "cmdline": "/usr/bin/docker-proxy -proto tcp -host-ip 0.0.0.0 -host-port 8443 "
                            "-container-ip 192.168.1.2 -container-port 8443",
                 "pid": "30674",
-                "ppid": "60677"
+                "ppid": "60677",
+                "cwd": "/usr/bin/"
             }
         ],
         'tcp_listen': [
@@ -877,9 +945,11 @@ def params_set_dockers_with_children():
                                    "-Djava.io.tmpdir=/usr/local/tomcat/temp "
                                    "org.apache.catalina.startup.Bootstrap "
                                    "start",
+                        "cwd": "/usr/local/openjdk-17/bin/",
                         "pid": "30748",
                         "ppid": "30709"}],
                 "cmdline": "/bin/sh -c /usr/local/bin/docker-entrypoint.sh catalina.sh run",
+                "cwd": "/bin/",
                 "listening_ports": [
                     8443
                 ],
@@ -918,11 +988,12 @@ def params_set_dockers_without_children():
             'process_type': 'child',
             'return_children': False
         }],
-        'processes': [
+        "processes": [
             {
                 "cmdline": "/bin/sh -c /usr/local/bin/docker-entrypoint.sh catalina.sh run",
                 "pid": "30709",
-                "ppid": "30689"
+                "ppid": "30689",
+                "cwd": "/bin/"
             },
             {
                 "cmdline": "/usr/local/openjdk-17/bin/java "
@@ -943,13 +1014,15 @@ def params_set_dockers_without_children():
                            "-Dcatalina.base=/usr/local/tomcat -Dcatalina.home=/usr/local/tomcat "
                            "-Djava.io.tmpdir=/usr/local/tomcat/temp org.apache.catalina.startup.Bootstrap start",
                 "pid": "30748",
-                "ppid": "30709"
+                "ppid": "30709",
+                "cwd": "/usr/local/openjdk-17/bin/"
             },
             {
                 "cmdline": "/usr/bin/docker-proxy -proto tcp -host-ip 0.0.0.0 -host-port 8443 "
                            "-container-ip 192.168.1.2 -container-port 8443",
                 "pid": "30674",
-                "ppid": "60677"
+                "ppid": "60677",
+                "cwd": "/usr/bin/"
             }
         ],
         'tcp_listen': [
@@ -1002,6 +1075,7 @@ def params_set_dockers_without_children():
             "discovery_time": '2022-05-26T17:03:00+02:00',
             'process': {
                 'cmdline': '/bin/sh -c /usr/local/bin/docker-entrypoint.sh catalina.sh run',
+                'cwd': '/bin/',
                 'listening_ports': [8443],
                 'pid': '30709',
                 'ppid': '30689'
@@ -1050,66 +1124,66 @@ def test_init(action_module):
     argnames=('params', 'expected_result'),
     argvalues=[
         (
-            lazy_fixture('params_set_child_with_children'), True
+                lazy_fixture('params_set_child_with_children'), True
         ),
         (
-            {
-                'software_list': [],
-                'processes': [],
-                'tcp_listen': [],
-                'udp_listen': [],
-                'packages': {},
-                'dockers': {}
-            }, True
+                {
+                    'software_list': [],
+                    'processes': [],
+                    'tcp_listen': [],
+                    'udp_listen': [],
+                    'packages': {},
+                    'dockers': {}
+                }, True
         ),
         (
-            {
-                'software_list': {},
-                'processes': [],
-                'tcp_listen': [],
-                'udp_listen': [],
-                'packages': {},
-                'dockers': {}
-            }, False
+                {
+                    'software_list': {},
+                    'processes': [],
+                    'tcp_listen': [],
+                    'udp_listen': [],
+                    'packages': {},
+                    'dockers': {}
+                }, False
         ),
         (
-            {
-                'software_list': ["texto"],
-                'processes': [],
-                'tcp_listen': [],
-                'udp_listen': [],
-                'packages': {},
-                'dockers': {}
-            }, False
+                {
+                    'software_list': ["texto"],
+                    'processes': [],
+                    'tcp_listen': [],
+                    'udp_listen': [],
+                    'packages': {},
+                    'dockers': {}
+                }, False
         ),
         (
-            {
-                'software_list': [],
-                'processes': [],
-                'tcp_listen': [],
-                'udp_listen': [],
-                'packages': [],
-                'dockers': {}
-            }, False
+                {
+                    'software_list': [],
+                    'processes': [],
+                    'tcp_listen': [],
+                    'udp_listen': [],
+                    'packages': [],
+                    'dockers': {}
+                }, False
         ),
         (
-            {
-                'software_list': [],
-                'processes': [],
-                'tcp_listen': [],
-                'udp_listen': [],
-                'packages': {},
-                'dockers': []
-            }, False
+                {
+                    'software_list': [],
+                    'processes': [],
+                    'tcp_listen': [],
+                    'udp_listen': [],
+                    'packages': {},
+                    'dockers': []
+                }, False
         ),
         (
-            {
-                'software_list': [],
-                'tcp_listen': [],
-                'udp_listen': [],
-                'packages': {},
-                'dockers': {}
-            }, False
+                {
+                    'software_list': [],
+                    'tcp_listen': [],
+                    'udp_listen': [],
+                    'packages': {},
+                    'dockers': {}
+                }, False
         )
     ])
 def test_validate_parameters(action_module, params, expected_result):
@@ -1186,66 +1260,66 @@ def test_run(action_module, task_vars, params_set_child_with_children, normalize
 @pytest.mark.parametrize(
     ('original_list', 'include', 'exclude', 'expected_list'),
     (
-        (
-            [dict(name="SW 1"), dict(name="SW 2"), dict(name="SW 3"), dict(name="SW 4"), dict(name="SW 5")],
-            ['SW 1', 'SW 2', 'SW 3'],
-            ['SW 3'],
-            [dict(name="SW 1"), dict(name="SW 2")]
-        ),
-        (
-            [dict(name="SW 1"), dict(name="SW 2"), dict(name="SW 3"), dict(name="SW 4"), dict(name="SW 5")],
-            ['all'],
-            ['SW 3'],
-            [dict(name="SW 1"), dict(name="SW 2"), dict(name="SW 4"), dict(name="SW 5")]
-        ),
-        (
-            [dict(name="SW 1"), dict(name="SW 2"), dict(name="SW 3"), dict(name="SW 4"), dict(name="SW 5")],
-            None,
-            ['SW 3'],
-            [dict(name="SW 1"), dict(name="SW 2"), dict(name="SW 4"), dict(name="SW 5")]
-        ),
-        (
-            [dict(name="SW 1"), dict(name="SW 2"), dict(name="SW 3"), dict(name="SW 4"), dict(name="SW 5")],
-            ['SW 1', 'SW 2', 'SW 3'],
-            [],
-            [dict(name="SW 1"), dict(name="SW 2"), dict(name="SW 3")]
-        ),
-        (
-            [dict(name="SW 1"), dict(name="SW 2"), dict(name="SW 3"), dict(name="SW 4"), dict(name="SW 5")],
-            ['SW 1', 'SW 2', 'SW 3'],
-            None,
-            [dict(name="SW 1"), dict(name="SW 2"), dict(name="SW 3")]
-        ),
-        (
-            [dict(name="SW 1"), dict(name="SW 2"), dict(name="SW 3"), dict(name="SW 4"), dict(name="SW 5")],
-            None,
-            None,
-            [dict(name="SW 1"), dict(name="SW 2"), dict(name="SW 3"), dict(name="SW 4"), dict(name="SW 5")]
-        ),
-        (
-            [dict(name="SW 1"), dict(name="SW 2"), dict(name="SW 3"), dict(name="SW 4"), dict(name="SW 5")],
-            [],
-            None,
-            []
-        ),
-        (
-            [dict(name="SW 1"), dict(name="SW 2"), dict(name="SW 3"), dict(name="SW 4"), dict(name="SW 5")],
-            'remove',
-            'remove',
-            [dict(name="SW 1"), dict(name="SW 2"), dict(name="SW 3"), dict(name="SW 4"), dict(name="SW 5")]
-        ),
-        (
-            [dict(name="SW 1"), dict(name="SW 2"), dict(name="SW 3"), dict(name="SW 4"), dict(name="SW 5")],
-            ['SW 1', 'SW 2', 'SW 3'],
-            'remove',
-            [dict(name="SW 1"), dict(name="SW 2"), dict(name="SW 3")]
-        ),
-        (
-            [dict(name="SW 1"), dict(name="SW 2"), dict(name="SW 3"), dict(name="SW 4"), dict(name="SW 5")],
-            'remove',
-            ['SW 3'],
-            [dict(name="SW 1"), dict(name="SW 2"), dict(name="SW 4"), dict(name="SW 5")]
-        )
+            (
+                    [dict(name="SW 1"), dict(name="SW 2"), dict(name="SW 3"), dict(name="SW 4"), dict(name="SW 5")],
+                    ['SW 1', 'SW 2', 'SW 3'],
+                    ['SW 3'],
+                    [dict(name="SW 1"), dict(name="SW 2")]
+            ),
+            (
+                    [dict(name="SW 1"), dict(name="SW 2"), dict(name="SW 3"), dict(name="SW 4"), dict(name="SW 5")],
+                    ['all'],
+                    ['SW 3'],
+                    [dict(name="SW 1"), dict(name="SW 2"), dict(name="SW 4"), dict(name="SW 5")]
+            ),
+            (
+                    [dict(name="SW 1"), dict(name="SW 2"), dict(name="SW 3"), dict(name="SW 4"), dict(name="SW 5")],
+                    None,
+                    ['SW 3'],
+                    [dict(name="SW 1"), dict(name="SW 2"), dict(name="SW 4"), dict(name="SW 5")]
+            ),
+            (
+                    [dict(name="SW 1"), dict(name="SW 2"), dict(name="SW 3"), dict(name="SW 4"), dict(name="SW 5")],
+                    ['SW 1', 'SW 2', 'SW 3'],
+                    [],
+                    [dict(name="SW 1"), dict(name="SW 2"), dict(name="SW 3")]
+            ),
+            (
+                    [dict(name="SW 1"), dict(name="SW 2"), dict(name="SW 3"), dict(name="SW 4"), dict(name="SW 5")],
+                    ['SW 1', 'SW 2', 'SW 3'],
+                    None,
+                    [dict(name="SW 1"), dict(name="SW 2"), dict(name="SW 3")]
+            ),
+            (
+                    [dict(name="SW 1"), dict(name="SW 2"), dict(name="SW 3"), dict(name="SW 4"), dict(name="SW 5")],
+                    None,
+                    None,
+                    [dict(name="SW 1"), dict(name="SW 2"), dict(name="SW 3"), dict(name="SW 4"), dict(name="SW 5")]
+            ),
+            (
+                    [dict(name="SW 1"), dict(name="SW 2"), dict(name="SW 3"), dict(name="SW 4"), dict(name="SW 5")],
+                    [],
+                    None,
+                    []
+            ),
+            (
+                    [dict(name="SW 1"), dict(name="SW 2"), dict(name="SW 3"), dict(name="SW 4"), dict(name="SW 5")],
+                    'remove',
+                    'remove',
+                    [dict(name="SW 1"), dict(name="SW 2"), dict(name="SW 3"), dict(name="SW 4"), dict(name="SW 5")]
+            ),
+            (
+                    [dict(name="SW 1"), dict(name="SW 2"), dict(name="SW 3"), dict(name="SW 4"), dict(name="SW 5")],
+                    ['SW 1', 'SW 2', 'SW 3'],
+                    'remove',
+                    [dict(name="SW 1"), dict(name="SW 2"), dict(name="SW 3")]
+            ),
+            (
+                    [dict(name="SW 1"), dict(name="SW 2"), dict(name="SW 3"), dict(name="SW 4"), dict(name="SW 5")],
+                    'remove',
+                    ['SW 3'],
+                    [dict(name="SW 1"), dict(name="SW 2"), dict(name="SW 4"), dict(name="SW 5")]
+            )
     )
 )
 def test_include_exclude(action_module, task_vars, original_list, include, exclude, expected_list):
@@ -1352,18 +1426,18 @@ def test_plugins_one_plugin_args_as_list(action_module, params_set_child_without
     ('plugin_def', 'wrong_attribute'),
     [
         (
-            {
-                'name': 'the name',
-                'the_plugin': [],
-                'unsupported': 'value'
-            }, 'unsupported'
+                {
+                    'name': 'the name',
+                    'the_plugin': [],
+                    'unsupported': 'value'
+                }, 'unsupported'
         ),
         (
-            {
-                'name': 'the name',
-                'the_plugin': 'a text',
-                'when': 'yes'
-            }, 'the_plugin'
+                {
+                    'name': 'the name',
+                    'the_plugin': 'a text',
+                    'when': 'yes'
+                }, 'the_plugin'
         )
     ]
 )
@@ -1484,19 +1558,19 @@ def test_plugins_non_existing(action_module, params_set_child_without_children):
 @pytest.mark.parametrize(
     argnames=('plugin_def', 'plugin_result'),
     argvalues=(
-        (
-            {
-                'name': 'the name',
-                'the_plugin': {'arg1': 'val1', 'arg2': 'val2'},
-                'when': 'yes'
-            }, {'k1', 'val1'}
-        ),
-        (
-            {
-                'the_plugin': {'arg1': 'val1', 'arg2': 'val2'},
-                'when': 'yes'
-            }, None
-        )
+            (
+                    {
+                        'name': 'the name',
+                        'the_plugin': {'arg1': 'val1', 'arg2': 'val2'},
+                        'when': 'yes'
+                    }, {'k1', 'val1'}
+            ),
+            (
+                    {
+                        'the_plugin': {'arg1': 'val1', 'arg2': 'val2'},
+                        'when': 'yes'
+                    }, None
+            )
     )
 )
 def test_plugins_result_ok(action_module, params_set_child_without_children, plugin_def, plugin_result):
@@ -1840,26 +1914,26 @@ def test_plugins_loop_error_both_ignored(action_module, params_set_child_without
 @pytest.mark.parametrize(
     argnames=('plugin_def', 'error_message'),
     argvalues=(
-        (
-            {
-                'name': 'the name',
-                'block': {},
-                'when': 'yes'
-            }, "'block' plugin 'the name' needs a list of plugins as argument"
-        ),
-        (
-            {
-                'name': 'the name',
-                'block': [
+            (
                     {
-                        'name': 'the inner name',
-                        'the_plugin': {},
+                        'name': 'the name',
+                        'block': {},
                         'when': 'yes'
-                    }
-                ],
-                'when': 'yes'
-            }, "Exception executing plugin 'the inner name'"
-        )
+                    }, "'block' plugin 'the name' needs a list of plugins as argument"
+            ),
+            (
+                    {
+                        'name': 'the name',
+                        'block': [
+                            {
+                                'name': 'the inner name',
+                                'the_plugin': {},
+                                'when': 'yes'
+                            }
+                        ],
+                        'when': 'yes'
+                    }, "Exception executing plugin 'the inner name'"
+            )
     )
 )
 def test_plugins_block_error(action_module, params_set_child_with_children,
@@ -2120,12 +2194,12 @@ def test_plugins_block_ignore_errors(action_module, params_set_child_with_childr
 @pytest.mark.parametrize(
     ('conditions', 'expected_result'),
     (
-        ('True (as string)', True),
-        ('False (as string)', False),
-        (['True 1', 'True 2'], True),
-        (['True 1', 'False 2'], False),
-        (['False 1', 'True 2'], False),
-        (['False 1', 'False 2'], False)
+            ('True (as string)', True),
+            ('False (as string)', False),
+            (['True 1', 'True 2'], True),
+            (['True 1', 'False 2'], False),
+            (['False 1', 'True 2'], False),
+            (['False 1', 'False 2'], False)
     )
 )
 def test_plugin_conditions(action_module, conditions, expected_result):
@@ -2154,35 +2228,35 @@ def test_plugin_conditions(action_module, conditions, expected_result):
 @pytest.mark.parametrize(
     ('variables', 'expected_result'),
     (
-        ('untemplated', 'untemplated'),
-        ('<< var1 >>', 'value1'),
-        (
-            {
-                'key1': 'untemplated',
-                'key2': '<< var1 >>',
-                'key3': '<< var2 >>',
-            },
-            {
-                'key1': 'untemplated',
-                'key2': 'value1',
-                'key3': 'value2',
-            }
-        ),
-        (
-            [
-                'untemplated',
-                '<< var1 >>',
-                '<< var2 >>'
-            ],
-            [
-                'untemplated',
-                'value1',
-                'value2'
-            ]
-        ),
-        (1, 1),
-        (1.5, 1.5),
-        (b'Hola', 'Hola')
+            ('untemplated', 'untemplated'),
+            ('<< var1 >>', 'value1'),
+            (
+                    {
+                        'key1': 'untemplated',
+                        'key2': '<< var1 >>',
+                        'key3': '<< var2 >>',
+                    },
+                    {
+                        'key1': 'untemplated',
+                        'key2': 'value1',
+                        'key3': 'value2',
+                    }
+            ),
+            (
+                    [
+                        'untemplated',
+                        '<< var1 >>',
+                        '<< var2 >>'
+                    ],
+                    [
+                        'untemplated',
+                        'value1',
+                        'value2'
+                    ]
+            ),
+            (1, 1),
+            (1.5, 1.5),
+            (b'Hola', 'Hola')
     )
 )
 def test_replace_vars(action_module, variables, expected_result):
@@ -2346,45 +2420,45 @@ def test_plugins_include_tasks_bad_file(action_module, params_set_child_with_chi
 @pytest.mark.parametrize(
     ('plugin_def', 'plugin_result', 'expected_var'),
     (
-        (
-            dict(name='the name', the_plugin={}, register='the_var'),
-            'string',
-            dict(task='the name', result='string', failed=False, skipped=False, msg='',
-                 invocation={'plugin_args': {}, 'plugin_name': 'the_plugin'})
-        ),
-        (
-            dict(name='the name', the_plugin={}, register='the_var'),
-            dict(failed=True, msg='The error message'),
-            dict(task='the name', failed=True, skipped=False, msg='The error message',
-                 invocation={'plugin_args': {}, 'plugin_name': 'the_plugin'})
-        ),
-        (
-            dict(name='the name', the_plugin={}, register='the_var', loop=['item1', 'item2']),
-            'string',
-            dict(task='the name', msg='All items completed', results=[
-                dict(result='string', failed=False, skipped=False, msg='', __item__='item1',
-                     invocation={'plugin_args': {}, 'plugin_name': 'the_plugin'}),
-                dict(result='string', failed=False, skipped=False, msg='', __item__='item2',
-                     invocation={'plugin_args': {}, 'plugin_name': 'the_plugin'})
-            ])
-        ),
-        (
-            dict(name='the name', the_plugin={}, register='the_var',
-                 loop=['item1', 'item2'], loop_control=dict(loop_var='the_loop_var')),
-            'string',
-            dict(task='the name', msg='All items completed', results=[
-                dict(result='string', failed=False, skipped=False, msg='', the_loop_var='item1',
-                     invocation={'plugin_args': {}, 'plugin_name': 'the_plugin'}),
-                dict(result='string', failed=False, skipped=False, msg='', the_loop_var='item2',
-                     invocation={'plugin_args': {}, 'plugin_name': 'the_plugin'})
-            ])
-        ),
-        (
-            dict(name='the name', the_plugin={}, register='the_var', ignore_errors=True),
-            AnsibleRuntimeError("The error message"),
-            dict(task='the name', failed=True, skipped=False, msg='The error message', exception=ANY,
-                 invocation={'plugin_args': {}, 'plugin_name': 'the_plugin'})
-        ),
+            (
+                    dict(name='the name', the_plugin={}, register='the_var'),
+                    'string',
+                    dict(task='the name', result='string', failed=False, skipped=False, msg='',
+                         invocation={'plugin_args': {}, 'plugin_name': 'the_plugin'})
+            ),
+            (
+                    dict(name='the name', the_plugin={}, register='the_var'),
+                    dict(failed=True, msg='The error message'),
+                    dict(task='the name', failed=True, skipped=False, msg='The error message',
+                         invocation={'plugin_args': {}, 'plugin_name': 'the_plugin'})
+            ),
+            (
+                    dict(name='the name', the_plugin={}, register='the_var', loop=['item1', 'item2']),
+                    'string',
+                    dict(task='the name', msg='All items completed', results=[
+                        dict(result='string', failed=False, skipped=False, msg='', __item__='item1',
+                             invocation={'plugin_args': {}, 'plugin_name': 'the_plugin'}),
+                        dict(result='string', failed=False, skipped=False, msg='', __item__='item2',
+                             invocation={'plugin_args': {}, 'plugin_name': 'the_plugin'})
+                    ])
+            ),
+            (
+                    dict(name='the name', the_plugin={}, register='the_var',
+                         loop=['item1', 'item2'], loop_control=dict(loop_var='the_loop_var')),
+                    'string',
+                    dict(task='the name', msg='All items completed', results=[
+                        dict(result='string', failed=False, skipped=False, msg='', the_loop_var='item1',
+                             invocation={'plugin_args': {}, 'plugin_name': 'the_plugin'}),
+                        dict(result='string', failed=False, skipped=False, msg='', the_loop_var='item2',
+                             invocation={'plugin_args': {}, 'plugin_name': 'the_plugin'})
+                    ])
+            ),
+            (
+                    dict(name='the name', the_plugin={}, register='the_var', ignore_errors=True),
+                    AnsibleRuntimeError("The error message"),
+                    dict(task='the name', failed=True, skipped=False, msg='The error message', exception=ANY,
+                         invocation={'plugin_args': {}, 'plugin_name': 'the_plugin'})
+            ),
     )
 )
 def test_register_plugin(action_module, params_set_child_without_children,
@@ -2409,12 +2483,12 @@ def test_register_plugin(action_module, params_set_child_without_children,
 @pytest.mark.parametrize(
     ('plugin_def', 'plugin_name'),
     (
-        (
-            dict(name='the name', block=[], register='the_var'), 'block'
-        ),
-        (
-            dict(name='the name', include_tasks={'file': 'the_file'}, register='the_var'), 'include_tasks'
-        )
+            (
+                    dict(name='the name', block=[], register='the_var'), 'block'
+            ),
+            (
+                    dict(name='the name', include_tasks={'file': 'the_file'}, register='the_var'), 'include_tasks'
+            )
     )
 )
 def test_register_plugin_unsupported(action_module, params_set_child_without_children,
@@ -2436,24 +2510,24 @@ def test_register_plugin_unsupported(action_module, params_set_child_without_chi
 @pytest.mark.parametrize(
     ('original_instance', 'plugin_result', 'expected_instance'),
     (
-        (
-            dict(var1='value1', var2={'key1': 'v1', 'key2': 'v2'}, var3=[1, 2, 3]),
-            dict(__instance__=dict(var4='value4')),
-            dict(var1='value1', var2={'key1': 'v1', 'key2': 'v2'}, var3=[1, 2, 3], var4='value4')
-        ),
-        (
-            dict(var1='value1', var2={'key1': 'v1', 'key2': 'v2'}, var3=[1, 2, 3]),
-            dict(__instance__=dict(var2={'key1': 'new1', 'key3': 'v3'}, var3=[4, 5, 6], var4='value4')),
-            dict(var1='value1', var2={'key1': 'new1', 'key2': 'v2', 'key3': 'v3'}, var3=[4, 5, 6],
-                 var4='value4')
-        ),
-        (
-            dict(var1='value1', var2={'key1': 'v1', 'key2': 'v2'}, var3=[1, 2, 3]),
-            dict(__instance__=dict(var2={'key1': 'new1', 'key3': 'v3'}, var3=[4, 5, 6], var4='value4'),
-                 __list_merge__='append'),
-            dict(var1='value1', var2={'key1': 'new1', 'key2': 'v2', 'key3': 'v3'}, var3=[1, 2, 3, 4, 5, 6],
-                 var4='value4')
-        ),
+            (
+                    dict(var1='value1', var2={'key1': 'v1', 'key2': 'v2'}, var3=[1, 2, 3]),
+                    dict(__instance__=dict(var4='value4')),
+                    dict(var1='value1', var2={'key1': 'v1', 'key2': 'v2'}, var3=[1, 2, 3], var4='value4')
+            ),
+            (
+                    dict(var1='value1', var2={'key1': 'v1', 'key2': 'v2'}, var3=[1, 2, 3]),
+                    dict(__instance__=dict(var2={'key1': 'new1', 'key3': 'v3'}, var3=[4, 5, 6], var4='value4')),
+                    dict(var1='value1', var2={'key1': 'new1', 'key2': 'v2', 'key3': 'v3'}, var3=[4, 5, 6],
+                         var4='value4')
+            ),
+            (
+                    dict(var1='value1', var2={'key1': 'v1', 'key2': 'v2'}, var3=[1, 2, 3]),
+                    dict(__instance__=dict(var2={'key1': 'new1', 'key3': 'v3'}, var3=[4, 5, 6], var4='value4'),
+                         __list_merge__='append'),
+                    dict(var1='value1', var2={'key1': 'new1', 'key2': 'v2', 'key3': 'v3'}, var3=[1, 2, 3, 4, 5, 6],
+                         var4='value4')
+            ),
     )
 )
 def test_plugin_result_instance(action_module, params_set_child_without_children,
@@ -2477,46 +2551,46 @@ def test_plugin_result_instance(action_module, params_set_child_without_children
 @pytest.mark.parametrize(
     ('result', 'conditions', 'expected_result'),
     (
-        (
-            dict(failed=True),
-            ['result is failed'],
-            True
-        ),
-        (
-            dict(failed=False),
-            ['result is failed'],
-            False
-        ),
-        (
-            dict(),
-            ['result is failed'],
-            False
-        ),
-        (
-            dict(),
-            ['result is not failed'],
-            True
-        ),
-        (
-            dict(skipped=True),
-            ['result is skipped'],
-            True
-        ),
-        (
-            dict(skipped=False),
-            ['result is skipped'],
-            False
-        ),
-        (
-            dict(),
-            ['result is skipped'],
-            False
-        ),
-        (
-            dict(),
-            ['result is not skipped'],
-            True
-        )
+            (
+                    dict(failed=True),
+                    ['result is failed'],
+                    True
+            ),
+            (
+                    dict(failed=False),
+                    ['result is failed'],
+                    False
+            ),
+            (
+                    dict(),
+                    ['result is failed'],
+                    False
+            ),
+            (
+                    dict(),
+                    ['result is not failed'],
+                    True
+            ),
+            (
+                    dict(skipped=True),
+                    ['result is skipped'],
+                    True
+            ),
+            (
+                    dict(skipped=False),
+                    ['result is skipped'],
+                    False
+            ),
+            (
+                    dict(),
+                    ['result is skipped'],
+                    False
+            ),
+            (
+                    dict(),
+                    ['result is not skipped'],
+                    True
+            )
     )
 )
 def test_condition_is_failed(action_module, result, conditions, expected_result):

@@ -1,3710 +1,3768 @@
+dockers:
+  containers:
+  - AppArmorProfile: ''
+    Args:
+    - -c
+    - /usr/local/bin/docker-entrypoint.sh
+    - catalina.sh
+    - run
+    Config:
+      AttachStderr: false
+      AttachStdin: false
+      AttachStdout: false
+      Cmd:
+      - catalina.sh
+      - run
+      Domainname: ''
+      Entrypoint:
+      - /bin/sh
+      - -c
+      - /usr/local/bin/docker-entrypoint.sh
+      Env:
+      - POSTGRES_HOST=cmdb-db01-integracion-internal.iometrics.io
+      - TZ=Europe/Madrid
+      - POSTGRES_PASS=ta5Puid4et2aemeveeshaeha
+      - JAVA_OPTS=-Xmx4000m -Xms2000m
+      - POSTGRES_APP_USER=datadope
+      - POSTGRES_DB=cmdbuild_r2u2
+      - POSTGRES_APP_PASSWORD=ta5Puid4et2aemeveeshaeha
+      - POSTGRES_USER=datadope
+      - PATH=/usr/local/tomcat/bin:/usr/local/openjdk-11/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+      - LANG=C.UTF-8
+      - JAVA_HOME=/usr/local/openjdk-11
+      - JAVA_VERSION=11.0.6
+      - JAVA_BASE_URL=https://github.com/AdoptOpenJDK/openjdk11-upstream-binaries/releases/download/jdk-11.0.6%2B10/OpenJDK11U-jdk_
+      - JAVA_URL_VERSION=11.0.6_10
+      - CATALINA_HOME=/usr/local/tomcat
+      - TOMCAT_NATIVE_LIBDIR=/usr/local/tomcat/native-jni-lib
+      - LD_LIBRARY_PATH=/usr/local/tomcat/native-jni-lib
+      - GPG_KEYS=05AB33110949707C93A279E3D3EFE6B686867BA6 07E48665A34DCAFAE522E5E6266191C37C037D42
+        47309207D818FFD8DCD3F83F1931D684307A10A5 541FBE7D8F78B25E055DDEE13C370389288584E7
+        61B832AC2F1C5A90F0F9B00A1C506407564C17A3 79F7026C690BAA50B92CD8B66A3AD3F4F22C4FED
+        9BA44C2621385CB966EBA586F72C284D731FABEE A27677289986DB50844682F8ACB77FC2E86E29AC
+        A9C5DF4D22E99998D9875A5110C01C5A2F6059E7 DCFD35E0BF8CA7344752DE8B6FB21E8933C60243
+        F3A04C595DB5B6A5F1ECA43E3B7BBB100D811BBE F7DA48BB64BCB84ECBA7EE6935CD23C10D498E23
+      - TOMCAT_MAJOR=9
+      - TOMCAT_VERSION=9.0.31
+      - TOMCAT_SHA512=75045ce54ad1b6ea66fd112e8b2ffa32a0740c018ab9392c7217a6dd6b829e8645b6810ab4b28dd186c12ce6045c1eb18ed19743c5d4b22c9e613e76294f22f5
+      - CMDBUILD_URL=https://nexus.opensolutions.cloud/repository/datadope-public/cmdbuild/ready2use-2.0-3.3.2.war
+      - POSTGRES_PORT=5432
+      - CMDBUILD_DUMP=empty.dump.xz
+      ExposedPorts:
+        8080/tcp: {}
+        8443/tcp: {}
+      Hostname: localhost
+      Image: nexusregistry.opensolutions.cloud/iometrics-cmdbuild:0.4.1
+      Labels: {}
+      OnBuild: null
+      OpenStdin: false
+      StdinOnce: false
+      Tty: false
+      User: tomcat
+      Volumes:
+        /etc/hosts: {}
+        /usr/local/tomcat/certs: {}
+        /usr/local/tomcat/logs: {}
+      WorkingDir: /usr/local/tomcat
+    Created: '2021-11-11T10:02:57.904221801Z'
+    Driver: overlay2
+    ExecIDs: null
+    GraphDriver:
+      Data:
+        LowerDir: /var/lib/docker/overlay2/50672f420a01e7919954ed65bda888f26020123cb2703dbd556457ab0b8b1440-init/diff:/var/lib/docker/overlay2/c0100c5fc0888fad72adf7c709d3142ccba8797311803c32b1c6ee9fdc1de50e/diff:/var/lib/docker/overlay2/63d738012f51ff7170406467832e013db70f935f583552a7886aa38962e82982/diff:/var/lib/docker/overlay2/47cd80f7dedb3bc34c2bca3fa92244ea9c185fcf0542caef919e1cc857cfdd3b/diff:/var/lib/docker/overlay2/a2db2a600330275b614855b67ddd415e3a75afa829346adfa0bb03a7333b402e/diff:/var/lib/docker/overlay2/9379979c9dd250c039f4afc2567766061715e709bfc36ee01ae3c3239025986b/diff:/var/lib/docker/overlay2/18f67ad491d73a59df5e91b962f57ef4869ddd92c6ebd3e44102469697624266/diff:/var/lib/docker/overlay2/137a09117ac770c6d5fc56e5112ebc5b08ef3c3d9efff29df177409a565a87b0/diff:/var/lib/docker/overlay2/de594fddde953514eeacfe63c99be98087989c214e4e5de974831664ffbe66a8/diff:/var/lib/docker/overlay2/4e4b98753830b09fce6331e4e11cb57368a29059ef703c11757668499e1a5a6b/diff:/var/lib/docker/overlay2/43329bb8f930dbaf651a0f9ec89f9a81ca1177bcda97d444ef43dffa082d7d30/diff:/var/lib/docker/overlay2/93fb2b626f5a929d0e2aef75b0a4504b487754c638f06ef853846011b1b04f90/diff:/var/lib/docker/overlay2/d7655bb3f45fb79b3810a732adf321480912998b29d65842ce8546dbd67ca402/diff:/var/lib/docker/overlay2/dae7334ac1a1ee12d6b8def3204d21f3c259a623f01098a682d52185f87f53b1/diff:/var/lib/docker/overlay2/bd55b267f3dc2165fe8ae6ca4d7ad01824c9f073f3d9a209b4aabb15f1e3f628/diff:/var/lib/docker/overlay2/7038e40fc28165f150bb277854f7fe37c3b19967a7fe07fe70eb5663343ec96c/diff:/var/lib/docker/overlay2/04ddf62add125112aeeef17f32406bf3e5a42a342ee771e8f4fe30f12794c4b4/diff:/var/lib/docker/overlay2/f38683ed385ddb64de321621e8f8e7b8cb161f8100a64417c64a152429822c63/diff:/var/lib/docker/overlay2/9101a62094b1ab60a4e9477e952bbc50c513103b178d2f07c51449876454d328/diff:/var/lib/docker/overlay2/a61859f12ba2af9c9dc4b9318ddc2efa3636248af9c1c5819afcaa93cdd478a6/diff:/var/lib/docker/overlay2/7bbd2fba82cda8d8110a79811738382f993dfbbcaec424690f81f0f602188578/diff:/var/lib/docker/overlay2/fc177696896be4d18ffb7582249deb2e6bc004fa6c1b59bd2cca3b3165e6240e/diff
+        MergedDir: /var/lib/docker/overlay2/50672f420a01e7919954ed65bda888f26020123cb2703dbd556457ab0b8b1440/merged
+        UpperDir: /var/lib/docker/overlay2/50672f420a01e7919954ed65bda888f26020123cb2703dbd556457ab0b8b1440/diff
+        WorkDir: /var/lib/docker/overlay2/50672f420a01e7919954ed65bda888f26020123cb2703dbd556457ab0b8b1440/work
+      Name: overlay2
+    HostConfig:
+      AutoRemove: false
+      Binds:
+      - /etc/hosts:/etc/hosts:ro
+      - /etc/iometrics-cmdbuild/certs:/usr/local/tomcat/certs:rw
+      - /var/log/iometrics-cmdbuild:/usr/local/tomcat/logs:rw
+      BlkioDeviceReadBps: null
+      BlkioDeviceReadIOps: null
+      BlkioDeviceWriteBps: null
+      BlkioDeviceWriteIOps: null
+      BlkioWeight: 0
+      BlkioWeightDevice: null
+      CapAdd: null
+      CapDrop: null
+      Capabilities: null
+      Cgroup: ''
+      CgroupParent: ''
+      ConsoleSize:
+      - 0
+      - 0
+      ContainerIDFile: ''
+      CpuCount: 0
+      CpuPercent: 0
+      CpuPeriod: 0
+      CpuQuota: 0
+      CpuRealtimePeriod: 0
+      CpuRealtimeRuntime: 0
+      CpuShares: 0
+      CpusetCpus: ''
+      CpusetMems: ''
+      DeviceCgroupRules: null
+      DeviceRequests: null
+      Devices: null
+      Dns: []
+      DnsOptions: []
+      DnsSearch: []
+      ExtraHosts: null
+      GroupAdd: null
+      IOMaximumBandwidth: 0
+      IOMaximumIOps: 0
+      IpcMode: private
+      Isolation: ''
+      KernelMemory: 0
+      KernelMemoryTCP: 0
+      Links: null
+      LogConfig:
+        Config:
+          max-file: '1'
+          max-size: 20m
+        Type: json-file
+      MaskedPaths:
+      - /proc/asound
+      - /proc/acpi
+      - /proc/kcore
+      - /proc/keys
+      - /proc/latency_stats
+      - /proc/timer_list
+      - /proc/timer_stats
+      - /proc/sched_debug
+      - /proc/scsi
+      - /sys/firmware
+      Memory: 4194304000
+      MemoryReservation: 2097152000
+      MemorySwap: 8388608000
+      MemorySwappiness: null
+      NanoCpus: 0
+      NetworkMode: bridge
+      OomKillDisable: false
+      OomScoreAdj: 0
+      PidMode: ''
+      PidsLimit: null
+      PortBindings:
+        8443/tcp:
+        - HostIp: 0.0.0.0
+          HostPort: '8443'
+      Privileged: false
+      PublishAllPorts: false
+      ReadonlyPaths:
+      - /proc/bus
+      - /proc/fs
+      - /proc/irq
+      - /proc/sys
+      - /proc/sysrq-trigger
+      ReadonlyRootfs: false
+      RestartPolicy:
+        MaximumRetryCount: 0
+        Name: ''
+      Runtime: runc
+      SecurityOpt: null
+      ShmSize: 67108864
+      UTSMode: ''
+      Ulimits: null
+      UsernsMode: ''
+      VolumeDriver: ''
+      VolumesFrom: null
+    HostnamePath: /var/lib/docker/containers/54550f43387aef84c991c068d34f9bc90cae449e2ebdeda7353d578c10fcc607/hostname
+    HostsPath: /etc/hosts
+    Id: 54550f43387aef84c991c068d34f9bc90cae449e2ebdeda7353d578c10fcc607
+    Image: sha256:4963cc7d5cdaa74048cc3a833584e1634a8245490d8f6c206a97b163157817ff
+    LogPath: /var/lib/docker/containers/54550f43387aef84c991c068d34f9bc90cae449e2ebdeda7353d578c10fcc607/54550f43387aef84c991c068d34f9bc90cae449e2ebdeda7353d578c10fcc607-json.log
+    MountLabel: ''
+    Mounts:
+    - Destination: /etc/hosts
+      Mode: ro
+      Propagation: rprivate
+      RW: false
+      Source: /etc/hosts
+      Type: bind
+    - Destination: /usr/local/tomcat/certs
+      Mode: rw
+      Propagation: rprivate
+      RW: true
+      Source: /etc/iometrics-cmdbuild/certs
+      Type: bind
+    - Destination: /usr/local/tomcat/logs
+      Mode: rw
+      Propagation: rprivate
+      RW: true
+      Source: /var/log/iometrics-cmdbuild
+      Type: bind
+    Name: /iometrics-cmdbuild
+    NetworkSettings:
+      Bridge: ''
+      EndpointID: 22ff115460d2a139cd405d257f4f459e1065cfd74de5843e8c3f95f8217e9617
+      Gateway: 192.168.1.1
+      GlobalIPv6Address: ''
+      GlobalIPv6PrefixLen: 0
+      HairpinMode: false
+      IPAddress: 192.168.1.2
+      IPPrefixLen: 16
+      IPv6Gateway: ''
+      LinkLocalIPv6Address: ''
+      LinkLocalIPv6PrefixLen: 0
+      MacAddress: 02:42:ac:11:00:02
+      Networks:
+        bridge:
+          Aliases: null
+          DriverOpts: null
+          EndpointID: 22ff115460d2a139cd405d257f4f459e1065cfd74de5843e8c3f95f8217e9617
+          Gateway: 192.168.1.1
+          GlobalIPv6Address: ''
+          GlobalIPv6PrefixLen: 0
+          IPAMConfig: null
+          IPAddress: 192.168.1.2
+          IPPrefixLen: 16
+          IPv6Gateway: ''
+          Links: null
+          MacAddress: 02:42:ac:11:00:02
+          NetworkID: 91d42730928d475ba307be852a455668b8122288ceb5c15f12d313f2ce0b4255
+      Ports:
+        8080/tcp: null
+        8443/tcp:
+        - HostIp: 0.0.0.0
+          HostPort: '8443'
+      SandboxID: 9b1e826fe1933efbee33d38c3dc53844e07f4ee2d33be8c2c1e3e022d4e3e081
+      SandboxKey: /var/run/docker/netns/9b1e826fe193
+      SecondaryIPAddresses: null
+      SecondaryIPv6Addresses: null
+    Path: /bin/sh
+    Platform: linux
+    ProcessLabel: ''
+    ResolvConfPath: /var/lib/docker/containers/54550f43387aef84c991c068d34f9bc90cae449e2ebdeda7353d578c10fcc607/resolv.conf
+    RestartCount: 0
+    State:
+      Dead: false
+      Error: ''
+      ExitCode: 0
+      FinishedAt: '2022-08-28T17:37:02.812501368Z'
+      OOMKilled: true
+      Paused: false
+      Pid: 13238
+      Restarting: false
+      Running: true
+      StartedAt: '2022-08-28T17:37:05.646301012Z'
+      Status: running
+  - AppArmorProfile: ''
+    Args: []
+    Config:
+      AttachStderr: false
+      AttachStdin: false
+      AttachStdout: false
+      Cmd: null
+      Domainname: ''
+      Entrypoint:
+      - /run.sh
+      Env:
+      - NO_PROXY=localhost,127.0.0.1
+      - HTTPS_PROXY=
+      - GF_PATHS_PLUGINS=/usr/share/grafana/plugins
+      - HTTP_PROXY=
+      - PATH=/usr/share/grafana/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+      - GF_PATHS_CONFIG=/etc/grafana/grafana.ini
+      - GF_PATHS_DATA=/var/lib/grafana
+      - GF_PATHS_HOME=/usr/share/grafana
+      - GF_PATHS_LOGS=/var/log/grafana
+      - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
+      - GF_USERS_DEFAULT_THEME=light
+      - GF_RENDERER_PLUGIN_CHROME_BIN=/usr/bin/chromium-browser
+      ExposedPorts:
+        3000/tcp: {}
+      Hostname: cmdb01.novalocal
+      Image: nexusregistry.opensolutions.cloud/iometrics-ui-enterprise:6.6.2.3
+      Labels:
+        os_container_type: grafana
+        os_environment: default
+      OnBuild: null
+      OpenStdin: false
+      StdinOnce: false
+      Tty: false
+      User: grafana
+      Volumes:
+        /etc/grafana: {}
+        /etc/hosts: {}
+        /etc/localtime: {}
+        /var/lib/grafana: {}
+        /var/log/grafana: {}
+      WorkingDir: /usr/share/grafana
+    Created: '2021-01-15T12:45:30.765987178Z'
+    Driver: overlay2
+    ExecIDs: null
+    GraphDriver:
+      Data:
+        LowerDir: /var/lib/docker/overlay2/76b4e75eb8e16adee85d2d781f02590780ab71575f0470aedb7cbfb960a177d1-init/diff:/var/lib/docker/overlay2/0d2c44c827bfb7dabdebae887d8683db32d93d4d76b196d7ad89704e0fcb1389/diff:/var/lib/docker/overlay2/f0e1f1f418c2281b381cf1865c8f26dcd6b3d932f40f52d1b1fdca5b51f59403/diff:/var/lib/docker/overlay2/55a6a205817b93c52fb9fd4c2cc8f934d19e4b2ccfbcf3c08b298753a45ae973/diff:/var/lib/docker/overlay2/6eb3c76533ef49d07490c8c83d99533de21abd3109451cf52fc0c67b69ab611b/diff:/var/lib/docker/overlay2/e2815a71b491409711b3d35eea90c0dd86fd08cf49d3cef7a3b8975805873009/diff:/var/lib/docker/overlay2/7a4561e76b8114bef56fd08e6cb03450a148795b234a3d8dc8236b8fe76c8bcd/diff:/var/lib/docker/overlay2/54dd3972aadb529dba440730f58fa712249b38347dd0c302925e87327062d273/diff:/var/lib/docker/overlay2/67b520bda1cd13ae235e8248930218fdf9fb9d3a9677961b748af89d704c3f26/diff:/var/lib/docker/overlay2/39a352a4de1195eb0ea5d56384fcb82143edf4b381d039933cfdfc8437742018/diff:/var/lib/docker/overlay2/8bba506a78e1be76f9df4721f9e1d9b803663b7b7de87f041d8089ef1f641d5a/diff:/var/lib/docker/overlay2/f5ed7d8d022525cf8f03f3be2493851803cd595469b11b32f183255bddca9349/diff:/var/lib/docker/overlay2/14f5fd087aa9d77e5433f13239715857e7bf55e03bf0369c3369e1d0f2fc805e/diff
+        MergedDir: /var/lib/docker/overlay2/76b4e75eb8e16adee85d2d781f02590780ab71575f0470aedb7cbfb960a177d1/merged
+        UpperDir: /var/lib/docker/overlay2/76b4e75eb8e16adee85d2d781f02590780ab71575f0470aedb7cbfb960a177d1/diff
+        WorkDir: /var/lib/docker/overlay2/76b4e75eb8e16adee85d2d781f02590780ab71575f0470aedb7cbfb960a177d1/work
+      Name: overlay2
+    HostConfig:
+      AutoRemove: false
+      Binds:
+      - /etc/hosts:/etc/hosts:rw
+      - /etc/grafana:/etc/grafana:rw
+      - /var/lib/grafana:/var/lib/grafana:rw
+      - /var/log/grafana:/var/log/grafana:rw
+      - /etc/localtime:/etc/localtime:rw
+      BlkioDeviceReadBps: null
+      BlkioDeviceReadIOps: null
+      BlkioDeviceWriteBps: null
+      BlkioDeviceWriteIOps: null
+      BlkioWeight: 0
+      BlkioWeightDevice: null
+      CapAdd: null
+      CapDrop: null
+      Capabilities: null
+      Cgroup: ''
+      CgroupParent: ''
+      ConsoleSize:
+      - 0
+      - 0
+      ContainerIDFile: ''
+      CpuCount: 0
+      CpuPercent: 0
+      CpuPeriod: 0
+      CpuQuota: 0
+      CpuRealtimePeriod: 0
+      CpuRealtimeRuntime: 0
+      CpuShares: 0
+      CpusetCpus: ''
+      CpusetMems: ''
+      DeviceCgroupRules: null
+      DeviceRequests: null
+      Devices: null
+      Dns: []
+      DnsOptions: []
+      DnsSearch: []
+      ExtraHosts: null
+      GroupAdd: null
+      IOMaximumBandwidth: 0
+      IOMaximumIOps: 0
+      IpcMode: private
+      Isolation: ''
+      KernelMemory: 0
+      KernelMemoryTCP: 0
+      Links: null
+      LogConfig:
+        Config:
+          max-file: '1'
+          max-size: 20m
+        Type: json-file
+      MaskedPaths:
+      - /proc/asound
+      - /proc/acpi
+      - /proc/kcore
+      - /proc/keys
+      - /proc/latency_stats
+      - /proc/timer_list
+      - /proc/timer_stats
+      - /proc/sched_debug
+      - /proc/scsi
+      - /sys/firmware
+      Memory: 0
+      MemoryReservation: 0
+      MemorySwap: 0
+      MemorySwappiness: null
+      NanoCpus: 0
+      NetworkMode: host
+      OomKillDisable: false
+      OomScoreAdj: 0
+      PidMode: ''
+      PidsLimit: null
+      PortBindings: null
+      Privileged: false
+      PublishAllPorts: false
+      ReadonlyPaths:
+      - /proc/bus
+      - /proc/fs
+      - /proc/irq
+      - /proc/sys
+      - /proc/sysrq-trigger
+      ReadonlyRootfs: false
+      RestartPolicy:
+        MaximumRetryCount: 0
+        Name: unless-stopped
+      Runtime: runc
+      SecurityOpt: null
+      ShmSize: 67108864
+      UTSMode: ''
+      Ulimits: null
+      UsernsMode: ''
+      VolumeDriver: ''
+      VolumesFrom: null
+    HostnamePath: /var/lib/docker/containers/9739f22aa6c5e9ff69f0daf4ee31ea0b27a436d2444eb0018ec1054deccc8b60/hostname
+    HostsPath: /etc/hosts
+    Id: 9739f22aa6c5e9ff69f0daf4ee31ea0b27a436d2444eb0018ec1054deccc8b60
+    Image: sha256:d3c19e6207531bc75d6e96acb05ba4e07aa8497c67ffb7300c22f09129e7c6ac
+    LogPath: /var/lib/docker/containers/9739f22aa6c5e9ff69f0daf4ee31ea0b27a436d2444eb0018ec1054deccc8b60/9739f22aa6c5e9ff69f0daf4ee31ea0b27a436d2444eb0018ec1054deccc8b60-json.log
+    MountLabel: ''
+    Mounts:
+    - Destination: /var/log/grafana
+      Mode: rw
+      Propagation: rprivate
+      RW: true
+      Source: /var/log/grafana
+      Type: bind
+    - Destination: /etc/grafana
+      Mode: rw
+      Propagation: rprivate
+      RW: true
+      Source: /etc/grafana
+      Type: bind
+    - Destination: /etc/hosts
+      Mode: rw
+      Propagation: rprivate
+      RW: true
+      Source: /etc/hosts
+      Type: bind
+    - Destination: /etc/localtime
+      Mode: rw
+      Propagation: rprivate
+      RW: true
+      Source: /etc/localtime
+      Type: bind
+    - Destination: /var/lib/grafana
+      Mode: rw
+      Propagation: rprivate
+      RW: true
+      Source: /var/lib/grafana
+      Type: bind
+    Name: /grafana
+    NetworkSettings:
+      Bridge: ''
+      EndpointID: ''
+      Gateway: ''
+      GlobalIPv6Address: ''
+      GlobalIPv6PrefixLen: 0
+      HairpinMode: false
+      IPAddress: ''
+      IPPrefixLen: 0
+      IPv6Gateway: ''
+      LinkLocalIPv6Address: ''
+      LinkLocalIPv6PrefixLen: 0
+      MacAddress: ''
+      Networks:
+        host:
+          Aliases: null
+          DriverOpts: null
+          EndpointID: 4be9102529bde6561a20aef10b892eaeb6db6ff824a222a50ac373182b510706
+          Gateway: ''
+          GlobalIPv6Address: ''
+          GlobalIPv6PrefixLen: 0
+          IPAMConfig: null
+          IPAddress: ''
+          IPPrefixLen: 0
+          IPv6Gateway: ''
+          Links: null
+          MacAddress: ''
+          NetworkID: 1ab6c0eaf33ebf3437299022cf3d1481c808eb54b77862bc018876a78726b0f4
+      Ports: {}
+      SandboxID: 20caa57c43e433507a96073c6dc1cf2134b03a9874406acdb6540325c821a29f
+      SandboxKey: /var/run/docker/netns/default
+      SecondaryIPAddresses: null
+      SecondaryIPv6Addresses: null
+    Path: /run.sh
+    Platform: linux
+    ProcessLabel: ''
+    ResolvConfPath: /var/lib/docker/containers/9739f22aa6c5e9ff69f0daf4ee31ea0b27a436d2444eb0018ec1054deccc8b60/resolv.conf
+    RestartCount: 0
+    State:
+      Dead: false
+      Error: ''
+      ExitCode: 0
+      FinishedAt: '2022-04-26T15:55:42.531786634Z'
+      OOMKilled: false
+      Paused: false
+      Pid: 5645
+      Restarting: false
+      Running: true
+      StartedAt: '2022-04-26T15:55:52.595384652Z'
+      Status: running
+expected_result:
+- bindings:
+  - address: '::'
+    class: service
+    port: 8443
+    protocol: tcp
+  discovery_time: '2022-09-01T17:02:25+02:00'
+  files:
+  - path: /usr/bin/dockerd
+    subtype: generic
+    type: binary
+  listening_ports:
+  - 8443
+  packages:
+  - arch: x86_64
+    epoch: 3
+    name: docker-ce
+    release: 3.el7
+    source: rpm
+    version: 19.03.11
+  - arch: x86_64
+    epoch: 1
+    name: docker-ce-cli
+    release: 3.el7
+    source: rpm
+    version: 19.03.11
+  process:
+    cmdline: /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
+    cwd: /usr/bin/
+    pid: '1192'
+    ppid: '1'
+    user: root
+  type: Docker
+  version:
+  - number: 19.03.11
+    type: active
+  - number: 19.03.11
+    type: package
+expected_tasks_calls:
+  Run version command: 1
 mocked_plugin_tasks:
   Run version command:
     number_of_calls: 1
     plugin_result:
       failed: false
-      stdout: "Docker version 19.03.11, build 42e35e61f3"
-
-expected_tasks_calls:
-  Run version command: 1
-
-expected_result:
-  - discovery_time: '2022-09-01T17:02:25+02:00'
-    bindings:
-      - address: '::'
-        class: service
-        port: 8443
-        protocol: tcp
-    files:
-      - path: /usr/bin/dockerd
-        subtype: generic
-        type: binary
-    listening_ports:
-      - 8443
-    packages:
-      - arch: x86_64
-        epoch: 3
-        name: docker-ce
-        release: 3.el7
-        source: rpm
-        version: 19.03.11
-      - arch: x86_64
-        epoch: 1
-        name: docker-ce-cli
-        release: 3.el7
-        source: rpm
-        version: 19.03.11
-    process:
-      cmdline: '/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock'
-      pid: '1192'
-      ppid: '1'
-      user: root
-    type: Docker
-    version:
-      - number: 19.03.11
-        type: active
-      - number: 19.03.11
-        type: package
-software_list:
-  - name: Docker
-    cmd_regexp: dockerd
-    pkg_regexp: docker
-    process_type: parent
-    return_children: false
-    return_packages: true
-    custom_tasks:
-      - name: Include Docker specific plugins
-        include_tasks:
-          file: "{{ software_discovery__custom_tasks_definition_files_path }}/docker.yaml"
+      stdout: Docker version 19.03.11, build 42e35e61f3
 packages:
   GeoIP:
-    - arch: x86_64
-      epoch: null
-      name: GeoIP
-      release: 13.el7
-      source: rpm
-      version: 1.5.0
+  - arch: x86_64
+    epoch: null
+    name: GeoIP
+    release: 13.el7
+    source: rpm
+    version: 1.5.0
   PyYAML:
-    - arch: x86_64
-      epoch: null
-      name: PyYAML
-      release: 11.el7
-      source: rpm
-      version: '3.10'
+  - arch: x86_64
+    epoch: null
+    name: PyYAML
+    release: 11.el7
+    source: rpm
+    version: '3.10'
   acl:
-    - arch: x86_64
-      epoch: null
-      name: acl
-      release: 14.el7
-      source: rpm
-      version: 2.2.51
+  - arch: x86_64
+    epoch: null
+    name: acl
+    release: 14.el7
+    source: rpm
+    version: 2.2.51
   audit:
-    - arch: x86_64
-      epoch: null
-      name: audit
-      release: 4.el7
-      source: rpm
-      version: 2.8.4
+  - arch: x86_64
+    epoch: null
+    name: audit
+    release: 4.el7
+    source: rpm
+    version: 2.8.4
   audit-libs:
-    - arch: x86_64
-      epoch: null
-      name: audit-libs
-      release: 4.el7
-      source: rpm
-      version: 2.8.4
+  - arch: x86_64
+    epoch: null
+    name: audit-libs
+    release: 4.el7
+    source: rpm
+    version: 2.8.4
   audit-libs-python:
-    - arch: x86_64
-      epoch: null
-      name: audit-libs-python
-      release: 4.el7
-      source: rpm
-      version: 2.8.4
+  - arch: x86_64
+    epoch: null
+    name: audit-libs-python
+    release: 4.el7
+    source: rpm
+    version: 2.8.4
   authconfig:
-    - arch: x86_64
-      epoch: null
-      name: authconfig
-      release: 30.el7
-      source: rpm
-      version: 6.2.8
+  - arch: x86_64
+    epoch: null
+    name: authconfig
+    release: 30.el7
+    source: rpm
+    version: 6.2.8
   autogen-libopts:
-    - arch: x86_64
-      epoch: null
-      name: autogen-libopts
-      release: 5.el7
-      source: rpm
-      version: '5.18'
+  - arch: x86_64
+    epoch: null
+    name: autogen-libopts
+    release: 5.el7
+    source: rpm
+    version: '5.18'
   basesystem:
-    - arch: noarch
-      epoch: null
-      name: basesystem
-      release: 7.el7.centos
-      source: rpm
-      version: '10.0'
+  - arch: noarch
+    epoch: null
+    name: basesystem
+    release: 7.el7.centos
+    source: rpm
+    version: '10.0'
   bash:
-    - arch: x86_64
-      epoch: null
-      name: bash
-      release: 31.el7
-      source: rpm
-      version: 4.2.46
+  - arch: x86_64
+    epoch: null
+    name: bash
+    release: 31.el7
+    source: rpm
+    version: 4.2.46
   bind-libs-lite:
-    - arch: x86_64
-      epoch: 32
-      name: bind-libs-lite
-      release: 74.el7_6.2
-      source: rpm
-      version: 9.9.4
+  - arch: x86_64
+    epoch: 32
+    name: bind-libs-lite
+    release: 74.el7_6.2
+    source: rpm
+    version: 9.9.4
   bind-license:
-    - arch: noarch
-      epoch: 32
-      name: bind-license
-      release: 74.el7_6.2
-      source: rpm
-      version: 9.9.4
+  - arch: noarch
+    epoch: 32
+    name: bind-license
+    release: 74.el7_6.2
+    source: rpm
+    version: 9.9.4
   binutils:
-    - arch: x86_64
-      epoch: null
-      name: binutils
-      release: 34.base.el7
-      source: rpm
-      version: '2.27'
+  - arch: x86_64
+    epoch: null
+    name: binutils
+    release: 34.base.el7
+    source: rpm
+    version: '2.27'
   btrfs-progs:
-    - arch: x86_64
-      epoch: null
-      name: btrfs-progs
-      release: 1.el7
-      source: rpm
-      version: 4.9.1
+  - arch: x86_64
+    epoch: null
+    name: btrfs-progs
+    release: 1.el7
+    source: rpm
+    version: 4.9.1
   bzip2-libs:
-    - arch: x86_64
-      epoch: null
-      name: bzip2-libs
-      release: 13.el7
-      source: rpm
-      version: 1.0.6
+  - arch: x86_64
+    epoch: null
+    name: bzip2-libs
+    release: 13.el7
+    source: rpm
+    version: 1.0.6
   ca-certificates:
-    - arch: noarch
-      epoch: null
-      name: ca-certificates
-      release: 70.0.el7_5
-      source: rpm
-      version: 2018.2.22
+  - arch: noarch
+    epoch: null
+    name: ca-certificates
+    release: 70.0.el7_5
+    source: rpm
+    version: 2018.2.22
   centos-release:
-    - arch: x86_64
-      epoch: null
-      name: centos-release
-      release: 6.1810.2.el7.centos
-      source: rpm
-      version: '7'
+  - arch: x86_64
+    epoch: null
+    name: centos-release
+    release: 6.1810.2.el7.centos
+    source: rpm
+    version: '7'
   checkpolicy:
-    - arch: x86_64
-      epoch: null
-      name: checkpolicy
-      release: 8.el7
-      source: rpm
-      version: '2.5'
+  - arch: x86_64
+    epoch: null
+    name: checkpolicy
+    release: 8.el7
+    source: rpm
+    version: '2.5'
   chkconfig:
-    - arch: x86_64
-      epoch: null
-      name: chkconfig
-      release: 1.el7
-      source: rpm
-      version: 1.7.4
+  - arch: x86_64
+    epoch: null
+    name: chkconfig
+    release: 1.el7
+    source: rpm
+    version: 1.7.4
   chrony:
-    - arch: x86_64
-      epoch: null
-      name: chrony
-      release: 2.el7
-      source: rpm
-      version: '3.2'
+  - arch: x86_64
+    epoch: null
+    name: chrony
+    release: 2.el7
+    source: rpm
+    version: '3.2'
   cloud-init:
-    - arch: x86_64
-      epoch: null
-      name: cloud-init
-      release: 1.el7.centos.2
-      source: rpm
-      version: '18.2'
+  - arch: x86_64
+    epoch: null
+    name: cloud-init
+    release: 1.el7.centos.2
+    source: rpm
+    version: '18.2'
   cloud-utils-growpart:
-    - arch: noarch
-      epoch: null
-      name: cloud-utils-growpart
-      release: 2.el7_6.2
-      source: rpm
-      version: '0.29'
+  - arch: noarch
+    epoch: null
+    name: cloud-utils-growpart
+    release: 2.el7_6.2
+    source: rpm
+    version: '0.29'
   container-selinux:
-    - arch: noarch
-      epoch: 2
-      name: container-selinux
-      release: 1.c57a6f9.el7
-      source: rpm
-      version: 2.119.1
+  - arch: noarch
+    epoch: 2
+    name: container-selinux
+    release: 1.c57a6f9.el7
+    source: rpm
+    version: 2.119.1
   containerd.io:
-    - arch: x86_64
-      epoch: null
-      name: containerd.io
-      release: 3.2.el7
-      source: rpm
-      version: 1.2.13
+  - arch: x86_64
+    epoch: null
+    name: containerd.io
+    release: 3.2.el7
+    source: rpm
+    version: 1.2.13
   coreutils:
-    - arch: x86_64
-      epoch: null
-      name: coreutils
-      release: 23.el7
-      source: rpm
-      version: '8.22'
+  - arch: x86_64
+    epoch: null
+    name: coreutils
+    release: 23.el7
+    source: rpm
+    version: '8.22'
   cpio:
-    - arch: x86_64
-      epoch: null
-      name: cpio
-      release: 27.el7
-      source: rpm
-      version: '2.11'
+  - arch: x86_64
+    epoch: null
+    name: cpio
+    release: 27.el7
+    source: rpm
+    version: '2.11'
   cracklib:
-    - arch: x86_64
-      epoch: null
-      name: cracklib
-      release: 11.el7
-      source: rpm
-      version: 2.9.0
+  - arch: x86_64
+    epoch: null
+    name: cracklib
+    release: 11.el7
+    source: rpm
+    version: 2.9.0
   cracklib-dicts:
-    - arch: x86_64
-      epoch: null
-      name: cracklib-dicts
-      release: 11.el7
-      source: rpm
-      version: 2.9.0
+  - arch: x86_64
+    epoch: null
+    name: cracklib-dicts
+    release: 11.el7
+    source: rpm
+    version: 2.9.0
   cronie:
-    - arch: x86_64
-      epoch: null
-      name: cronie
-      release: 20.el7_6
-      source: rpm
-      version: 1.4.11
+  - arch: x86_64
+    epoch: null
+    name: cronie
+    release: 20.el7_6
+    source: rpm
+    version: 1.4.11
   cronie-anacron:
-    - arch: x86_64
-      epoch: null
-      name: cronie-anacron
-      release: 20.el7_6
-      source: rpm
-      version: 1.4.11
+  - arch: x86_64
+    epoch: null
+    name: cronie-anacron
+    release: 20.el7_6
+    source: rpm
+    version: 1.4.11
   crontabs:
-    - arch: noarch
-      epoch: null
-      name: crontabs
-      release: 6.20121102git.el7
-      source: rpm
-      version: '1.11'
+  - arch: noarch
+    epoch: null
+    name: crontabs
+    release: 6.20121102git.el7
+    source: rpm
+    version: '1.11'
   cryptsetup-libs:
-    - arch: x86_64
-      epoch: null
-      name: cryptsetup-libs
-      release: 3.el7
-      source: rpm
-      version: 2.0.3
+  - arch: x86_64
+    epoch: null
+    name: cryptsetup-libs
+    release: 3.el7
+    source: rpm
+    version: 2.0.3
   curl:
-    - arch: x86_64
-      epoch: null
-      name: curl
-      release: 51.el7_6.3
-      source: rpm
-      version: 7.29.0
+  - arch: x86_64
+    epoch: null
+    name: curl
+    release: 51.el7_6.3
+    source: rpm
+    version: 7.29.0
   cyrus-sasl-lib:
-    - arch: x86_64
-      epoch: null
-      name: cyrus-sasl-lib
-      release: 23.el7
-      source: rpm
-      version: 2.1.26
+  - arch: x86_64
+    epoch: null
+    name: cyrus-sasl-lib
+    release: 23.el7
+    source: rpm
+    version: 2.1.26
   dbus:
-    - arch: x86_64
-      epoch: 1
-      name: dbus
-      release: 13.el7_6
-      source: rpm
-      version: 1.10.24
+  - arch: x86_64
+    epoch: 1
+    name: dbus
+    release: 13.el7_6
+    source: rpm
+    version: 1.10.24
   dbus-glib:
-    - arch: x86_64
-      epoch: null
-      name: dbus-glib
-      release: 7.el7
-      source: rpm
-      version: '0.100'
+  - arch: x86_64
+    epoch: null
+    name: dbus-glib
+    release: 7.el7
+    source: rpm
+    version: '0.100'
   dbus-libs:
-    - arch: x86_64
-      epoch: 1
-      name: dbus-libs
-      release: 13.el7_6
-      source: rpm
-      version: 1.10.24
+  - arch: x86_64
+    epoch: 1
+    name: dbus-libs
+    release: 13.el7_6
+    source: rpm
+    version: 1.10.24
   dbus-python:
-    - arch: x86_64
-      epoch: null
-      name: dbus-python
-      release: 9.el7
-      source: rpm
-      version: 1.1.1
+  - arch: x86_64
+    epoch: null
+    name: dbus-python
+    release: 9.el7
+    source: rpm
+    version: 1.1.1
   device-mapper:
-    - arch: x86_64
-      epoch: 7
-      name: device-mapper
-      release: 10.el7_6.8
-      source: rpm
-      version: 1.02.149
+  - arch: x86_64
+    epoch: 7
+    name: device-mapper
+    release: 10.el7_6.8
+    source: rpm
+    version: 1.02.149
   device-mapper-libs:
-    - arch: x86_64
-      epoch: 7
-      name: device-mapper-libs
-      release: 10.el7_6.8
-      source: rpm
-      version: 1.02.149
+  - arch: x86_64
+    epoch: 7
+    name: device-mapper-libs
+    release: 10.el7_6.8
+    source: rpm
+    version: 1.02.149
   dhclient:
-    - arch: x86_64
-      epoch: 12
-      name: dhclient
-      release: 68.el7.centos.1
-      source: rpm
-      version: 4.2.5
-  dhcp-common:
-    - arch: x86_64
-      epoch: 12
-      name: dhcp-common
-      release: 68.el7.centos.1
-      source: rpm
-      version: 4.2.5
-  dhcp-libs:
-    - arch: x86_64
-      epoch: 12
-      name: dhcp-libs
-      release: 68.el7.centos.1
-      source: rpm
-      version: 4.2.5
-  diffutils:
-    - arch: x86_64
-      epoch: null
-      name: diffutils
-      release: 4.el7
-      source: rpm
-      version: '3.3'
-  dmidecode:
-    - arch: x86_64
-      epoch: 1
-      name: dmidecode
-      release: 2.el7
-      source: rpm
-      version: '3.1'
-  docker-ce:
-    - arch: x86_64
-      epoch: 3
-      name: docker-ce
-      release: 3.el7
-      source: rpm
-      version: 19.03.11
-  docker-ce-cli:
-    - arch: x86_64
-      epoch: 1
-      name: docker-ce-cli
-      release: 3.el7
-      source: rpm
-      version: 19.03.11
-  dracut:
-    - arch: x86_64
-      epoch: null
-      name: dracut
-      release: 554.el7
-      source: rpm
-      version: '033'
-  dracut-config-generic:
-    - arch: x86_64
-      epoch: null
-      name: dracut-config-generic
-      release: 554.el7
-      source: rpm
-      version: '033'
-  dracut-config-rescue:
-    - arch: x86_64
-      epoch: null
-      name: dracut-config-rescue
-      release: 554.el7
-      source: rpm
-      version: '033'
-  dracut-network:
-    - arch: x86_64
-      epoch: null
-      name: dracut-network
-      release: 554.el7
-      source: rpm
-      version: '033'
-  e2fsprogs:
-    - arch: x86_64
-      epoch: null
-      name: e2fsprogs
-      release: 13.el7
-      source: rpm
-      version: 1.42.9
-  e2fsprogs-libs:
-    - arch: x86_64
-      epoch: null
-      name: e2fsprogs-libs
-      release: 13.el7
-      source: rpm
-      version: 1.42.9
-  elfutils-default-yama-scope:
-    - arch: noarch
-      epoch: null
-      name: elfutils-default-yama-scope
-      release: 2.el7
-      source: rpm
-      version: '0.172'
-  elfutils-libelf:
-    - arch: x86_64
-      epoch: null
-      name: elfutils-libelf
-      release: 2.el7
-      source: rpm
-      version: '0.172'
-  elfutils-libs:
-    - arch: x86_64
-      epoch: null
-      name: elfutils-libs
-      release: 2.el7
-      source: rpm
-      version: '0.172'
-  epel-release:
-    - arch: noarch
-      epoch: null
-      name: epel-release
-      release: '11'
-      source: rpm
-      version: '7'
-  ethtool:
-    - arch: x86_64
-      epoch: 2
-      name: ethtool
-      release: 9.el7
-      source: rpm
-      version: '4.8'
-  expat:
-    - arch: x86_64
-      epoch: null
-      name: expat
-      release: 10.el7_3
-      source: rpm
-      version: 2.1.0
-  file:
-    - arch: x86_64
-      epoch: null
-      name: file
-      release: 35.el7
-      source: rpm
-      version: '5.11'
-  file-libs:
-    - arch: x86_64
-      epoch: null
-      name: file-libs
-      release: 35.el7
-      source: rpm
-      version: '5.11'
-  filebeat:
-    - arch: x86_64
-      epoch: null
-      name: filebeat
-      release: '1'
-      source: rpm
-      version: 7.4.2
-  filesystem:
-    - arch: x86_64
-      epoch: null
-      name: filesystem
-      release: 25.el7
-      source: rpm
-      version: '3.2'
-  findutils:
-    - arch: x86_64
-      epoch: 1
-      name: findutils
-      release: 6.el7
-      source: rpm
-      version: 4.5.11
-  fipscheck:
-    - arch: x86_64
-      epoch: null
-      name: fipscheck
-      release: 6.el7
-      source: rpm
-      version: 1.4.1
-  fipscheck-lib:
-    - arch: x86_64
-      epoch: null
-      name: fipscheck-lib
-      release: 6.el7
-      source: rpm
-      version: 1.4.1
-  forkstat:
-    - arch: x86_64
-      epoch: null
-      name: forkstat
-      release: '1.1'
-      source: rpm
-      version: 0.02.12
-  freetype:
-    - arch: x86_64
-      epoch: null
-      name: freetype
-      release: 12.el7_6.1
-      source: rpm
-      version: '2.8'
-  gawk:
-    - arch: x86_64
-      epoch: null
-      name: gawk
-      release: 4.el7_3.1
-      source: rpm
-      version: 4.0.2
-  gdbm:
-    - arch: x86_64
-      epoch: null
-      name: gdbm
-      release: 8.el7
-      source: rpm
-      version: '1.10'
-  gettext:
-    - arch: x86_64
-      epoch: null
-      name: gettext
-      release: 2.el7
-      source: rpm
-      version: 0.19.8.1
-  gettext-libs:
-    - arch: x86_64
-      epoch: null
-      name: gettext-libs
-      release: 2.el7
-      source: rpm
-      version: 0.19.8.1
-  glib2:
-    - arch: x86_64
-      epoch: null
-      name: glib2
-      release: 4.el7_6
-      source: rpm
-      version: 2.56.1
-  glibc:
-    - arch: x86_64
-      epoch: null
-      name: glibc
-      release: 260.el7_6.6
-      source: rpm
-      version: '2.17'
-  glibc-common:
-    - arch: x86_64
-      epoch: null
-      name: glibc-common
-      release: 260.el7_6.6
-      source: rpm
-      version: '2.17'
-  gmp:
-    - arch: x86_64
-      epoch: 1
-      name: gmp
-      release: 15.el7
-      source: rpm
-      version: 6.0.0
-  gnupg2:
-    - arch: x86_64
-      epoch: null
-      name: gnupg2
-      release: 5.el7_5
-      source: rpm
-      version: 2.0.22
-  gobject-introspection:
-    - arch: x86_64
-      epoch: null
-      name: gobject-introspection
-      release: 1.el7
-      source: rpm
-      version: 1.56.1
-  gpg-pubkey:
-    - arch: null
-      epoch: null
-      name: gpg-pubkey
-      release: 53a7ff4b
-      source: rpm
-      version: f4a80eb5
-    - arch: null
-      epoch: null
-      name: gpg-pubkey
-      release: 52ae6884
-      source: rpm
-      version: 352c64e5
-    - arch: null
-      epoch: null
-      name: gpg-pubkey
-      release: 58adea78
-      source: rpm
-      version: 621e9f35
-  gpgme:
-    - arch: x86_64
-      epoch: null
-      name: gpgme
-      release: 5.el7
-      source: rpm
-      version: 1.3.2
-  gpm-libs:
-    - arch: x86_64
-      epoch: null
-      name: gpm-libs
-      release: 6.el7
-      source: rpm
-      version: 1.20.7
-  grep:
-    - arch: x86_64
-      epoch: null
-      name: grep
-      release: 3.el7
-      source: rpm
-      version: '2.20'
-  groff-base:
-    - arch: x86_64
-      epoch: null
-      name: groff-base
-      release: 8.el7
-      source: rpm
-      version: 1.22.2
-  grub2:
-    - arch: x86_64
-      epoch: 1
-      name: grub2
-      release: 0.76.el7.centos.1
-      source: rpm
-      version: '2.02'
-  grub2-common:
-    - arch: noarch
-      epoch: 1
-      name: grub2-common
-      release: 0.76.el7.centos.1
-      source: rpm
-      version: '2.02'
-  grub2-pc:
-    - arch: x86_64
-      epoch: 1
-      name: grub2-pc
-      release: 0.76.el7.centos.1
-      source: rpm
-      version: '2.02'
-  grub2-pc-modules:
-    - arch: noarch
-      epoch: 1
-      name: grub2-pc-modules
-      release: 0.76.el7.centos.1
-      source: rpm
-      version: '2.02'
-  grub2-tools:
-    - arch: x86_64
-      epoch: 1
-      name: grub2-tools
-      release: 0.76.el7.centos.1
-      source: rpm
-      version: '2.02'
-  grub2-tools-extra:
-    - arch: x86_64
-      epoch: 1
-      name: grub2-tools-extra
-      release: 0.76.el7.centos.1
-      source: rpm
-      version: '2.02'
-  grub2-tools-minimal:
-    - arch: x86_64
-      epoch: 1
-      name: grub2-tools-minimal
-      release: 0.76.el7.centos.1
-      source: rpm
-      version: '2.02'
-  grubby:
-    - arch: x86_64
-      epoch: null
-      name: grubby
-      release: 25.el7
-      source: rpm
-      version: '8.28'
-  gssproxy:
-    - arch: x86_64
-      epoch: null
-      name: gssproxy
-      release: 21.el7
-      source: rpm
-      version: 0.7.0
-  gzip:
-    - arch: x86_64
-      epoch: null
-      name: gzip
-      release: 10.el7
-      source: rpm
-      version: '1.5'
-  hardlink:
-    - arch: x86_64
-      epoch: 1
-      name: hardlink
-      release: 19.el7
-      source: rpm
-      version: '1.0'
-  hostname:
-    - arch: x86_64
-      epoch: null
-      name: hostname
-      release: 3.el7
-      source: rpm
-      version: '3.13'
-  hwdata:
-    - arch: x86_64
-      epoch: null
-      name: hwdata
-      release: 9.1.el7
-      source: rpm
-      version: '0.252'
-  info:
-    - arch: x86_64
-      epoch: null
-      name: info
-      release: 5.el7
-      source: rpm
-      version: '5.1'
-  initscripts:
-    - arch: x86_64
-      epoch: null
-      name: initscripts
-      release: 1.el7
-      source: rpm
-      version: 9.49.46
-  iometrics-agent:
-    - arch: x86_64
-      epoch: null
-      name: iometrics-agent
-      release: '27'
-      source: rpm
-      version: 1.11.3
-  iotop:
-    - arch: noarch
-      epoch: null
-      name: iotop
-      release: 4.el7
-      source: rpm
-      version: '0.6'
-  iproute:
-    - arch: x86_64
-      epoch: null
-      name: iproute
-      release: 14.el7_6.2
-      source: rpm
-      version: 4.11.0
-  iptables:
-    - arch: x86_64
-      epoch: null
-      name: iptables
-      release: 28.el7
-      source: rpm
-      version: 1.4.21
-  iputils:
-    - arch: x86_64
-      epoch: null
-      name: iputils
-      release: 10.el7
-      source: rpm
-      version: '20160308'
-  irqbalance:
-    - arch: x86_64
-      epoch: 3
-      name: irqbalance
-      release: 11.el7
-      source: rpm
-      version: 1.0.7
-  iwl7265-firmware:
-    - arch: noarch
-      epoch: null
-      name: iwl7265-firmware
-      release: 69.el7
-      source: rpm
-      version: 22.0.7.0
-  jansson:
-    - arch: x86_64
-      epoch: null
-      name: jansson
-      release: 1.el7
-      source: rpm
-      version: '2.10'
-  json-c:
-    - arch: x86_64
-      epoch: null
-      name: json-c
-      release: 4.el7_0
-      source: rpm
-      version: '0.11'
-  kbd:
-    - arch: x86_64
-      epoch: null
-      name: kbd
-      release: 15.el7
-      source: rpm
-      version: 1.15.5
-  kbd-legacy:
-    - arch: noarch
-      epoch: null
-      name: kbd-legacy
-      release: 15.el7
-      source: rpm
-      version: 1.15.5
-  kbd-misc:
-    - arch: noarch
-      epoch: null
-      name: kbd-misc
-      release: 15.el7
-      source: rpm
-      version: 1.15.5
-  kernel:
-    - arch: x86_64
-      epoch: null
-      name: kernel
-      release: 957.27.2.el7
-      source: rpm
-      version: 3.10.0
-  kernel-tools:
-    - arch: x86_64
-      epoch: null
-      name: kernel-tools
-      release: 957.27.2.el7
-      source: rpm
-      version: 3.10.0
-  kernel-tools-libs:
-    - arch: x86_64
-      epoch: null
-      name: kernel-tools-libs
-      release: 957.27.2.el7
-      source: rpm
-      version: 3.10.0
-  kexec-tools:
-    - arch: x86_64
-      epoch: null
-      name: kexec-tools
-      release: 21.el7_6.4
-      source: rpm
-      version: 2.0.15
-  keyutils:
-    - arch: x86_64
-      epoch: null
-      name: keyutils
-      release: 3.el7
-      source: rpm
-      version: 1.5.8
-  keyutils-libs:
-    - arch: x86_64
-      epoch: null
-      name: keyutils-libs
-      release: 3.el7
-      source: rpm
-      version: 1.5.8
-  kmod:
-    - arch: x86_64
-      epoch: null
-      name: kmod
-      release: 23.el7
-      source: rpm
-      version: '20'
-  kmod-libs:
-    - arch: x86_64
-      epoch: null
-      name: kmod-libs
-      release: 23.el7
-      source: rpm
-      version: '20'
-  kpartx:
-    - arch: x86_64
-      epoch: null
-      name: kpartx
-      release: 123.el7
-      source: rpm
-      version: 0.4.9
-  krb5-libs:
-    - arch: x86_64
-      epoch: null
-      name: krb5-libs
-      release: 37.el7_6
-      source: rpm
-      version: 1.15.1
-  less:
-    - arch: x86_64
-      epoch: null
-      name: less
-      release: 9.el7
-      source: rpm
-      version: '458'
-  libacl:
-    - arch: x86_64
-      epoch: null
-      name: libacl
-      release: 14.el7
-      source: rpm
-      version: 2.2.51
-  libassuan:
-    - arch: x86_64
-      epoch: null
-      name: libassuan
-      release: 3.el7
-      source: rpm
-      version: 2.1.0
-  libattr:
-    - arch: x86_64
-      epoch: null
-      name: libattr
-      release: 13.el7
-      source: rpm
-      version: 2.4.46
-  libbasicobjects:
-    - arch: x86_64
-      epoch: null
-      name: libbasicobjects
-      release: 32.el7
-      source: rpm
-      version: 0.1.1
-  libblkid:
-    - arch: x86_64
-      epoch: null
-      name: libblkid
-      release: 59.el7_6.1
-      source: rpm
-      version: 2.23.2
-  libcap:
-    - arch: x86_64
-      epoch: null
-      name: libcap
-      release: 9.el7
-      source: rpm
-      version: '2.22'
-  libcap-ng:
-    - arch: x86_64
-      epoch: null
-      name: libcap-ng
-      release: 4.el7
-      source: rpm
-      version: 0.7.5
-  libcgroup:
-    - arch: x86_64
-      epoch: null
-      name: libcgroup
-      release: 20.el7
-      source: rpm
-      version: '0.41'
-  libcollection:
-    - arch: x86_64
-      epoch: null
-      name: libcollection
-      release: 32.el7
-      source: rpm
-      version: 0.7.0
-  libcom_err:
-    - arch: x86_64
-      epoch: null
-      name: libcom_err
-      release: 13.el7
-      source: rpm
-      version: 1.42.9
-  libcroco:
-    - arch: x86_64
-      epoch: null
-      name: libcroco
-      release: 4.el7
-      source: rpm
-      version: 0.6.12
-  libcurl:
-    - arch: x86_64
-      epoch: null
-      name: libcurl
-      release: 51.el7_6.3
-      source: rpm
-      version: 7.29.0
-  libdaemon:
-    - arch: x86_64
-      epoch: null
-      name: libdaemon
-      release: 7.el7
-      source: rpm
-      version: '0.14'
-  libdb:
-    - arch: x86_64
-      epoch: null
-      name: libdb
-      release: 24.el7
-      source: rpm
-      version: 5.3.21
-  libdb-utils:
-    - arch: x86_64
-      epoch: null
-      name: libdb-utils
-      release: 24.el7
-      source: rpm
-      version: 5.3.21
-  libedit:
-    - arch: x86_64
-      epoch: null
-      name: libedit
-      release: 12.20121213cvs.el7
-      source: rpm
-      version: '3.0'
-  libestr:
-    - arch: x86_64
-      epoch: null
-      name: libestr
-      release: 2.el7
-      source: rpm
-      version: 0.1.9
-  libevent:
-    - arch: x86_64
-      epoch: null
-      name: libevent
-      release: 4.el7
-      source: rpm
-      version: 2.0.21
-  libfastjson:
-    - arch: x86_64
-      epoch: null
-      name: libfastjson
-      release: 3.el7
-      source: rpm
-      version: 0.99.4
-  libffi:
-    - arch: x86_64
-      epoch: null
-      name: libffi
-      release: 18.el7
-      source: rpm
-      version: 3.0.13
-  libgcc:
-    - arch: x86_64
-      epoch: null
-      name: libgcc
-      release: 36.el7_6.2
-      source: rpm
-      version: 4.8.5
-  libgcrypt:
-    - arch: x86_64
-      epoch: null
-      name: libgcrypt
-      release: 14.el7
-      source: rpm
-      version: 1.5.3
-  libgomp:
-    - arch: x86_64
-      epoch: null
-      name: libgomp
-      release: 36.el7_6.2
-      source: rpm
-      version: 4.8.5
-  libgpg-error:
-    - arch: x86_64
-      epoch: null
-      name: libgpg-error
-      release: 3.el7
-      source: rpm
-      version: '1.12'
-  libidn:
-    - arch: x86_64
-      epoch: null
-      name: libidn
-      release: 4.el7
-      source: rpm
-      version: '1.28'
-  libini_config:
-    - arch: x86_64
-      epoch: null
-      name: libini_config
-      release: 32.el7
-      source: rpm
-      version: 1.3.1
-  libmnl:
-    - arch: x86_64
-      epoch: null
-      name: libmnl
-      release: 7.el7
-      source: rpm
-      version: 1.0.3
-  libmount:
-    - arch: x86_64
-      epoch: null
-      name: libmount
-      release: 59.el7_6.1
-      source: rpm
-      version: 2.23.2
-  libndp:
-    - arch: x86_64
-      epoch: null
-      name: libndp
-      release: 7.el7
-      source: rpm
-      version: '1.2'
-  libnetfilter_conntrack:
-    - arch: x86_64
-      epoch: null
-      name: libnetfilter_conntrack
-      release: 1.el7_3
-      source: rpm
-      version: 1.0.6
-  libnfnetlink:
-    - arch: x86_64
-      epoch: null
-      name: libnfnetlink
-      release: 4.el7
-      source: rpm
-      version: 1.0.1
-  libnfsidmap:
-    - arch: x86_64
-      epoch: null
-      name: libnfsidmap
-      release: 19.el7
-      source: rpm
-      version: '0.25'
-  libnl3:
-    - arch: x86_64
-      epoch: null
-      name: libnl3
-      release: 4.el7
-      source: rpm
-      version: 3.2.28
-  libnl3-cli:
-    - arch: x86_64
-      epoch: null
-      name: libnl3-cli
-      release: 4.el7
-      source: rpm
-      version: 3.2.28
-  libpath_utils:
-    - arch: x86_64
-      epoch: null
-      name: libpath_utils
-      release: 32.el7
-      source: rpm
-      version: 0.2.1
-  libpcap:
-    - arch: x86_64
-      epoch: 14
-      name: libpcap
-      release: 12.el7
-      source: rpm
-      version: 1.5.3
-  libpipeline:
-    - arch: x86_64
-      epoch: null
-      name: libpipeline
-      release: 3.el7
-      source: rpm
-      version: 1.2.3
-  libpng:
-    - arch: x86_64
-      epoch: 2
-      name: libpng
-      release: 7.el7_2
-      source: rpm
-      version: 1.5.13
-  libpwquality:
-    - arch: x86_64
-      epoch: null
-      name: libpwquality
-      release: 5.el7
-      source: rpm
-      version: 1.2.3
-  libref_array:
-    - arch: x86_64
-      epoch: null
-      name: libref_array
-      release: 32.el7
-      source: rpm
-      version: 0.1.5
-  libseccomp:
-    - arch: x86_64
-      epoch: null
-      name: libseccomp
-      release: 3.el7
-      source: rpm
-      version: 2.3.1
-  libselinux:
-    - arch: x86_64
-      epoch: null
-      name: libselinux
-      release: 15.el7
-      source: rpm
-      version: '2.5'
-  libselinux-python:
-    - arch: x86_64
-      epoch: null
-      name: libselinux-python
-      release: 15.el7
-      source: rpm
-      version: '2.5'
-  libselinux-python3:
-    - arch: x86_64
-      epoch: null
-      name: libselinux-python3
-      release: 15.el7
-      source: rpm
-      version: '2.5'
-  libselinux-utils:
-    - arch: x86_64
-      epoch: null
-      name: libselinux-utils
-      release: 15.el7
-      source: rpm
-      version: '2.5'
-  libsemanage:
-    - arch: x86_64
-      epoch: null
-      name: libsemanage
-      release: 14.el7
-      source: rpm
-      version: '2.5'
-  libsemanage-python:
-    - arch: x86_64
-      epoch: null
-      name: libsemanage-python
-      release: 14.el7
-      source: rpm
-      version: '2.5'
-  libsepol:
-    - arch: x86_64
-      epoch: null
-      name: libsepol
-      release: 10.el7
-      source: rpm
-      version: '2.5'
-  libsmartcols:
-    - arch: x86_64
-      epoch: null
-      name: libsmartcols
-      release: 59.el7_6.1
-      source: rpm
-      version: 2.23.2
-  libss:
-    - arch: x86_64
-      epoch: null
-      name: libss
-      release: 13.el7
-      source: rpm
-      version: 1.42.9
-  libssh2:
-    - arch: x86_64
-      epoch: null
-      name: libssh2
-      release: 12.el7_6.3
-      source: rpm
-      version: 1.4.3
-  libstdc++:
-    - arch: x86_64
-      epoch: null
-      name: libstdc++
-      release: 36.el7_6.2
-      source: rpm
-      version: 4.8.5
-  libsysfs:
-    - arch: x86_64
-      epoch: null
-      name: libsysfs
-      release: 16.el7
-      source: rpm
-      version: 2.1.0
-  libtasn1:
-    - arch: x86_64
-      epoch: null
-      name: libtasn1
-      release: 1.el7
-      source: rpm
-      version: '4.10'
-  libteam:
-    - arch: x86_64
-      epoch: null
-      name: libteam
-      release: 6.el7_6.1
-      source: rpm
-      version: '1.27'
-  libtirpc:
-    - arch: x86_64
-      epoch: null
-      name: libtirpc
-      release: 0.15.el7
-      source: rpm
-      version: 0.2.4
-  libunistring:
-    - arch: x86_64
-      epoch: null
-      name: libunistring
-      release: 9.el7
-      source: rpm
-      version: 0.9.3
-  libuser:
-    - arch: x86_64
-      epoch: null
-      name: libuser
-      release: 9.el7
-      source: rpm
-      version: '0.60'
-  libutempter:
-    - arch: x86_64
-      epoch: null
-      name: libutempter
-      release: 4.el7
-      source: rpm
-      version: 1.1.6
-  libuuid:
-    - arch: x86_64
-      epoch: null
-      name: libuuid
-      release: 59.el7_6.1
-      source: rpm
-      version: 2.23.2
-  libverto:
-    - arch: x86_64
-      epoch: null
-      name: libverto
-      release: 4.el7
-      source: rpm
-      version: 0.2.5
-  libverto-libevent:
-    - arch: x86_64
-      epoch: null
-      name: libverto-libevent
-      release: 4.el7
-      source: rpm
-      version: 0.2.5
-  libxml2:
-    - arch: x86_64
-      epoch: null
-      name: libxml2
-      release: 6.el7_2.3
-      source: rpm
-      version: 2.9.1
-  libxml2-python:
-    - arch: x86_64
-      epoch: null
-      name: libxml2-python
-      release: 6.el7_2.3
-      source: rpm
-      version: 2.9.1
-  libyaml:
-    - arch: x86_64
-      epoch: null
-      name: libyaml
-      release: 11.el7_0
-      source: rpm
-      version: 0.1.4
-  lm_sensors-libs:
-    - arch: x86_64
-      epoch: null
-      name: lm_sensors-libs
-      release: 8.20160601gitf9185e5.el7
-      source: rpm
-      version: 3.4.0
-  logrotate:
-    - arch: x86_64
-      epoch: null
-      name: logrotate
-      release: 17.el7
-      source: rpm
-      version: 3.8.6
-  lshw:
-    - arch: x86_64
-      epoch: null
-      name: lshw
-      release: 12.el7
-      source: rpm
-      version: B.02.18
-  lua:
-    - arch: x86_64
-      epoch: null
-      name: lua
-      release: 15.el7
-      source: rpm
-      version: 5.1.4
-  lz4:
-    - arch: x86_64
-      epoch: null
-      name: lz4
-      release: 2.el7
-      source: rpm
-      version: 1.7.5
-  lzo:
-    - arch: x86_64
-      epoch: null
-      name: lzo
-      release: 8.el7
-      source: rpm
-      version: '2.06'
-  make:
-    - arch: x86_64
-      epoch: 1
-      name: make
-      release: 23.el7
-      source: rpm
-      version: '3.82'
-  man-db:
-    - arch: x86_64
-      epoch: null
-      name: man-db
-      release: 11.el7
-      source: rpm
-      version: 2.6.3
-  mariadb-libs:
-    - arch: x86_64
-      epoch: 1
-      name: mariadb-libs
-      release: 1.el7_5
-      source: rpm
-      version: 5.5.60
-  microcode_ctl:
-    - arch: x86_64
-      epoch: 2
-      name: microcode_ctl
-      release: 47.5.el7_6
-      source: rpm
-      version: '2.1'
-  mozjs17:
-    - arch: x86_64
-      epoch: null
-      name: mozjs17
-      release: 20.el7
-      source: rpm
-      version: 17.0.0
-  ncurses:
-    - arch: x86_64
-      epoch: null
-      name: ncurses
-      release: 14.20130511.el7_4
-      source: rpm
-      version: '5.9'
-  ncurses-base:
-    - arch: noarch
-      epoch: null
-      name: ncurses-base
-      release: 14.20130511.el7_4
-      source: rpm
-      version: '5.9'
-  ncurses-libs:
-    - arch: x86_64
-      epoch: null
-      name: ncurses-libs
-      release: 14.20130511.el7_4
-      source: rpm
-      version: '5.9'
-  net-tools:
-    - arch: x86_64
-      epoch: null
-      name: net-tools
-      release: 0.24.20131004git.el7
-      source: rpm
-      version: '2.0'
-  newt:
-    - arch: x86_64
-      epoch: null
-      name: newt
-      release: 4.el7
-      source: rpm
-      version: 0.52.15
-  newt-python:
-    - arch: x86_64
-      epoch: null
-      name: newt-python
-      release: 4.el7
-      source: rpm
-      version: 0.52.15
-  nfs-utils:
-    - arch: x86_64
-      epoch: 1
-      name: nfs-utils
-      release: 0.61.el7
-      source: rpm
-      version: 1.3.0
-  nspr:
-    - arch: x86_64
-      epoch: null
-      name: nspr
-      release: 1.el7_5
-      source: rpm
-      version: 4.19.0
-  nss:
-    - arch: x86_64
-      epoch: null
-      name: nss
-      release: 7.1.el7_6
-      source: rpm
-      version: 3.36.0
-  nss-pem:
-    - arch: x86_64
-      epoch: null
-      name: nss-pem
-      release: 5.el7_6.1
-      source: rpm
-      version: 1.0.3
-  nss-softokn:
-    - arch: x86_64
-      epoch: null
-      name: nss-softokn
-      release: 5.el7_5
-      source: rpm
-      version: 3.36.0
-  nss-softokn-freebl:
-    - arch: x86_64
-      epoch: null
-      name: nss-softokn-freebl
-      release: 5.el7_5
-      source: rpm
-      version: 3.36.0
-  nss-sysinit:
-    - arch: x86_64
-      epoch: null
-      name: nss-sysinit
-      release: 7.1.el7_6
-      source: rpm
-      version: 3.36.0
-  nss-tools:
-    - arch: x86_64
-      epoch: null
-      name: nss-tools
-      release: 7.1.el7_6
-      source: rpm
-      version: 3.36.0
-  nss-util:
-    - arch: x86_64
-      epoch: null
-      name: nss-util
-      release: 1.1.el7_6
-      source: rpm
-      version: 3.36.0
-  ntp:
-    - arch: x86_64
-      epoch: null
-      name: ntp
-      release: 29.el7.centos.2
-      source: rpm
-      version: 4.2.6p5
-  ntpdate:
-    - arch: x86_64
-      epoch: null
-      name: ntpdate
-      release: 29.el7.centos.2
-      source: rpm
-      version: 4.2.6p5
-  numactl-libs:
-    - arch: x86_64
-      epoch: null
-      name: numactl-libs
-      release: 7.el7
-      source: rpm
-      version: 2.0.9
-  openldap:
-    - arch: x86_64
-      epoch: null
-      name: openldap
-      release: 21.el7_6
-      source: rpm
-      version: 2.4.44
-  openssh:
-    - arch: x86_64
-      epoch: null
-      name: openssh
-      release: 16.el7
-      source: rpm
-      version: 7.4p1
-  openssh-clients:
-    - arch: x86_64
-      epoch: null
-      name: openssh-clients
-      release: 16.el7
-      source: rpm
-      version: 7.4p1
-  openssh-server:
-    - arch: x86_64
-      epoch: null
-      name: openssh-server
-      release: 16.el7
-      source: rpm
-      version: 7.4p1
-  openssl:
-    - arch: x86_64
-      epoch: 1
-      name: openssl
-      release: 16.el7_6.1
-      source: rpm
-      version: 1.0.2k
-  openssl-libs:
-    - arch: x86_64
-      epoch: 1
-      name: openssl-libs
-      release: 16.el7_6.1
-      source: rpm
-      version: 1.0.2k
-  os-prober:
-    - arch: x86_64
-      epoch: null
-      name: os-prober
-      release: 9.el7
-      source: rpm
-      version: '1.58'
-  p11-kit:
-    - arch: x86_64
-      epoch: null
-      name: p11-kit
-      release: 3.el7
-      source: rpm
-      version: 0.23.5
-  p11-kit-trust:
-    - arch: x86_64
-      epoch: null
-      name: p11-kit-trust
-      release: 3.el7
-      source: rpm
-      version: 0.23.5
-  pam:
-    - arch: x86_64
-      epoch: null
-      name: pam
-      release: 22.el7
-      source: rpm
-      version: 1.1.8
-  parted:
-    - arch: x86_64
-      epoch: null
-      name: parted
-      release: 29.el7
-      source: rpm
-      version: '3.1'
-  passwd:
-    - arch: x86_64
-      epoch: null
-      name: passwd
-      release: 4.el7
-      source: rpm
-      version: '0.79'
-  pciutils-libs:
-    - arch: x86_64
-      epoch: null
-      name: pciutils-libs
-      release: 3.el7
-      source: rpm
-      version: 3.5.1
-  pcre:
-    - arch: x86_64
-      epoch: null
-      name: pcre
-      release: 17.el7
-      source: rpm
-      version: '8.32'
-  perl:
-    - arch: x86_64
-      epoch: 4
-      name: perl
-      release: 297.el7
-      source: rpm
-      version: 5.16.3
-  perl-Carp:
-    - arch: noarch
-      epoch: null
-      name: perl-Carp
-      release: 244.el7
-      source: rpm
-      version: '1.26'
-  perl-Encode:
-    - arch: x86_64
-      epoch: null
-      name: perl-Encode
-      release: 7.el7
-      source: rpm
-      version: '2.51'
-  perl-Exporter:
-    - arch: noarch
-      epoch: null
-      name: perl-Exporter
-      release: 3.el7
-      source: rpm
-      version: '5.68'
-  perl-File-Path:
-    - arch: noarch
-      epoch: null
-      name: perl-File-Path
-      release: 2.el7
-      source: rpm
-      version: '2.09'
-  perl-File-Temp:
-    - arch: noarch
-      epoch: null
-      name: perl-File-Temp
-      release: 3.el7
-      source: rpm
-      version: 0.23.01
-  perl-Filter:
-    - arch: x86_64
-      epoch: null
-      name: perl-Filter
-      release: 3.el7
-      source: rpm
-      version: '1.49'
-  perl-Getopt-Long:
-    - arch: noarch
-      epoch: null
-      name: perl-Getopt-Long
-      release: 3.el7
-      source: rpm
-      version: '2.40'
-  perl-HTTP-Tiny:
-    - arch: noarch
-      epoch: null
-      name: perl-HTTP-Tiny
-      release: 3.el7
-      source: rpm
-      version: '0.033'
-  perl-PathTools:
-    - arch: x86_64
-      epoch: null
-      name: perl-PathTools
-      release: 5.el7
-      source: rpm
-      version: '3.40'
-  perl-Pod-Escapes:
-    - arch: noarch
-      epoch: 1
-      name: perl-Pod-Escapes
-      release: 297.el7
-      source: rpm
-      version: '1.04'
-  perl-Pod-Perldoc:
-    - arch: noarch
-      epoch: null
-      name: perl-Pod-Perldoc
-      release: 4.el7
-      source: rpm
-      version: '3.20'
-  perl-Pod-Simple:
-    - arch: noarch
-      epoch: 1
-      name: perl-Pod-Simple
-      release: 4.el7
-      source: rpm
-      version: '3.28'
-  perl-Pod-Usage:
-    - arch: noarch
-      epoch: null
-      name: perl-Pod-Usage
-      release: 3.el7
-      source: rpm
-      version: '1.63'
-  perl-Scalar-List-Utils:
-    - arch: x86_64
-      epoch: null
-      name: perl-Scalar-List-Utils
-      release: 248.el7
-      source: rpm
-      version: '1.27'
-  perl-Socket:
-    - arch: x86_64
-      epoch: null
-      name: perl-Socket
-      release: 5.el7
-      source: rpm
-      version: '2.010'
-  perl-Storable:
-    - arch: x86_64
-      epoch: null
-      name: perl-Storable
-      release: 3.el7
-      source: rpm
-      version: '2.45'
-  perl-Text-ParseWords:
-    - arch: noarch
-      epoch: null
-      name: perl-Text-ParseWords
-      release: 4.el7
-      source: rpm
-      version: '3.29'
-  perl-Time-HiRes:
-    - arch: x86_64
-      epoch: 4
-      name: perl-Time-HiRes
-      release: 3.el7
-      source: rpm
-      version: '1.9725'
-  perl-Time-Local:
-    - arch: noarch
-      epoch: null
-      name: perl-Time-Local
-      release: 2.el7
-      source: rpm
-      version: '1.2300'
-  perl-constant:
-    - arch: noarch
-      epoch: null
-      name: perl-constant
-      release: 2.el7
-      source: rpm
-      version: '1.27'
-  perl-libs:
-    - arch: x86_64
-      epoch: 4
-      name: perl-libs
-      release: 297.el7
-      source: rpm
-      version: 5.16.3
-  perl-macros:
-    - arch: x86_64
-      epoch: 4
-      name: perl-macros
-      release: 297.el7
-      source: rpm
-      version: 5.16.3
-  perl-parent:
-    - arch: noarch
-      epoch: 1
-      name: perl-parent
-      release: 244.el7
-      source: rpm
-      version: '0.225'
-  perl-podlators:
-    - arch: noarch
-      epoch: null
-      name: perl-podlators
-      release: 3.el7
-      source: rpm
-      version: 2.5.1
-  perl-threads:
-    - arch: x86_64
-      epoch: null
-      name: perl-threads
-      release: 4.el7
-      source: rpm
-      version: '1.87'
-  perl-threads-shared:
-    - arch: x86_64
-      epoch: null
-      name: perl-threads-shared
-      release: 6.el7
-      source: rpm
-      version: '1.43'
-  pinentry:
-    - arch: x86_64
-      epoch: null
-      name: pinentry
-      release: 17.el7
-      source: rpm
-      version: 0.8.1
-  pkgconfig:
-    - arch: x86_64
-      epoch: 1
-      name: pkgconfig
-      release: 4.el7
-      source: rpm
-      version: 0.27.1
-  policycoreutils:
-    - arch: x86_64
-      epoch: null
-      name: policycoreutils
-      release: 29.el7_6.1
-      source: rpm
-      version: '2.5'
-  policycoreutils-python:
-    - arch: x86_64
-      epoch: null
-      name: policycoreutils-python
-      release: 29.el7_6.1
-      source: rpm
-      version: '2.5'
-  polkit:
-    - arch: x86_64
-      epoch: null
-      name: polkit
-      release: 18.el7_6.1
-      source: rpm
-      version: '0.112'
-  polkit-pkla-compat:
-    - arch: x86_64
-      epoch: null
-      name: polkit-pkla-compat
-      release: 4.el7
-      source: rpm
-      version: '0.1'
-  popt:
-    - arch: x86_64
-      epoch: null
-      name: popt
-      release: 16.el7
-      source: rpm
-      version: '1.13'
-  postfix:
-    - arch: x86_64
-      epoch: 2
-      name: postfix
-      release: 7.el7
-      source: rpm
-      version: 2.10.1
-  procps-ng:
-    - arch: x86_64
-      epoch: null
-      name: procps-ng
-      release: 23.el7
-      source: rpm
-      version: 3.3.10
-  pth:
-    - arch: x86_64
-      epoch: null
-      name: pth
-      release: 23.el7
-      source: rpm
-      version: 2.0.7
-  pygpgme:
-    - arch: x86_64
-      epoch: null
-      name: pygpgme
-      release: 9.el7
-      source: rpm
-      version: '0.3'
-  pyliblzma:
-    - arch: x86_64
-      epoch: null
-      name: pyliblzma
-      release: 11.el7
-      source: rpm
-      version: 0.5.3
-  pyserial:
-    - arch: noarch
-      epoch: null
-      name: pyserial
-      release: 6.el7
-      source: rpm
-      version: '2.6'
-  python:
-    - arch: x86_64
-      epoch: null
-      name: python
-      release: 80.el7_6
-      source: rpm
-      version: 2.7.5
-  python-IPy:
-    - arch: noarch
-      epoch: null
-      name: python-IPy
-      release: 6.el7
-      source: rpm
-      version: '0.75'
-  python-babel:
-    - arch: noarch
-      epoch: null
-      name: python-babel
-      release: 8.el7
-      source: rpm
-      version: 0.9.6
-  python-backports:
-    - arch: x86_64
-      epoch: null
-      name: python-backports
-      release: 8.el7
-      source: rpm
-      version: '1.0'
-  python-backports-ssl_match_hostname:
-    - arch: noarch
-      epoch: null
-      name: python-backports-ssl_match_hostname
-      release: 1.el7
-      source: rpm
-      version: 3.5.0.1
-  python-chardet:
-    - arch: noarch
-      epoch: null
-      name: python-chardet
-      release: 1.el7_1
-      source: rpm
-      version: 2.2.1
-  python-configobj:
-    - arch: noarch
-      epoch: null
-      name: python-configobj
-      release: 7.el7
-      source: rpm
-      version: 4.7.2
-  python-decorator:
-    - arch: noarch
-      epoch: null
-      name: python-decorator
-      release: 3.el7
-      source: rpm
-      version: 3.4.0
-  python-gobject-base:
-    - arch: x86_64
-      epoch: null
-      name: python-gobject-base
-      release: 1.el7_4.1
-      source: rpm
-      version: 3.22.0
-  python-iniparse:
-    - arch: noarch
-      epoch: null
-      name: python-iniparse
-      release: 9.el7
-      source: rpm
-      version: '0.4'
-  python-ipaddress:
-    - arch: noarch
-      epoch: null
-      name: python-ipaddress
-      release: 2.el7
-      source: rpm
-      version: 1.0.16
-  python-jinja2:
-    - arch: noarch
-      epoch: null
-      name: python-jinja2
-      release: 3.el7_6
-      source: rpm
-      version: 2.7.2
-  python-jsonpatch:
-    - arch: noarch
-      epoch: null
-      name: python-jsonpatch
-      release: 4.el7
-      source: rpm
-      version: '1.2'
-  python-jsonpointer:
-    - arch: noarch
-      epoch: null
-      name: python-jsonpointer
-      release: 2.el7
-      source: rpm
-      version: '1.9'
-  python-kitchen:
-    - arch: noarch
-      epoch: null
-      name: python-kitchen
-      release: 5.el7
-      source: rpm
-      version: 1.1.1
-  python-libs:
-    - arch: x86_64
-      epoch: null
-      name: python-libs
-      release: 80.el7_6
-      source: rpm
-      version: 2.7.5
-  python-linux-procfs:
-    - arch: noarch
-      epoch: null
-      name: python-linux-procfs
-      release: 4.el7
-      source: rpm
-      version: 0.4.9
-  python-markupsafe:
-    - arch: x86_64
-      epoch: null
-      name: python-markupsafe
-      release: 10.el7
-      source: rpm
-      version: '0.11'
-  python-perf:
-    - arch: x86_64
-      epoch: null
-      name: python-perf
-      release: 957.27.2.el7
-      source: rpm
-      version: 3.10.0
-  python-prettytable:
-    - arch: noarch
-      epoch: null
-      name: python-prettytable
-      release: 3.el7
-      source: rpm
-      version: 0.7.2
-  python-pycurl:
-    - arch: x86_64
-      epoch: null
-      name: python-pycurl
-      release: 19.el7
-      source: rpm
-      version: 7.19.0
-  python-pyudev:
-    - arch: noarch
-      epoch: null
-      name: python-pyudev
-      release: 9.el7
-      source: rpm
-      version: '0.15'
-  python-requests:
-    - arch: noarch
-      epoch: null
-      name: python-requests
-      release: 1.el7_1
-      source: rpm
-      version: 2.6.0
-  python-schedutils:
-    - arch: x86_64
-      epoch: null
-      name: python-schedutils
-      release: 6.el7
-      source: rpm
-      version: '0.4'
-  python-setuptools:
-    - arch: noarch
-      epoch: null
-      name: python-setuptools
-      release: 7.el7
-      source: rpm
-      version: 0.9.8
-  python-six:
-    - arch: noarch
-      epoch: null
-      name: python-six
-      release: 2.el7
-      source: rpm
-      version: 1.9.0
-  python-urlgrabber:
-    - arch: noarch
-      epoch: null
-      name: python-urlgrabber
-      release: 9.el7
-      source: rpm
-      version: '3.10'
-  python-urllib3:
-    - arch: noarch
-      epoch: null
-      name: python-urllib3
-      release: 5.el7
-      source: rpm
-      version: 1.10.2
-  python2-pip:
-    - arch: noarch
-      epoch: null
-      name: python2-pip
-      release: 12.el7
-      source: rpm
-      version: 8.1.2
-  python3:
-    - arch: x86_64
-      epoch: null
-      name: python3
-      release: 13.el7
-      source: rpm
-      version: 3.6.8
-  python3-libs:
-    - arch: x86_64
-      epoch: null
-      name: python3-libs
-      release: 13.el7
-      source: rpm
-      version: 3.6.8
-  python3-pip:
-    - arch: noarch
-      epoch: null
-      name: python3-pip
-      release: 7.el7_7
-      source: rpm
-      version: 9.0.3
-  python3-setuptools:
-    - arch: noarch
-      epoch: null
-      name: python3-setuptools
-      release: 10.el7
-      source: rpm
-      version: 39.2.0
-  pyxattr:
-    - arch: x86_64
-      epoch: null
-      name: pyxattr
-      release: 5.el7
-      source: rpm
-      version: 0.5.1
-  qemu-guest-agent:
-    - arch: x86_64
-      epoch: 10
-      name: qemu-guest-agent
-      release: 2.el7
-      source: rpm
-      version: 2.12.0
-  qrencode-libs:
-    - arch: x86_64
-      epoch: null
-      name: qrencode-libs
-      release: 3.el7
-      source: rpm
-      version: 3.4.1
-  quota:
-    - arch: x86_64
-      epoch: 1
-      name: quota
-      release: 17.el7
-      source: rpm
-      version: '4.01'
-  quota-nls:
-    - arch: noarch
-      epoch: 1
-      name: quota-nls
-      release: 17.el7
-      source: rpm
-      version: '4.01'
-  readline:
-    - arch: x86_64
-      epoch: null
-      name: readline
-      release: 10.el7
-      source: rpm
-      version: '6.2'
-  rootfiles:
-    - arch: noarch
-      epoch: null
-      name: rootfiles
-      release: 11.el7
-      source: rpm
-      version: '8.1'
-  rpcbind:
-    - arch: x86_64
-      epoch: null
-      name: rpcbind
-      release: 47.el7
-      source: rpm
-      version: 0.2.0
-  rpm:
-    - arch: x86_64
-      epoch: null
-      name: rpm
-      release: 35.el7
-      source: rpm
-      version: 4.11.3
-  rpm-build-libs:
-    - arch: x86_64
-      epoch: null
-      name: rpm-build-libs
-      release: 35.el7
-      source: rpm
-      version: 4.11.3
-  rpm-libs:
-    - arch: x86_64
-      epoch: null
-      name: rpm-libs
-      release: 35.el7
-      source: rpm
-      version: 4.11.3
-  rpm-python:
-    - arch: x86_64
-      epoch: null
-      name: rpm-python
-      release: 35.el7
-      source: rpm
-      version: 4.11.3
-  rsync:
-    - arch: x86_64
-      epoch: null
-      name: rsync
-      release: 6.el7_6.1
-      source: rpm
-      version: 3.1.2
-  rsyslog:
-    - arch: x86_64
-      epoch: null
-      name: rsyslog
-      release: 34.el7
-      source: rpm
-      version: 8.24.0
-  sed:
-    - arch: x86_64
-      epoch: null
-      name: sed
-      release: 5.el7
-      source: rpm
-      version: 4.2.2
-  selinux-policy:
-    - arch: noarch
-      epoch: null
-      name: selinux-policy
-      release: 229.el7_6.15
-      source: rpm
-      version: 3.13.1
-  selinux-policy-targeted:
-    - arch: noarch
-      epoch: null
-      name: selinux-policy-targeted
-      release: 229.el7_6.15
-      source: rpm
-      version: 3.13.1
-  setools-libs:
-    - arch: x86_64
-      epoch: null
-      name: setools-libs
-      release: 4.el7
-      source: rpm
-      version: 3.3.8
-  setup:
-    - arch: noarch
-      epoch: null
-      name: setup
-      release: 10.el7
-      source: rpm
-      version: 2.8.71
-  sg3_utils:
-    - arch: x86_64
-      epoch: null
-      name: sg3_utils
-      release: 17.el7
-      source: rpm
-      version: '1.37'
-  sg3_utils-libs:
-    - arch: x86_64
-      epoch: null
-      name: sg3_utils-libs
-      release: 17.el7
-      source: rpm
-      version: '1.37'
-  shadow-utils:
-    - arch: x86_64
-      epoch: 2
-      name: shadow-utils
-      release: 25.el7_6.1
-      source: rpm
-      version: 4.1.5.1
-  shared-mime-info:
-    - arch: x86_64
-      epoch: null
-      name: shared-mime-info
-      release: 4.el7
-      source: rpm
-      version: '1.8'
-  slang:
-    - arch: x86_64
-      epoch: null
-      name: slang
-      release: 11.el7
-      source: rpm
-      version: 2.2.4
-  smem:
-    - arch: noarch
-      epoch: null
-      name: smem
-      release: 1.el7
-      source: rpm
-      version: '1.4'
-  snappy:
-    - arch: x86_64
-      epoch: null
-      name: snappy
-      release: 3.el7
-      source: rpm
-      version: 1.1.0
-  sqlite:
-    - arch: x86_64
-      epoch: null
-      name: sqlite
-      release: 8.el7
-      source: rpm
-      version: 3.7.17
-  sudo:
-    - arch: x86_64
-      epoch: null
-      name: sudo
-      release: 3.el7
-      source: rpm
-      version: 1.8.23
-  sysstat:
-    - arch: x86_64
-      epoch: null
-      name: sysstat
-      release: 19.el7
-      source: rpm
-      version: 10.1.5
-  systemd:
-    - arch: x86_64
-      epoch: null
-      name: systemd
-      release: 62.el7_6.9
-      source: rpm
-      version: '219'
-  systemd-libs:
-    - arch: x86_64
-      epoch: null
-      name: systemd-libs
-      release: 62.el7_6.9
-      source: rpm
-      version: '219'
-  systemd-sysv:
-    - arch: x86_64
-      epoch: null
-      name: systemd-sysv
-      release: 62.el7_6.9
-      source: rpm
-      version: '219'
-  sysvinit-tools:
-    - arch: x86_64
-      epoch: null
-      name: sysvinit-tools
-      release: 14.dsf.el7
-      source: rpm
-      version: '2.88'
-  tar:
-    - arch: x86_64
-      epoch: 2
-      name: tar
-      release: 35.el7
-      source: rpm
-      version: '1.26'
-  tcp_wrappers:
-    - arch: x86_64
-      epoch: null
-      name: tcp_wrappers
-      release: 77.el7
-      source: rpm
-      version: '7.6'
-  tcp_wrappers-libs:
-    - arch: x86_64
-      epoch: null
-      name: tcp_wrappers-libs
-      release: 77.el7
-      source: rpm
-      version: '7.6'
-  tcpdump:
-    - arch: x86_64
-      epoch: 14
-      name: tcpdump
-      release: 4.el7_7.1
-      source: rpm
-      version: 4.9.2
-  teamd:
-    - arch: x86_64
-      epoch: null
-      name: teamd
-      release: 6.el7_6.1
-      source: rpm
-      version: '1.27'
-  tuned:
-    - arch: noarch
-      epoch: null
-      name: tuned
-      release: 6.el7_6.4
-      source: rpm
-      version: 2.10.0
-  tzdata:
-    - arch: noarch
-      epoch: null
-      name: tzdata
-      release: 1.el7
-      source: rpm
-      version: 2019b
-  ustr:
-    - arch: x86_64
-      epoch: null
-      name: ustr
-      release: 16.el7
-      source: rpm
-      version: 1.0.4
-  util-linux:
-    - arch: x86_64
-      epoch: null
-      name: util-linux
-      release: 59.el7_6.1
-      source: rpm
-      version: 2.23.2
-  vim-common:
-    - arch: x86_64
-      epoch: 2
-      name: vim-common
-      release: 8.el7_9
-      source: rpm
-      version: 7.4.629
-  vim-enhanced:
-    - arch: x86_64
-      epoch: 2
-      name: vim-enhanced
-      release: 8.el7_9
-      source: rpm
-      version: 7.4.629
-  vim-filesystem:
-    - arch: x86_64
-      epoch: 2
-      name: vim-filesystem
-      release: 8.el7_9
-      source: rpm
-      version: 7.4.629
-  vim-minimal:
-    - arch: x86_64
-      epoch: 2
-      name: vim-minimal
-      release: 6.el7_6
-      source: rpm
-      version: 7.4.160
-  virt-what:
-    - arch: x86_64
-      epoch: null
-      name: virt-what
-      release: 4.el7
-      source: rpm
-      version: '1.18'
-  which:
-    - arch: x86_64
-      epoch: null
-      name: which
-      release: 7.el7
-      source: rpm
-      version: '2.20'
-  wpa_supplicant:
-    - arch: x86_64
-      epoch: 1
-      name: wpa_supplicant
-      release: 12.el7
-      source: rpm
-      version: '2.6'
-  xfsprogs:
-    - arch: x86_64
-      epoch: null
-      name: xfsprogs
-      release: 19.el7_6
-      source: rpm
-      version: 4.5.0
-  xz:
-    - arch: x86_64
-      epoch: null
-      name: xz
-      release: 1.el7
-      source: rpm
-      version: 5.2.2
-  xz-libs:
-    - arch: x86_64
-      epoch: null
-      name: xz-libs
-      release: 1.el7
-      source: rpm
-      version: 5.2.2
-  yum:
-    - arch: noarch
-      epoch: null
-      name: yum
-      release: 161.el7.centos
-      source: rpm
-      version: 3.4.3
-  yum-metadata-parser:
-    - arch: x86_64
-      epoch: null
-      name: yum-metadata-parser
-      release: 10.el7
-      source: rpm
-      version: 1.1.4
-  yum-plugin-fastestmirror:
-    - arch: noarch
-      epoch: null
-      name: yum-plugin-fastestmirror
-      release: 50.el7
-      source: rpm
-      version: 1.1.31
-  yum-utils:
-    - arch: noarch
-      epoch: null
-      name: yum-utils
-      release: 50.el7
-      source: rpm
-      version: 1.1.31
-  zabbix-agent:
-    - arch: x86_64
-      epoch: null
-      name: zabbix-agent
-      release: 2.el7
-      source: rpm
-      version: 4.0.21
-  zabbix-sender:
-    - arch: x86_64
-      epoch: null
-      name: zabbix-sender
-      release: 2.el7
-      source: rpm
-      version: 4.0.21
-  zlib:
-    - arch: x86_64
-      epoch: null
-      name: zlib
-      release: 18.el7
-      source: rpm
-      version: 1.2.7
-processes:
-  - cmdline: /usr/lib/systemd/systemd --switched-root --system --deserialize 21
-    pid: '1'
-    ppid: '0'
-    user: root
-  - cmdline: ''
-    pid: '2'
-    ppid: '0'
-    user: root
-  - cmdline: ''
-    pid: '3'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '5'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '7'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '8'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '9'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '10'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '11'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '12'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '13'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '14'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '16'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '18'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '19'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '20'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '21'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '22'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '23'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '24'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '25'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '26'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '27'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '28'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '29'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '32'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '33'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '34'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '35'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '43'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '45'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '46'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '47'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '48'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '62'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '95'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '178'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '179'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '280'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '296'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '303'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '307'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '310'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '385'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '398'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '399'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '400'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '401'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '402'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '403'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '404'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '405'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '406'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '407'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '408'
-    ppid: '2'
-    user: root
-  - cmdline: /usr/lib/systemd/systemd-journald
-    pid: '487'
-    ppid: '1'
-    user: root
-  - cmdline: /usr/lib/systemd/systemd-udevd
-    pid: '527'
-    ppid: '1'
-    user: root
-  - cmdline: ''
-    pid: '565'
-    ppid: '2'
-    user: root
-  - cmdline: /sbin/auditd
-    pid: '570'
-    ppid: '1'
-    user: root
-  - cmdline: ''
-    pid: '573'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '582'
-    ppid: '2'
-    user: root
-  - cmdline: /usr/lib/systemd/systemd-logind
-    pid: '742'
-    ppid: '1'
-    user: root
-  - cmdline: /usr/sbin/irqbalance --foreground
-    pid: '743'
-    ppid: '1'
-    user: root
-  - cmdline: /usr/lib/polkit-1/polkitd --no-debug
-    pid: '745'
-    ppid: '1'
-    user: polkitd
-  - cmdline: >-
-      /usr/bin/dbus-daemon --system --address=systemd: --nofork --nopidfile
-      --systemd-activation
-    pid: '746'
-    ppid: '1'
-    user: dbus
-  - cmdline: /sbin/rpcbind -w
-    pid: '747'
-    ppid: '1'
-    user: rpc
-  - cmdline: /usr/sbin/gssproxy -D
-    pid: '750'
-    ppid: '1'
-    user: root
-  - cmdline: /usr/sbin/chronyd
-    pid: '757'
-    ppid: '1'
-    user: chrony
-  - cmdline: >-
-      /sbin/dhclient -1 -q -lf /var/lib/dhclient/dhclient--eth0.lease -pf
-      /var/run/dhclient-eth0.pid -H cmdb01 eth0
-    pid: '990'
-    ppid: '1'
-    user: root
-  - cmdline: >-
-      /usr/bin/telegraf -config /etc/telegraf/telegraf.conf -config-directory
-      /etc/telegraf/telegraf.d
-    pid: '1049'
-    ppid: '1'
-    user: root
-  - cmdline: /usr/bin/python2 -Es /usr/sbin/tuned -l -P
-    pid: '1051'
-    ppid: '1'
-    user: root
-  - cmdline: /usr/bin/containerd
-    pid: '1058'
-    ppid: '1'
-    user: root
-  - cmdline: /usr/sbin/zabbix_agentd -c /etc/zabbix/zabbix_agentd.conf
-    pid: '1066'
-    ppid: '1'
-    user: zabbix
-  - cmdline: '/usr/sbin/zabbix_agentd: collector [idle 1 sec]'
-    pid: '1067'
-    ppid: '1066'
-    user: zabbix
-  - cmdline: '/usr/sbin/zabbix_agentd: listener #1 [waiting for connection]'
-    pid: '1068'
-    ppid: '1066'
-    user: zabbix
-  - cmdline: '/usr/sbin/zabbix_agentd: listener #2 [waiting for connection]'
-    pid: '1069'
-    ppid: '1066'
-    user: zabbix
-  - cmdline: '/usr/sbin/zabbix_agentd: listener #3 [waiting for connection]'
-    pid: '1070'
-    ppid: '1066'
-    user: zabbix
-  - cmdline: '/usr/sbin/zabbix_agentd: active checks #1 [idle 1 sec]'
-    pid: '1071'
-    ppid: '1066'
-    user: zabbix
-  - cmdline: /usr/libexec/postfix/master -w
-    pid: '1151'
-    ppid: '1'
-    user: root
-  - cmdline: qmgr -l -t unix -u
-    pid: '1153'
-    ppid: '1151'
-    user: postfix
-  - cmdline: '/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock'
-    pid: '1192'
-    ppid: '1'
-    user: root
-  - cmdline: /usr/sbin/rsyslogd -n
-    pid: '1194'
-    ppid: '1'
-    user: root
-  - cmdline: /usr/sbin/sshd -D
-    pid: '1197'
-    ppid: '1'
-    user: root
-  - cmdline: '/sbin/agetty --keep-baud 115200,38400,9600 ttyS0 vt220'
-    pid: '1201'
-    ppid: '1'
-    user: root
-  - cmdline: /usr/sbin/crond -n
-    pid: '1209'
-    ppid: '1'
-    user: root
-  - cmdline: /sbin/agetty --noclear tty1 linux
-    pid: '1210'
-    ppid: '1'
-    user: root
-  - cmdline: >-
-      containerd-shim -namespace moby -workdir
-      /var/lib/containerd/io.containerd.runtime.v1.linux/moby/9739f22aa6c5e9ff69f0daf4ee31ea0b27a436d2444eb0018ec1054deccc8b60
-      -address /run/containerd/containerd.sock -containerd-binary
-      /usr/bin/containerd -runtime-root /var/run/docker/runtime-runc
-    pid: '5539'
-    ppid: '1058'
-    user: root
-  - cmdline: >-
-      grafana-server --homepath=/usr/share/grafana
-      --config=/etc/grafana/grafana.ini --packaging=docker
-      cfg:default.log.mode=console cfg:default.paths.data=/var/lib/grafana
-      cfg:default.paths.logs=/var/log/grafana
-      cfg:default.paths.plugins=/usr/share/grafana/plugins
-      cfg:default.paths.provisioning=/etc/grafana/provisioning
-    pid: '5645'
-    ppid: '5539'
-    user: grafana
-  - cmdline: /usr/bin/docker start -a grafana
-    pid: '5846'
-    ppid: '1'
-    user: root
-  - cmdline: ''
-    pid: '11388'
-    ppid: '2'
-    user: root
-  - cmdline: /usr/bin/docker start -a iometrics-cmdbuild
-    pid: '13198'
-    ppid: '1'
-    user: root
-  - cmdline: >-
-      /usr/bin/docker-proxy -proto tcp -host-ip 0.0.0.0 -host-port 8443
-      -container-ip 192.168.1.2 -container-port 8443
-    pid: '13215'
-    ppid: '1192'
-    user: root
-  - cmdline: >-
-      containerd-shim -namespace moby -workdir
-      /var/lib/containerd/io.containerd.runtime.v1.linux/moby/54550f43387aef84c991c068d34f9bc90cae449e2ebdeda7353d578c10fcc607
-      -address /run/containerd/containerd.sock -containerd-binary
-      /usr/bin/containerd -runtime-root /var/run/docker/runtime-runc
-    pid: '13221'
-    ppid: '1058'
-    user: root
-  - cmdline: /bin/sh -c /usr/local/bin/docker-entrypoint.sh catalina.sh run
-    pid: '13238'
-    ppid: '13221'
-    user: centos
-  - cmdline: >-
-      /usr/local/openjdk-11/bin/java
-      -Djava.util.logging.config.file=/usr/local/tomcat/conf/logging.properties
-      -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
-      -Xmx4000m -Xms2000m -Djdk.tls.ephemeralDHKeySize=2048
-      -Djava.protocol.handler.pkgs=org.apache.catalina.webresources
-      -Dorg.apache.catalina.security.SecurityListener.UMASK=0027
-      -Xlog:gc=debug:file=logs/gc.log:time,uptime,level,tags:filecount=10,filesize=100m
-      -Dignore.endorsed.dirs= -classpath
-      /usr/local/tomcat/bin/bootstrap.jar:/usr/local/tomcat/bin/tomcat-juli.jar
-      -Dcatalina.base=/usr/local/tomcat -Dcatalina.home=/usr/local/tomcat
-      -Djava.io.tmpdir=/usr/local/tomcat/temp
-      org.apache.catalina.startup.Bootstrap start
-    pid: '13266'
-    ppid: '13238'
-    user: centos
-  - cmdline: pickup -l -t unix -u
-    pid: '15603'
-    ppid: '1151'
-    user: postfix
-  - cmdline: ''
-    pid: '16933'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '17112'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '17147'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '19907'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '20140'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '20143'
-    ppid: '2'
-    user: root
-  - cmdline: 'sshd: centos [priv]'
-    pid: '20145'
-    ppid: '1197'
-    user: root
-  - cmdline: /usr/lib64/sa/sadc -S DISK 44 2 /tmp/sysstat-1662044504
-    pid: '20175'
-    ppid: '1049'
-    user: root
-  - cmdline: 'sshd: centos@pts/0'
-    pid: '20178'
-    ppid: '20145'
-    user: centos
-  - cmdline: >-
-      /bin/sh -c sudo -H -S -n  -u root /bin/sh -c 'echo
-      BECOME-SUCCESS-vgicqcqrieenhtaftbsiremubnzsqqgv ; /usr/bin/python
-      /home/centos/.ansible/tmp/ansible-tmp-1662044521.7672658-78280-44261581920973/AnsiballZ_process_facts.py'
-      && sleep 0
-    pid: '20371'
-    ppid: '20178'
-    user: centos
-  - cmdline: >-
-      sudo -H -S -n -u root /bin/sh -c echo
-      BECOME-SUCCESS-vgicqcqrieenhtaftbsiremubnzsqqgv ; /usr/bin/python
-      /home/centos/.ansible/tmp/ansible-tmp-1662044521.7672658-78280-44261581920973/AnsiballZ_process_facts.py
-    pid: '20386'
-    ppid: '20371'
-    user: root
-  - cmdline: >-
-      /bin/sh -c echo BECOME-SUCCESS-vgicqcqrieenhtaftbsiremubnzsqqgv ;
-      /usr/bin/python
-      /home/centos/.ansible/tmp/ansible-tmp-1662044521.7672658-78280-44261581920973/AnsiballZ_process_facts.py
-    pid: '20387'
-    ppid: '20386'
-    user: root
-  - cmdline: >-
-      /usr/bin/python
-      /home/centos/.ansible/tmp/ansible-tmp-1662044521.7672658-78280-44261581920973/AnsiballZ_process_facts.py
-    pid: '20388'
-    ppid: '20387'
-    user: root
-  - cmdline: ''
-    pid: '30870'
-    ppid: '2'
-    user: root
-dockers:
-  containers:
-    - AppArmorProfile: ''
-      Args:
-        - '-c'
-        - /usr/local/bin/docker-entrypoint.sh
-        - catalina.sh
-        - run
-      Config:
-        AttachStderr: false
-        AttachStdin: false
-        AttachStdout: false
-        Cmd:
-          - catalina.sh
-          - run
-        Domainname: ''
-        Entrypoint:
-          - /bin/sh
-          - '-c'
-          - /usr/local/bin/docker-entrypoint.sh
-        Env:
-          - POSTGRES_HOST=cmdb-db01-integracion-internal.iometrics.io
-          - TZ=Europe/Madrid
-          - POSTGRES_PASS=ta5Puid4et2aemeveeshaeha
-          - JAVA_OPTS=-Xmx4000m -Xms2000m
-          - POSTGRES_APP_USER=datadope
-          - POSTGRES_DB=cmdbuild_r2u2
-          - POSTGRES_APP_PASSWORD=ta5Puid4et2aemeveeshaeha
-          - POSTGRES_USER=datadope
-          - >-
-            PATH=/usr/local/tomcat/bin:/usr/local/openjdk-11/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-          - LANG=C.UTF-8
-          - JAVA_HOME=/usr/local/openjdk-11
-          - JAVA_VERSION=11.0.6
-          - >-
-            JAVA_BASE_URL=https://github.com/AdoptOpenJDK/openjdk11-upstream-binaries/releases/download/jdk-11.0.6%2B10/OpenJDK11U-jdk_
-          - JAVA_URL_VERSION=11.0.6_10
-          - CATALINA_HOME=/usr/local/tomcat
-          - TOMCAT_NATIVE_LIBDIR=/usr/local/tomcat/native-jni-lib
-          - LD_LIBRARY_PATH=/usr/local/tomcat/native-jni-lib
-          - >-
-            GPG_KEYS=05AB33110949707C93A279E3D3EFE6B686867BA6
-            07E48665A34DCAFAE522E5E6266191C37C037D42
-            47309207D818FFD8DCD3F83F1931D684307A10A5
-            541FBE7D8F78B25E055DDEE13C370389288584E7
-            61B832AC2F1C5A90F0F9B00A1C506407564C17A3
-            79F7026C690BAA50B92CD8B66A3AD3F4F22C4FED
-            9BA44C2621385CB966EBA586F72C284D731FABEE
-            A27677289986DB50844682F8ACB77FC2E86E29AC
-            A9C5DF4D22E99998D9875A5110C01C5A2F6059E7
-            DCFD35E0BF8CA7344752DE8B6FB21E8933C60243
-            F3A04C595DB5B6A5F1ECA43E3B7BBB100D811BBE
-            F7DA48BB64BCB84ECBA7EE6935CD23C10D498E23
-          - TOMCAT_MAJOR=9
-          - TOMCAT_VERSION=9.0.31
-          - >-
-            TOMCAT_SHA512=75045ce54ad1b6ea66fd112e8b2ffa32a0740c018ab9392c7217a6dd6b829e8645b6810ab4b28dd186c12ce6045c1eb18ed19743c5d4b22c9e613e76294f22f5
-          - >-
-            CMDBUILD_URL=https://nexus.opensolutions.cloud/repository/datadope-public/cmdbuild/ready2use-2.0-3.3.2.war
-          - POSTGRES_PORT=5432
-          - CMDBUILD_DUMP=empty.dump.xz
-        ExposedPorts:
-          8080/tcp: {}
-          8443/tcp: {}
-        Hostname: localhost
-        Image: 'nexusregistry.opensolutions.cloud/iometrics-cmdbuild:0.4.1'
-        Labels: {}
-        OnBuild: null
-        OpenStdin: false
-        StdinOnce: false
-        Tty: false
-        User: tomcat
-        Volumes:
-          /etc/hosts: {}
-          /usr/local/tomcat/certs: {}
-          /usr/local/tomcat/logs: {}
-        WorkingDir: /usr/local/tomcat
-      Created: '2021-11-11T10:02:57.904221801Z'
-      Driver: overlay2
-      ExecIDs: null
-      GraphDriver:
-        Data:
-          LowerDir: >-
-            /var/lib/docker/overlay2/50672f420a01e7919954ed65bda888f26020123cb2703dbd556457ab0b8b1440-init/diff:/var/lib/docker/overlay2/c0100c5fc0888fad72adf7c709d3142ccba8797311803c32b1c6ee9fdc1de50e/diff:/var/lib/docker/overlay2/63d738012f51ff7170406467832e013db70f935f583552a7886aa38962e82982/diff:/var/lib/docker/overlay2/47cd80f7dedb3bc34c2bca3fa92244ea9c185fcf0542caef919e1cc857cfdd3b/diff:/var/lib/docker/overlay2/a2db2a600330275b614855b67ddd415e3a75afa829346adfa0bb03a7333b402e/diff:/var/lib/docker/overlay2/9379979c9dd250c039f4afc2567766061715e709bfc36ee01ae3c3239025986b/diff:/var/lib/docker/overlay2/18f67ad491d73a59df5e91b962f57ef4869ddd92c6ebd3e44102469697624266/diff:/var/lib/docker/overlay2/137a09117ac770c6d5fc56e5112ebc5b08ef3c3d9efff29df177409a565a87b0/diff:/var/lib/docker/overlay2/de594fddde953514eeacfe63c99be98087989c214e4e5de974831664ffbe66a8/diff:/var/lib/docker/overlay2/4e4b98753830b09fce6331e4e11cb57368a29059ef703c11757668499e1a5a6b/diff:/var/lib/docker/overlay2/43329bb8f930dbaf651a0f9ec89f9a81ca1177bcda97d444ef43dffa082d7d30/diff:/var/lib/docker/overlay2/93fb2b626f5a929d0e2aef75b0a4504b487754c638f06ef853846011b1b04f90/diff:/var/lib/docker/overlay2/d7655bb3f45fb79b3810a732adf321480912998b29d65842ce8546dbd67ca402/diff:/var/lib/docker/overlay2/dae7334ac1a1ee12d6b8def3204d21f3c259a623f01098a682d52185f87f53b1/diff:/var/lib/docker/overlay2/bd55b267f3dc2165fe8ae6ca4d7ad01824c9f073f3d9a209b4aabb15f1e3f628/diff:/var/lib/docker/overlay2/7038e40fc28165f150bb277854f7fe37c3b19967a7fe07fe70eb5663343ec96c/diff:/var/lib/docker/overlay2/04ddf62add125112aeeef17f32406bf3e5a42a342ee771e8f4fe30f12794c4b4/diff:/var/lib/docker/overlay2/f38683ed385ddb64de321621e8f8e7b8cb161f8100a64417c64a152429822c63/diff:/var/lib/docker/overlay2/9101a62094b1ab60a4e9477e952bbc50c513103b178d2f07c51449876454d328/diff:/var/lib/docker/overlay2/a61859f12ba2af9c9dc4b9318ddc2efa3636248af9c1c5819afcaa93cdd478a6/diff:/var/lib/docker/overlay2/7bbd2fba82cda8d8110a79811738382f993dfbbcaec424690f81f0f602188578/diff:/var/lib/docker/overlay2/fc177696896be4d18ffb7582249deb2e6bc004fa6c1b59bd2cca3b3165e6240e/diff
-          MergedDir: >-
-            /var/lib/docker/overlay2/50672f420a01e7919954ed65bda888f26020123cb2703dbd556457ab0b8b1440/merged
-          UpperDir: >-
-            /var/lib/docker/overlay2/50672f420a01e7919954ed65bda888f26020123cb2703dbd556457ab0b8b1440/diff
-          WorkDir: >-
-            /var/lib/docker/overlay2/50672f420a01e7919954ed65bda888f26020123cb2703dbd556457ab0b8b1440/work
-        Name: overlay2
-      HostConfig:
-        AutoRemove: false
-        Binds:
-          - '/etc/hosts:/etc/hosts:ro'
-          - '/etc/iometrics-cmdbuild/certs:/usr/local/tomcat/certs:rw'
-          - '/var/log/iometrics-cmdbuild:/usr/local/tomcat/logs:rw'
-        BlkioDeviceReadBps: null
-        BlkioDeviceReadIOps: null
-        BlkioDeviceWriteBps: null
-        BlkioDeviceWriteIOps: null
-        BlkioWeight: 0
-        BlkioWeightDevice: null
-        CapAdd: null
-        CapDrop: null
-        Capabilities: null
-        Cgroup: ''
-        CgroupParent: ''
-        ConsoleSize:
-          - 0
-          - 0
-        ContainerIDFile: ''
-        CpuCount: 0
-        CpuPercent: 0
-        CpuPeriod: 0
-        CpuQuota: 0
-        CpuRealtimePeriod: 0
-        CpuRealtimeRuntime: 0
-        CpuShares: 0
-        CpusetCpus: ''
-        CpusetMems: ''
-        DeviceCgroupRules: null
-        DeviceRequests: null
-        Devices: null
-        Dns: []
-        DnsOptions: []
-        DnsSearch: []
-        ExtraHosts: null
-        GroupAdd: null
-        IOMaximumBandwidth: 0
-        IOMaximumIOps: 0
-        IpcMode: private
-        Isolation: ''
-        KernelMemory: 0
-        KernelMemoryTCP: 0
-        Links: null
-        LogConfig:
-          Config:
-            max-file: '1'
-            max-size: 20m
-          Type: json-file
-        MaskedPaths:
-          - /proc/asound
-          - /proc/acpi
-          - /proc/kcore
-          - /proc/keys
-          - /proc/latency_stats
-          - /proc/timer_list
-          - /proc/timer_stats
-          - /proc/sched_debug
-          - /proc/scsi
-          - /sys/firmware
-        Memory: 4194304000
-        MemoryReservation: 2097152000
-        MemorySwap: 8388608000
-        MemorySwappiness: null
-        NanoCpus: 0
-        NetworkMode: bridge
-        OomKillDisable: false
-        OomScoreAdj: 0
-        PidMode: ''
-        PidsLimit: null
-        PortBindings:
-          8443/tcp:
-            - HostIp: 0.0.0.0
-              HostPort: '8443'
-        Privileged: false
-        PublishAllPorts: false
-        ReadonlyPaths:
-          - /proc/bus
-          - /proc/fs
-          - /proc/irq
-          - /proc/sys
-          - /proc/sysrq-trigger
-        ReadonlyRootfs: false
-        RestartPolicy:
-          MaximumRetryCount: 0
-          Name: ''
-        Runtime: runc
-        SecurityOpt: null
-        ShmSize: 67108864
-        UTSMode: ''
-        Ulimits: null
-        UsernsMode: ''
-        VolumeDriver: ''
-        VolumesFrom: null
-      HostnamePath: >-
-        /var/lib/docker/containers/54550f43387aef84c991c068d34f9bc90cae449e2ebdeda7353d578c10fcc607/hostname
-      HostsPath: /etc/hosts
-      Id: 54550f43387aef84c991c068d34f9bc90cae449e2ebdeda7353d578c10fcc607
-      Image: 'sha256:4963cc7d5cdaa74048cc3a833584e1634a8245490d8f6c206a97b163157817ff'
-      LogPath: >-
-        /var/lib/docker/containers/54550f43387aef84c991c068d34f9bc90cae449e2ebdeda7353d578c10fcc607/54550f43387aef84c991c068d34f9bc90cae449e2ebdeda7353d578c10fcc607-json.log
-      MountLabel: ''
-      Mounts:
-        - Destination: /etc/hosts
-          Mode: ro
-          Propagation: rprivate
-          RW: false
-          Source: /etc/hosts
-          Type: bind
-        - Destination: /usr/local/tomcat/certs
-          Mode: rw
-          Propagation: rprivate
-          RW: true
-          Source: /etc/iometrics-cmdbuild/certs
-          Type: bind
-        - Destination: /usr/local/tomcat/logs
-          Mode: rw
-          Propagation: rprivate
-          RW: true
-          Source: /var/log/iometrics-cmdbuild
-          Type: bind
-      Name: /iometrics-cmdbuild
-      NetworkSettings:
-        Bridge: ''
-        EndpointID: 22ff115460d2a139cd405d257f4f459e1065cfd74de5843e8c3f95f8217e9617
-        Gateway: 192.168.1.1
-        GlobalIPv6Address: ''
-        GlobalIPv6PrefixLen: 0
-        HairpinMode: false
-        IPAddress: 192.168.1.2
-        IPPrefixLen: 16
-        IPv6Gateway: ''
-        LinkLocalIPv6Address: ''
-        LinkLocalIPv6PrefixLen: 0
-        MacAddress: '02:42:ac:11:00:02'
-        Networks:
-          bridge:
-            Aliases: null
-            DriverOpts: null
-            EndpointID: 22ff115460d2a139cd405d257f4f459e1065cfd74de5843e8c3f95f8217e9617
-            Gateway: 192.168.1.1
-            GlobalIPv6Address: ''
-            GlobalIPv6PrefixLen: 0
-            IPAMConfig: null
-            IPAddress: 192.168.1.2
-            IPPrefixLen: 16
-            IPv6Gateway: ''
-            Links: null
-            MacAddress: '02:42:ac:11:00:02'
-            NetworkID: 91d42730928d475ba307be852a455668b8122288ceb5c15f12d313f2ce0b4255
-        Ports:
-          8080/tcp: null
-          8443/tcp:
-            - HostIp: 0.0.0.0
-              HostPort: '8443'
-        SandboxID: 9b1e826fe1933efbee33d38c3dc53844e07f4ee2d33be8c2c1e3e022d4e3e081
-        SandboxKey: /var/run/docker/netns/9b1e826fe193
-        SecondaryIPAddresses: null
-        SecondaryIPv6Addresses: null
-      Path: /bin/sh
-      Platform: linux
-      ProcessLabel: ''
-      ResolvConfPath: >-
-        /var/lib/docker/containers/54550f43387aef84c991c068d34f9bc90cae449e2ebdeda7353d578c10fcc607/resolv.conf
-      RestartCount: 0
-      State:
-        Dead: false
-        Error: ''
-        ExitCode: 0
-        FinishedAt: '2022-08-28T17:37:02.812501368Z'
-        OOMKilled: true
-        Paused: false
-        Pid: 13238
-        Restarting: false
-        Running: true
-        StartedAt: '2022-08-28T17:37:05.646301012Z'
-        Status: running
-    - AppArmorProfile: ''
-      Args: []
-      Config:
-        AttachStderr: false
-        AttachStdin: false
-        AttachStdout: false
-        Cmd: null
-        Domainname: ''
-        Entrypoint:
-          - /run.sh
-        Env:
-          - 'NO_PROXY=localhost,127.0.0.1'
-          - HTTPS_PROXY=
-          - GF_PATHS_PLUGINS=/usr/share/grafana/plugins
-          - HTTP_PROXY=
-          - >-
-            PATH=/usr/share/grafana/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-          - GF_PATHS_CONFIG=/etc/grafana/grafana.ini
-          - GF_PATHS_DATA=/var/lib/grafana
-          - GF_PATHS_HOME=/usr/share/grafana
-          - GF_PATHS_LOGS=/var/log/grafana
-          - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
-          - GF_USERS_DEFAULT_THEME=light
-          - GF_RENDERER_PLUGIN_CHROME_BIN=/usr/bin/chromium-browser
-        ExposedPorts:
-          3000/tcp: {}
-        Hostname: cmdb01.novalocal
-        Image: 'nexusregistry.opensolutions.cloud/iometrics-ui-enterprise:6.6.2.3'
-        Labels:
-          os_container_type: grafana
-          os_environment: default
-        OnBuild: null
-        OpenStdin: false
-        StdinOnce: false
-        Tty: false
-        User: grafana
-        Volumes:
-          /etc/grafana: {}
-          /etc/hosts: {}
-          /etc/localtime: {}
-          /var/lib/grafana: {}
-          /var/log/grafana: {}
-        WorkingDir: /usr/share/grafana
-      Created: '2021-01-15T12:45:30.765987178Z'
-      Driver: overlay2
-      ExecIDs: null
-      GraphDriver:
-        Data:
-          LowerDir: >-
-            /var/lib/docker/overlay2/76b4e75eb8e16adee85d2d781f02590780ab71575f0470aedb7cbfb960a177d1-init/diff:/var/lib/docker/overlay2/0d2c44c827bfb7dabdebae887d8683db32d93d4d76b196d7ad89704e0fcb1389/diff:/var/lib/docker/overlay2/f0e1f1f418c2281b381cf1865c8f26dcd6b3d932f40f52d1b1fdca5b51f59403/diff:/var/lib/docker/overlay2/55a6a205817b93c52fb9fd4c2cc8f934d19e4b2ccfbcf3c08b298753a45ae973/diff:/var/lib/docker/overlay2/6eb3c76533ef49d07490c8c83d99533de21abd3109451cf52fc0c67b69ab611b/diff:/var/lib/docker/overlay2/e2815a71b491409711b3d35eea90c0dd86fd08cf49d3cef7a3b8975805873009/diff:/var/lib/docker/overlay2/7a4561e76b8114bef56fd08e6cb03450a148795b234a3d8dc8236b8fe76c8bcd/diff:/var/lib/docker/overlay2/54dd3972aadb529dba440730f58fa712249b38347dd0c302925e87327062d273/diff:/var/lib/docker/overlay2/67b520bda1cd13ae235e8248930218fdf9fb9d3a9677961b748af89d704c3f26/diff:/var/lib/docker/overlay2/39a352a4de1195eb0ea5d56384fcb82143edf4b381d039933cfdfc8437742018/diff:/var/lib/docker/overlay2/8bba506a78e1be76f9df4721f9e1d9b803663b7b7de87f041d8089ef1f641d5a/diff:/var/lib/docker/overlay2/f5ed7d8d022525cf8f03f3be2493851803cd595469b11b32f183255bddca9349/diff:/var/lib/docker/overlay2/14f5fd087aa9d77e5433f13239715857e7bf55e03bf0369c3369e1d0f2fc805e/diff
-          MergedDir: >-
-            /var/lib/docker/overlay2/76b4e75eb8e16adee85d2d781f02590780ab71575f0470aedb7cbfb960a177d1/merged
-          UpperDir: >-
-            /var/lib/docker/overlay2/76b4e75eb8e16adee85d2d781f02590780ab71575f0470aedb7cbfb960a177d1/diff
-          WorkDir: >-
-            /var/lib/docker/overlay2/76b4e75eb8e16adee85d2d781f02590780ab71575f0470aedb7cbfb960a177d1/work
-        Name: overlay2
-      HostConfig:
-        AutoRemove: false
-        Binds:
-          - '/etc/hosts:/etc/hosts:rw'
-          - '/etc/grafana:/etc/grafana:rw'
-          - '/var/lib/grafana:/var/lib/grafana:rw'
-          - '/var/log/grafana:/var/log/grafana:rw'
-          - '/etc/localtime:/etc/localtime:rw'
-        BlkioDeviceReadBps: null
-        BlkioDeviceReadIOps: null
-        BlkioDeviceWriteBps: null
-        BlkioDeviceWriteIOps: null
-        BlkioWeight: 0
-        BlkioWeightDevice: null
-        CapAdd: null
-        CapDrop: null
-        Capabilities: null
-        Cgroup: ''
-        CgroupParent: ''
-        ConsoleSize:
-          - 0
-          - 0
-        ContainerIDFile: ''
-        CpuCount: 0
-        CpuPercent: 0
-        CpuPeriod: 0
-        CpuQuota: 0
-        CpuRealtimePeriod: 0
-        CpuRealtimeRuntime: 0
-        CpuShares: 0
-        CpusetCpus: ''
-        CpusetMems: ''
-        DeviceCgroupRules: null
-        DeviceRequests: null
-        Devices: null
-        Dns: []
-        DnsOptions: []
-        DnsSearch: []
-        ExtraHosts: null
-        GroupAdd: null
-        IOMaximumBandwidth: 0
-        IOMaximumIOps: 0
-        IpcMode: private
-        Isolation: ''
-        KernelMemory: 0
-        KernelMemoryTCP: 0
-        Links: null
-        LogConfig:
-          Config:
-            max-file: '1'
-            max-size: 20m
-          Type: json-file
-        MaskedPaths:
-          - /proc/asound
-          - /proc/acpi
-          - /proc/kcore
-          - /proc/keys
-          - /proc/latency_stats
-          - /proc/timer_list
-          - /proc/timer_stats
-          - /proc/sched_debug
-          - /proc/scsi
-          - /sys/firmware
-        Memory: 0
-        MemoryReservation: 0
-        MemorySwap: 0
-        MemorySwappiness: null
-        NanoCpus: 0
-        NetworkMode: host
-        OomKillDisable: false
-        OomScoreAdj: 0
-        PidMode: ''
-        PidsLimit: null
-        PortBindings: null
-        Privileged: false
-        PublishAllPorts: false
-        ReadonlyPaths:
-          - /proc/bus
-          - /proc/fs
-          - /proc/irq
-          - /proc/sys
-          - /proc/sysrq-trigger
-        ReadonlyRootfs: false
-        RestartPolicy:
-          MaximumRetryCount: 0
-          Name: unless-stopped
-        Runtime: runc
-        SecurityOpt: null
-        ShmSize: 67108864
-        UTSMode: ''
-        Ulimits: null
-        UsernsMode: ''
-        VolumeDriver: ''
-        VolumesFrom: null
-      HostnamePath: >-
-        /var/lib/docker/containers/9739f22aa6c5e9ff69f0daf4ee31ea0b27a436d2444eb0018ec1054deccc8b60/hostname
-      HostsPath: /etc/hosts
-      Id: 9739f22aa6c5e9ff69f0daf4ee31ea0b27a436d2444eb0018ec1054deccc8b60
-      Image: 'sha256:d3c19e6207531bc75d6e96acb05ba4e07aa8497c67ffb7300c22f09129e7c6ac'
-      LogPath: >-
-        /var/lib/docker/containers/9739f22aa6c5e9ff69f0daf4ee31ea0b27a436d2444eb0018ec1054deccc8b60/9739f22aa6c5e9ff69f0daf4ee31ea0b27a436d2444eb0018ec1054deccc8b60-json.log
-      MountLabel: ''
-      Mounts:
-        - Destination: /var/log/grafana
-          Mode: rw
-          Propagation: rprivate
-          RW: true
-          Source: /var/log/grafana
-          Type: bind
-        - Destination: /etc/grafana
-          Mode: rw
-          Propagation: rprivate
-          RW: true
-          Source: /etc/grafana
-          Type: bind
-        - Destination: /etc/hosts
-          Mode: rw
-          Propagation: rprivate
-          RW: true
-          Source: /etc/hosts
-          Type: bind
-        - Destination: /etc/localtime
-          Mode: rw
-          Propagation: rprivate
-          RW: true
-          Source: /etc/localtime
-          Type: bind
-        - Destination: /var/lib/grafana
-          Mode: rw
-          Propagation: rprivate
-          RW: true
-          Source: /var/lib/grafana
-          Type: bind
-      Name: /grafana
-      NetworkSettings:
-        Bridge: ''
-        EndpointID: ''
-        Gateway: ''
-        GlobalIPv6Address: ''
-        GlobalIPv6PrefixLen: 0
-        HairpinMode: false
-        IPAddress: ''
-        IPPrefixLen: 0
-        IPv6Gateway: ''
-        LinkLocalIPv6Address: ''
-        LinkLocalIPv6PrefixLen: 0
-        MacAddress: ''
-        Networks:
-          host:
-            Aliases: null
-            DriverOpts: null
-            EndpointID: 4be9102529bde6561a20aef10b892eaeb6db6ff824a222a50ac373182b510706
-            Gateway: ''
-            GlobalIPv6Address: ''
-            GlobalIPv6PrefixLen: 0
-            IPAMConfig: null
-            IPAddress: ''
-            IPPrefixLen: 0
-            IPv6Gateway: ''
-            Links: null
-            MacAddress: ''
-            NetworkID: 1ab6c0eaf33ebf3437299022cf3d1481c808eb54b77862bc018876a78726b0f4
-        Ports: {}
-        SandboxID: 20caa57c43e433507a96073c6dc1cf2134b03a9874406acdb6540325c821a29f
-        SandboxKey: /var/run/docker/netns/default
-        SecondaryIPAddresses: null
-        SecondaryIPv6Addresses: null
-      Path: /run.sh
-      Platform: linux
-      ProcessLabel: ''
-      ResolvConfPath: >-
-        /var/lib/docker/containers/9739f22aa6c5e9ff69f0daf4ee31ea0b27a436d2444eb0018ec1054deccc8b60/resolv.conf
-      RestartCount: 0
-      State:
-        Dead: false
-        Error: ''
-        ExitCode: 0
-        FinishedAt: '2022-04-26T15:55:42.531786634Z'
-        OOMKilled: false
-        Paused: false
-        Pid: 5645
-        Restarting: false
-        Running: true
-        StartedAt: '2022-04-26T15:55:52.595384652Z'
-        Status: running
-tcp_listen:
-  - address: 127.0.0.1
-    name: master
-    pid: 1151
-    port: 25
-    protocol: tcp
-    stime: 'Tue Apr 26 15:55:08 2022'
-    user: root
-  - address: 0.0.0.0
-    name: zabbix_agentd
-    pid: 1066
-    port: 10050
-    protocol: tcp
-    stime: 'Tue Apr 26 15:55:04 2022'
-    user: zabbix
-  - address: 0.0.0.0
-    name: systemd
-    pid: 1
-    port: 111
-    protocol: tcp
-    stime: 'Tue Apr 26 15:54:29 2022'
-    user: root
-  - address: 0.0.0.0
-    name: sshd
-    pid: 1197
-    port: 22
-    protocol: tcp
-    stime: 'Tue Apr 26 15:55:10 2022'
-    user: root
-  - address: '::1'
-    name: master
-    pid: 1151
-    port: 25
-    protocol: tcp
-    stime: 'Tue Apr 26 15:55:08 2022'
-    user: root
-  - address: '::'
-    name: docker-proxy
-    pid: 13215
-    port: 8443
-    protocol: tcp
-    stime: 'Sun Aug 28 17:37:04 2022'
-    user: root
-  - address: '::'
-    name: systemd
-    pid: 1
-    port: 111
-    protocol: tcp
-    stime: 'Tue Apr 26 15:54:29 2022'
-    user: root
-  - address: '::'
-    name: sshd
-    pid: 1197
-    port: 22
-    protocol: tcp
-    stime: 'Tue Apr 26 15:55:10 2022'
-    user: root
-  - address: '::'
-    name: grafana-server
-    pid: 5645
-    port: 3000
-    protocol: tcp
-    stime: 'Tue Apr 26 15:55:51 2022'
-    user: grafana
-udp_listen:
-  - address: 0.0.0.0
+  - arch: x86_64
+    epoch: 12
     name: dhclient
-    pid: 990
-    port: 68
-    protocol: udp
-    stime: 'Tue Apr 26 15:55:03 2022'
-    user: root
-  - address: 0.0.0.0
-    name: systemd
-    pid: 1
-    port: 111
-    protocol: udp
-    stime: 'Tue Apr 26 15:54:29 2022'
-    user: root
-  - address: 127.0.0.1
-    name: chronyd
-    pid: 757
-    port: 323
-    protocol: udp
-    stime: 'Tue Apr 26 15:54:50 2022'
-    user: chrony
-  - address: 0.0.0.0
+    release: 68.el7.centos.1
+    source: rpm
+    version: 4.2.5
+  dhcp-common:
+  - arch: x86_64
+    epoch: 12
+    name: dhcp-common
+    release: 68.el7.centos.1
+    source: rpm
+    version: 4.2.5
+  dhcp-libs:
+  - arch: x86_64
+    epoch: 12
+    name: dhcp-libs
+    release: 68.el7.centos.1
+    source: rpm
+    version: 4.2.5
+  diffutils:
+  - arch: x86_64
+    epoch: null
+    name: diffutils
+    release: 4.el7
+    source: rpm
+    version: '3.3'
+  dmidecode:
+  - arch: x86_64
+    epoch: 1
+    name: dmidecode
+    release: 2.el7
+    source: rpm
+    version: '3.1'
+  docker-ce:
+  - arch: x86_64
+    epoch: 3
+    name: docker-ce
+    release: 3.el7
+    source: rpm
+    version: 19.03.11
+  docker-ce-cli:
+  - arch: x86_64
+    epoch: 1
+    name: docker-ce-cli
+    release: 3.el7
+    source: rpm
+    version: 19.03.11
+  dracut:
+  - arch: x86_64
+    epoch: null
+    name: dracut
+    release: 554.el7
+    source: rpm
+    version: '033'
+  dracut-config-generic:
+  - arch: x86_64
+    epoch: null
+    name: dracut-config-generic
+    release: 554.el7
+    source: rpm
+    version: '033'
+  dracut-config-rescue:
+  - arch: x86_64
+    epoch: null
+    name: dracut-config-rescue
+    release: 554.el7
+    source: rpm
+    version: '033'
+  dracut-network:
+  - arch: x86_64
+    epoch: null
+    name: dracut-network
+    release: 554.el7
+    source: rpm
+    version: '033'
+  e2fsprogs:
+  - arch: x86_64
+    epoch: null
+    name: e2fsprogs
+    release: 13.el7
+    source: rpm
+    version: 1.42.9
+  e2fsprogs-libs:
+  - arch: x86_64
+    epoch: null
+    name: e2fsprogs-libs
+    release: 13.el7
+    source: rpm
+    version: 1.42.9
+  elfutils-default-yama-scope:
+  - arch: noarch
+    epoch: null
+    name: elfutils-default-yama-scope
+    release: 2.el7
+    source: rpm
+    version: '0.172'
+  elfutils-libelf:
+  - arch: x86_64
+    epoch: null
+    name: elfutils-libelf
+    release: 2.el7
+    source: rpm
+    version: '0.172'
+  elfutils-libs:
+  - arch: x86_64
+    epoch: null
+    name: elfutils-libs
+    release: 2.el7
+    source: rpm
+    version: '0.172'
+  epel-release:
+  - arch: noarch
+    epoch: null
+    name: epel-release
+    release: '11'
+    source: rpm
+    version: '7'
+  ethtool:
+  - arch: x86_64
+    epoch: 2
+    name: ethtool
+    release: 9.el7
+    source: rpm
+    version: '4.8'
+  expat:
+  - arch: x86_64
+    epoch: null
+    name: expat
+    release: 10.el7_3
+    source: rpm
+    version: 2.1.0
+  file:
+  - arch: x86_64
+    epoch: null
+    name: file
+    release: 35.el7
+    source: rpm
+    version: '5.11'
+  file-libs:
+  - arch: x86_64
+    epoch: null
+    name: file-libs
+    release: 35.el7
+    source: rpm
+    version: '5.11'
+  filebeat:
+  - arch: x86_64
+    epoch: null
+    name: filebeat
+    release: '1'
+    source: rpm
+    version: 7.4.2
+  filesystem:
+  - arch: x86_64
+    epoch: null
+    name: filesystem
+    release: 25.el7
+    source: rpm
+    version: '3.2'
+  findutils:
+  - arch: x86_64
+    epoch: 1
+    name: findutils
+    release: 6.el7
+    source: rpm
+    version: 4.5.11
+  fipscheck:
+  - arch: x86_64
+    epoch: null
+    name: fipscheck
+    release: 6.el7
+    source: rpm
+    version: 1.4.1
+  fipscheck-lib:
+  - arch: x86_64
+    epoch: null
+    name: fipscheck-lib
+    release: 6.el7
+    source: rpm
+    version: 1.4.1
+  forkstat:
+  - arch: x86_64
+    epoch: null
+    name: forkstat
+    release: '1.1'
+    source: rpm
+    version: 0.02.12
+  freetype:
+  - arch: x86_64
+    epoch: null
+    name: freetype
+    release: 12.el7_6.1
+    source: rpm
+    version: '2.8'
+  gawk:
+  - arch: x86_64
+    epoch: null
+    name: gawk
+    release: 4.el7_3.1
+    source: rpm
+    version: 4.0.2
+  gdbm:
+  - arch: x86_64
+    epoch: null
+    name: gdbm
+    release: 8.el7
+    source: rpm
+    version: '1.10'
+  gettext:
+  - arch: x86_64
+    epoch: null
+    name: gettext
+    release: 2.el7
+    source: rpm
+    version: 0.19.8.1
+  gettext-libs:
+  - arch: x86_64
+    epoch: null
+    name: gettext-libs
+    release: 2.el7
+    source: rpm
+    version: 0.19.8.1
+  glib2:
+  - arch: x86_64
+    epoch: null
+    name: glib2
+    release: 4.el7_6
+    source: rpm
+    version: 2.56.1
+  glibc:
+  - arch: x86_64
+    epoch: null
+    name: glibc
+    release: 260.el7_6.6
+    source: rpm
+    version: '2.17'
+  glibc-common:
+  - arch: x86_64
+    epoch: null
+    name: glibc-common
+    release: 260.el7_6.6
+    source: rpm
+    version: '2.17'
+  gmp:
+  - arch: x86_64
+    epoch: 1
+    name: gmp
+    release: 15.el7
+    source: rpm
+    version: 6.0.0
+  gnupg2:
+  - arch: x86_64
+    epoch: null
+    name: gnupg2
+    release: 5.el7_5
+    source: rpm
+    version: 2.0.22
+  gobject-introspection:
+  - arch: x86_64
+    epoch: null
+    name: gobject-introspection
+    release: 1.el7
+    source: rpm
+    version: 1.56.1
+  gpg-pubkey:
+  - arch: null
+    epoch: null
+    name: gpg-pubkey
+    release: 53a7ff4b
+    source: rpm
+    version: f4a80eb5
+  - arch: null
+    epoch: null
+    name: gpg-pubkey
+    release: 52ae6884
+    source: rpm
+    version: 352c64e5
+  - arch: null
+    epoch: null
+    name: gpg-pubkey
+    release: 58adea78
+    source: rpm
+    version: 621e9f35
+  gpgme:
+  - arch: x86_64
+    epoch: null
+    name: gpgme
+    release: 5.el7
+    source: rpm
+    version: 1.3.2
+  gpm-libs:
+  - arch: x86_64
+    epoch: null
+    name: gpm-libs
+    release: 6.el7
+    source: rpm
+    version: 1.20.7
+  grep:
+  - arch: x86_64
+    epoch: null
+    name: grep
+    release: 3.el7
+    source: rpm
+    version: '2.20'
+  groff-base:
+  - arch: x86_64
+    epoch: null
+    name: groff-base
+    release: 8.el7
+    source: rpm
+    version: 1.22.2
+  grub2:
+  - arch: x86_64
+    epoch: 1
+    name: grub2
+    release: 0.76.el7.centos.1
+    source: rpm
+    version: '2.02'
+  grub2-common:
+  - arch: noarch
+    epoch: 1
+    name: grub2-common
+    release: 0.76.el7.centos.1
+    source: rpm
+    version: '2.02'
+  grub2-pc:
+  - arch: x86_64
+    epoch: 1
+    name: grub2-pc
+    release: 0.76.el7.centos.1
+    source: rpm
+    version: '2.02'
+  grub2-pc-modules:
+  - arch: noarch
+    epoch: 1
+    name: grub2-pc-modules
+    release: 0.76.el7.centos.1
+    source: rpm
+    version: '2.02'
+  grub2-tools:
+  - arch: x86_64
+    epoch: 1
+    name: grub2-tools
+    release: 0.76.el7.centos.1
+    source: rpm
+    version: '2.02'
+  grub2-tools-extra:
+  - arch: x86_64
+    epoch: 1
+    name: grub2-tools-extra
+    release: 0.76.el7.centos.1
+    source: rpm
+    version: '2.02'
+  grub2-tools-minimal:
+  - arch: x86_64
+    epoch: 1
+    name: grub2-tools-minimal
+    release: 0.76.el7.centos.1
+    source: rpm
+    version: '2.02'
+  grubby:
+  - arch: x86_64
+    epoch: null
+    name: grubby
+    release: 25.el7
+    source: rpm
+    version: '8.28'
+  gssproxy:
+  - arch: x86_64
+    epoch: null
+    name: gssproxy
+    release: 21.el7
+    source: rpm
+    version: 0.7.0
+  gzip:
+  - arch: x86_64
+    epoch: null
+    name: gzip
+    release: 10.el7
+    source: rpm
+    version: '1.5'
+  hardlink:
+  - arch: x86_64
+    epoch: 1
+    name: hardlink
+    release: 19.el7
+    source: rpm
+    version: '1.0'
+  hostname:
+  - arch: x86_64
+    epoch: null
+    name: hostname
+    release: 3.el7
+    source: rpm
+    version: '3.13'
+  hwdata:
+  - arch: x86_64
+    epoch: null
+    name: hwdata
+    release: 9.1.el7
+    source: rpm
+    version: '0.252'
+  info:
+  - arch: x86_64
+    epoch: null
+    name: info
+    release: 5.el7
+    source: rpm
+    version: '5.1'
+  initscripts:
+  - arch: x86_64
+    epoch: null
+    name: initscripts
+    release: 1.el7
+    source: rpm
+    version: 9.49.46
+  iometrics-agent:
+  - arch: x86_64
+    epoch: null
+    name: iometrics-agent
+    release: '27'
+    source: rpm
+    version: 1.11.3
+  iotop:
+  - arch: noarch
+    epoch: null
+    name: iotop
+    release: 4.el7
+    source: rpm
+    version: '0.6'
+  iproute:
+  - arch: x86_64
+    epoch: null
+    name: iproute
+    release: 14.el7_6.2
+    source: rpm
+    version: 4.11.0
+  iptables:
+  - arch: x86_64
+    epoch: null
+    name: iptables
+    release: 28.el7
+    source: rpm
+    version: 1.4.21
+  iputils:
+  - arch: x86_64
+    epoch: null
+    name: iputils
+    release: 10.el7
+    source: rpm
+    version: '20160308'
+  irqbalance:
+  - arch: x86_64
+    epoch: 3
+    name: irqbalance
+    release: 11.el7
+    source: rpm
+    version: 1.0.7
+  iwl7265-firmware:
+  - arch: noarch
+    epoch: null
+    name: iwl7265-firmware
+    release: 69.el7
+    source: rpm
+    version: 22.0.7.0
+  jansson:
+  - arch: x86_64
+    epoch: null
+    name: jansson
+    release: 1.el7
+    source: rpm
+    version: '2.10'
+  json-c:
+  - arch: x86_64
+    epoch: null
+    name: json-c
+    release: 4.el7_0
+    source: rpm
+    version: '0.11'
+  kbd:
+  - arch: x86_64
+    epoch: null
+    name: kbd
+    release: 15.el7
+    source: rpm
+    version: 1.15.5
+  kbd-legacy:
+  - arch: noarch
+    epoch: null
+    name: kbd-legacy
+    release: 15.el7
+    source: rpm
+    version: 1.15.5
+  kbd-misc:
+  - arch: noarch
+    epoch: null
+    name: kbd-misc
+    release: 15.el7
+    source: rpm
+    version: 1.15.5
+  kernel:
+  - arch: x86_64
+    epoch: null
+    name: kernel
+    release: 957.27.2.el7
+    source: rpm
+    version: 3.10.0
+  kernel-tools:
+  - arch: x86_64
+    epoch: null
+    name: kernel-tools
+    release: 957.27.2.el7
+    source: rpm
+    version: 3.10.0
+  kernel-tools-libs:
+  - arch: x86_64
+    epoch: null
+    name: kernel-tools-libs
+    release: 957.27.2.el7
+    source: rpm
+    version: 3.10.0
+  kexec-tools:
+  - arch: x86_64
+    epoch: null
+    name: kexec-tools
+    release: 21.el7_6.4
+    source: rpm
+    version: 2.0.15
+  keyutils:
+  - arch: x86_64
+    epoch: null
+    name: keyutils
+    release: 3.el7
+    source: rpm
+    version: 1.5.8
+  keyutils-libs:
+  - arch: x86_64
+    epoch: null
+    name: keyutils-libs
+    release: 3.el7
+    source: rpm
+    version: 1.5.8
+  kmod:
+  - arch: x86_64
+    epoch: null
+    name: kmod
+    release: 23.el7
+    source: rpm
+    version: '20'
+  kmod-libs:
+  - arch: x86_64
+    epoch: null
+    name: kmod-libs
+    release: 23.el7
+    source: rpm
+    version: '20'
+  kpartx:
+  - arch: x86_64
+    epoch: null
+    name: kpartx
+    release: 123.el7
+    source: rpm
+    version: 0.4.9
+  krb5-libs:
+  - arch: x86_64
+    epoch: null
+    name: krb5-libs
+    release: 37.el7_6
+    source: rpm
+    version: 1.15.1
+  less:
+  - arch: x86_64
+    epoch: null
+    name: less
+    release: 9.el7
+    source: rpm
+    version: '458'
+  libacl:
+  - arch: x86_64
+    epoch: null
+    name: libacl
+    release: 14.el7
+    source: rpm
+    version: 2.2.51
+  libassuan:
+  - arch: x86_64
+    epoch: null
+    name: libassuan
+    release: 3.el7
+    source: rpm
+    version: 2.1.0
+  libattr:
+  - arch: x86_64
+    epoch: null
+    name: libattr
+    release: 13.el7
+    source: rpm
+    version: 2.4.46
+  libbasicobjects:
+  - arch: x86_64
+    epoch: null
+    name: libbasicobjects
+    release: 32.el7
+    source: rpm
+    version: 0.1.1
+  libblkid:
+  - arch: x86_64
+    epoch: null
+    name: libblkid
+    release: 59.el7_6.1
+    source: rpm
+    version: 2.23.2
+  libcap:
+  - arch: x86_64
+    epoch: null
+    name: libcap
+    release: 9.el7
+    source: rpm
+    version: '2.22'
+  libcap-ng:
+  - arch: x86_64
+    epoch: null
+    name: libcap-ng
+    release: 4.el7
+    source: rpm
+    version: 0.7.5
+  libcgroup:
+  - arch: x86_64
+    epoch: null
+    name: libcgroup
+    release: 20.el7
+    source: rpm
+    version: '0.41'
+  libcollection:
+  - arch: x86_64
+    epoch: null
+    name: libcollection
+    release: 32.el7
+    source: rpm
+    version: 0.7.0
+  libcom_err:
+  - arch: x86_64
+    epoch: null
+    name: libcom_err
+    release: 13.el7
+    source: rpm
+    version: 1.42.9
+  libcroco:
+  - arch: x86_64
+    epoch: null
+    name: libcroco
+    release: 4.el7
+    source: rpm
+    version: 0.6.12
+  libcurl:
+  - arch: x86_64
+    epoch: null
+    name: libcurl
+    release: 51.el7_6.3
+    source: rpm
+    version: 7.29.0
+  libdaemon:
+  - arch: x86_64
+    epoch: null
+    name: libdaemon
+    release: 7.el7
+    source: rpm
+    version: '0.14'
+  libdb:
+  - arch: x86_64
+    epoch: null
+    name: libdb
+    release: 24.el7
+    source: rpm
+    version: 5.3.21
+  libdb-utils:
+  - arch: x86_64
+    epoch: null
+    name: libdb-utils
+    release: 24.el7
+    source: rpm
+    version: 5.3.21
+  libedit:
+  - arch: x86_64
+    epoch: null
+    name: libedit
+    release: 12.20121213cvs.el7
+    source: rpm
+    version: '3.0'
+  libestr:
+  - arch: x86_64
+    epoch: null
+    name: libestr
+    release: 2.el7
+    source: rpm
+    version: 0.1.9
+  libevent:
+  - arch: x86_64
+    epoch: null
+    name: libevent
+    release: 4.el7
+    source: rpm
+    version: 2.0.21
+  libfastjson:
+  - arch: x86_64
+    epoch: null
+    name: libfastjson
+    release: 3.el7
+    source: rpm
+    version: 0.99.4
+  libffi:
+  - arch: x86_64
+    epoch: null
+    name: libffi
+    release: 18.el7
+    source: rpm
+    version: 3.0.13
+  libgcc:
+  - arch: x86_64
+    epoch: null
+    name: libgcc
+    release: 36.el7_6.2
+    source: rpm
+    version: 4.8.5
+  libgcrypt:
+  - arch: x86_64
+    epoch: null
+    name: libgcrypt
+    release: 14.el7
+    source: rpm
+    version: 1.5.3
+  libgomp:
+  - arch: x86_64
+    epoch: null
+    name: libgomp
+    release: 36.el7_6.2
+    source: rpm
+    version: 4.8.5
+  libgpg-error:
+  - arch: x86_64
+    epoch: null
+    name: libgpg-error
+    release: 3.el7
+    source: rpm
+    version: '1.12'
+  libidn:
+  - arch: x86_64
+    epoch: null
+    name: libidn
+    release: 4.el7
+    source: rpm
+    version: '1.28'
+  libini_config:
+  - arch: x86_64
+    epoch: null
+    name: libini_config
+    release: 32.el7
+    source: rpm
+    version: 1.3.1
+  libmnl:
+  - arch: x86_64
+    epoch: null
+    name: libmnl
+    release: 7.el7
+    source: rpm
+    version: 1.0.3
+  libmount:
+  - arch: x86_64
+    epoch: null
+    name: libmount
+    release: 59.el7_6.1
+    source: rpm
+    version: 2.23.2
+  libndp:
+  - arch: x86_64
+    epoch: null
+    name: libndp
+    release: 7.el7
+    source: rpm
+    version: '1.2'
+  libnetfilter_conntrack:
+  - arch: x86_64
+    epoch: null
+    name: libnetfilter_conntrack
+    release: 1.el7_3
+    source: rpm
+    version: 1.0.6
+  libnfnetlink:
+  - arch: x86_64
+    epoch: null
+    name: libnfnetlink
+    release: 4.el7
+    source: rpm
+    version: 1.0.1
+  libnfsidmap:
+  - arch: x86_64
+    epoch: null
+    name: libnfsidmap
+    release: 19.el7
+    source: rpm
+    version: '0.25'
+  libnl3:
+  - arch: x86_64
+    epoch: null
+    name: libnl3
+    release: 4.el7
+    source: rpm
+    version: 3.2.28
+  libnl3-cli:
+  - arch: x86_64
+    epoch: null
+    name: libnl3-cli
+    release: 4.el7
+    source: rpm
+    version: 3.2.28
+  libpath_utils:
+  - arch: x86_64
+    epoch: null
+    name: libpath_utils
+    release: 32.el7
+    source: rpm
+    version: 0.2.1
+  libpcap:
+  - arch: x86_64
+    epoch: 14
+    name: libpcap
+    release: 12.el7
+    source: rpm
+    version: 1.5.3
+  libpipeline:
+  - arch: x86_64
+    epoch: null
+    name: libpipeline
+    release: 3.el7
+    source: rpm
+    version: 1.2.3
+  libpng:
+  - arch: x86_64
+    epoch: 2
+    name: libpng
+    release: 7.el7_2
+    source: rpm
+    version: 1.5.13
+  libpwquality:
+  - arch: x86_64
+    epoch: null
+    name: libpwquality
+    release: 5.el7
+    source: rpm
+    version: 1.2.3
+  libref_array:
+  - arch: x86_64
+    epoch: null
+    name: libref_array
+    release: 32.el7
+    source: rpm
+    version: 0.1.5
+  libseccomp:
+  - arch: x86_64
+    epoch: null
+    name: libseccomp
+    release: 3.el7
+    source: rpm
+    version: 2.3.1
+  libselinux:
+  - arch: x86_64
+    epoch: null
+    name: libselinux
+    release: 15.el7
+    source: rpm
+    version: '2.5'
+  libselinux-python:
+  - arch: x86_64
+    epoch: null
+    name: libselinux-python
+    release: 15.el7
+    source: rpm
+    version: '2.5'
+  libselinux-python3:
+  - arch: x86_64
+    epoch: null
+    name: libselinux-python3
+    release: 15.el7
+    source: rpm
+    version: '2.5'
+  libselinux-utils:
+  - arch: x86_64
+    epoch: null
+    name: libselinux-utils
+    release: 15.el7
+    source: rpm
+    version: '2.5'
+  libsemanage:
+  - arch: x86_64
+    epoch: null
+    name: libsemanage
+    release: 14.el7
+    source: rpm
+    version: '2.5'
+  libsemanage-python:
+  - arch: x86_64
+    epoch: null
+    name: libsemanage-python
+    release: 14.el7
+    source: rpm
+    version: '2.5'
+  libsepol:
+  - arch: x86_64
+    epoch: null
+    name: libsepol
+    release: 10.el7
+    source: rpm
+    version: '2.5'
+  libsmartcols:
+  - arch: x86_64
+    epoch: null
+    name: libsmartcols
+    release: 59.el7_6.1
+    source: rpm
+    version: 2.23.2
+  libss:
+  - arch: x86_64
+    epoch: null
+    name: libss
+    release: 13.el7
+    source: rpm
+    version: 1.42.9
+  libssh2:
+  - arch: x86_64
+    epoch: null
+    name: libssh2
+    release: 12.el7_6.3
+    source: rpm
+    version: 1.4.3
+  libstdc++:
+  - arch: x86_64
+    epoch: null
+    name: libstdc++
+    release: 36.el7_6.2
+    source: rpm
+    version: 4.8.5
+  libsysfs:
+  - arch: x86_64
+    epoch: null
+    name: libsysfs
+    release: 16.el7
+    source: rpm
+    version: 2.1.0
+  libtasn1:
+  - arch: x86_64
+    epoch: null
+    name: libtasn1
+    release: 1.el7
+    source: rpm
+    version: '4.10'
+  libteam:
+  - arch: x86_64
+    epoch: null
+    name: libteam
+    release: 6.el7_6.1
+    source: rpm
+    version: '1.27'
+  libtirpc:
+  - arch: x86_64
+    epoch: null
+    name: libtirpc
+    release: 0.15.el7
+    source: rpm
+    version: 0.2.4
+  libunistring:
+  - arch: x86_64
+    epoch: null
+    name: libunistring
+    release: 9.el7
+    source: rpm
+    version: 0.9.3
+  libuser:
+  - arch: x86_64
+    epoch: null
+    name: libuser
+    release: 9.el7
+    source: rpm
+    version: '0.60'
+  libutempter:
+  - arch: x86_64
+    epoch: null
+    name: libutempter
+    release: 4.el7
+    source: rpm
+    version: 1.1.6
+  libuuid:
+  - arch: x86_64
+    epoch: null
+    name: libuuid
+    release: 59.el7_6.1
+    source: rpm
+    version: 2.23.2
+  libverto:
+  - arch: x86_64
+    epoch: null
+    name: libverto
+    release: 4.el7
+    source: rpm
+    version: 0.2.5
+  libverto-libevent:
+  - arch: x86_64
+    epoch: null
+    name: libverto-libevent
+    release: 4.el7
+    source: rpm
+    version: 0.2.5
+  libxml2:
+  - arch: x86_64
+    epoch: null
+    name: libxml2
+    release: 6.el7_2.3
+    source: rpm
+    version: 2.9.1
+  libxml2-python:
+  - arch: x86_64
+    epoch: null
+    name: libxml2-python
+    release: 6.el7_2.3
+    source: rpm
+    version: 2.9.1
+  libyaml:
+  - arch: x86_64
+    epoch: null
+    name: libyaml
+    release: 11.el7_0
+    source: rpm
+    version: 0.1.4
+  lm_sensors-libs:
+  - arch: x86_64
+    epoch: null
+    name: lm_sensors-libs
+    release: 8.20160601gitf9185e5.el7
+    source: rpm
+    version: 3.4.0
+  logrotate:
+  - arch: x86_64
+    epoch: null
+    name: logrotate
+    release: 17.el7
+    source: rpm
+    version: 3.8.6
+  lshw:
+  - arch: x86_64
+    epoch: null
+    name: lshw
+    release: 12.el7
+    source: rpm
+    version: B.02.18
+  lua:
+  - arch: x86_64
+    epoch: null
+    name: lua
+    release: 15.el7
+    source: rpm
+    version: 5.1.4
+  lz4:
+  - arch: x86_64
+    epoch: null
+    name: lz4
+    release: 2.el7
+    source: rpm
+    version: 1.7.5
+  lzo:
+  - arch: x86_64
+    epoch: null
+    name: lzo
+    release: 8.el7
+    source: rpm
+    version: '2.06'
+  make:
+  - arch: x86_64
+    epoch: 1
+    name: make
+    release: 23.el7
+    source: rpm
+    version: '3.82'
+  man-db:
+  - arch: x86_64
+    epoch: null
+    name: man-db
+    release: 11.el7
+    source: rpm
+    version: 2.6.3
+  mariadb-libs:
+  - arch: x86_64
+    epoch: 1
+    name: mariadb-libs
+    release: 1.el7_5
+    source: rpm
+    version: 5.5.60
+  microcode_ctl:
+  - arch: x86_64
+    epoch: 2
+    name: microcode_ctl
+    release: 47.5.el7_6
+    source: rpm
+    version: '2.1'
+  mozjs17:
+  - arch: x86_64
+    epoch: null
+    name: mozjs17
+    release: 20.el7
+    source: rpm
+    version: 17.0.0
+  ncurses:
+  - arch: x86_64
+    epoch: null
+    name: ncurses
+    release: 14.20130511.el7_4
+    source: rpm
+    version: '5.9'
+  ncurses-base:
+  - arch: noarch
+    epoch: null
+    name: ncurses-base
+    release: 14.20130511.el7_4
+    source: rpm
+    version: '5.9'
+  ncurses-libs:
+  - arch: x86_64
+    epoch: null
+    name: ncurses-libs
+    release: 14.20130511.el7_4
+    source: rpm
+    version: '5.9'
+  net-tools:
+  - arch: x86_64
+    epoch: null
+    name: net-tools
+    release: 0.24.20131004git.el7
+    source: rpm
+    version: '2.0'
+  newt:
+  - arch: x86_64
+    epoch: null
+    name: newt
+    release: 4.el7
+    source: rpm
+    version: 0.52.15
+  newt-python:
+  - arch: x86_64
+    epoch: null
+    name: newt-python
+    release: 4.el7
+    source: rpm
+    version: 0.52.15
+  nfs-utils:
+  - arch: x86_64
+    epoch: 1
+    name: nfs-utils
+    release: 0.61.el7
+    source: rpm
+    version: 1.3.0
+  nspr:
+  - arch: x86_64
+    epoch: null
+    name: nspr
+    release: 1.el7_5
+    source: rpm
+    version: 4.19.0
+  nss:
+  - arch: x86_64
+    epoch: null
+    name: nss
+    release: 7.1.el7_6
+    source: rpm
+    version: 3.36.0
+  nss-pem:
+  - arch: x86_64
+    epoch: null
+    name: nss-pem
+    release: 5.el7_6.1
+    source: rpm
+    version: 1.0.3
+  nss-softokn:
+  - arch: x86_64
+    epoch: null
+    name: nss-softokn
+    release: 5.el7_5
+    source: rpm
+    version: 3.36.0
+  nss-softokn-freebl:
+  - arch: x86_64
+    epoch: null
+    name: nss-softokn-freebl
+    release: 5.el7_5
+    source: rpm
+    version: 3.36.0
+  nss-sysinit:
+  - arch: x86_64
+    epoch: null
+    name: nss-sysinit
+    release: 7.1.el7_6
+    source: rpm
+    version: 3.36.0
+  nss-tools:
+  - arch: x86_64
+    epoch: null
+    name: nss-tools
+    release: 7.1.el7_6
+    source: rpm
+    version: 3.36.0
+  nss-util:
+  - arch: x86_64
+    epoch: null
+    name: nss-util
+    release: 1.1.el7_6
+    source: rpm
+    version: 3.36.0
+  ntp:
+  - arch: x86_64
+    epoch: null
+    name: ntp
+    release: 29.el7.centos.2
+    source: rpm
+    version: 4.2.6p5
+  ntpdate:
+  - arch: x86_64
+    epoch: null
+    name: ntpdate
+    release: 29.el7.centos.2
+    source: rpm
+    version: 4.2.6p5
+  numactl-libs:
+  - arch: x86_64
+    epoch: null
+    name: numactl-libs
+    release: 7.el7
+    source: rpm
+    version: 2.0.9
+  openldap:
+  - arch: x86_64
+    epoch: null
+    name: openldap
+    release: 21.el7_6
+    source: rpm
+    version: 2.4.44
+  openssh:
+  - arch: x86_64
+    epoch: null
+    name: openssh
+    release: 16.el7
+    source: rpm
+    version: 7.4p1
+  openssh-clients:
+  - arch: x86_64
+    epoch: null
+    name: openssh-clients
+    release: 16.el7
+    source: rpm
+    version: 7.4p1
+  openssh-server:
+  - arch: x86_64
+    epoch: null
+    name: openssh-server
+    release: 16.el7
+    source: rpm
+    version: 7.4p1
+  openssl:
+  - arch: x86_64
+    epoch: 1
+    name: openssl
+    release: 16.el7_6.1
+    source: rpm
+    version: 1.0.2k
+  openssl-libs:
+  - arch: x86_64
+    epoch: 1
+    name: openssl-libs
+    release: 16.el7_6.1
+    source: rpm
+    version: 1.0.2k
+  os-prober:
+  - arch: x86_64
+    epoch: null
+    name: os-prober
+    release: 9.el7
+    source: rpm
+    version: '1.58'
+  p11-kit:
+  - arch: x86_64
+    epoch: null
+    name: p11-kit
+    release: 3.el7
+    source: rpm
+    version: 0.23.5
+  p11-kit-trust:
+  - arch: x86_64
+    epoch: null
+    name: p11-kit-trust
+    release: 3.el7
+    source: rpm
+    version: 0.23.5
+  pam:
+  - arch: x86_64
+    epoch: null
+    name: pam
+    release: 22.el7
+    source: rpm
+    version: 1.1.8
+  parted:
+  - arch: x86_64
+    epoch: null
+    name: parted
+    release: 29.el7
+    source: rpm
+    version: '3.1'
+  passwd:
+  - arch: x86_64
+    epoch: null
+    name: passwd
+    release: 4.el7
+    source: rpm
+    version: '0.79'
+  pciutils-libs:
+  - arch: x86_64
+    epoch: null
+    name: pciutils-libs
+    release: 3.el7
+    source: rpm
+    version: 3.5.1
+  pcre:
+  - arch: x86_64
+    epoch: null
+    name: pcre
+    release: 17.el7
+    source: rpm
+    version: '8.32'
+  perl:
+  - arch: x86_64
+    epoch: 4
+    name: perl
+    release: 297.el7
+    source: rpm
+    version: 5.16.3
+  perl-Carp:
+  - arch: noarch
+    epoch: null
+    name: perl-Carp
+    release: 244.el7
+    source: rpm
+    version: '1.26'
+  perl-Encode:
+  - arch: x86_64
+    epoch: null
+    name: perl-Encode
+    release: 7.el7
+    source: rpm
+    version: '2.51'
+  perl-Exporter:
+  - arch: noarch
+    epoch: null
+    name: perl-Exporter
+    release: 3.el7
+    source: rpm
+    version: '5.68'
+  perl-File-Path:
+  - arch: noarch
+    epoch: null
+    name: perl-File-Path
+    release: 2.el7
+    source: rpm
+    version: '2.09'
+  perl-File-Temp:
+  - arch: noarch
+    epoch: null
+    name: perl-File-Temp
+    release: 3.el7
+    source: rpm
+    version: 0.23.01
+  perl-Filter:
+  - arch: x86_64
+    epoch: null
+    name: perl-Filter
+    release: 3.el7
+    source: rpm
+    version: '1.49'
+  perl-Getopt-Long:
+  - arch: noarch
+    epoch: null
+    name: perl-Getopt-Long
+    release: 3.el7
+    source: rpm
+    version: '2.40'
+  perl-HTTP-Tiny:
+  - arch: noarch
+    epoch: null
+    name: perl-HTTP-Tiny
+    release: 3.el7
+    source: rpm
+    version: '0.033'
+  perl-PathTools:
+  - arch: x86_64
+    epoch: null
+    name: perl-PathTools
+    release: 5.el7
+    source: rpm
+    version: '3.40'
+  perl-Pod-Escapes:
+  - arch: noarch
+    epoch: 1
+    name: perl-Pod-Escapes
+    release: 297.el7
+    source: rpm
+    version: '1.04'
+  perl-Pod-Perldoc:
+  - arch: noarch
+    epoch: null
+    name: perl-Pod-Perldoc
+    release: 4.el7
+    source: rpm
+    version: '3.20'
+  perl-Pod-Simple:
+  - arch: noarch
+    epoch: 1
+    name: perl-Pod-Simple
+    release: 4.el7
+    source: rpm
+    version: '3.28'
+  perl-Pod-Usage:
+  - arch: noarch
+    epoch: null
+    name: perl-Pod-Usage
+    release: 3.el7
+    source: rpm
+    version: '1.63'
+  perl-Scalar-List-Utils:
+  - arch: x86_64
+    epoch: null
+    name: perl-Scalar-List-Utils
+    release: 248.el7
+    source: rpm
+    version: '1.27'
+  perl-Socket:
+  - arch: x86_64
+    epoch: null
+    name: perl-Socket
+    release: 5.el7
+    source: rpm
+    version: '2.010'
+  perl-Storable:
+  - arch: x86_64
+    epoch: null
+    name: perl-Storable
+    release: 3.el7
+    source: rpm
+    version: '2.45'
+  perl-Text-ParseWords:
+  - arch: noarch
+    epoch: null
+    name: perl-Text-ParseWords
+    release: 4.el7
+    source: rpm
+    version: '3.29'
+  perl-Time-HiRes:
+  - arch: x86_64
+    epoch: 4
+    name: perl-Time-HiRes
+    release: 3.el7
+    source: rpm
+    version: '1.9725'
+  perl-Time-Local:
+  - arch: noarch
+    epoch: null
+    name: perl-Time-Local
+    release: 2.el7
+    source: rpm
+    version: '1.2300'
+  perl-constant:
+  - arch: noarch
+    epoch: null
+    name: perl-constant
+    release: 2.el7
+    source: rpm
+    version: '1.27'
+  perl-libs:
+  - arch: x86_64
+    epoch: 4
+    name: perl-libs
+    release: 297.el7
+    source: rpm
+    version: 5.16.3
+  perl-macros:
+  - arch: x86_64
+    epoch: 4
+    name: perl-macros
+    release: 297.el7
+    source: rpm
+    version: 5.16.3
+  perl-parent:
+  - arch: noarch
+    epoch: 1
+    name: perl-parent
+    release: 244.el7
+    source: rpm
+    version: '0.225'
+  perl-podlators:
+  - arch: noarch
+    epoch: null
+    name: perl-podlators
+    release: 3.el7
+    source: rpm
+    version: 2.5.1
+  perl-threads:
+  - arch: x86_64
+    epoch: null
+    name: perl-threads
+    release: 4.el7
+    source: rpm
+    version: '1.87'
+  perl-threads-shared:
+  - arch: x86_64
+    epoch: null
+    name: perl-threads-shared
+    release: 6.el7
+    source: rpm
+    version: '1.43'
+  pinentry:
+  - arch: x86_64
+    epoch: null
+    name: pinentry
+    release: 17.el7
+    source: rpm
+    version: 0.8.1
+  pkgconfig:
+  - arch: x86_64
+    epoch: 1
+    name: pkgconfig
+    release: 4.el7
+    source: rpm
+    version: 0.27.1
+  policycoreutils:
+  - arch: x86_64
+    epoch: null
+    name: policycoreutils
+    release: 29.el7_6.1
+    source: rpm
+    version: '2.5'
+  policycoreutils-python:
+  - arch: x86_64
+    epoch: null
+    name: policycoreutils-python
+    release: 29.el7_6.1
+    source: rpm
+    version: '2.5'
+  polkit:
+  - arch: x86_64
+    epoch: null
+    name: polkit
+    release: 18.el7_6.1
+    source: rpm
+    version: '0.112'
+  polkit-pkla-compat:
+  - arch: x86_64
+    epoch: null
+    name: polkit-pkla-compat
+    release: 4.el7
+    source: rpm
+    version: '0.1'
+  popt:
+  - arch: x86_64
+    epoch: null
+    name: popt
+    release: 16.el7
+    source: rpm
+    version: '1.13'
+  postfix:
+  - arch: x86_64
+    epoch: 2
+    name: postfix
+    release: 7.el7
+    source: rpm
+    version: 2.10.1
+  procps-ng:
+  - arch: x86_64
+    epoch: null
+    name: procps-ng
+    release: 23.el7
+    source: rpm
+    version: 3.3.10
+  pth:
+  - arch: x86_64
+    epoch: null
+    name: pth
+    release: 23.el7
+    source: rpm
+    version: 2.0.7
+  pygpgme:
+  - arch: x86_64
+    epoch: null
+    name: pygpgme
+    release: 9.el7
+    source: rpm
+    version: '0.3'
+  pyliblzma:
+  - arch: x86_64
+    epoch: null
+    name: pyliblzma
+    release: 11.el7
+    source: rpm
+    version: 0.5.3
+  pyserial:
+  - arch: noarch
+    epoch: null
+    name: pyserial
+    release: 6.el7
+    source: rpm
+    version: '2.6'
+  python:
+  - arch: x86_64
+    epoch: null
+    name: python
+    release: 80.el7_6
+    source: rpm
+    version: 2.7.5
+  python-IPy:
+  - arch: noarch
+    epoch: null
+    name: python-IPy
+    release: 6.el7
+    source: rpm
+    version: '0.75'
+  python-babel:
+  - arch: noarch
+    epoch: null
+    name: python-babel
+    release: 8.el7
+    source: rpm
+    version: 0.9.6
+  python-backports:
+  - arch: x86_64
+    epoch: null
+    name: python-backports
+    release: 8.el7
+    source: rpm
+    version: '1.0'
+  python-backports-ssl_match_hostname:
+  - arch: noarch
+    epoch: null
+    name: python-backports-ssl_match_hostname
+    release: 1.el7
+    source: rpm
+    version: 3.5.0.1
+  python-chardet:
+  - arch: noarch
+    epoch: null
+    name: python-chardet
+    release: 1.el7_1
+    source: rpm
+    version: 2.2.1
+  python-configobj:
+  - arch: noarch
+    epoch: null
+    name: python-configobj
+    release: 7.el7
+    source: rpm
+    version: 4.7.2
+  python-decorator:
+  - arch: noarch
+    epoch: null
+    name: python-decorator
+    release: 3.el7
+    source: rpm
+    version: 3.4.0
+  python-gobject-base:
+  - arch: x86_64
+    epoch: null
+    name: python-gobject-base
+    release: 1.el7_4.1
+    source: rpm
+    version: 3.22.0
+  python-iniparse:
+  - arch: noarch
+    epoch: null
+    name: python-iniparse
+    release: 9.el7
+    source: rpm
+    version: '0.4'
+  python-ipaddress:
+  - arch: noarch
+    epoch: null
+    name: python-ipaddress
+    release: 2.el7
+    source: rpm
+    version: 1.0.16
+  python-jinja2:
+  - arch: noarch
+    epoch: null
+    name: python-jinja2
+    release: 3.el7_6
+    source: rpm
+    version: 2.7.2
+  python-jsonpatch:
+  - arch: noarch
+    epoch: null
+    name: python-jsonpatch
+    release: 4.el7
+    source: rpm
+    version: '1.2'
+  python-jsonpointer:
+  - arch: noarch
+    epoch: null
+    name: python-jsonpointer
+    release: 2.el7
+    source: rpm
+    version: '1.9'
+  python-kitchen:
+  - arch: noarch
+    epoch: null
+    name: python-kitchen
+    release: 5.el7
+    source: rpm
+    version: 1.1.1
+  python-libs:
+  - arch: x86_64
+    epoch: null
+    name: python-libs
+    release: 80.el7_6
+    source: rpm
+    version: 2.7.5
+  python-linux-procfs:
+  - arch: noarch
+    epoch: null
+    name: python-linux-procfs
+    release: 4.el7
+    source: rpm
+    version: 0.4.9
+  python-markupsafe:
+  - arch: x86_64
+    epoch: null
+    name: python-markupsafe
+    release: 10.el7
+    source: rpm
+    version: '0.11'
+  python-perf:
+  - arch: x86_64
+    epoch: null
+    name: python-perf
+    release: 957.27.2.el7
+    source: rpm
+    version: 3.10.0
+  python-prettytable:
+  - arch: noarch
+    epoch: null
+    name: python-prettytable
+    release: 3.el7
+    source: rpm
+    version: 0.7.2
+  python-pycurl:
+  - arch: x86_64
+    epoch: null
+    name: python-pycurl
+    release: 19.el7
+    source: rpm
+    version: 7.19.0
+  python-pyudev:
+  - arch: noarch
+    epoch: null
+    name: python-pyudev
+    release: 9.el7
+    source: rpm
+    version: '0.15'
+  python-requests:
+  - arch: noarch
+    epoch: null
+    name: python-requests
+    release: 1.el7_1
+    source: rpm
+    version: 2.6.0
+  python-schedutils:
+  - arch: x86_64
+    epoch: null
+    name: python-schedutils
+    release: 6.el7
+    source: rpm
+    version: '0.4'
+  python-setuptools:
+  - arch: noarch
+    epoch: null
+    name: python-setuptools
+    release: 7.el7
+    source: rpm
+    version: 0.9.8
+  python-six:
+  - arch: noarch
+    epoch: null
+    name: python-six
+    release: 2.el7
+    source: rpm
+    version: 1.9.0
+  python-urlgrabber:
+  - arch: noarch
+    epoch: null
+    name: python-urlgrabber
+    release: 9.el7
+    source: rpm
+    version: '3.10'
+  python-urllib3:
+  - arch: noarch
+    epoch: null
+    name: python-urllib3
+    release: 5.el7
+    source: rpm
+    version: 1.10.2
+  python2-pip:
+  - arch: noarch
+    epoch: null
+    name: python2-pip
+    release: 12.el7
+    source: rpm
+    version: 8.1.2
+  python3:
+  - arch: x86_64
+    epoch: null
+    name: python3
+    release: 13.el7
+    source: rpm
+    version: 3.6.8
+  python3-libs:
+  - arch: x86_64
+    epoch: null
+    name: python3-libs
+    release: 13.el7
+    source: rpm
+    version: 3.6.8
+  python3-pip:
+  - arch: noarch
+    epoch: null
+    name: python3-pip
+    release: 7.el7_7
+    source: rpm
+    version: 9.0.3
+  python3-setuptools:
+  - arch: noarch
+    epoch: null
+    name: python3-setuptools
+    release: 10.el7
+    source: rpm
+    version: 39.2.0
+  pyxattr:
+  - arch: x86_64
+    epoch: null
+    name: pyxattr
+    release: 5.el7
+    source: rpm
+    version: 0.5.1
+  qemu-guest-agent:
+  - arch: x86_64
+    epoch: 10
+    name: qemu-guest-agent
+    release: 2.el7
+    source: rpm
+    version: 2.12.0
+  qrencode-libs:
+  - arch: x86_64
+    epoch: null
+    name: qrencode-libs
+    release: 3.el7
+    source: rpm
+    version: 3.4.1
+  quota:
+  - arch: x86_64
+    epoch: 1
+    name: quota
+    release: 17.el7
+    source: rpm
+    version: '4.01'
+  quota-nls:
+  - arch: noarch
+    epoch: 1
+    name: quota-nls
+    release: 17.el7
+    source: rpm
+    version: '4.01'
+  readline:
+  - arch: x86_64
+    epoch: null
+    name: readline
+    release: 10.el7
+    source: rpm
+    version: '6.2'
+  rootfiles:
+  - arch: noarch
+    epoch: null
+    name: rootfiles
+    release: 11.el7
+    source: rpm
+    version: '8.1'
+  rpcbind:
+  - arch: x86_64
+    epoch: null
     name: rpcbind
-    pid: 747
-    port: 905
-    protocol: udp
-    stime: 'Tue Apr 26 15:54:49 2022'
-    user: rpc
-  - address: '::'
+    release: 47.el7
+    source: rpm
+    version: 0.2.0
+  rpm:
+  - arch: x86_64
+    epoch: null
+    name: rpm
+    release: 35.el7
+    source: rpm
+    version: 4.11.3
+  rpm-build-libs:
+  - arch: x86_64
+    epoch: null
+    name: rpm-build-libs
+    release: 35.el7
+    source: rpm
+    version: 4.11.3
+  rpm-libs:
+  - arch: x86_64
+    epoch: null
+    name: rpm-libs
+    release: 35.el7
+    source: rpm
+    version: 4.11.3
+  rpm-python:
+  - arch: x86_64
+    epoch: null
+    name: rpm-python
+    release: 35.el7
+    source: rpm
+    version: 4.11.3
+  rsync:
+  - arch: x86_64
+    epoch: null
+    name: rsync
+    release: 6.el7_6.1
+    source: rpm
+    version: 3.1.2
+  rsyslog:
+  - arch: x86_64
+    epoch: null
+    name: rsyslog
+    release: 34.el7
+    source: rpm
+    version: 8.24.0
+  sed:
+  - arch: x86_64
+    epoch: null
+    name: sed
+    release: 5.el7
+    source: rpm
+    version: 4.2.2
+  selinux-policy:
+  - arch: noarch
+    epoch: null
+    name: selinux-policy
+    release: 229.el7_6.15
+    source: rpm
+    version: 3.13.1
+  selinux-policy-targeted:
+  - arch: noarch
+    epoch: null
+    name: selinux-policy-targeted
+    release: 229.el7_6.15
+    source: rpm
+    version: 3.13.1
+  setools-libs:
+  - arch: x86_64
+    epoch: null
+    name: setools-libs
+    release: 4.el7
+    source: rpm
+    version: 3.3.8
+  setup:
+  - arch: noarch
+    epoch: null
+    name: setup
+    release: 10.el7
+    source: rpm
+    version: 2.8.71
+  sg3_utils:
+  - arch: x86_64
+    epoch: null
+    name: sg3_utils
+    release: 17.el7
+    source: rpm
+    version: '1.37'
+  sg3_utils-libs:
+  - arch: x86_64
+    epoch: null
+    name: sg3_utils-libs
+    release: 17.el7
+    source: rpm
+    version: '1.37'
+  shadow-utils:
+  - arch: x86_64
+    epoch: 2
+    name: shadow-utils
+    release: 25.el7_6.1
+    source: rpm
+    version: 4.1.5.1
+  shared-mime-info:
+  - arch: x86_64
+    epoch: null
+    name: shared-mime-info
+    release: 4.el7
+    source: rpm
+    version: '1.8'
+  slang:
+  - arch: x86_64
+    epoch: null
+    name: slang
+    release: 11.el7
+    source: rpm
+    version: 2.2.4
+  smem:
+  - arch: noarch
+    epoch: null
+    name: smem
+    release: 1.el7
+    source: rpm
+    version: '1.4'
+  snappy:
+  - arch: x86_64
+    epoch: null
+    name: snappy
+    release: 3.el7
+    source: rpm
+    version: 1.1.0
+  sqlite:
+  - arch: x86_64
+    epoch: null
+    name: sqlite
+    release: 8.el7
+    source: rpm
+    version: 3.7.17
+  sudo:
+  - arch: x86_64
+    epoch: null
+    name: sudo
+    release: 3.el7
+    source: rpm
+    version: 1.8.23
+  sysstat:
+  - arch: x86_64
+    epoch: null
+    name: sysstat
+    release: 19.el7
+    source: rpm
+    version: 10.1.5
+  systemd:
+  - arch: x86_64
+    epoch: null
     name: systemd
-    pid: 1
-    port: 111
-    protocol: udp
-    stime: 'Tue Apr 26 15:54:29 2022'
-    user: root
-  - address: '::1'
-    name: chronyd
-    pid: 757
-    port: 323
-    protocol: udp
-    stime: 'Tue Apr 26 15:54:50 2022'
-    user: chrony
-  - address: '::'
-    name: rpcbind
-    pid: 747
-    port: 905
-    protocol: udp
-    stime: 'Tue Apr 26 15:54:49 2022'
-    user: rpc
+    release: 62.el7_6.9
+    source: rpm
+    version: '219'
+  systemd-libs:
+  - arch: x86_64
+    epoch: null
+    name: systemd-libs
+    release: 62.el7_6.9
+    source: rpm
+    version: '219'
+  systemd-sysv:
+  - arch: x86_64
+    epoch: null
+    name: systemd-sysv
+    release: 62.el7_6.9
+    source: rpm
+    version: '219'
+  sysvinit-tools:
+  - arch: x86_64
+    epoch: null
+    name: sysvinit-tools
+    release: 14.dsf.el7
+    source: rpm
+    version: '2.88'
+  tar:
+  - arch: x86_64
+    epoch: 2
+    name: tar
+    release: 35.el7
+    source: rpm
+    version: '1.26'
+  tcp_wrappers:
+  - arch: x86_64
+    epoch: null
+    name: tcp_wrappers
+    release: 77.el7
+    source: rpm
+    version: '7.6'
+  tcp_wrappers-libs:
+  - arch: x86_64
+    epoch: null
+    name: tcp_wrappers-libs
+    release: 77.el7
+    source: rpm
+    version: '7.6'
+  tcpdump:
+  - arch: x86_64
+    epoch: 14
+    name: tcpdump
+    release: 4.el7_7.1
+    source: rpm
+    version: 4.9.2
+  teamd:
+  - arch: x86_64
+    epoch: null
+    name: teamd
+    release: 6.el7_6.1
+    source: rpm
+    version: '1.27'
+  tuned:
+  - arch: noarch
+    epoch: null
+    name: tuned
+    release: 6.el7_6.4
+    source: rpm
+    version: 2.10.0
+  tzdata:
+  - arch: noarch
+    epoch: null
+    name: tzdata
+    release: 1.el7
+    source: rpm
+    version: 2019b
+  ustr:
+  - arch: x86_64
+    epoch: null
+    name: ustr
+    release: 16.el7
+    source: rpm
+    version: 1.0.4
+  util-linux:
+  - arch: x86_64
+    epoch: null
+    name: util-linux
+    release: 59.el7_6.1
+    source: rpm
+    version: 2.23.2
+  vim-common:
+  - arch: x86_64
+    epoch: 2
+    name: vim-common
+    release: 8.el7_9
+    source: rpm
+    version: 7.4.629
+  vim-enhanced:
+  - arch: x86_64
+    epoch: 2
+    name: vim-enhanced
+    release: 8.el7_9
+    source: rpm
+    version: 7.4.629
+  vim-filesystem:
+  - arch: x86_64
+    epoch: 2
+    name: vim-filesystem
+    release: 8.el7_9
+    source: rpm
+    version: 7.4.629
+  vim-minimal:
+  - arch: x86_64
+    epoch: 2
+    name: vim-minimal
+    release: 6.el7_6
+    source: rpm
+    version: 7.4.160
+  virt-what:
+  - arch: x86_64
+    epoch: null
+    name: virt-what
+    release: 4.el7
+    source: rpm
+    version: '1.18'
+  which:
+  - arch: x86_64
+    epoch: null
+    name: which
+    release: 7.el7
+    source: rpm
+    version: '2.20'
+  wpa_supplicant:
+  - arch: x86_64
+    epoch: 1
+    name: wpa_supplicant
+    release: 12.el7
+    source: rpm
+    version: '2.6'
+  xfsprogs:
+  - arch: x86_64
+    epoch: null
+    name: xfsprogs
+    release: 19.el7_6
+    source: rpm
+    version: 4.5.0
+  xz:
+  - arch: x86_64
+    epoch: null
+    name: xz
+    release: 1.el7
+    source: rpm
+    version: 5.2.2
+  xz-libs:
+  - arch: x86_64
+    epoch: null
+    name: xz-libs
+    release: 1.el7
+    source: rpm
+    version: 5.2.2
+  yum:
+  - arch: noarch
+    epoch: null
+    name: yum
+    release: 161.el7.centos
+    source: rpm
+    version: 3.4.3
+  yum-metadata-parser:
+  - arch: x86_64
+    epoch: null
+    name: yum-metadata-parser
+    release: 10.el7
+    source: rpm
+    version: 1.1.4
+  yum-plugin-fastestmirror:
+  - arch: noarch
+    epoch: null
+    name: yum-plugin-fastestmirror
+    release: 50.el7
+    source: rpm
+    version: 1.1.31
+  yum-utils:
+  - arch: noarch
+    epoch: null
+    name: yum-utils
+    release: 50.el7
+    source: rpm
+    version: 1.1.31
+  zabbix-agent:
+  - arch: x86_64
+    epoch: null
+    name: zabbix-agent
+    release: 2.el7
+    source: rpm
+    version: 4.0.21
+  zabbix-sender:
+  - arch: x86_64
+    epoch: null
+    name: zabbix-sender
+    release: 2.el7
+    source: rpm
+    version: 4.0.21
+  zlib:
+  - arch: x86_64
+    epoch: null
+    name: zlib
+    release: 18.el7
+    source: rpm
+    version: 1.2.7
+processes:
+- cmdline: /usr/lib/systemd/systemd --switched-root --system --deserialize 21
+  cwd: /usr/lib/systemd/
+  pid: '1'
+  ppid: '0'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '2'
+  ppid: '0'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '3'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '5'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '7'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '8'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '9'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '10'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '11'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '12'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '13'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '14'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '16'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '18'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '19'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '20'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '21'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '22'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '23'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '24'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '25'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '26'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '27'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '28'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '29'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '32'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '33'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '34'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '35'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '43'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '45'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '46'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '47'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '48'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '62'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '95'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '178'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '179'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '280'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '296'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '303'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '307'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '310'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '385'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '398'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '399'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '400'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '401'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '402'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '403'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '404'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '405'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '406'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '407'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '408'
+  ppid: '2'
+  user: root
+- cmdline: /usr/lib/systemd/systemd-journald
+  cwd: /usr/lib/systemd/
+  pid: '487'
+  ppid: '1'
+  user: root
+- cmdline: /usr/lib/systemd/systemd-udevd
+  cwd: /usr/lib/systemd/
+  pid: '527'
+  ppid: '1'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '565'
+  ppid: '2'
+  user: root
+- cmdline: /sbin/auditd
+  cwd: /sbin/
+  pid: '570'
+  ppid: '1'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '573'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '582'
+  ppid: '2'
+  user: root
+- cmdline: /usr/lib/systemd/systemd-logind
+  cwd: /usr/lib/systemd/
+  pid: '742'
+  ppid: '1'
+  user: root
+- cmdline: /usr/sbin/irqbalance --foreground
+  cwd: /usr/sbin/
+  pid: '743'
+  ppid: '1'
+  user: root
+- cmdline: /usr/lib/polkit-1/polkitd --no-debug
+  cwd: /usr/lib/polkit-1/
+  pid: '745'
+  ppid: '1'
+  user: polkitd
+- cmdline: '/usr/bin/dbus-daemon --system --address=systemd: --nofork --nopidfile
+    --systemd-activation'
+  cwd: /usr/bin/
+  pid: '746'
+  ppid: '1'
+  user: dbus
+- cmdline: /sbin/rpcbind -w
+  cwd: /sbin/
+  pid: '747'
+  ppid: '1'
+  user: rpc
+- cmdline: /usr/sbin/gssproxy -D
+  cwd: /usr/sbin/
+  pid: '750'
+  ppid: '1'
+  user: root
+- cmdline: /usr/sbin/chronyd
+  cwd: /usr/sbin/
+  pid: '757'
+  ppid: '1'
+  user: chrony
+- cmdline: /sbin/dhclient -1 -q -lf /var/lib/dhclient/dhclient--eth0.lease -pf /var/run/dhclient-eth0.pid
+    -H cmdb01 eth0
+  cwd: /sbin/
+  pid: '990'
+  ppid: '1'
+  user: root
+- cmdline: /usr/bin/telegraf -config /etc/telegraf/telegraf.conf -config-directory
+    /etc/telegraf/telegraf.d
+  cwd: /usr/bin/
+  pid: '1049'
+  ppid: '1'
+  user: root
+- cmdline: /usr/bin/python2 -Es /usr/sbin/tuned -l -P
+  cwd: /usr/bin/
+  pid: '1051'
+  ppid: '1'
+  user: root
+- cmdline: /usr/bin/containerd
+  cwd: /usr/bin/
+  pid: '1058'
+  ppid: '1'
+  user: root
+- cmdline: /usr/sbin/zabbix_agentd -c /etc/zabbix/zabbix_agentd.conf
+  cwd: /usr/sbin/
+  pid: '1066'
+  ppid: '1'
+  user: zabbix
+- cmdline: '/usr/sbin/zabbix_agentd: collector [idle 1 sec]'
+  cwd: /usr/sbin/
+  pid: '1067'
+  ppid: '1066'
+  user: zabbix
+- cmdline: '/usr/sbin/zabbix_agentd: listener #1 [waiting for connection]'
+  cwd: /usr/sbin/
+  pid: '1068'
+  ppid: '1066'
+  user: zabbix
+- cmdline: '/usr/sbin/zabbix_agentd: listener #2 [waiting for connection]'
+  cwd: /usr/sbin/
+  pid: '1069'
+  ppid: '1066'
+  user: zabbix
+- cmdline: '/usr/sbin/zabbix_agentd: listener #3 [waiting for connection]'
+  cwd: /usr/sbin/
+  pid: '1070'
+  ppid: '1066'
+  user: zabbix
+- cmdline: '/usr/sbin/zabbix_agentd: active checks #1 [idle 1 sec]'
+  cwd: /usr/sbin/
+  pid: '1071'
+  ppid: '1066'
+  user: zabbix
+- cmdline: /usr/libexec/postfix/master -w
+  cwd: /usr/libexec/postfix/
+  pid: '1151'
+  ppid: '1'
+  user: root
+- cmdline: qmgr -l -t unix -u
+  cwd: /
+  pid: '1153'
+  ppid: '1151'
+  user: postfix
+- cmdline: /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
+  cwd: /usr/bin/
+  pid: '1192'
+  ppid: '1'
+  user: root
+- cmdline: /usr/sbin/rsyslogd -n
+  cwd: /usr/sbin/
+  pid: '1194'
+  ppid: '1'
+  user: root
+- cmdline: /usr/sbin/sshd -D
+  cwd: /usr/sbin/
+  pid: '1197'
+  ppid: '1'
+  user: root
+- cmdline: /sbin/agetty --keep-baud 115200,38400,9600 ttyS0 vt220
+  cwd: /sbin/
+  pid: '1201'
+  ppid: '1'
+  user: root
+- cmdline: /usr/sbin/crond -n
+  cwd: /usr/sbin/
+  pid: '1209'
+  ppid: '1'
+  user: root
+- cmdline: /sbin/agetty --noclear tty1 linux
+  cwd: /sbin/
+  pid: '1210'
+  ppid: '1'
+  user: root
+- cmdline: containerd-shim -namespace moby -workdir /var/lib/containerd/io.containerd.runtime.v1.linux/moby/9739f22aa6c5e9ff69f0daf4ee31ea0b27a436d2444eb0018ec1054deccc8b60
+    -address /run/containerd/containerd.sock -containerd-binary /usr/bin/containerd
+    -runtime-root /var/run/docker/runtime-runc
+  cwd: /
+  pid: '5539'
+  ppid: '1058'
+  user: root
+- cmdline: grafana-server --homepath=/usr/share/grafana --config=/etc/grafana/grafana.ini
+    --packaging=docker cfg:default.log.mode=console cfg:default.paths.data=/var/lib/grafana
+    cfg:default.paths.logs=/var/log/grafana cfg:default.paths.plugins=/usr/share/grafana/plugins
+    cfg:default.paths.provisioning=/etc/grafana/provisioning
+  cwd: /
+  pid: '5645'
+  ppid: '5539'
+  user: grafana
+- cmdline: /usr/bin/docker start -a grafana
+  cwd: /usr/bin/
+  pid: '5846'
+  ppid: '1'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '11388'
+  ppid: '2'
+  user: root
+- cmdline: /usr/bin/docker start -a iometrics-cmdbuild
+  cwd: /usr/bin/
+  pid: '13198'
+  ppid: '1'
+  user: root
+- cmdline: /usr/bin/docker-proxy -proto tcp -host-ip 0.0.0.0 -host-port 8443 -container-ip
+    192.168.1.2 -container-port 8443
+  cwd: /usr/bin/
+  pid: '13215'
+  ppid: '1192'
+  user: root
+- cmdline: containerd-shim -namespace moby -workdir /var/lib/containerd/io.containerd.runtime.v1.linux/moby/54550f43387aef84c991c068d34f9bc90cae449e2ebdeda7353d578c10fcc607
+    -address /run/containerd/containerd.sock -containerd-binary /usr/bin/containerd
+    -runtime-root /var/run/docker/runtime-runc
+  cwd: /
+  pid: '13221'
+  ppid: '1058'
+  user: root
+- cmdline: /bin/sh -c /usr/local/bin/docker-entrypoint.sh catalina.sh run
+  cwd: /bin/
+  pid: '13238'
+  ppid: '13221'
+  user: centos
+- cmdline: /usr/local/openjdk-11/bin/java -Djava.util.logging.config.file=/usr/local/tomcat/conf/logging.properties
+    -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Xmx4000m -Xms2000m
+    -Djdk.tls.ephemeralDHKeySize=2048 -Djava.protocol.handler.pkgs=org.apache.catalina.webresources
+    -Dorg.apache.catalina.security.SecurityListener.UMASK=0027 -Xlog:gc=debug:file=logs/gc.log:time,uptime,level,tags:filecount=10,filesize=100m
+    -Dignore.endorsed.dirs= -classpath /usr/local/tomcat/bin/bootstrap.jar:/usr/local/tomcat/bin/tomcat-juli.jar
+    -Dcatalina.base=/usr/local/tomcat -Dcatalina.home=/usr/local/tomcat -Djava.io.tmpdir=/usr/local/tomcat/temp
+    org.apache.catalina.startup.Bootstrap start
+  cwd: /usr/local/openjdk-11/bin/
+  pid: '13266'
+  ppid: '13238'
+  user: centos
+- cmdline: pickup -l -t unix -u
+  cwd: /
+  pid: '15603'
+  ppid: '1151'
+  user: postfix
+- cmdline: ''
+  cwd: /
+  pid: '16933'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '17112'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '17147'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '19907'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '20140'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '20143'
+  ppid: '2'
+  user: root
+- cmdline: 'sshd: centos [priv]'
+  cwd: /
+  pid: '20145'
+  ppid: '1197'
+  user: root
+- cmdline: /usr/lib64/sa/sadc -S DISK 44 2 /tmp/sysstat-1662044504
+  cwd: /usr/lib64/sa/
+  pid: '20175'
+  ppid: '1049'
+  user: root
+- cmdline: 'sshd: centos@pts/0'
+  cwd: /
+  pid: '20178'
+  ppid: '20145'
+  user: centos
+- cmdline: /bin/sh -c sudo -H -S -n  -u root /bin/sh -c 'echo BECOME-SUCCESS-vgicqcqrieenhtaftbsiremubnzsqqgv
+    ; /usr/bin/python /home/centos/.ansible/tmp/ansible-tmp-1662044521.7672658-78280-44261581920973/AnsiballZ_process_facts.py'
+    && sleep 0
+  cwd: /bin/
+  pid: '20371'
+  ppid: '20178'
+  user: centos
+- cmdline: sudo -H -S -n -u root /bin/sh -c echo BECOME-SUCCESS-vgicqcqrieenhtaftbsiremubnzsqqgv
+    ; /usr/bin/python /home/centos/.ansible/tmp/ansible-tmp-1662044521.7672658-78280-44261581920973/AnsiballZ_process_facts.py
+  cwd: /
+  pid: '20386'
+  ppid: '20371'
+  user: root
+- cmdline: /bin/sh -c echo BECOME-SUCCESS-vgicqcqrieenhtaftbsiremubnzsqqgv ; /usr/bin/python
+    /home/centos/.ansible/tmp/ansible-tmp-1662044521.7672658-78280-44261581920973/AnsiballZ_process_facts.py
+  cwd: /bin/
+  pid: '20387'
+  ppid: '20386'
+  user: root
+- cmdline: /usr/bin/python /home/centos/.ansible/tmp/ansible-tmp-1662044521.7672658-78280-44261581920973/AnsiballZ_process_facts.py
+  cwd: /usr/bin/
+  pid: '20388'
+  ppid: '20387'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '30870'
+  ppid: '2'
+  user: root
+software_list:
+- cmd_regexp: dockerd
+  custom_tasks:
+  - include_tasks:
+      file: '{{ software_discovery__custom_tasks_definition_files_path }}/docker.yaml'
+    name: Include Docker specific plugins
+  name: Docker
+  pkg_regexp: docker
+  process_type: parent
+  return_children: false
+  return_packages: true
+tcp_listen:
+- address: 127.0.0.1
+  name: master
+  pid: 1151
+  port: 25
+  protocol: tcp
+  stime: Tue Apr 26 15:55:08 2022
+  user: root
+- address: 0.0.0.0
+  name: zabbix_agentd
+  pid: 1066
+  port: 10050
+  protocol: tcp
+  stime: Tue Apr 26 15:55:04 2022
+  user: zabbix
+- address: 0.0.0.0
+  name: systemd
+  pid: 1
+  port: 111
+  protocol: tcp
+  stime: Tue Apr 26 15:54:29 2022
+  user: root
+- address: 0.0.0.0
+  name: sshd
+  pid: 1197
+  port: 22
+  protocol: tcp
+  stime: Tue Apr 26 15:55:10 2022
+  user: root
+- address: ::1
+  name: master
+  pid: 1151
+  port: 25
+  protocol: tcp
+  stime: Tue Apr 26 15:55:08 2022
+  user: root
+- address: '::'
+  name: docker-proxy
+  pid: 13215
+  port: 8443
+  protocol: tcp
+  stime: Sun Aug 28 17:37:04 2022
+  user: root
+- address: '::'
+  name: systemd
+  pid: 1
+  port: 111
+  protocol: tcp
+  stime: Tue Apr 26 15:54:29 2022
+  user: root
+- address: '::'
+  name: sshd
+  pid: 1197
+  port: 22
+  protocol: tcp
+  stime: Tue Apr 26 15:55:10 2022
+  user: root
+- address: '::'
+  name: grafana-server
+  pid: 5645
+  port: 3000
+  protocol: tcp
+  stime: Tue Apr 26 15:55:51 2022
+  user: grafana
+udp_listen:
+- address: 0.0.0.0
+  name: dhclient
+  pid: 990
+  port: 68
+  protocol: udp
+  stime: Tue Apr 26 15:55:03 2022
+  user: root
+- address: 0.0.0.0
+  name: systemd
+  pid: 1
+  port: 111
+  protocol: udp
+  stime: Tue Apr 26 15:54:29 2022
+  user: root
+- address: 127.0.0.1
+  name: chronyd
+  pid: 757
+  port: 323
+  protocol: udp
+  stime: Tue Apr 26 15:54:50 2022
+  user: chrony
+- address: 0.0.0.0
+  name: rpcbind
+  pid: 747
+  port: 905
+  protocol: udp
+  stime: Tue Apr 26 15:54:49 2022
+  user: rpc
+- address: '::'
+  name: systemd
+  pid: 1
+  port: 111
+  protocol: udp
+  stime: Tue Apr 26 15:54:29 2022
+  user: root
+- address: ::1
+  name: chronyd
+  pid: 757
+  port: 323
+  protocol: udp
+  stime: Tue Apr 26 15:54:50 2022
+  user: chrony
+- address: '::'
+  name: rpcbind
+  pid: 747
+  port: 905
+  protocol: udp
+  stime: Tue Apr 26 15:54:49 2022
+  user: rpc

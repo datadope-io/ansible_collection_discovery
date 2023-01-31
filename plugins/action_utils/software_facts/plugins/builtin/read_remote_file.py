@@ -2,6 +2,7 @@
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
 from __future__ import (absolute_import, division, print_function)
+
 __metaclass__ = type
 
 DOCUMENTATION = r'''
@@ -82,6 +83,9 @@ parsed:
 '''
 
 import base64  # noqa: E402
+import ntpath  # noqa: E402
+import os  # noqa: E402
+import posixpath  # noqa: E402
 import traceback  # noqa: E402
 
 from ansible.module_utils.common.text.converters import to_text  # noqa: E402
@@ -119,6 +123,11 @@ class ReadRemoteFile(SoftwareFactsPlugin):
             parser = get_software_facts_parser(parser_name, self._action_module, self._task_vars)
         else:
             parser = None
+
+        path_module = ntpath if self._task_vars.get('ansible_facts', {}) \
+            .get('os_family', '').lower().startswith('windows') else posixpath
+        if not path_module.isabs(path) and software_instance.get('process', {}).get("cwd"):
+            path = os.path.normpath(os.path.join(software_instance['process']['cwd'], path))
 
         path_prefix = ''
         if in_docker \

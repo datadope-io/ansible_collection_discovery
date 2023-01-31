@@ -2,6 +2,7 @@
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
 from __future__ import (absolute_import, division, print_function)
+
 __metaclass__ = type
 
 DOCUMENTATION = r'''
@@ -48,6 +49,9 @@ EXAMPLES = r'''
     extra_data: {'raw': yes}
 '''
 
+import ntpath  # noqa: E402
+import os  # noqa: E402
+import posixpath  # noqa: E402
 
 from ansible.utils.display import Display  # noqa: E402
 from ansible_collections.datadope.discovery.plugins.action_utils.software_facts.plugins.__init__ \
@@ -81,6 +85,12 @@ class AddFileInfo(SoftwareFactsPlugin):
         for k, v in iteritems(args):
             if v:
                 file_info[k] = v
+
+        path_module = ntpath if self._task_vars.get('ansible_facts', {}) \
+            .get('os_family', '').lower().startswith('windows') else posixpath
+        if not path_module.isabs(file_info['path']) and software_instance.get('process', {}).get("cwd"):
+            file_info['path'] = os.path.normpath(os.path.join(software_instance['process']['cwd'], file_info['path']))
+
         result = dict(__instance__={'files': []}, __list_merge__='append')
         for files in software_instance.get('files', []):
             if files.get('path') == file_info.get('path') and files.get('type') == file_info.get('type') and files.get(

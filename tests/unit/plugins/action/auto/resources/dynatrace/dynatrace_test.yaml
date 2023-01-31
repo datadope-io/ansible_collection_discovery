@@ -1,561 +1,615 @@
+dockers: []
 expected_result:
-  - discovery_time: '2022-07-05T13:24:09+02:00'
-    bindings:
-      - address: 0.0.0.0
-        class: service
-        port: 111
-        protocol: tcp
-      - address: 0.0.0.0
-        class: service
-        port: 111
-        protocol: udp
-
+- bindings:
+  - address: 0.0.0.0
+    class: service
+    port: 111
+    protocol: tcp
+  - address: 0.0.0.0
+    class: service
+    port: 111
+    protocol: udp
+  discovery_time: '2022-07-05T13:24:09+02:00'
+  listening_ports:
+  - 111
+  process:
+    cmdline: /usr/lib/systemd/dtserve
+    cwd: /usr/lib/systemd/
     listening_ports:
-      - 111
-    process:
-      cmdline: /usr/lib/systemd/dtserve
-      listening_ports:
-        - 111
-      pid: '1'
-      ppid: '0'
-      user: root
-    type: Dynatrace Server
-    version: []
-software_list:
-  - name: Dynatrace Server
-    cmd_regexp: dtserve
-    process_type: parent
-    return_children: false
-    return_packages: false
-processes:
-  - cmdline: /usr/lib/systemd/dtserve
+    - 111
     pid: '1'
     ppid: '0'
     user: root
-  - cmdline: ''
-    pid: '2'
-    ppid: '0'
-    user: root
-  - cmdline: ''
-    pid: '3'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '5'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '7'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '8'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '9'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '10'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '11'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '12'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '13'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '14'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '16'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '18'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '19'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '20'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '21'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '22'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '23'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '24'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '25'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '26'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '27'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '28'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '29'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '33'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '34'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '35'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '36'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '44'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '46'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '47'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '48'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '49'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '62'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '102'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '179'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '180'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '287'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '317'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '318'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '319'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '320'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '323'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '336'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '337'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '338'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '339'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '340'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '341'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '342'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '343'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '344'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '345'
-    ppid: '2'
-    user: root
-  - cmdline: ''
-    pid: '346'
-    ppid: '2'
-    user: root
-
+  type: Dynatrace Server
+  version: []
 packages:
   freetype:
-    - arch: x86_64
-      epoch: null
-      name: freetype
-      release: 12.el7_6.1
-      source: rpm
-      version: '2.8'
+  - arch: x86_64
+    epoch: null
+    name: freetype
+    release: 12.el7_6.1
+    source: rpm
+    version: '2.8'
   gawk:
-    - arch: x86_64
-      epoch: null
-      name: gawk
-      release: 4.el7_3.1
-      source: rpm
-      version: 4.0.2
+  - arch: x86_64
+    epoch: null
+    name: gawk
+    release: 4.el7_3.1
+    source: rpm
+    version: 4.0.2
   gdbm:
-    - arch: x86_64
-      epoch: null
-      name: gdbm
-      release: 8.el7
-      source: rpm
-      version: '1.10'
+  - arch: x86_64
+    epoch: null
+    name: gdbm
+    release: 8.el7
+    source: rpm
+    version: '1.10'
   gettext:
-    - arch: x86_64
-      epoch: null
-      name: gettext
-      release: 2.el7
-      source: rpm
-      version: 0.19.8.1
+  - arch: x86_64
+    epoch: null
+    name: gettext
+    release: 2.el7
+    source: rpm
+    version: 0.19.8.1
   gettext-libs:
-    - arch: x86_64
-      epoch: null
-      name: gettext-libs
-      release: 2.el7
-      source: rpm
-      version: 0.19.8.1
+  - arch: x86_64
+    epoch: null
+    name: gettext-libs
+    release: 2.el7
+    source: rpm
+    version: 0.19.8.1
   glib2:
-    - arch: x86_64
-      epoch: null
-      name: glib2
-      release: 4.el7_6
-      source: rpm
-      version: 2.56.1
+  - arch: x86_64
+    epoch: null
+    name: glib2
+    release: 4.el7_6
+    source: rpm
+    version: 2.56.1
   glibc:
-    - arch: x86_64
-      epoch: null
-      name: glibc
-      release: 260.el7_6.6
-      source: rpm
-      version: '2.17'
+  - arch: x86_64
+    epoch: null
+    name: glibc
+    release: 260.el7_6.6
+    source: rpm
+    version: '2.17'
   glibc-common:
-    - arch: x86_64
-      epoch: null
-      name: glibc-common
-      release: 260.el7_6.6
-      source: rpm
-      version: '2.17'
+  - arch: x86_64
+    epoch: null
+    name: glibc-common
+    release: 260.el7_6.6
+    source: rpm
+    version: '2.17'
   gmp:
-    - arch: x86_64
-      epoch: 1
-      name: gmp
-      release: 15.el7
-      source: rpm
-      version: 6.0.0
+  - arch: x86_64
+    epoch: 1
+    name: gmp
+    release: 15.el7
+    source: rpm
+    version: 6.0.0
   gnupg2:
-    - arch: x86_64
-      epoch: null
-      name: gnupg2
-      release: 5.el7_5
-      source: rpm
-      version: 2.0.22
+  - arch: x86_64
+    epoch: null
+    name: gnupg2
+    release: 5.el7_5
+    source: rpm
+    version: 2.0.22
   gobject-introspection:
-    - arch: x86_64
-      epoch: null
-      name: gobject-introspection
-      release: 1.el7
-      source: rpm
-      version: 1.56.1
+  - arch: x86_64
+    epoch: null
+    name: gobject-introspection
+    release: 1.el7
+    source: rpm
+    version: 1.56.1
   gpg-pubkey:
-    - arch: null
-      epoch: null
-      name: gpg-pubkey
-      release: 52ae6884
-      source: rpm
-      version: 352c64e5
-    - arch: null
-      epoch: null
-      name: gpg-pubkey
-      release: 53a7ff4b
-      source: rpm
-      version: f4a80eb5
-    - arch: null
-      epoch: null
-      name: gpg-pubkey
-      release: 58adea78
-      source: rpm
-      version: 621e9f35
+  - arch: null
+    epoch: null
+    name: gpg-pubkey
+    release: 52ae6884
+    source: rpm
+    version: 352c64e5
+  - arch: null
+    epoch: null
+    name: gpg-pubkey
+    release: 53a7ff4b
+    source: rpm
+    version: f4a80eb5
+  - arch: null
+    epoch: null
+    name: gpg-pubkey
+    release: 58adea78
+    source: rpm
+    version: 621e9f35
   gpgme:
-    - arch: x86_64
-      epoch: null
-      name: gpgme
-      release: 5.el7
-      source: rpm
-      version: 1.3.2
+  - arch: x86_64
+    epoch: null
+    name: gpgme
+    release: 5.el7
+    source: rpm
+    version: 1.3.2
   gpm-libs:
-    - arch: x86_64
-      epoch: null
-      name: gpm-libs
-      release: 6.el7
-      source: rpm
-      version: 1.20.7
+  - arch: x86_64
+    epoch: null
+    name: gpm-libs
+    release: 6.el7
+    source: rpm
+    version: 1.20.7
   grep:
-    - arch: x86_64
-      epoch: null
-      name: grep
-      release: 3.el7
-      source: rpm
-      version: '2.20'
+  - arch: x86_64
+    epoch: null
+    name: grep
+    release: 3.el7
+    source: rpm
+    version: '2.20'
   groff-base:
-    - arch: x86_64
-      epoch: null
-      name: groff-base
-      release: 8.el7
-      source: rpm
-      version: 1.22.2
+  - arch: x86_64
+    epoch: null
+    name: groff-base
+    release: 8.el7
+    source: rpm
+    version: 1.22.2
   grub2:
-    - arch: x86_64
-      epoch: 1
-      name: grub2
-      release: 0.76.el7.centos.1
-      source: rpm
-      version: '2.02'
+  - arch: x86_64
+    epoch: 1
+    name: grub2
+    release: 0.76.el7.centos.1
+    source: rpm
+    version: '2.02'
   grub2-common:
-    - arch: noarch
-      epoch: 1
-      name: grub2-common
-      release: 0.76.el7.centos.1
-      source: rpm
-      version: '2.02'
+  - arch: noarch
+    epoch: 1
+    name: grub2-common
+    release: 0.76.el7.centos.1
+    source: rpm
+    version: '2.02'
   grub2-pc:
-    - arch: x86_64
-      epoch: 1
-      name: grub2-pc
-      release: 0.76.el7.centos.1
-      source: rpm
-      version: '2.02'
+  - arch: x86_64
+    epoch: 1
+    name: grub2-pc
+    release: 0.76.el7.centos.1
+    source: rpm
+    version: '2.02'
   grub2-pc-modules:
-    - arch: noarch
-      epoch: 1
-      name: grub2-pc-modules
-      release: 0.76.el7.centos.1
-      source: rpm
-      version: '2.02'
+  - arch: noarch
+    epoch: 1
+    name: grub2-pc-modules
+    release: 0.76.el7.centos.1
+    source: rpm
+    version: '2.02'
   grub2-tools:
-    - arch: x86_64
-      epoch: 1
-      name: grub2-tools
-      release: 0.76.el7.centos.1
-      source: rpm
-      version: '2.02'
+  - arch: x86_64
+    epoch: 1
+    name: grub2-tools
+    release: 0.76.el7.centos.1
+    source: rpm
+    version: '2.02'
   grub2-tools-extra:
-    - arch: x86_64
-      epoch: 1
-      name: grub2-tools-extra
-      release: 0.76.el7.centos.1
-      source: rpm
-      version: '2.02'
+  - arch: x86_64
+    epoch: 1
+    name: grub2-tools-extra
+    release: 0.76.el7.centos.1
+    source: rpm
+    version: '2.02'
   grub2-tools-minimal:
-    - arch: x86_64
-      epoch: 1
-      name: grub2-tools-minimal
-      release: 0.76.el7.centos.1
-      source: rpm
-      version: '2.02'
+  - arch: x86_64
+    epoch: 1
+    name: grub2-tools-minimal
+    release: 0.76.el7.centos.1
+    source: rpm
+    version: '2.02'
   grubby:
-    - arch: x86_64
-      epoch: null
-      name: grubby
-      release: 25.el7
-      source: rpm
-      version: '8.28'
+  - arch: x86_64
+    epoch: null
+    name: grubby
+    release: 25.el7
+    source: rpm
+    version: '8.28'
   gssproxy:
-    - arch: x86_64
-      epoch: null
-      name: gssproxy
-      release: 21.el7
-      source: rpm
-      version: 0.7.0
+  - arch: x86_64
+    epoch: null
+    name: gssproxy
+    release: 21.el7
+    source: rpm
+    version: 0.7.0
   gzip:
-    - arch: x86_64
-      epoch: null
-      name: gzip
-      release: 10.el7
-      source: rpm
-      version: '1.5'
+  - arch: x86_64
+    epoch: null
+    name: gzip
+    release: 10.el7
+    source: rpm
+    version: '1.5'
   hardlink:
-    - arch: x86_64
-      epoch: 1
-      name: hardlink
-      release: 19.el7
-      source: rpm
-      version: '1.0'
+  - arch: x86_64
+    epoch: 1
+    name: hardlink
+    release: 19.el7
+    source: rpm
+    version: '1.0'
   hostname:
-    - arch: x86_64
-      epoch: null
-      name: hostname
-      release: 3.el7
-      source: rpm
-      version: '3.13'
+  - arch: x86_64
+    epoch: null
+    name: hostname
+    release: 3.el7
+    source: rpm
+    version: '3.13'
   hwdata:
-    - arch: x86_64
-      epoch: null
-      name: hwdata
-      release: 9.1.el7
-      source: rpm
-      version: '0.252'
+  - arch: x86_64
+    epoch: null
+    name: hwdata
+    release: 9.1.el7
+    source: rpm
+    version: '0.252'
   info:
-    - arch: x86_64
-      epoch: null
-      name: info
-      release: 5.el7
-      source: rpm
-      version: '5.1'
+  - arch: x86_64
+    epoch: null
+    name: info
+    release: 5.el7
+    source: rpm
+    version: '5.1'
   iometrics-agent:
-    - arch: x86_64
-      epoch: null
-      name: iometrics-agent
-      release: '27'
-      source: rpm
-      version: 1.11.3
+  - arch: x86_64
+    epoch: null
+    name: iometrics-agent
+    release: '27'
+    source: rpm
+    version: 1.11.3
   iotop:
-    - arch: noarch
-      epoch: null
-      name: iotop
-      release: 4.el7
-      source: rpm
-      version: '0.6'
+  - arch: noarch
+    epoch: null
+    name: iotop
+    release: 4.el7
+    source: rpm
+    version: '0.6'
   iproute:
-    - arch: x86_64
-      epoch: null
-      name: iproute
-      release: 14.el7_6.2
-      source: rpm
-      version: 4.11.0
+  - arch: x86_64
+    epoch: null
+    name: iproute
+    release: 14.el7_6.2
+    source: rpm
+    version: 4.11.0
   iptables:
-    - arch: x86_64
-      epoch: null
-      name: iptables
-      release: 28.el7
-      source: rpm
-      version: 1.4.21
+  - arch: x86_64
+    epoch: null
+    name: iptables
+    release: 28.el7
+    source: rpm
+    version: 1.4.21
+processes:
+- cmdline: /usr/lib/systemd/dtserve
+  cwd: /usr/lib/systemd/
+  pid: '1'
+  ppid: '0'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '2'
+  ppid: '0'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '3'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '5'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '7'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '8'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '9'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '10'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '11'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '12'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '13'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '14'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '16'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '18'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '19'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '20'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '21'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '22'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '23'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '24'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '25'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '26'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '27'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '28'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '29'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '33'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '34'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '35'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '36'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '44'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '46'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '47'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '48'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '49'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '62'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '102'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '179'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '180'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '287'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '317'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '318'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '319'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '320'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '323'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '336'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '337'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '338'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '339'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '340'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '341'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '342'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '343'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '344'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '345'
+  ppid: '2'
+  user: root
+- cmdline: ''
+  cwd: /
+  pid: '346'
+  ppid: '2'
+  user: root
+software_list:
+- cmd_regexp: dtserve
+  name: Dynatrace Server
+  process_type: parent
+  return_children: false
+  return_packages: false
 tcp_listen:
-  - address: 127.0.0.1
-    name: master
-    pid: 1055
-    port: 25
-    protocol: tcp
-    stime: 'Tue Apr 26 15:54:02 2022'
-    user: root
-  - address: 127.0.0.1
-    name: mulesoft
-    pid: 5410
-    port: 12379
-    protocol: tcp
-    stime: 'Tue Apr 26 15:54:44 2022'
-    user: root
-  - address: 127.0.0.1
-    name: skydive
-    pid: 5410
-    port: 12380
-    protocol: tcp
-    stime: 'Tue Apr 26 15:54:44 2022'
-    user: root
-  - address: 0.0.0.0
-    name: systemd
-    pid: 1
-    port: 111
-    protocol: tcp
-    stime: 'Tue Apr 26 15:53:41 2022'
-    user: root
+- address: 127.0.0.1
+  name: master
+  pid: 1055
+  port: 25
+  protocol: tcp
+  stime: Tue Apr 26 15:54:02 2022
+  user: root
+- address: 127.0.0.1
+  name: mulesoft
+  pid: 5410
+  port: 12379
+  protocol: tcp
+  stime: Tue Apr 26 15:54:44 2022
+  user: root
+- address: 127.0.0.1
+  name: skydive
+  pid: 5410
+  port: 12380
+  protocol: tcp
+  stime: Tue Apr 26 15:54:44 2022
+  user: root
+- address: 0.0.0.0
+  name: systemd
+  pid: 1
+  port: 111
+  protocol: tcp
+  stime: Tue Apr 26 15:53:41 2022
+  user: root
 udp_listen:
-  - address: 0.0.0.0
-    name: dhclient
-    pid: 865
-    port: 68
-    protocol: udp
-    stime: 'Tue Apr 26 15:53:59 2022'
-    user: root
-  - address: 0.0.0.0
-    name: systemd
-    pid: 1
-    port: 111
-    protocol: udp
-    stime: 'Tue Apr 26 15:53:41 2022'
-    user: root
-  - address: 127.0.0.1
-    name: chronyd
-    pid: 626
-    port: 323
-    protocol: udp
-    stime: 'Tue Apr 26 15:53:48 2022'
-    user: chrony
-  - address: 0.0.0.0
-    name: rpcbind
-    pid: 618
-    port: 781
-    protocol: udp
-    stime: 'Tue Apr 26 15:53:47 2022'
-    user: rpc
-dockers: []
+- address: 0.0.0.0
+  name: dhclient
+  pid: 865
+  port: 68
+  protocol: udp
+  stime: Tue Apr 26 15:53:59 2022
+  user: root
+- address: 0.0.0.0
+  name: systemd
+  pid: 1
+  port: 111
+  protocol: udp
+  stime: Tue Apr 26 15:53:41 2022
+  user: root
+- address: 127.0.0.1
+  name: chronyd
+  pid: 626
+  port: 323
+  protocol: udp
+  stime: Tue Apr 26 15:53:48 2022
+  user: chrony
+- address: 0.0.0.0
+  name: rpcbind
+  pid: 618
+  port: 781
+  protocol: udp
+  stime: Tue Apr 26 15:53:47 2022
+  user: rpc
