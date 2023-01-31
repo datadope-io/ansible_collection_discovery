@@ -100,7 +100,8 @@ class RunCommand(SoftwareFactsPlugin):
                 module_args[key] = value
 
         # win_command module '_raw_params' and 'argv' arguments are mutually exclusive, avoid using them both if present
-        if 'win_command' in module_name and '_raw_params' in module_args and 'argv' in module_args:
+        if 'win_command' in module_name and module_args.get('_raw_params') is not None \
+                and module_args.get('argv') is not None:
             display.warning("'_raw_params' and 'argv' are mutually exclusive when using the"
                             " 'win_command' ansible module, 'argv' will be ignored")
             module_args.pop('argv')

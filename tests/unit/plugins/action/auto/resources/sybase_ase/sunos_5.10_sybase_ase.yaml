@@ -1,1614 +1,1729 @@
+dockers: {}
 expected_result:
-  - type: Sybase ASE
-    process:
-      cmdline: "/opt2/sybase125/ASE-12_5/bin/dataserver -d/dev/vx/rdsk/dwdg/dwdes_master
-        -e/opt"
-      ppid: '1'
-      pid: '12288'
-      user: sybase
-      listening_ports:
-        - 10006
+- bindings:
+  - address: 127.0.0.1
+    class: service
+    port: 10006
+    protocol: tcp
+  - address: 192.168.3.26
+    class: service
+    port: 10006
+    protocol: tcp
+  discovery_time: '2022-09-29T19:51:34+02:00'
+  listening_ports:
+  - 10006
+  process:
+    cmdline: /opt2/sybase125/ASE-12_5/bin/dataserver -d/dev/vx/rdsk/dwdg/dwdes_master
+      -e/opt
+    cwd: /opt2/sybase125/ASE-12_5/bin/
     listening_ports:
-      - 10006
-    bindings:
-      - address: 127.0.0.1
-        port: 10006
-        protocol: tcp
-        class: service
-      - address: 192.168.3.26
-        port: 10006
-        protocol: tcp
-        class: service
-    discovery_time: '2022-09-29T19:51:34+02:00'
-  - type: Sybase ASE
-    process:
-      cmdline: "/opt2/sybase155/ASE-15_0/bin/dataserver -sASEDW_DES -d/dev/vx/rdsk/dwdg/asedwde"
-      ppid: '1'
-      pid: '12612'
-      user: sybase
-      listening_ports:
-        - 10000
-    listening_ports:
-      - 10000
-    bindings:
-      - address: 192.168.3.26
-        port: 10000
-        protocol: tcp
-        class: service
-    discovery_time: '2022-09-29T19:51:34+02:00'
-
-software_list:
-  - name: Sybase ASE
-    cmd_regexp: "dataserver"
-    process_type: parent
-    return_children: false
-    return_packages: false
-
-processes:
-  - cmdline: sched
-    ppid: '0'
-    pid: '0'
-    user: root
-  - cmdline: "/sbin/init"
-    ppid: '0'
-    pid: '1'
-    user: root
-  - cmdline: pageout
-    ppid: '0'
-    pid: '2'
-    user: root
-  - cmdline: fsflush
-    ppid: '0'
-    pid: '3'
-    user: root
-  - cmdline: "/usr/lib/nfs/mountd"
-    ppid: '1'
-    pid: '2215'
-    user: root
-  - cmdline: "/lib/svc/bin/svc.startd"
-    ppid: '1'
-    pid: '7'
-    user: root
-  - cmdline: "/lib/svc/bin/svc.configd"
-    ppid: '1'
-    pid: '9'
-    user: root
-  - cmdline: "/usr/sbin/cron"
-    ppid: '1'
-    pid: '2014'
-    user: root
-  - cmdline: "/usr/bin/python2.6 ~iometrics/.ansible/tmp/ansible-tmp-1664473849.839634-797351"
-    ppid: '19411'
-    pid: '19412'
-    user: root
-  - cmdline: "/usr/lib/sysevent/syseventd"
-    ppid: '1'
-    pid: '410'
-    user: root
-  - cmdline: "/usr/sbin/ipmon -Ds"
-    ppid: '1'
-    pid: '381'
-    user: root
-  - cmdline: "/lib/svc/method/iscsi-initiator"
-    ppid: '1'
-    pid: '530'
-    user: root
-  - cmdline: "/usr/lib/efcode/sparcv9/efdaemon"
-    ppid: '1'
-    pid: '1564'
-    user: root
-  - cmdline: "/usr/lib/crypto/kcfd"
-    ppid: '1'
-    pid: '432'
-    user: daemon
-  - cmdline: devfsadmd
-    ppid: '1'
-    pid: '433'
-    user: root
-  - cmdline: "/usr/local/sbin/sshd"
-    ppid: '3028'
-    pid: '14720'
-    user: root
-  - cmdline: "/sbin/vxesd"
-    ppid: '1'
-    pid: '664'
-    user: root
-  - cmdline: "/usr/lib/dmi/snmpXdmid -s eud1dw"
-    ppid: '1'
-    pid: '2236'
-    user: root
-  - cmdline: "/usr/lib/nfs/statd"
-    ppid: '1'
-    pid: '2057'
-    user: daemon
-  - cmdline: "/usr/lib/nfs/nfs4cbd"
-    ppid: '1'
-    pid: '2056'
-    user: daemon
-  - cmdline: "/usr/sbin/nscd"
-    ppid: '1'
-    pid: '424'
-    user: root
-  - cmdline: "/opt/OV/lbin/perf/coda"
-    ppid: '4983'
-    pid: '5529'
-    user: root
-  - cmdline: "/usr/platform/sun4u/lib/sckmd"
-    ppid: '1'
-    pid: '2013'
-    user: root
-  - cmdline: "/usr/lib/sendmail -Ac -q15m"
-    ppid: '1'
-    pid: '2253'
-    user: smmsp
-  - cmdline: "/usr/lib/picl/picld"
-    ppid: '1'
-    pid: '465'
-    user: root
-  - cmdline: "/usr/lib/inet/in.mpathd -a"
-    ppid: '1'
-    pid: '493'
-    user: root
-  - cmdline: "/usr/sfw/sbin/snmpd"
-    ppid: '1'
-    pid: '2234'
-    user: root
-  - cmdline: "/usr/platform/SUNW,SPARC-Enterprise/lib/sparcv9/oplhpd"
-    ppid: '1'
-    pid: '460'
-    user: root
-  - cmdline: "/usr/bin/pppd /dev/dm2s0 unit 0 file /usr/platform/SUNW,SPARC-Enterprise/lib/ds"
-    ppid: '1'
-    pid: '2042'
-    user: root
-  - cmdline: "/opt/perf/bin/midaemon"
-    ppid: '1'
-    pid: '4785'
-    user: root
-  - cmdline: "/usr/sbin/rpcbind"
-    ppid: '1'
-    pid: '2047'
-    user: daemon
-  - cmdline: "/usr/sbin/vold -f /etc/vold.conf"
-    ppid: '1'
-    pid: '2251'
-    user: root
-  - cmdline: "/usr/lib/hotplugd"
-    ppid: '1'
-    pid: '2027'
-    user: root
-  - cmdline: "/usr/sadm/lib/smc/bin/smcboot"
-    ppid: '2160'
-    pid: '2162'
-    user: root
-  - cmdline: "/usr/lib/saf/ttymon"
-    ppid: '2068'
-    pid: '2097'
-    user: root
-  - cmdline: "/usr/lib/utmpd"
-    ppid: '1'
-    pid: '2075'
-    user: root
-  - cmdline: "/usr/lib/nfs/nfsmapid"
-    ppid: '1'
-    pid: '2060'
-    user: daemon
-  - cmdline: "/usr/sbin/syslogd"
-    ppid: '1'
-    pid: '2153'
-    user: root
-  - cmdline: "/usr/sadm/lib/smc/bin/smcboot"
-    ppid: '1'
-    pid: '2160'
-    user: root
-  - cmdline: "/usr/lib/dmi/dmispd"
-    ppid: '1'
-    pid: '2235'
-    user: root
-  - cmdline: "/opt/OV/lbin/eaagt/opcacta"
-    ppid: '4983'
-    pid: '5545'
-    user: root
-  - cmdline: "/usr/sadm/lib/smc/bin/smcboot"
-    ppid: '2160'
-    pid: '2161'
-    user: root
-  - cmdline: "/usr/lib/saf/sac -t 300"
-    ppid: '7'
-    pid: '2068'
-    user: root
-  - cmdline: "/usr/lib/saf/ttymon -g -d /dev/console -l console -T vt100 -m ldterm,ttcompat
-    -"
-    ppid: '7'
-    pid: '1316'
-    user: root
-  - cmdline: "/usr/lib/fm/fmd/fmd"
-    ppid: '1'
-    pid: '2274'
-    user: root
-  - cmdline: "/usr/lib/nfs/lockd"
-    ppid: '1'
-    pid: '2088'
-    user: daemon
-  - cmdline: "/usr/lib/saf/ttymon"
-    ppid: '2068'
-    pid: '2099'
-    user: root
-  - cmdline: "/usr/lib/inet/inetd start"
-    ppid: '1'
-    pid: '2100'
-    user: root
-  - cmdline: "/usr/local/sbin/prngd /var/spool/prngd/pool"
-    ppid: '1'
-    pid: '2656'
-    user: root
-  - cmdline: "/usr/lib/snmp/snmpdx -y -c /etc/snmp/conf"
-    ppid: '1'
-    pid: '2226'
-    user: root
-  - cmdline: "/opt/OV/lbin/eaagt/opcmona"
-    ppid: '4983'
-    pid: '5552'
-    user: root
-  - cmdline: "/usr/local/sbin/sshd"
-    ppid: '3028'
-    pid: '19826'
-    user: root
-  - cmdline: "/usr/lib/sendmail -bl -q15m"
-    ppid: '1'
-    pid: '2252'
-    user: root
-  - cmdline: "/usr/lib/dcs -l"
-    ppid: '1'
-    pid: '2271'
-    user: root
-  - cmdline: "/usr/lib/inet/xntpd"
-    ppid: '1'
-    pid: '2276'
-    user: root
-  - cmdline: "/usr/lib/nfs/nfsd"
-    ppid: '1'
-    pid: '2220'
-    user: daemon
-  - cmdline: "/opt/OV/bin/ovcd"
-    ppid: '1'
-    pid: '4983'
-    user: root
-  - cmdline: "/usr/java/bin/java -server -Xmx128m -XX:+UseParallelGC -XX:ParallelGCThreads=4"
-    ppid: '1'
-    pid: '2588'
-    user: noaccess
-  - cmdline: "/Infa95/telecable/java/bin/java -ea -Djava.awt.headless=true -Duser.dir=/Infa95"
-    ppid: '1'
-    pid: '22465'
-    user: telecable
-  - cmdline: "//opt/VRTSob/bin/vxsvc -r //opt/VRTSob/config/Registry -e"
-    ppid: '1'
-    pid: '4190'
-    user: root
-  - cmdline: "/opt2/iq/IQ-15_4/bin64/iqsrv15 @/iq/iqdw_des/iqdw_des.cfg /iq/iqdw_des/iqdw_des"
-    ppid: '1'
-    pid: '319'
-    user: iq
-  - cmdline: "/usr/local/sbin/sshd"
-    ppid: '1'
-    pid: '3028'
-    user: root
-  - cmdline: "/opt/perf/bin/perfalarm"
-    ppid: '1'
-    pid: '16096'
-    user: root
-  - cmdline: "/opt/OV/lbin/eaagt/opcmsgi"
-    ppid: '4983'
-    pid: '5548'
-    user: root
-  - cmdline: "/usr/local/sbin/sshd"
-    ppid: '3028'
-    pid: '24808'
-    user: root
-  - cmdline: "/usr/dt/bin/dtlogin -daemon"
-    ppid: '1'
-    pid: '3273'
-    user: root
-  - cmdline: "-sh"
-    ppid: '14720'
-    pid: '14725'
-    user: iq
-  - cmdline: "/var/app/oracle/agent13c/agent_13.1.0.0.0/perl/bin/perl /var/app/oracle/agent13"
-    ppid: '1'
-    pid: '5079'
-    user: em13c
-  - cmdline: "/opt/perf/bin/ttd"
-    ppid: '1'
-    pid: '4299'
-    user: root
-  - cmdline: "-sh"
-    ppid: '24808'
-    pid: '24811'
-    user: sybase
-  - cmdline: "/var/app/oracle/agent13c/agent_13.1.0.0.0/oracle_common/jdk/bin/sparcv9/java
-    -X"
-    ppid: '5079'
-    pid: '17162'
-    user: em13c
-  - cmdline: "/opt/VRTSsfmh/bin/xprtld -X 1 /etc/opt/VRTSsfmh/xprtld.conf"
-    ppid: '1'
-    pid: '4257'
-    user: root
-  - cmdline: veaintf
-    ppid: '4257'
-    pid: '4470'
-    user: root
-  - cmdline: "/opt/OV/lbin/conf/ovconfd"
-    ppid: '4983'
-    pid: '4985'
-    user: root
-  - cmdline: "/opt/OV/lbin/eaagt/opcle -std"
-    ppid: '4983'
-    pid: '5550'
-    user: root
-  - cmdline: "/opt/OV/lbin/eaagt/opcmsga"
-    ppid: '4983'
-    pid: '5527'
-    user: root
-  - cmdline: "/opt/OV/lbin/xpl/trc/ovtrcd"
-    ppid: '1'
-    pid: '4840'
-    user: root
-  - cmdline: "/Infa95/cdi/java/bin/java -ea -Djava.awt.headless=true -Duser.dir=/Infa95/cdi/t"
-    ppid: '1'
-    pid: '21514'
-    user: cdi
-  - cmdline: "/opt2/sybase155/ASE-15_0/bin/backupserver -e/opt2/sybase155/ASE-15_0/install/AS"
-    ppid: '14299'
-    pid: '14300'
-    user: sybase
-  - cmdline: "/usr/local/sbin/sshd"
-    ppid: '3028'
-    pid: '19292'
-    user: root
-  - cmdline: "/opt/OV/bin/ovbbccb -nodaemon"
-    ppid: '4983'
-    pid: '4984'
-    user: root
-  - cmdline: "/opt2/sybase155/ASE-15_0/bin/dataserver -sASEDW_DES -d/dev/vx/rdsk/dwdg/asedwde"
-    ppid: '1'
-    pid: '12612'
-    user: sybase
-  - cmdline: "/Infa95/cdi/java/bin/java -XX:GCTimeRatio=9 -XX:MaxPermSize=128m -Xmx512M
-    -Dsun"
-    ppid: '21514'
-    pid: '21889'
-    user: cdi
-  - cmdline: ps -e -o pid= -o ppid= -o user= -o args=
-    ppid: '19413'
-    pid: '19414'
-    user: root
-  - cmdline: sudo -H -S -n -u root /bin/sh -c echo BECOME-SUCCESS-gbxazylhooudvvuedbenbqozzk
-    ppid: '19409'
-    pid: '19410'
-    user: root
-  - cmdline: "/usr/lib/sysevent/syseventconfd"
-    ppid: '1'
-    pid: '28492'
-    user: root
-  - cmdline: "/opt2/sybase125/ASE-12_5/bin/dataserver -d/dev/vx/rdsk/dwdg/dwdes_master
-    -e/opt"
-    ppid: '1'
+    - 10006
     pid: '12288'
+    ppid: '1'
     user: sybase
-  - cmdline: "/usr/local/sbin/sshd"
-    ppid: '3028'
-    pid: '25618'
-    user: root
-  - cmdline: "/bin/sh /opt2/sybase125/ASE-12_5/install/RUN_DW_DES_BACKUP"
-    ppid: '1'
-    pid: '21529'
-    user: sybase
-  - cmdline: "-sh"
-    ppid: '25618'
-    pid: '25630'
-    user: sybase
-  - cmdline: "/bin/sh -c sudo -H -S -n  -u root /bin/sh -c 'echo BECOME-SUCCESS-gbxazylhooudv"
-    ppid: '19408'
-    pid: '19409'
-    user: iometrics
-  - cmdline: "/bin/sh /opt2/sybase155/ASE-15_0/install/RUN_ASEDW_DES_BACKUP"
-    ppid: '1'
-    pid: '14299'
-    user: sybase
-  - cmdline: "/usr/openv/netbackup/bin/bpcd -standalone"
-    ppid: '1'
-    pid: '7257'
-    user: root
-  - cmdline: bash
-    ppid: '19839'
-    pid: '20873'
-    user: root
-  - cmdline: "/opt2/iq/IQ-15_4/bin64/iqsrv15 @/iq/iqtele_des/iqtele_des.cfg /iq/iqtele_des/iq"
-    ppid: '1'
-    pid: '18022'
-    user: iq
-  - cmdline: "/bin/sh -c echo BECOME-SUCCESS-gbxazylhooudvvuedbenbqozzknlqodl ; /usr/bin/pyth"
-    ppid: '19410'
-    pid: '19411'
-    user: root
-  - cmdline: sh
-    ppid: '19838'
-    pid: '19839'
-    user: root
-  - cmdline: "/usr/local/sbin/sshd"
-    ppid: '3028'
-    pid: '25674'
-    user: root
-  - cmdline: "/Infa95/cdi/server/bin/pmserver RE9NX0RFU0E= UE1fU0VSVkVS bm9kZTAxX2V1ZDFkd19jZ"
-    ppid: '21514'
-    pid: '21899'
-    user: cdi
-  - cmdline: vxconfigd
-    ppid: '1'
-    pid: '5596'
-    user: root
-  - cmdline: sh -c /bin/sh -c 'sudo -H -S -n  -u root /bin/sh -c '"'"'echo BECOME-SUCCESS-gb
-    ppid: '19292'
-    pid: '19408'
-    user: iometrics
-  - cmdline: "/bin/sh -c ps -e -o pid= -o ppid= -o user= -o args="
-    ppid: '19412'
-    pid: '19413'
-    user: root
-  - cmdline: sudo su
-    ppid: '19829'
-    pid: '19838'
-    user: root
-  - cmdline: "-sh"
-    ppid: '19826'
-    pid: '19829'
-    user: iometrics
-  - cmdline: "/Infa95/telecable/server/bin/pmserver RE9NX0RFU0E= VExfU0VSVkVS bm9kZTAxX2V1ZDF"
-    ppid: '22465'
-    pid: '22527'
-    user: telecable
-  - cmdline: "/opt/perf/bin/scopeux"
-    ppid: '1'
-    pid: '16080'
-    user: root
-  - cmdline: "/opt/VRTSpbx/bin/pbx_exchange"
-    ppid: '1'
-    pid: '27629'
-    user: root
-  - cmdline: "/opt/perf/bin/perf64"
-    ppid: '16080'
-    pid: '16101'
-    user: root
-  - cmdline: "/Infa95/cdi/server/bin/pmserver RE9NX0RFU0E= UE1fU0VSVkVSX0NEUlM= bm9kZTAxX2V1Z"
-    ppid: '21514'
-    pid: '21969'
-    user: cdi
-  - cmdline: "-sh"
-    ppid: '25674'
-    pid: '25688'
-    user: iq
-  - cmdline: "/Infa95/cdi/server/bin/pmrepagent - RE9NX0RFU0E= UFdfREVTQTk= bm9kZTAxX2V1ZDFkd"
-    ppid: '21514'
-    pid: '21898'
-    user: cdi
-  - cmdline: "/opt2/sybase125/ASE-12_5/bin/backupserver -e/opt2/sybase125/ASE-12_5/install/DW"
-    ppid: '21529'
-    pid: '21530'
-    user: sybase
-  - cmdline: "/opt2/iq/IQ-15_4/bin64/iqsrv15 @/iq/iqcdi_des/iqcdi_des.cfg /iq/iqcdi_des/iqcdi"
-    ppid: '1'
-    pid: '17806'
-    user: iq
-  - cmdline: "/usr/openv/netbackup/bin/vnetd -standalone"
-    ppid: '1'
-    pid: '7254'
-    user: root
-  - cmdline: python
-    ppid: '20873'
-    pid: '14858'
-    user: root
-packages: { }
-tcp_listen:
-  - protocol: tcp
-    name: sshd
-    pid: '14720'
-    user: root
-    address: 192.168.3.26
-    port: 22
-    stime: Mon Sep 19 11:31:23  2022
-  - protocol: tcp
-    name: coda
-    pid: '5529'
-    user: root
-    address: 127.0.0.1
-    port: 59998
-    stime: Thu Nov 15 12:25:38  2018
-  - protocol: tcp
-    name: in.mpath
-    pid: '493'
-    user: root
-    address: 127.0.0.1
-    port: 5999
-    stime: Thu Nov 15 12:24:59  2018
-  - protocol: tcp
-    name: in.mpath
-    pid: '493'
-    user: root
-    address: 192.168.3.120
-    port: 0
-    stime: Thu Nov 15 12:24:59  2018
-  - protocol: tcp
-    name: in.mpath
-    pid: '493'
-    user: root
-    address: 192.168.3.119
-    port: 0
-    stime: Thu Nov 15 12:24:59  2018
-  - protocol: tcp
-    name: smcboot
-    pid: '2162'
-    user: root
-    address: 127.0.0.1
-    port: 32774
-    stime: Thu Nov 15 12:25:10  2018
-  - protocol: tcp
-    name: smcboot
-    pid: '2160'
-    user: root
-    address: 127.0.0.1
-    port: 5987
-    stime: Thu Nov 15 12:25:10  2018
-  - protocol: tcp
-    name: smcboot
-    pid: '2160'
-    user: root
-    address: 127.0.0.1
-    port: 898
-    stime: Thu Nov 15 12:25:10  2018
-  - protocol: tcp
-    name: smcboot
-    pid: '2160'
-    user: root
-    address: 127.0.0.1
-    port: 5988
-    stime: Thu Nov 15 12:25:10  2018
-  - protocol: tcp
-    name: opcacta
-    pid: '5545'
-    user: root
-    address: 127.0.0.1
-    port: 32881
-    stime: Thu Nov 15 12:25:38  2018
-  - protocol: tcp
-    name: smcboot
-    pid: '2161'
-    user: root
-    address: 127.0.0.1
-    port: 32773
-    stime: Thu Nov 15 12:25:10  2018
-  - protocol: tcp
-    name: fmd
-    pid: '2274'
-    user: root
-    address: 192.168.224.4
-    port: 12
-    stime: Thu Nov 15 12:25:15  2018
-  - protocol: tcp
-    name: fmd
-    pid: '2274'
-    user: root
-    address: 192.168.224.4
-    port: 24
-    stime: Thu Nov 15 12:25:15  2018
-  - protocol: tcp
-    name: inetd
-    pid: '2100'
-    user: root
-    address: "::"
-    port: 21
-    stime: Thu Nov 15 12:25:10  2018
-  - protocol: tcp
-    name: sendmail
-    pid: '2252'
-    user: root
-    address: 127.0.0.1
-    port: 25
-    stime: Thu Nov 15 12:25:11  2018
-  - protocol: tcp
-    name: dcs
-    pid: '2271'
-    user: root
-    address: 192.168.224.4
-    port: 665
-    stime: Thu Nov 15 12:25:15  2018
-  - protocol: tcp
-    name: ovcd
-    pid: '4983'
-    user: root
-    address: 127.0.0.1
-    port: 32840
-    stime: Thu Nov 15 12:25:29  2018
-  - protocol: tcp
-    name: ovcd
-    pid: '4983'
-    user: root
-    address: 127.0.0.1
-    port: 32848
-    stime: Thu Nov 15 12:25:29  2018
-  - protocol: tcp
-    name: java
-    pid: '2588'
-    user: noaccess
-    address: 127.0.0.1
-    port: 6788
-    stime: Thu Nov 15 12:25:16  2018
-  - protocol: tcp
-    name: java
-    pid: '2588'
-    user: noaccess
-    address: 0.0.0.0
-    port: 32799
-    stime: Thu Nov 15 12:25:16  2018
-  - protocol: tcp
-    name: java
-    pid: '2588'
-    user: noaccess
-    address: 127.0.0.1
-    port: 6789
-    stime: Thu Nov 15 12:25:16  2018
-  - protocol: tcp
-    name: java
-    pid: '2588'
-    user: noaccess
-    address: 127.0.0.1
-    port: 32787
-    stime: Thu Nov 15 12:25:16  2018
-  - protocol: tcp
-    name: java
-    pid: '22465'
-    user: telecable
-    address: 0.0.0.0
-    port: 7005
-    stime: Mon Sep 26 06:10:05  2022
-  - protocol: tcp
-    name: java
-    pid: '22465'
-    user: telecable
-    address: 0.0.0.0
-    port: 61300
-    stime: Mon Sep 26 06:10:05  2022
-  - protocol: tcp
-    name: java
-    pid: '22465'
-    user: telecable
-    address: 192.168.3.26
-    port: 38070
-    stime: Mon Sep 26 06:10:05  2022
-  - protocol: tcp
-    name: java
-    pid: '22465'
-    user: telecable
-    address: 192.168.3.26
-    port: 7005
-    stime: Mon Sep 26 06:10:05  2022
-  - protocol: tcp
-    name: java
-    pid: '22465'
-    user: telecable
-    address: 192.168.3.26
-    port: 38260
-    stime: Mon Sep 26 06:10:05  2022
-  - protocol: tcp
-    name: java
-    pid: '22465'
-    user: telecable
-    address: 192.168.3.26
-    port: 38276
-    stime: Mon Sep 26 06:10:05  2022
-  - protocol: tcp
-    name: java
-    pid: '22465'
-    user: telecable
-    address: 192.168.3.26
-    port: 61463
-    stime: Mon Sep 26 06:10:05  2022
-  - protocol: tcp
-    name: java
-    pid: '22465'
-    user: telecable
-    address: 127.0.0.1
-    port: 7007
-    stime: Mon Sep 26 06:10:05  2022
-  - protocol: tcp
-    name: java
-    pid: '22465'
-    user: telecable
-    address: 192.168.3.26
-    port: 61526
-    stime: Mon Sep 26 06:10:05  2022
-  - protocol: tcp
-    name: java
-    pid: '22465'
-    user: telecable
-    address: 192.168.3.26
-    port: 61530
-    stime: Mon Sep 26 06:10:05  2022
-  - protocol: tcp
-    name: java
-    pid: '22465'
-    user: telecable
-    address: 192.168.3.26
-    port: 61529
-    stime: Mon Sep 26 06:10:05  2022
-  - protocol: tcp
-    name: java
-    pid: '22465'
-    user: telecable
-    address: 192.168.3.26
-    port: 61532
-    stime: Mon Sep 26 06:10:05  2022
-  - protocol: tcp
-    name: java
-    pid: '22465'
-    user: telecable
-    address: 0.0.0.0
-    port: 7006
-    stime: Mon Sep 26 06:10:05  2022
-  - protocol: tcp
-    name: vxsvc
-    pid: '4190'
-    user: root
-    address: "::"
-    port: 2148
-    stime: Thu Nov 15 12:25:23  2018
-  - protocol: tcp
-    name: vxsvc
-    pid: '4190'
-    user: root
-    address: "::ffff:127.0.0.1"
-    port: 2148
-    stime: Thu Nov 15 12:25:23  2018
-  - protocol: tcp
-    name: iqsrv15
-    pid: '319'
-    user: iq
-    address: 192.168.3.26
-    port: 2639
-    stime: Wed Mar 16 11:11:02  2022
-  - protocol: tcp
-    name: iqsrv15
-    pid: '319'
-    user: iq
-    address: 0.0.0.0
-    port: 2639
-    stime: Wed Mar 16 11:11:02  2022
-  - protocol: tcp
-    name: iqsrv15
-    pid: '319'
-    user: iq
-    address: "::"
-    port: 2639
-    stime: Wed Mar 16 11:11:02  2022
-  - protocol: tcp
-    name: sshd
-    pid: '3028'
-    user: root
-    address: "::"
-    port: 22
-    stime: Thu Nov 15 12:25:22  2018
-  - protocol: tcp
-    name: sshd
-    pid: '3028'
-    user: root
-    address: 0.0.0.0
-    port: 22
-    stime: Thu Nov 15 12:25:22  2018
-  - protocol: tcp
-    name: dtlogin
-    pid: '3273'
-    user: root
-    address: 0.0.0.0
-    port: 32804
-    stime: Thu Nov 15 12:25:23  2018
-  - protocol: tcp
-    name: java
-    pid: '17162'
-    user: em13c
-    address: 0.0.0.0
-    port: 3872
-    stime: Fri Jul 15 01:31:24  2022
-  - protocol: tcp
-    name: xprtld
-    pid: '4257'
-    user: root
-    address: 0.0.0.0
-    port: 5634
-    stime: Thu Nov 15 12:25:24  2018
-  - protocol: tcp
-    name: xprtld
-    pid: '4257'
-    user: root
-    address: 127.0.0.1
-    port: 32813
-    stime: Thu Nov 15 12:25:24  2018
-  - protocol: tcp
-    name: veaintf
-    pid: '4470'
-    user: root
-    address: 127.0.0.1
-    port: 32812
-    stime: Thu Nov 15 12:25:24  2018
-  - protocol: tcp
-    name: veaintf
-    pid: '4470'
-    user: root
-    address: 127.0.0.1
-    port: 32000
-    stime: Thu Nov 15 12:25:24  2018
-  - protocol: tcp
-    name: veaintf
-    pid: '4470'
-    user: root
-    address: 127.0.0.1
-    port: 32929
-    stime: Thu Nov 15 12:25:24  2018
-  - protocol: tcp
-    name: ovconfd
-    pid: '4985'
-    user: root
-    address: 127.0.0.1
-    port: 32856
-    stime: Thu Nov 15 12:25:31  2018
-  - protocol: tcp
-    name: ovconfd
-    pid: '4985'
-    user: root
-    address: 127.0.0.1
-    port: 46812
-    stime: Thu Nov 15 12:25:31  2018
-  - protocol: tcp
-    name: opcmsga
-    pid: '5527'
-    user: root
-    address: 127.0.0.1
-    port: 32879
-    stime: Thu Nov 15 12:25:37  2018
-  - protocol: tcp
-    name: ovtrcd
-    pid: '4840'
-    user: root
-    address: 0.0.0.0
-    port: 5053
-    stime: Thu Nov 15 12:25:25  2018
-  - protocol: tcp
-    name: java
-    pid: '21514'
-    user: cdi
-    address: 0.0.0.0
-    port: 6005
-    stime: Mon Sep 26 06:00:05  2022
-  - protocol: tcp
-    name: java
-    pid: '21514'
-    user: cdi
-    address: 0.0.0.0
-    port: 59995
-    stime: Mon Sep 26 06:00:05  2022
-  - protocol: tcp
-    name: java
-    pid: '21514'
-    user: cdi
-    address: 192.168.3.26
-    port: 60210
-    stime: Mon Sep 26 06:00:05  2022
-  - protocol: tcp
-    name: java
-    pid: '21514'
-    user: cdi
-    address: 192.168.3.26
-    port: 6006
-    stime: Mon Sep 26 06:00:05  2022
-  - protocol: tcp
-    name: java
-    pid: '21514'
-    user: cdi
-    address: 192.168.3.26
-    port: 37100
-    stime: Mon Sep 26 06:00:05  2022
-  - protocol: tcp
-    name: java
-    pid: '21514'
-    user: cdi
-    address: 192.168.3.26
-    port: 60159
-    stime: Mon Sep 26 06:00:05  2022
-  - protocol: tcp
-    name: java
-    pid: '21514'
-    user: cdi
-    address: 192.168.3.26
-    port: 35363
-    stime: Mon Sep 26 06:00:05  2022
-  - protocol: tcp
-    name: java
-    pid: '21514'
-    user: cdi
-    address: 192.168.3.26
-    port: 6005
-    stime: Mon Sep 26 06:00:05  2022
-  - protocol: tcp
-    name: java
-    pid: '21514'
-    user: cdi
-    address: 127.0.0.1
-    port: 6007
-    stime: Mon Sep 26 06:00:05  2022
-  - protocol: tcp
-    name: java
-    pid: '21514'
-    user: cdi
-    address: 192.168.3.26
-    port: 60287
-    stime: Mon Sep 26 06:00:05  2022
-  - protocol: tcp
-    name: java
-    pid: '21514'
-    user: cdi
-    address: 0.0.0.0
-    port: 60291
-    stime: Mon Sep 26 06:00:05  2022
-  - protocol: tcp
-    name: java
-    pid: '21514'
-    user: cdi
-    address: 192.168.3.26
-    port: 60305
-    stime: Mon Sep 26 06:00:05  2022
-  - protocol: tcp
-    name: java
-    pid: '21514'
-    user: cdi
-    address: 192.168.3.26
-    port: 60372
-    stime: Mon Sep 26 06:00:05  2022
-  - protocol: tcp
-    name: java
-    pid: '21514'
-    user: cdi
-    address: 0.0.0.0
-    port: 6006
-    stime: Mon Sep 26 06:00:05  2022
-  - protocol: tcp
-    name: backupse
-    pid: '14300'
-    user: sybase
-    address: 192.168.3.26
-    port: 10001
-    stime: Fri Jun 28 13:55:35  2019
-  - protocol: tcp
-    name: ovbbccb
-    pid: '4984'
-    user: root
-    address: "::"
-    port: 383
-    stime: Thu Nov 15 12:25:30  2018
-  - protocol: tcp
-    name: ovbbccb
-    pid: '4984'
-    user: root
-    address: 127.0.0.1
-    port: 53114
-    stime: Thu Nov 15 12:25:30  2018
-  - protocol: tcp
-    name: ovbbccb
-    pid: '4984'
-    user: root
-    address: 127.0.0.1
-    port: 53116
-    stime: Thu Nov 15 12:25:30  2018
-  - protocol: tcp
-    name: ovbbccb
-    pid: '4984'
-    user: root
-    address: 127.0.0.1
-    port: 53118
-    stime: Thu Nov 15 12:25:30  2018
-  - protocol: tcp
-    name: ovbbccb
-    pid: '4984'
-    user: root
-    address: "::ffff:127.0.0.1"
-    port: 383
-    stime: Thu Nov 15 12:25:30  2018
-  - protocol: tcp
-    name: dataserv
-    pid: '12612'
-    user: sybase
-    address: 192.168.3.26
+  type: Sybase ASE
+- bindings:
+  - address: 192.168.3.26
+    class: service
     port: 10000
-    stime: Tue Jun 25 11:02:18  2019
-  - protocol: tcp
-    name: java
-    pid: '21889'
-    user: cdi
-    address: 0.0.0.0
-    port: 6008
-    stime: Mon Sep 26 06:02:38  2022
-  - protocol: tcp
-    name: java
-    pid: '21889'
-    user: cdi
-    address: 0.0.0.0
-    port: 60316
-    stime: Mon Sep 26 06:02:38  2022
-  - protocol: tcp
-    name: java
-    pid: '21889'
-    user: cdi
-    address: 192.168.3.26
-    port: 60339
-    stime: Mon Sep 26 06:02:38  2022
-  - protocol: tcp
-    name: java
-    pid: '21889'
-    user: cdi
-    address: 192.168.3.26
-    port: 60340
-    stime: Mon Sep 26 06:02:38  2022
-  - protocol: tcp
-    name: java
-    pid: '21889'
-    user: cdi
-    address: 192.168.3.26
-    port: 60345
-    stime: Mon Sep 26 06:02:38  2022
-  - protocol: tcp
-    name: java
-    pid: '21889'
-    user: cdi
-    address: 127.0.0.1
-    port: 6009
-    stime: Mon Sep 26 06:02:38  2022
-  - protocol: tcp
-    name: java
-    pid: '21889'
-    user: cdi
-    address: 192.168.3.26
-    port: 60402
-    stime: Mon Sep 26 06:02:38  2022
-  - protocol: tcp
-    name: java
-    pid: '21889'
-    user: cdi
-    address: 192.168.3.26
-    port: 60403
-    stime: Mon Sep 26 06:02:38  2022
-  - protocol: tcp
-    name: java
-    pid: '21889'
-    user: cdi
-    address: 192.168.3.26
-    port: 60404
-    stime: Mon Sep 26 06:02:38  2022
-  - protocol: tcp
-    name: java
-    pid: '21889'
-    user: cdi
-    address: 192.168.3.26
-    port: 60437
-    stime: Mon Sep 26 06:02:38  2022
-  - protocol: tcp
-    name: java
-    pid: '21889'
-    user: cdi
-    address: 192.168.3.26
-    port: 60438
-    stime: Mon Sep 26 06:02:38  2022
-  - protocol: tcp
-    name: java
-    pid: '21889'
-    user: cdi
-    address: 192.168.3.26
-    port: 60439
-    stime: Mon Sep 26 06:02:38  2022
-  - protocol: tcp
-    name: dataserv
-    pid: '12288'
+    protocol: tcp
+  discovery_time: '2022-09-29T19:51:34+02:00'
+  listening_ports:
+  - 10000
+  process:
+    cmdline: /opt2/sybase155/ASE-15_0/bin/dataserver -sASEDW_DES -d/dev/vx/rdsk/dwdg/asedwde
+    cwd: /opt2/sybase155/ASE-15_0/bin/
+    listening_ports:
+    - 10000
+    pid: '12612'
+    ppid: '1'
     user: sybase
-    address: 127.0.0.1
-    port: 10006
-    stime: Tue Jun 25 11:01:07  2019
-  - protocol: tcp
-    name: dataserv
-    pid: '12288'
-    user: sybase
-    address: 192.168.3.26
-    port: 10006
-    stime: Tue Jun 25 11:01:07  2019
-  - protocol: tcp
-    name: bpcd
-    pid: '7257'
-    user: root
-    address: 0.0.0.0
-    port: 13782
-    stime: Mon Feb 14 12:54:52  2022
-  - protocol: tcp
-    name: bpcd
-    pid: '7257'
-    user: root
-    address: 127.0.0.1
-    port: 54011
-    stime: Mon Feb 14 12:54:52  2022
-  - protocol: tcp
-    name: iqsrv15
-    pid: '18022'
-    user: iq
-    address: 0.0.0.0
-    port: 2641
-    stime: Thu Mar 10 15:10:27  2022
-  - protocol: tcp
-    name: iqsrv15
-    pid: '18022'
-    user: iq
-    address: "::"
-    port: 2641
-    stime: Thu Mar 10 15:10:27  2022
-  - protocol: tcp
-    name: pmserver
-    pid: '21899'
-    user: cdi
-    address: 192.168.3.26
-    port: 60419
-    stime: Mon Sep 26 06:02:57  2022
-  - protocol: tcp
-    name: pmserver
-    pid: '21899'
-    user: cdi
-    address: 192.168.3.26
-    port: 36935
-    stime: Mon Sep 26 06:02:57  2022
-  - protocol: tcp
-    name: pmserver
-    pid: '21899'
-    user: cdi
-    address: 0.0.0.0
-    port: 6014
-    stime: Mon Sep 26 06:02:57  2022
-  - protocol: tcp
-    name: pmserver
-    pid: '21899'
-    user: cdi
-    address: 192.168.3.26
-    port: 60412
-    stime: Mon Sep 26 06:02:57  2022
-  - protocol: tcp
-    name: pmserver
-    pid: '21899'
-    user: cdi
-    address: 192.168.3.26
-    port: 60417
-    stime: Mon Sep 26 06:02:57  2022
-  - protocol: tcp
-    name: pmserver
-    pid: '22527'
-    user: telecable
-    address: 192.168.3.26
-    port: 61633
-    stime: Mon Sep 26 06:12:03  2022
-  - protocol: tcp
-    name: pmserver
-    pid: '22527'
-    user: telecable
-    address: 192.168.3.26
-    port: 37992
-    stime: Mon Sep 26 06:12:03  2022
-  - protocol: tcp
-    name: pmserver
-    pid: '22527'
-    user: telecable
-    address: 0.0.0.0
-    port: 7013
-    stime: Mon Sep 26 06:12:03  2022
-  - protocol: tcp
-    name: pmserver
-    pid: '22527'
-    user: telecable
-    address: 192.168.3.26
-    port: 61624
-    stime: Mon Sep 26 06:12:03  2022
-  - protocol: tcp
-    name: pmserver
-    pid: '22527'
-    user: telecable
-    address: 192.168.3.26
-    port: 61631
-    stime: Mon Sep 26 06:12:03  2022
-  - protocol: tcp
-    name: pmserver
-    pid: '22527'
-    user: telecable
-    address: 192.168.3.26
-    port: 61635
-    stime: Mon Sep 26 06:12:03  2022
-  - protocol: tcp
-    name: pbx_exch
-    pid: '27629'
-    user: root
-    address: "::"
-    port: 1556
-    stime: Tue Feb  8 13:35:58  2022
-  - protocol: tcp
-    name: pbx_exch
-    pid: '27629'
-    user: root
-    address: 0.0.0.0
-    port: 1556
-    stime: Tue Feb  8 13:35:58  2022
-  - protocol: tcp
-    name: pbx_exch
-    pid: '27629'
-    user: root
-    address: 127.0.0.1
-    port: 1557
-    stime: Tue Feb  8 13:35:58  2022
-  - protocol: tcp
-    name: pbx_exch
-    pid: '27629'
-    user: root
-    address: 127.0.0.1
-    port: 65036
-    stime: Tue Feb  8 13:35:58  2022
-  - protocol: tcp
-    name: pmserver
-    pid: '21969'
-    user: cdi
-    address: 192.168.3.26
-    port: 60507
-    stime: Mon Sep 26 06:03:09  2022
-  - protocol: tcp
-    name: pmserver
-    pid: '21969'
-    user: cdi
-    address: 192.168.3.26
-    port: 36955
-    stime: Mon Sep 26 06:03:09  2022
-  - protocol: tcp
-    name: pmserver
-    pid: '21969'
-    user: cdi
-    address: 0.0.0.0
-    port: 6015
-    stime: Mon Sep 26 06:03:09  2022
-  - protocol: tcp
-    name: pmserver
-    pid: '21969'
-    user: cdi
-    address: 192.168.3.26
-    port: 60493
-    stime: Mon Sep 26 06:03:09  2022
-  - protocol: tcp
-    name: pmserver
-    pid: '21969'
-    user: cdi
-    address: 192.168.3.26
-    port: 60497
-    stime: Mon Sep 26 06:03:09  2022
-  - protocol: tcp
-    name: pmrepage
-    pid: '21898'
-    user: cdi
-    address: 192.168.3.26
-    port: 36916
-    stime: Mon Sep 26 06:02:53  2022
-  - protocol: tcp
-    name: pmrepage
-    pid: '21898'
-    user: cdi
-    address: 192.168.3.26
-    port: 44075
-    stime: Mon Sep 26 06:02:53  2022
-  - protocol: tcp
-    name: pmrepage
-    pid: '21898'
-    user: cdi
-    address: 0.0.0.0
-    port: 6013
-    stime: Mon Sep 26 06:02:53  2022
-  - protocol: tcp
-    name: pmrepage
-    pid: '21898'
-    user: cdi
-    address: 192.168.3.26
-    port: 60363
-    stime: Mon Sep 26 06:02:53  2022
-  - protocol: tcp
-    name: pmrepage
-    pid: '21898'
-    user: cdi
-    address: 0.0.0.0
-    port: 0
-    stime: Mon Sep 26 06:02:53  2022
-  - protocol: tcp
-    name: pmrepage
-    pid: '21898'
-    user: cdi
-    address: 192.168.3.26
-    port: 6013
-    stime: Mon Sep 26 06:02:53  2022
-  - protocol: tcp
-    name: pmrepage
-    pid: '21898'
-    user: cdi
-    address: 192.168.3.26
-    port: 60379
-    stime: Mon Sep 26 06:02:53  2022
-  - protocol: tcp
-    name: backupse
-    pid: '21530'
-    user: sybase
-    address: 127.0.0.1
-    port: 10007
-    stime: Thu Jun 27 13:57:15  2019
-  - protocol: tcp
-    name: backupse
-    pid: '21530'
-    user: sybase
-    address: 192.168.3.26
-    port: 10007
-    stime: Thu Jun 27 13:57:15  2019
-  - protocol: tcp
-    name: iqsrv15
-    pid: '17806'
-    user: iq
-    address: 0.0.0.0
-    port: 2637
-    stime: Thu Mar 10 15:10:02  2022
-  - protocol: tcp
-    name: iqsrv15
-    pid: '17806'
-    user: iq
-    address: "::"
-    port: 2637
-    stime: Thu Mar 10 15:10:02  2022
-  - protocol: tcp
-    name: vnetd
-    pid: '7254'
-    user: root
-    address: 0.0.0.0
-    port: 13724
-    stime: Mon Feb 14 12:54:52  2022
-  - protocol: tcp
-    name: vnetd
-    pid: '7254'
-    user: root
-    address: 127.0.0.1
-    port: 54008
-    stime: Mon Feb 14 12:54:52  2022
+  type: Sybase ASE
+packages: {}
+processes:
+- cmdline: sched
+  cwd: /
+  pid: '0'
+  ppid: '0'
+  user: root
+- cmdline: /sbin/init
+  cwd: /sbin/
+  pid: '1'
+  ppid: '0'
+  user: root
+- cmdline: pageout
+  cwd: /
+  pid: '2'
+  ppid: '0'
+  user: root
+- cmdline: fsflush
+  cwd: /
+  pid: '3'
+  ppid: '0'
+  user: root
+- cmdline: /usr/lib/nfs/mountd
+  cwd: /usr/lib/nfs/
+  pid: '2215'
+  ppid: '1'
+  user: root
+- cmdline: /lib/svc/bin/svc.startd
+  cwd: /lib/svc/bin/
+  pid: '7'
+  ppid: '1'
+  user: root
+- cmdline: /lib/svc/bin/svc.configd
+  cwd: /lib/svc/bin/
+  pid: '9'
+  ppid: '1'
+  user: root
+- cmdline: /usr/sbin/cron
+  cwd: /usr/sbin/
+  pid: '2014'
+  ppid: '1'
+  user: root
+- cmdline: /usr/bin/python2.6 ~iometrics/.ansible/tmp/ansible-tmp-1664473849.839634-797351
+  cwd: /usr/bin/
+  pid: '19412'
+  ppid: '19411'
+  user: root
+- cmdline: /usr/lib/sysevent/syseventd
+  cwd: /usr/lib/sysevent/
+  pid: '410'
+  ppid: '1'
+  user: root
+- cmdline: /usr/sbin/ipmon -Ds
+  cwd: /usr/sbin/
+  pid: '381'
+  ppid: '1'
+  user: root
+- cmdline: /lib/svc/method/iscsi-initiator
+  cwd: /lib/svc/method/
+  pid: '530'
+  ppid: '1'
+  user: root
+- cmdline: /usr/lib/efcode/sparcv9/efdaemon
+  cwd: /usr/lib/efcode/sparcv9/
+  pid: '1564'
+  ppid: '1'
+  user: root
+- cmdline: /usr/lib/crypto/kcfd
+  cwd: /usr/lib/crypto/
+  pid: '432'
+  ppid: '1'
+  user: daemon
+- cmdline: devfsadmd
+  cwd: /
+  pid: '433'
+  ppid: '1'
+  user: root
+- cmdline: /usr/local/sbin/sshd
+  cwd: /usr/local/sbin/
+  pid: '14720'
+  ppid: '3028'
+  user: root
+- cmdline: /sbin/vxesd
+  cwd: /sbin/
+  pid: '664'
+  ppid: '1'
+  user: root
+- cmdline: /usr/lib/dmi/snmpXdmid -s eud1dw
+  cwd: /usr/lib/dmi/
+  pid: '2236'
+  ppid: '1'
+  user: root
+- cmdline: /usr/lib/nfs/statd
+  cwd: /usr/lib/nfs/
+  pid: '2057'
+  ppid: '1'
+  user: daemon
+- cmdline: /usr/lib/nfs/nfs4cbd
+  cwd: /usr/lib/nfs/
+  pid: '2056'
+  ppid: '1'
+  user: daemon
+- cmdline: /usr/sbin/nscd
+  cwd: /usr/sbin/
+  pid: '424'
+  ppid: '1'
+  user: root
+- cmdline: /opt/OV/lbin/perf/coda
+  cwd: /opt/OV/lbin/perf/
+  pid: '5529'
+  ppid: '4983'
+  user: root
+- cmdline: /usr/platform/sun4u/lib/sckmd
+  cwd: /usr/platform/sun4u/lib/
+  pid: '2013'
+  ppid: '1'
+  user: root
+- cmdline: /usr/lib/sendmail -Ac -q15m
+  cwd: /usr/lib/
+  pid: '2253'
+  ppid: '1'
+  user: smmsp
+- cmdline: /usr/lib/picl/picld
+  cwd: /usr/lib/picl/
+  pid: '465'
+  ppid: '1'
+  user: root
+- cmdline: /usr/lib/inet/in.mpathd -a
+  cwd: /usr/lib/inet/
+  pid: '493'
+  ppid: '1'
+  user: root
+- cmdline: /usr/sfw/sbin/snmpd
+  cwd: /usr/sfw/sbin/
+  pid: '2234'
+  ppid: '1'
+  user: root
+- cmdline: /usr/platform/SUNW,SPARC-Enterprise/lib/sparcv9/oplhpd
+  cwd: /usr/platform/SUNW,SPARC-Enterprise/lib/sparcv9/
+  pid: '460'
+  ppid: '1'
+  user: root
+- cmdline: /usr/bin/pppd /dev/dm2s0 unit 0 file /usr/platform/SUNW,SPARC-Enterprise/lib/ds
+  cwd: /usr/bin/
+  pid: '2042'
+  ppid: '1'
+  user: root
+- cmdline: /opt/perf/bin/midaemon
+  cwd: /opt/perf/bin/
+  pid: '4785'
+  ppid: '1'
+  user: root
+- cmdline: /usr/sbin/rpcbind
+  cwd: /usr/sbin/
+  pid: '2047'
+  ppid: '1'
+  user: daemon
+- cmdline: /usr/sbin/vold -f /etc/vold.conf
+  cwd: /usr/sbin/
+  pid: '2251'
+  ppid: '1'
+  user: root
+- cmdline: /usr/lib/hotplugd
+  cwd: /usr/lib/
+  pid: '2027'
+  ppid: '1'
+  user: root
+- cmdline: /usr/sadm/lib/smc/bin/smcboot
+  cwd: /usr/sadm/lib/smc/bin/
+  pid: '2162'
+  ppid: '2160'
+  user: root
+- cmdline: /usr/lib/saf/ttymon
+  cwd: /usr/lib/saf/
+  pid: '2097'
+  ppid: '2068'
+  user: root
+- cmdline: /usr/lib/utmpd
+  cwd: /usr/lib/
+  pid: '2075'
+  ppid: '1'
+  user: root
+- cmdline: /usr/lib/nfs/nfsmapid
+  cwd: /usr/lib/nfs/
+  pid: '2060'
+  ppid: '1'
+  user: daemon
+- cmdline: /usr/sbin/syslogd
+  cwd: /usr/sbin/
+  pid: '2153'
+  ppid: '1'
+  user: root
+- cmdline: /usr/sadm/lib/smc/bin/smcboot
+  cwd: /usr/sadm/lib/smc/bin/
+  pid: '2160'
+  ppid: '1'
+  user: root
+- cmdline: /usr/lib/dmi/dmispd
+  cwd: /usr/lib/dmi/
+  pid: '2235'
+  ppid: '1'
+  user: root
+- cmdline: /opt/OV/lbin/eaagt/opcacta
+  cwd: /opt/OV/lbin/eaagt/
+  pid: '5545'
+  ppid: '4983'
+  user: root
+- cmdline: /usr/sadm/lib/smc/bin/smcboot
+  cwd: /usr/sadm/lib/smc/bin/
+  pid: '2161'
+  ppid: '2160'
+  user: root
+- cmdline: /usr/lib/saf/sac -t 300
+  cwd: /usr/lib/saf/
+  pid: '2068'
+  ppid: '7'
+  user: root
+- cmdline: /usr/lib/saf/ttymon -g -d /dev/console -l console -T vt100 -m ldterm,ttcompat
+    -
+  cwd: /usr/lib/saf/
+  pid: '1316'
+  ppid: '7'
+  user: root
+- cmdline: /usr/lib/fm/fmd/fmd
+  cwd: /usr/lib/fm/fmd/
+  pid: '2274'
+  ppid: '1'
+  user: root
+- cmdline: /usr/lib/nfs/lockd
+  cwd: /usr/lib/nfs/
+  pid: '2088'
+  ppid: '1'
+  user: daemon
+- cmdline: /usr/lib/saf/ttymon
+  cwd: /usr/lib/saf/
+  pid: '2099'
+  ppid: '2068'
+  user: root
+- cmdline: /usr/lib/inet/inetd start
+  cwd: /usr/lib/inet/
+  pid: '2100'
+  ppid: '1'
+  user: root
+- cmdline: /usr/local/sbin/prngd /var/spool/prngd/pool
+  cwd: /usr/local/sbin/
+  pid: '2656'
+  ppid: '1'
+  user: root
+- cmdline: /usr/lib/snmp/snmpdx -y -c /etc/snmp/conf
+  cwd: /usr/lib/snmp/
+  pid: '2226'
+  ppid: '1'
+  user: root
+- cmdline: /opt/OV/lbin/eaagt/opcmona
+  cwd: /opt/OV/lbin/eaagt/
+  pid: '5552'
+  ppid: '4983'
+  user: root
+- cmdline: /usr/local/sbin/sshd
+  cwd: /usr/local/sbin/
+  pid: '19826'
+  ppid: '3028'
+  user: root
+- cmdline: /usr/lib/sendmail -bl -q15m
+  cwd: /usr/lib/
+  pid: '2252'
+  ppid: '1'
+  user: root
+- cmdline: /usr/lib/dcs -l
+  cwd: /usr/lib/
+  pid: '2271'
+  ppid: '1'
+  user: root
+- cmdline: /usr/lib/inet/xntpd
+  cwd: /usr/lib/inet/
+  pid: '2276'
+  ppid: '1'
+  user: root
+- cmdline: /usr/lib/nfs/nfsd
+  cwd: /usr/lib/nfs/
+  pid: '2220'
+  ppid: '1'
+  user: daemon
+- cmdline: /opt/OV/bin/ovcd
+  cwd: /opt/OV/bin/
+  pid: '4983'
+  ppid: '1'
+  user: root
+- cmdline: /usr/java/bin/java -server -Xmx128m -XX:+UseParallelGC -XX:ParallelGCThreads=4
+  cwd: /usr/java/bin/
+  pid: '2588'
+  ppid: '1'
+  user: noaccess
+- cmdline: /Infa95/telecable/java/bin/java -ea -Djava.awt.headless=true -Duser.dir=/Infa95
+  cwd: /Infa95/telecable/java/bin/
+  pid: '22465'
+  ppid: '1'
+  user: telecable
+- cmdline: //opt/VRTSob/bin/vxsvc -r //opt/VRTSob/config/Registry -e
+  cwd: //opt/VRTSob/bin/
+  pid: '4190'
+  ppid: '1'
+  user: root
+- cmdline: /opt2/iq/IQ-15_4/bin64/iqsrv15 @/iq/iqdw_des/iqdw_des.cfg /iq/iqdw_des/iqdw_des
+  cwd: /opt2/iq/IQ-15_4/bin64/
+  pid: '319'
+  ppid: '1'
+  user: iq
+- cmdline: /usr/local/sbin/sshd
+  cwd: /usr/local/sbin/
+  pid: '3028'
+  ppid: '1'
+  user: root
+- cmdline: /opt/perf/bin/perfalarm
+  cwd: /opt/perf/bin/
+  pid: '16096'
+  ppid: '1'
+  user: root
+- cmdline: /opt/OV/lbin/eaagt/opcmsgi
+  cwd: /opt/OV/lbin/eaagt/
+  pid: '5548'
+  ppid: '4983'
+  user: root
+- cmdline: /usr/local/sbin/sshd
+  cwd: /usr/local/sbin/
+  pid: '24808'
+  ppid: '3028'
+  user: root
+- cmdline: /usr/dt/bin/dtlogin -daemon
+  cwd: /usr/dt/bin/
+  pid: '3273'
+  ppid: '1'
+  user: root
+- cmdline: -sh
+  cwd: /
+  pid: '14725'
+  ppid: '14720'
+  user: iq
+- cmdline: /var/app/oracle/agent13c/agent_13.1.0.0.0/perl/bin/perl /var/app/oracle/agent13
+  cwd: /var/app/oracle/agent13c/agent_13.1.0.0.0/perl/bin/
+  pid: '5079'
+  ppid: '1'
+  user: em13c
+- cmdline: /opt/perf/bin/ttd
+  cwd: /opt/perf/bin/
+  pid: '4299'
+  ppid: '1'
+  user: root
+- cmdline: -sh
+  cwd: /
+  pid: '24811'
+  ppid: '24808'
+  user: sybase
+- cmdline: /var/app/oracle/agent13c/agent_13.1.0.0.0/oracle_common/jdk/bin/sparcv9/java
+    -X
+  cwd: /var/app/oracle/agent13c/agent_13.1.0.0.0/oracle_common/jdk/bin/sparcv9/
+  pid: '17162'
+  ppid: '5079'
+  user: em13c
+- cmdline: /opt/VRTSsfmh/bin/xprtld -X 1 /etc/opt/VRTSsfmh/xprtld.conf
+  cwd: /opt/VRTSsfmh/bin/
+  pid: '4257'
+  ppid: '1'
+  user: root
+- cmdline: veaintf
+  cwd: /
+  pid: '4470'
+  ppid: '4257'
+  user: root
+- cmdline: /opt/OV/lbin/conf/ovconfd
+  cwd: /opt/OV/lbin/conf/
+  pid: '4985'
+  ppid: '4983'
+  user: root
+- cmdline: /opt/OV/lbin/eaagt/opcle -std
+  cwd: /opt/OV/lbin/eaagt/
+  pid: '5550'
+  ppid: '4983'
+  user: root
+- cmdline: /opt/OV/lbin/eaagt/opcmsga
+  cwd: /opt/OV/lbin/eaagt/
+  pid: '5527'
+  ppid: '4983'
+  user: root
+- cmdline: /opt/OV/lbin/xpl/trc/ovtrcd
+  cwd: /opt/OV/lbin/xpl/trc/
+  pid: '4840'
+  ppid: '1'
+  user: root
+- cmdline: /Infa95/cdi/java/bin/java -ea -Djava.awt.headless=true -Duser.dir=/Infa95/cdi/t
+  cwd: /Infa95/cdi/java/bin/
+  pid: '21514'
+  ppid: '1'
+  user: cdi
+- cmdline: /opt2/sybase155/ASE-15_0/bin/backupserver -e/opt2/sybase155/ASE-15_0/install/AS
+  cwd: /opt2/sybase155/ASE-15_0/bin/
+  pid: '14300'
+  ppid: '14299'
+  user: sybase
+- cmdline: /usr/local/sbin/sshd
+  cwd: /usr/local/sbin/
+  pid: '19292'
+  ppid: '3028'
+  user: root
+- cmdline: /opt/OV/bin/ovbbccb -nodaemon
+  cwd: /opt/OV/bin/
+  pid: '4984'
+  ppid: '4983'
+  user: root
+- cmdline: /opt2/sybase155/ASE-15_0/bin/dataserver -sASEDW_DES -d/dev/vx/rdsk/dwdg/asedwde
+  cwd: /opt2/sybase155/ASE-15_0/bin/
+  pid: '12612'
+  ppid: '1'
+  user: sybase
+- cmdline: /Infa95/cdi/java/bin/java -XX:GCTimeRatio=9 -XX:MaxPermSize=128m -Xmx512M
+    -Dsun
+  cwd: /Infa95/cdi/java/bin/
+  pid: '21889'
+  ppid: '21514'
+  user: cdi
+- cmdline: ps -e -o pid= -o ppid= -o user= -o args=
+  cwd: /
+  pid: '19414'
+  ppid: '19413'
+  user: root
+- cmdline: sudo -H -S -n -u root /bin/sh -c echo BECOME-SUCCESS-gbxazylhooudvvuedbenbqozzk
+  cwd: /
+  pid: '19410'
+  ppid: '19409'
+  user: root
+- cmdline: /usr/lib/sysevent/syseventconfd
+  cwd: /usr/lib/sysevent/
+  pid: '28492'
+  ppid: '1'
+  user: root
+- cmdline: /opt2/sybase125/ASE-12_5/bin/dataserver -d/dev/vx/rdsk/dwdg/dwdes_master
+    -e/opt
+  cwd: /opt2/sybase125/ASE-12_5/bin/
+  pid: '12288'
+  ppid: '1'
+  user: sybase
+- cmdline: /usr/local/sbin/sshd
+  cwd: /usr/local/sbin/
+  pid: '25618'
+  ppid: '3028'
+  user: root
+- cmdline: /bin/sh /opt2/sybase125/ASE-12_5/install/RUN_DW_DES_BACKUP
+  cwd: /bin/
+  pid: '21529'
+  ppid: '1'
+  user: sybase
+- cmdline: -sh
+  cwd: /
+  pid: '25630'
+  ppid: '25618'
+  user: sybase
+- cmdline: /bin/sh -c sudo -H -S -n  -u root /bin/sh -c 'echo BECOME-SUCCESS-gbxazylhooudv
+  cwd: /bin/
+  pid: '19409'
+  ppid: '19408'
+  user: iometrics
+- cmdline: /bin/sh /opt2/sybase155/ASE-15_0/install/RUN_ASEDW_DES_BACKUP
+  cwd: /bin/
+  pid: '14299'
+  ppid: '1'
+  user: sybase
+- cmdline: /usr/openv/netbackup/bin/bpcd -standalone
+  cwd: /usr/openv/netbackup/bin/
+  pid: '7257'
+  ppid: '1'
+  user: root
+- cmdline: bash
+  cwd: /
+  pid: '20873'
+  ppid: '19839'
+  user: root
+- cmdline: /opt2/iq/IQ-15_4/bin64/iqsrv15 @/iq/iqtele_des/iqtele_des.cfg /iq/iqtele_des/iq
+  cwd: /opt2/iq/IQ-15_4/bin64/
+  pid: '18022'
+  ppid: '1'
+  user: iq
+- cmdline: /bin/sh -c echo BECOME-SUCCESS-gbxazylhooudvvuedbenbqozzknlqodl ; /usr/bin/pyth
+  cwd: /bin/
+  pid: '19411'
+  ppid: '19410'
+  user: root
+- cmdline: sh
+  cwd: /
+  pid: '19839'
+  ppid: '19838'
+  user: root
+- cmdline: /usr/local/sbin/sshd
+  cwd: /usr/local/sbin/
+  pid: '25674'
+  ppid: '3028'
+  user: root
+- cmdline: /Infa95/cdi/server/bin/pmserver RE9NX0RFU0E= UE1fU0VSVkVS bm9kZTAxX2V1ZDFkd19jZ
+  cwd: /Infa95/cdi/server/bin/
+  pid: '21899'
+  ppid: '21514'
+  user: cdi
+- cmdline: vxconfigd
+  cwd: /
+  pid: '5596'
+  ppid: '1'
+  user: root
+- cmdline: sh -c /bin/sh -c 'sudo -H -S -n  -u root /bin/sh -c '"'"'echo BECOME-SUCCESS-gb
+  cwd: /
+  pid: '19408'
+  ppid: '19292'
+  user: iometrics
+- cmdline: /bin/sh -c ps -e -o pid= -o ppid= -o user= -o args=
+  cwd: /bin/
+  pid: '19413'
+  ppid: '19412'
+  user: root
+- cmdline: sudo su
+  cwd: /
+  pid: '19838'
+  ppid: '19829'
+  user: root
+- cmdline: -sh
+  cwd: /
+  pid: '19829'
+  ppid: '19826'
+  user: iometrics
+- cmdline: /Infa95/telecable/server/bin/pmserver RE9NX0RFU0E= VExfU0VSVkVS bm9kZTAxX2V1ZDF
+  cwd: /Infa95/telecable/server/bin/
+  pid: '22527'
+  ppid: '22465'
+  user: telecable
+- cmdline: /opt/perf/bin/scopeux
+  cwd: /opt/perf/bin/
+  pid: '16080'
+  ppid: '1'
+  user: root
+- cmdline: /opt/VRTSpbx/bin/pbx_exchange
+  cwd: /opt/VRTSpbx/bin/
+  pid: '27629'
+  ppid: '1'
+  user: root
+- cmdline: /opt/perf/bin/perf64
+  cwd: /opt/perf/bin/
+  pid: '16101'
+  ppid: '16080'
+  user: root
+- cmdline: /Infa95/cdi/server/bin/pmserver RE9NX0RFU0E= UE1fU0VSVkVSX0NEUlM= bm9kZTAxX2V1Z
+  cwd: /Infa95/cdi/server/bin/
+  pid: '21969'
+  ppid: '21514'
+  user: cdi
+- cmdline: -sh
+  cwd: /
+  pid: '25688'
+  ppid: '25674'
+  user: iq
+- cmdline: /Infa95/cdi/server/bin/pmrepagent - RE9NX0RFU0E= UFdfREVTQTk= bm9kZTAxX2V1ZDFkd
+  cwd: /Infa95/cdi/server/bin/
+  pid: '21898'
+  ppid: '21514'
+  user: cdi
+- cmdline: /opt2/sybase125/ASE-12_5/bin/backupserver -e/opt2/sybase125/ASE-12_5/install/DW
+  cwd: /opt2/sybase125/ASE-12_5/bin/
+  pid: '21530'
+  ppid: '21529'
+  user: sybase
+- cmdline: /opt2/iq/IQ-15_4/bin64/iqsrv15 @/iq/iqcdi_des/iqcdi_des.cfg /iq/iqcdi_des/iqcdi
+  cwd: /opt2/iq/IQ-15_4/bin64/
+  pid: '17806'
+  ppid: '1'
+  user: iq
+- cmdline: /usr/openv/netbackup/bin/vnetd -standalone
+  cwd: /usr/openv/netbackup/bin/
+  pid: '7254'
+  ppid: '1'
+  user: root
+- cmdline: python
+  cwd: /
+  pid: '14858'
+  ppid: '20873'
+  user: root
+software_list:
+- cmd_regexp: dataserver
+  name: Sybase ASE
+  process_type: parent
+  return_children: false
+  return_packages: false
+tcp_listen:
+- address: 192.168.3.26
+  name: sshd
+  pid: '14720'
+  port: 22
+  protocol: tcp
+  stime: Mon Sep 19 11:31:23  2022
+  user: root
+- address: 127.0.0.1
+  name: coda
+  pid: '5529'
+  port: 59998
+  protocol: tcp
+  stime: Thu Nov 15 12:25:38  2018
+  user: root
+- address: 127.0.0.1
+  name: in.mpath
+  pid: '493'
+  port: 5999
+  protocol: tcp
+  stime: Thu Nov 15 12:24:59  2018
+  user: root
+- address: 192.168.3.120
+  name: in.mpath
+  pid: '493'
+  port: 0
+  protocol: tcp
+  stime: Thu Nov 15 12:24:59  2018
+  user: root
+- address: 192.168.3.119
+  name: in.mpath
+  pid: '493'
+  port: 0
+  protocol: tcp
+  stime: Thu Nov 15 12:24:59  2018
+  user: root
+- address: 127.0.0.1
+  name: smcboot
+  pid: '2162'
+  port: 32774
+  protocol: tcp
+  stime: Thu Nov 15 12:25:10  2018
+  user: root
+- address: 127.0.0.1
+  name: smcboot
+  pid: '2160'
+  port: 5987
+  protocol: tcp
+  stime: Thu Nov 15 12:25:10  2018
+  user: root
+- address: 127.0.0.1
+  name: smcboot
+  pid: '2160'
+  port: 898
+  protocol: tcp
+  stime: Thu Nov 15 12:25:10  2018
+  user: root
+- address: 127.0.0.1
+  name: smcboot
+  pid: '2160'
+  port: 5988
+  protocol: tcp
+  stime: Thu Nov 15 12:25:10  2018
+  user: root
+- address: 127.0.0.1
+  name: opcacta
+  pid: '5545'
+  port: 32881
+  protocol: tcp
+  stime: Thu Nov 15 12:25:38  2018
+  user: root
+- address: 127.0.0.1
+  name: smcboot
+  pid: '2161'
+  port: 32773
+  protocol: tcp
+  stime: Thu Nov 15 12:25:10  2018
+  user: root
+- address: 192.168.224.4
+  name: fmd
+  pid: '2274'
+  port: 12
+  protocol: tcp
+  stime: Thu Nov 15 12:25:15  2018
+  user: root
+- address: 192.168.224.4
+  name: fmd
+  pid: '2274'
+  port: 24
+  protocol: tcp
+  stime: Thu Nov 15 12:25:15  2018
+  user: root
+- address: '::'
+  name: inetd
+  pid: '2100'
+  port: 21
+  protocol: tcp
+  stime: Thu Nov 15 12:25:10  2018
+  user: root
+- address: 127.0.0.1
+  name: sendmail
+  pid: '2252'
+  port: 25
+  protocol: tcp
+  stime: Thu Nov 15 12:25:11  2018
+  user: root
+- address: 192.168.224.4
+  name: dcs
+  pid: '2271'
+  port: 665
+  protocol: tcp
+  stime: Thu Nov 15 12:25:15  2018
+  user: root
+- address: 127.0.0.1
+  name: ovcd
+  pid: '4983'
+  port: 32840
+  protocol: tcp
+  stime: Thu Nov 15 12:25:29  2018
+  user: root
+- address: 127.0.0.1
+  name: ovcd
+  pid: '4983'
+  port: 32848
+  protocol: tcp
+  stime: Thu Nov 15 12:25:29  2018
+  user: root
+- address: 127.0.0.1
+  name: java
+  pid: '2588'
+  port: 6788
+  protocol: tcp
+  stime: Thu Nov 15 12:25:16  2018
+  user: noaccess
+- address: 0.0.0.0
+  name: java
+  pid: '2588'
+  port: 32799
+  protocol: tcp
+  stime: Thu Nov 15 12:25:16  2018
+  user: noaccess
+- address: 127.0.0.1
+  name: java
+  pid: '2588'
+  port: 6789
+  protocol: tcp
+  stime: Thu Nov 15 12:25:16  2018
+  user: noaccess
+- address: 127.0.0.1
+  name: java
+  pid: '2588'
+  port: 32787
+  protocol: tcp
+  stime: Thu Nov 15 12:25:16  2018
+  user: noaccess
+- address: 0.0.0.0
+  name: java
+  pid: '22465'
+  port: 7005
+  protocol: tcp
+  stime: Mon Sep 26 06:10:05  2022
+  user: telecable
+- address: 0.0.0.0
+  name: java
+  pid: '22465'
+  port: 61300
+  protocol: tcp
+  stime: Mon Sep 26 06:10:05  2022
+  user: telecable
+- address: 192.168.3.26
+  name: java
+  pid: '22465'
+  port: 38070
+  protocol: tcp
+  stime: Mon Sep 26 06:10:05  2022
+  user: telecable
+- address: 192.168.3.26
+  name: java
+  pid: '22465'
+  port: 7005
+  protocol: tcp
+  stime: Mon Sep 26 06:10:05  2022
+  user: telecable
+- address: 192.168.3.26
+  name: java
+  pid: '22465'
+  port: 38260
+  protocol: tcp
+  stime: Mon Sep 26 06:10:05  2022
+  user: telecable
+- address: 192.168.3.26
+  name: java
+  pid: '22465'
+  port: 38276
+  protocol: tcp
+  stime: Mon Sep 26 06:10:05  2022
+  user: telecable
+- address: 192.168.3.26
+  name: java
+  pid: '22465'
+  port: 61463
+  protocol: tcp
+  stime: Mon Sep 26 06:10:05  2022
+  user: telecable
+- address: 127.0.0.1
+  name: java
+  pid: '22465'
+  port: 7007
+  protocol: tcp
+  stime: Mon Sep 26 06:10:05  2022
+  user: telecable
+- address: 192.168.3.26
+  name: java
+  pid: '22465'
+  port: 61526
+  protocol: tcp
+  stime: Mon Sep 26 06:10:05  2022
+  user: telecable
+- address: 192.168.3.26
+  name: java
+  pid: '22465'
+  port: 61530
+  protocol: tcp
+  stime: Mon Sep 26 06:10:05  2022
+  user: telecable
+- address: 192.168.3.26
+  name: java
+  pid: '22465'
+  port: 61529
+  protocol: tcp
+  stime: Mon Sep 26 06:10:05  2022
+  user: telecable
+- address: 192.168.3.26
+  name: java
+  pid: '22465'
+  port: 61532
+  protocol: tcp
+  stime: Mon Sep 26 06:10:05  2022
+  user: telecable
+- address: 0.0.0.0
+  name: java
+  pid: '22465'
+  port: 7006
+  protocol: tcp
+  stime: Mon Sep 26 06:10:05  2022
+  user: telecable
+- address: '::'
+  name: vxsvc
+  pid: '4190'
+  port: 2148
+  protocol: tcp
+  stime: Thu Nov 15 12:25:23  2018
+  user: root
+- address: ::ffff:127.0.0.1
+  name: vxsvc
+  pid: '4190'
+  port: 2148
+  protocol: tcp
+  stime: Thu Nov 15 12:25:23  2018
+  user: root
+- address: 192.168.3.26
+  name: iqsrv15
+  pid: '319'
+  port: 2639
+  protocol: tcp
+  stime: Wed Mar 16 11:11:02  2022
+  user: iq
+- address: 0.0.0.0
+  name: iqsrv15
+  pid: '319'
+  port: 2639
+  protocol: tcp
+  stime: Wed Mar 16 11:11:02  2022
+  user: iq
+- address: '::'
+  name: iqsrv15
+  pid: '319'
+  port: 2639
+  protocol: tcp
+  stime: Wed Mar 16 11:11:02  2022
+  user: iq
+- address: '::'
+  name: sshd
+  pid: '3028'
+  port: 22
+  protocol: tcp
+  stime: Thu Nov 15 12:25:22  2018
+  user: root
+- address: 0.0.0.0
+  name: sshd
+  pid: '3028'
+  port: 22
+  protocol: tcp
+  stime: Thu Nov 15 12:25:22  2018
+  user: root
+- address: 0.0.0.0
+  name: dtlogin
+  pid: '3273'
+  port: 32804
+  protocol: tcp
+  stime: Thu Nov 15 12:25:23  2018
+  user: root
+- address: 0.0.0.0
+  name: java
+  pid: '17162'
+  port: 3872
+  protocol: tcp
+  stime: Fri Jul 15 01:31:24  2022
+  user: em13c
+- address: 0.0.0.0
+  name: xprtld
+  pid: '4257'
+  port: 5634
+  protocol: tcp
+  stime: Thu Nov 15 12:25:24  2018
+  user: root
+- address: 127.0.0.1
+  name: xprtld
+  pid: '4257'
+  port: 32813
+  protocol: tcp
+  stime: Thu Nov 15 12:25:24  2018
+  user: root
+- address: 127.0.0.1
+  name: veaintf
+  pid: '4470'
+  port: 32812
+  protocol: tcp
+  stime: Thu Nov 15 12:25:24  2018
+  user: root
+- address: 127.0.0.1
+  name: veaintf
+  pid: '4470'
+  port: 32000
+  protocol: tcp
+  stime: Thu Nov 15 12:25:24  2018
+  user: root
+- address: 127.0.0.1
+  name: veaintf
+  pid: '4470'
+  port: 32929
+  protocol: tcp
+  stime: Thu Nov 15 12:25:24  2018
+  user: root
+- address: 127.0.0.1
+  name: ovconfd
+  pid: '4985'
+  port: 32856
+  protocol: tcp
+  stime: Thu Nov 15 12:25:31  2018
+  user: root
+- address: 127.0.0.1
+  name: ovconfd
+  pid: '4985'
+  port: 46812
+  protocol: tcp
+  stime: Thu Nov 15 12:25:31  2018
+  user: root
+- address: 127.0.0.1
+  name: opcmsga
+  pid: '5527'
+  port: 32879
+  protocol: tcp
+  stime: Thu Nov 15 12:25:37  2018
+  user: root
+- address: 0.0.0.0
+  name: ovtrcd
+  pid: '4840'
+  port: 5053
+  protocol: tcp
+  stime: Thu Nov 15 12:25:25  2018
+  user: root
+- address: 0.0.0.0
+  name: java
+  pid: '21514'
+  port: 6005
+  protocol: tcp
+  stime: Mon Sep 26 06:00:05  2022
+  user: cdi
+- address: 0.0.0.0
+  name: java
+  pid: '21514'
+  port: 59995
+  protocol: tcp
+  stime: Mon Sep 26 06:00:05  2022
+  user: cdi
+- address: 192.168.3.26
+  name: java
+  pid: '21514'
+  port: 60210
+  protocol: tcp
+  stime: Mon Sep 26 06:00:05  2022
+  user: cdi
+- address: 192.168.3.26
+  name: java
+  pid: '21514'
+  port: 6006
+  protocol: tcp
+  stime: Mon Sep 26 06:00:05  2022
+  user: cdi
+- address: 192.168.3.26
+  name: java
+  pid: '21514'
+  port: 37100
+  protocol: tcp
+  stime: Mon Sep 26 06:00:05  2022
+  user: cdi
+- address: 192.168.3.26
+  name: java
+  pid: '21514'
+  port: 60159
+  protocol: tcp
+  stime: Mon Sep 26 06:00:05  2022
+  user: cdi
+- address: 192.168.3.26
+  name: java
+  pid: '21514'
+  port: 35363
+  protocol: tcp
+  stime: Mon Sep 26 06:00:05  2022
+  user: cdi
+- address: 192.168.3.26
+  name: java
+  pid: '21514'
+  port: 6005
+  protocol: tcp
+  stime: Mon Sep 26 06:00:05  2022
+  user: cdi
+- address: 127.0.0.1
+  name: java
+  pid: '21514'
+  port: 6007
+  protocol: tcp
+  stime: Mon Sep 26 06:00:05  2022
+  user: cdi
+- address: 192.168.3.26
+  name: java
+  pid: '21514'
+  port: 60287
+  protocol: tcp
+  stime: Mon Sep 26 06:00:05  2022
+  user: cdi
+- address: 0.0.0.0
+  name: java
+  pid: '21514'
+  port: 60291
+  protocol: tcp
+  stime: Mon Sep 26 06:00:05  2022
+  user: cdi
+- address: 192.168.3.26
+  name: java
+  pid: '21514'
+  port: 60305
+  protocol: tcp
+  stime: Mon Sep 26 06:00:05  2022
+  user: cdi
+- address: 192.168.3.26
+  name: java
+  pid: '21514'
+  port: 60372
+  protocol: tcp
+  stime: Mon Sep 26 06:00:05  2022
+  user: cdi
+- address: 0.0.0.0
+  name: java
+  pid: '21514'
+  port: 6006
+  protocol: tcp
+  stime: Mon Sep 26 06:00:05  2022
+  user: cdi
+- address: 192.168.3.26
+  name: backupse
+  pid: '14300'
+  port: 10001
+  protocol: tcp
+  stime: Fri Jun 28 13:55:35  2019
+  user: sybase
+- address: '::'
+  name: ovbbccb
+  pid: '4984'
+  port: 383
+  protocol: tcp
+  stime: Thu Nov 15 12:25:30  2018
+  user: root
+- address: 127.0.0.1
+  name: ovbbccb
+  pid: '4984'
+  port: 53114
+  protocol: tcp
+  stime: Thu Nov 15 12:25:30  2018
+  user: root
+- address: 127.0.0.1
+  name: ovbbccb
+  pid: '4984'
+  port: 53116
+  protocol: tcp
+  stime: Thu Nov 15 12:25:30  2018
+  user: root
+- address: 127.0.0.1
+  name: ovbbccb
+  pid: '4984'
+  port: 53118
+  protocol: tcp
+  stime: Thu Nov 15 12:25:30  2018
+  user: root
+- address: ::ffff:127.0.0.1
+  name: ovbbccb
+  pid: '4984'
+  port: 383
+  protocol: tcp
+  stime: Thu Nov 15 12:25:30  2018
+  user: root
+- address: 192.168.3.26
+  name: dataserv
+  pid: '12612'
+  port: 10000
+  protocol: tcp
+  stime: Tue Jun 25 11:02:18  2019
+  user: sybase
+- address: 0.0.0.0
+  name: java
+  pid: '21889'
+  port: 6008
+  protocol: tcp
+  stime: Mon Sep 26 06:02:38  2022
+  user: cdi
+- address: 0.0.0.0
+  name: java
+  pid: '21889'
+  port: 60316
+  protocol: tcp
+  stime: Mon Sep 26 06:02:38  2022
+  user: cdi
+- address: 192.168.3.26
+  name: java
+  pid: '21889'
+  port: 60339
+  protocol: tcp
+  stime: Mon Sep 26 06:02:38  2022
+  user: cdi
+- address: 192.168.3.26
+  name: java
+  pid: '21889'
+  port: 60340
+  protocol: tcp
+  stime: Mon Sep 26 06:02:38  2022
+  user: cdi
+- address: 192.168.3.26
+  name: java
+  pid: '21889'
+  port: 60345
+  protocol: tcp
+  stime: Mon Sep 26 06:02:38  2022
+  user: cdi
+- address: 127.0.0.1
+  name: java
+  pid: '21889'
+  port: 6009
+  protocol: tcp
+  stime: Mon Sep 26 06:02:38  2022
+  user: cdi
+- address: 192.168.3.26
+  name: java
+  pid: '21889'
+  port: 60402
+  protocol: tcp
+  stime: Mon Sep 26 06:02:38  2022
+  user: cdi
+- address: 192.168.3.26
+  name: java
+  pid: '21889'
+  port: 60403
+  protocol: tcp
+  stime: Mon Sep 26 06:02:38  2022
+  user: cdi
+- address: 192.168.3.26
+  name: java
+  pid: '21889'
+  port: 60404
+  protocol: tcp
+  stime: Mon Sep 26 06:02:38  2022
+  user: cdi
+- address: 192.168.3.26
+  name: java
+  pid: '21889'
+  port: 60437
+  protocol: tcp
+  stime: Mon Sep 26 06:02:38  2022
+  user: cdi
+- address: 192.168.3.26
+  name: java
+  pid: '21889'
+  port: 60438
+  protocol: tcp
+  stime: Mon Sep 26 06:02:38  2022
+  user: cdi
+- address: 192.168.3.26
+  name: java
+  pid: '21889'
+  port: 60439
+  protocol: tcp
+  stime: Mon Sep 26 06:02:38  2022
+  user: cdi
+- address: 127.0.0.1
+  name: dataserv
+  pid: '12288'
+  port: 10006
+  protocol: tcp
+  stime: Tue Jun 25 11:01:07  2019
+  user: sybase
+- address: 192.168.3.26
+  name: dataserv
+  pid: '12288'
+  port: 10006
+  protocol: tcp
+  stime: Tue Jun 25 11:01:07  2019
+  user: sybase
+- address: 0.0.0.0
+  name: bpcd
+  pid: '7257'
+  port: 13782
+  protocol: tcp
+  stime: Mon Feb 14 12:54:52  2022
+  user: root
+- address: 127.0.0.1
+  name: bpcd
+  pid: '7257'
+  port: 54011
+  protocol: tcp
+  stime: Mon Feb 14 12:54:52  2022
+  user: root
+- address: 0.0.0.0
+  name: iqsrv15
+  pid: '18022'
+  port: 2641
+  protocol: tcp
+  stime: Thu Mar 10 15:10:27  2022
+  user: iq
+- address: '::'
+  name: iqsrv15
+  pid: '18022'
+  port: 2641
+  protocol: tcp
+  stime: Thu Mar 10 15:10:27  2022
+  user: iq
+- address: 192.168.3.26
+  name: pmserver
+  pid: '21899'
+  port: 60419
+  protocol: tcp
+  stime: Mon Sep 26 06:02:57  2022
+  user: cdi
+- address: 192.168.3.26
+  name: pmserver
+  pid: '21899'
+  port: 36935
+  protocol: tcp
+  stime: Mon Sep 26 06:02:57  2022
+  user: cdi
+- address: 0.0.0.0
+  name: pmserver
+  pid: '21899'
+  port: 6014
+  protocol: tcp
+  stime: Mon Sep 26 06:02:57  2022
+  user: cdi
+- address: 192.168.3.26
+  name: pmserver
+  pid: '21899'
+  port: 60412
+  protocol: tcp
+  stime: Mon Sep 26 06:02:57  2022
+  user: cdi
+- address: 192.168.3.26
+  name: pmserver
+  pid: '21899'
+  port: 60417
+  protocol: tcp
+  stime: Mon Sep 26 06:02:57  2022
+  user: cdi
+- address: 192.168.3.26
+  name: pmserver
+  pid: '22527'
+  port: 61633
+  protocol: tcp
+  stime: Mon Sep 26 06:12:03  2022
+  user: telecable
+- address: 192.168.3.26
+  name: pmserver
+  pid: '22527'
+  port: 37992
+  protocol: tcp
+  stime: Mon Sep 26 06:12:03  2022
+  user: telecable
+- address: 0.0.0.0
+  name: pmserver
+  pid: '22527'
+  port: 7013
+  protocol: tcp
+  stime: Mon Sep 26 06:12:03  2022
+  user: telecable
+- address: 192.168.3.26
+  name: pmserver
+  pid: '22527'
+  port: 61624
+  protocol: tcp
+  stime: Mon Sep 26 06:12:03  2022
+  user: telecable
+- address: 192.168.3.26
+  name: pmserver
+  pid: '22527'
+  port: 61631
+  protocol: tcp
+  stime: Mon Sep 26 06:12:03  2022
+  user: telecable
+- address: 192.168.3.26
+  name: pmserver
+  pid: '22527'
+  port: 61635
+  protocol: tcp
+  stime: Mon Sep 26 06:12:03  2022
+  user: telecable
+- address: '::'
+  name: pbx_exch
+  pid: '27629'
+  port: 1556
+  protocol: tcp
+  stime: Tue Feb  8 13:35:58  2022
+  user: root
+- address: 0.0.0.0
+  name: pbx_exch
+  pid: '27629'
+  port: 1556
+  protocol: tcp
+  stime: Tue Feb  8 13:35:58  2022
+  user: root
+- address: 127.0.0.1
+  name: pbx_exch
+  pid: '27629'
+  port: 1557
+  protocol: tcp
+  stime: Tue Feb  8 13:35:58  2022
+  user: root
+- address: 127.0.0.1
+  name: pbx_exch
+  pid: '27629'
+  port: 65036
+  protocol: tcp
+  stime: Tue Feb  8 13:35:58  2022
+  user: root
+- address: 192.168.3.26
+  name: pmserver
+  pid: '21969'
+  port: 60507
+  protocol: tcp
+  stime: Mon Sep 26 06:03:09  2022
+  user: cdi
+- address: 192.168.3.26
+  name: pmserver
+  pid: '21969'
+  port: 36955
+  protocol: tcp
+  stime: Mon Sep 26 06:03:09  2022
+  user: cdi
+- address: 0.0.0.0
+  name: pmserver
+  pid: '21969'
+  port: 6015
+  protocol: tcp
+  stime: Mon Sep 26 06:03:09  2022
+  user: cdi
+- address: 192.168.3.26
+  name: pmserver
+  pid: '21969'
+  port: 60493
+  protocol: tcp
+  stime: Mon Sep 26 06:03:09  2022
+  user: cdi
+- address: 192.168.3.26
+  name: pmserver
+  pid: '21969'
+  port: 60497
+  protocol: tcp
+  stime: Mon Sep 26 06:03:09  2022
+  user: cdi
+- address: 192.168.3.26
+  name: pmrepage
+  pid: '21898'
+  port: 36916
+  protocol: tcp
+  stime: Mon Sep 26 06:02:53  2022
+  user: cdi
+- address: 192.168.3.26
+  name: pmrepage
+  pid: '21898'
+  port: 44075
+  protocol: tcp
+  stime: Mon Sep 26 06:02:53  2022
+  user: cdi
+- address: 0.0.0.0
+  name: pmrepage
+  pid: '21898'
+  port: 6013
+  protocol: tcp
+  stime: Mon Sep 26 06:02:53  2022
+  user: cdi
+- address: 192.168.3.26
+  name: pmrepage
+  pid: '21898'
+  port: 60363
+  protocol: tcp
+  stime: Mon Sep 26 06:02:53  2022
+  user: cdi
+- address: 0.0.0.0
+  name: pmrepage
+  pid: '21898'
+  port: 0
+  protocol: tcp
+  stime: Mon Sep 26 06:02:53  2022
+  user: cdi
+- address: 192.168.3.26
+  name: pmrepage
+  pid: '21898'
+  port: 6013
+  protocol: tcp
+  stime: Mon Sep 26 06:02:53  2022
+  user: cdi
+- address: 192.168.3.26
+  name: pmrepage
+  pid: '21898'
+  port: 60379
+  protocol: tcp
+  stime: Mon Sep 26 06:02:53  2022
+  user: cdi
+- address: 127.0.0.1
+  name: backupse
+  pid: '21530'
+  port: 10007
+  protocol: tcp
+  stime: Thu Jun 27 13:57:15  2019
+  user: sybase
+- address: 192.168.3.26
+  name: backupse
+  pid: '21530'
+  port: 10007
+  protocol: tcp
+  stime: Thu Jun 27 13:57:15  2019
+  user: sybase
+- address: 0.0.0.0
+  name: iqsrv15
+  pid: '17806'
+  port: 2637
+  protocol: tcp
+  stime: Thu Mar 10 15:10:02  2022
+  user: iq
+- address: '::'
+  name: iqsrv15
+  pid: '17806'
+  port: 2637
+  protocol: tcp
+  stime: Thu Mar 10 15:10:02  2022
+  user: iq
+- address: 0.0.0.0
+  name: vnetd
+  pid: '7254'
+  port: 13724
+  protocol: tcp
+  stime: Mon Feb 14 12:54:52  2022
+  user: root
+- address: 127.0.0.1
+  name: vnetd
+  pid: '7254'
+  port: 54008
+  protocol: tcp
+  stime: Mon Feb 14 12:54:52  2022
+  user: root
 udp_listen:
-  - protocol: udp
-    name: snmpXdmi
-    pid: '2236'
-    user: root
-    address: 0.0.0.0
-    port: 32831
-    stime: Thu Nov 15 12:25:10  2018
-  - protocol: udp
-    name: statd
-    pid: '2057'
-    user: daemon
-    address: 0.0.0.0
-    port: 0
-    stime: Thu Nov 15 12:25:10  2018
-  - protocol: udp
-    name: in.mpath
-    pid: '493'
-    user: root
-    address: "::"
-    port: 0
-    stime: Thu Nov 15 12:24:59  2018
-  - protocol: udp
-    name: snmpd
-    pid: '2234'
-    user: root
-    address: 0.0.0.0
-    port: 161
-    stime: Thu Nov 15 12:25:10  2018
-  - protocol: udp
-    name: snmpd
-    pid: '2234'
-    user: root
-    address: 0.0.0.0
-    port: 32782
-    stime: Thu Nov 15 12:25:10  2018
-  - protocol: udp
-    name: snmpd
-    pid: '2234'
-    user: root
-    address: 0.0.0.0
-    port: 32827
-    stime: Thu Nov 15 12:25:10  2018
-  - protocol: udp
-    name: snmpdx
-    pid: '2226'
-    user: root
-    address: 0.0.0.0
-    port: 16161
-    stime: Thu Nov 15 12:25:10  2018
-  - protocol: udp
-    name: snmpdx
-    pid: '2226'
-    user: root
-    address: 0.0.0.0
-    port: 32774
-    stime: Thu Nov 15 12:25:10  2018
-  - protocol: udp
-    name: snmpdx
-    pid: '2226'
-    user: root
-    address: 0.0.0.0
-    port: 32775
-    stime: Thu Nov 15 12:25:10  2018
-  - protocol: udp
-    name: xntpd
-    pid: '2276'
-    user: root
-    address: 0.0.0.0
-    port: 123
-    stime: Thu Nov 15 12:25:15  2018
-  - protocol: udp
-    name: xntpd
-    pid: '2276'
-    user: root
-    address: 127.0.0.1
-    port: 123
-    stime: Thu Nov 15 12:25:15  2018
-  - protocol: udp
-    name: xntpd
-    pid: '2276'
-    user: root
-    address: 192.168.3.119
-    port: 123
-    stime: Thu Nov 15 12:25:15  2018
-  - protocol: udp
-    name: xntpd
-    pid: '2276'
-    user: root
-    address: 192.168.3.26
-    port: 123
-    stime: Thu Nov 15 12:25:15  2018
-  - protocol: udp
-    name: xntpd
-    pid: '2276'
-    user: root
-    address: 192.168.3.120
-    port: 123
-    stime: Thu Nov 15 12:25:15  2018
-  - protocol: udp
-    name: xntpd
-    pid: '2276'
-    user: root
-    address: 192.168.7.123
-    port: 123
-    stime: Thu Nov 15 12:25:15  2018
-  - protocol: udp
-    name: xntpd
-    pid: '2276'
-    user: root
-    address: 192.168.224.4
-    port: 123
-    stime: Thu Nov 15 12:25:15  2018
-  - protocol: udp
-    name: vxsvc
-    pid: '4190'
-    user: root
-    address: "::"
-    port: 2148
-    stime: Thu Nov 15 12:25:23  2018
-  - protocol: udp
-    name: vxsvc
-    pid: '4190'
-    user: root
-    address: 127.0.0.1
-    port: 32806
-    stime: Thu Nov 15 12:25:23  2018
-  - protocol: udp
-    name: vxsvc
-    pid: '4190'
-    user: root
-    address: 127.0.0.1
-    port: 32808
-    stime: Thu Nov 15 12:25:23  2018
-  - protocol: udp
-    name: iqsrv15
-    pid: '319'
-    user: iq
-    address: 0.0.0.0
-    port: 2639
-    stime: Wed Mar 16 11:11:02  2022
-  - protocol: udp
-    name: iqsrv15
-    pid: '319'
-    user: iq
-    address: "::"
-    port: 2639
-    stime: Wed Mar 16 11:11:02  2022
-  - protocol: udp
-    name: iqsrv15
-    pid: '319'
-    user: iq
-    address: 0.0.0.0
-    port: 2638
-    stime: Wed Mar 16 11:11:02  2022
-  - protocol: udp
-    name: iqsrv15
-    pid: '319'
-    user: iq
-    address: "::"
-    port: 2638
-    stime: Wed Mar 16 11:11:02  2022
-  - protocol: udp
-    name: dtlogin
-    pid: '3273'
-    user: root
-    address: "::"
-    port: 177
-    stime: Thu Nov 15 12:25:23  2018
-  - protocol: udp
-    name: java
-    pid: '17162'
-    user: em13c
-    address: 0.0.0.0
-    port: 3872
-    stime: Fri Jul 15 01:31:24  2022
-  - protocol: udp
-    name: opcmsga
-    pid: '5527'
-    user: root
-    address: 0.0.0.0
-    port: 32784
-    stime: Thu Nov 15 12:25:37  2018
-  - protocol: udp
-    name: iqsrv15
-    pid: '18022'
-    user: iq
-    address: 0.0.0.0
-    port: 2641
-    stime: Thu Mar 10 15:10:27  2022
-  - protocol: udp
-    name: iqsrv15
-    pid: '18022'
-    user: iq
-    address: "::"
-    port: 2641
-    stime: Thu Mar 10 15:10:27  2022
-  - protocol: udp
-    name: pmrepage
-    pid: '21898'
-    user: cdi
-    address: 127.0.0.1
-    port: 41841
-    stime: Mon Sep 26 06:02:53  2022
-  - protocol: udp
-    name: pmrepage
-    pid: '21898'
-    user: cdi
-    address: 127.0.0.1
-    port: 41842
-    stime: Mon Sep 26 06:02:53  2022
-  - protocol: udp
-    name: iqsrv15
-    pid: '17806'
-    user: iq
-    address: 0.0.0.0
-    port: 2637
-    stime: Thu Mar 10 15:10:02  2022
-  - protocol: udp
-    name: iqsrv15
-    pid: '17806'
-    user: iq
-    address: "::"
-    port: 2637
-    stime: Thu Mar 10 15:10:02  2022
-dockers: { }
+- address: 0.0.0.0
+  name: snmpXdmi
+  pid: '2236'
+  port: 32831
+  protocol: udp
+  stime: Thu Nov 15 12:25:10  2018
+  user: root
+- address: 0.0.0.0
+  name: statd
+  pid: '2057'
+  port: 0
+  protocol: udp
+  stime: Thu Nov 15 12:25:10  2018
+  user: daemon
+- address: '::'
+  name: in.mpath
+  pid: '493'
+  port: 0
+  protocol: udp
+  stime: Thu Nov 15 12:24:59  2018
+  user: root
+- address: 0.0.0.0
+  name: snmpd
+  pid: '2234'
+  port: 161
+  protocol: udp
+  stime: Thu Nov 15 12:25:10  2018
+  user: root
+- address: 0.0.0.0
+  name: snmpd
+  pid: '2234'
+  port: 32782
+  protocol: udp
+  stime: Thu Nov 15 12:25:10  2018
+  user: root
+- address: 0.0.0.0
+  name: snmpd
+  pid: '2234'
+  port: 32827
+  protocol: udp
+  stime: Thu Nov 15 12:25:10  2018
+  user: root
+- address: 0.0.0.0
+  name: snmpdx
+  pid: '2226'
+  port: 16161
+  protocol: udp
+  stime: Thu Nov 15 12:25:10  2018
+  user: root
+- address: 0.0.0.0
+  name: snmpdx
+  pid: '2226'
+  port: 32774
+  protocol: udp
+  stime: Thu Nov 15 12:25:10  2018
+  user: root
+- address: 0.0.0.0
+  name: snmpdx
+  pid: '2226'
+  port: 32775
+  protocol: udp
+  stime: Thu Nov 15 12:25:10  2018
+  user: root
+- address: 0.0.0.0
+  name: xntpd
+  pid: '2276'
+  port: 123
+  protocol: udp
+  stime: Thu Nov 15 12:25:15  2018
+  user: root
+- address: 127.0.0.1
+  name: xntpd
+  pid: '2276'
+  port: 123
+  protocol: udp
+  stime: Thu Nov 15 12:25:15  2018
+  user: root
+- address: 192.168.3.119
+  name: xntpd
+  pid: '2276'
+  port: 123
+  protocol: udp
+  stime: Thu Nov 15 12:25:15  2018
+  user: root
+- address: 192.168.3.26
+  name: xntpd
+  pid: '2276'
+  port: 123
+  protocol: udp
+  stime: Thu Nov 15 12:25:15  2018
+  user: root
+- address: 192.168.3.120
+  name: xntpd
+  pid: '2276'
+  port: 123
+  protocol: udp
+  stime: Thu Nov 15 12:25:15  2018
+  user: root
+- address: 192.168.7.123
+  name: xntpd
+  pid: '2276'
+  port: 123
+  protocol: udp
+  stime: Thu Nov 15 12:25:15  2018
+  user: root
+- address: 192.168.224.4
+  name: xntpd
+  pid: '2276'
+  port: 123
+  protocol: udp
+  stime: Thu Nov 15 12:25:15  2018
+  user: root
+- address: '::'
+  name: vxsvc
+  pid: '4190'
+  port: 2148
+  protocol: udp
+  stime: Thu Nov 15 12:25:23  2018
+  user: root
+- address: 127.0.0.1
+  name: vxsvc
+  pid: '4190'
+  port: 32806
+  protocol: udp
+  stime: Thu Nov 15 12:25:23  2018
+  user: root
+- address: 127.0.0.1
+  name: vxsvc
+  pid: '4190'
+  port: 32808
+  protocol: udp
+  stime: Thu Nov 15 12:25:23  2018
+  user: root
+- address: 0.0.0.0
+  name: iqsrv15
+  pid: '319'
+  port: 2639
+  protocol: udp
+  stime: Wed Mar 16 11:11:02  2022
+  user: iq
+- address: '::'
+  name: iqsrv15
+  pid: '319'
+  port: 2639
+  protocol: udp
+  stime: Wed Mar 16 11:11:02  2022
+  user: iq
+- address: 0.0.0.0
+  name: iqsrv15
+  pid: '319'
+  port: 2638
+  protocol: udp
+  stime: Wed Mar 16 11:11:02  2022
+  user: iq
+- address: '::'
+  name: iqsrv15
+  pid: '319'
+  port: 2638
+  protocol: udp
+  stime: Wed Mar 16 11:11:02  2022
+  user: iq
+- address: '::'
+  name: dtlogin
+  pid: '3273'
+  port: 177
+  protocol: udp
+  stime: Thu Nov 15 12:25:23  2018
+  user: root
+- address: 0.0.0.0
+  name: java
+  pid: '17162'
+  port: 3872
+  protocol: udp
+  stime: Fri Jul 15 01:31:24  2022
+  user: em13c
+- address: 0.0.0.0
+  name: opcmsga
+  pid: '5527'
+  port: 32784
+  protocol: udp
+  stime: Thu Nov 15 12:25:37  2018
+  user: root
+- address: 0.0.0.0
+  name: iqsrv15
+  pid: '18022'
+  port: 2641
+  protocol: udp
+  stime: Thu Mar 10 15:10:27  2022
+  user: iq
+- address: '::'
+  name: iqsrv15
+  pid: '18022'
+  port: 2641
+  protocol: udp
+  stime: Thu Mar 10 15:10:27  2022
+  user: iq
+- address: 127.0.0.1
+  name: pmrepage
+  pid: '21898'
+  port: 41841
+  protocol: udp
+  stime: Mon Sep 26 06:02:53  2022
+  user: cdi
+- address: 127.0.0.1
+  name: pmrepage
+  pid: '21898'
+  port: 41842
+  protocol: udp
+  stime: Mon Sep 26 06:02:53  2022
+  user: cdi
+- address: 0.0.0.0
+  name: iqsrv15
+  pid: '17806'
+  port: 2637
+  protocol: udp
+  stime: Thu Mar 10 15:10:02  2022
+  user: iq
+- address: '::'
+  name: iqsrv15
+  pid: '17806'
+  port: 2637
+  protocol: udp
+  stime: Thu Mar 10 15:10:02  2022
+  user: iq

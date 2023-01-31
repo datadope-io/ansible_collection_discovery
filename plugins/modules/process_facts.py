@@ -5,8 +5,8 @@
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
 from __future__ import (absolute_import, division, print_function)
-__metaclass__ = type
 
+__metaclass__ = type
 
 DOCUMENTATION = r'''
 ---
@@ -58,12 +58,17 @@ ansible_facts:
             description: Command line of the process.
             returned: always
             type: str
+          cwd:
+            description: Working directory of the process.
+            returned: always
+            type: str
         sample: [
           {
             'pid': '10',
             'ppid': '1',
             'user': 'root',
-            'cmdline': 'the process command line'
+            'cmdline': 'the process command line',
+            'cwd': '/'
           }
         ]
 '''
@@ -110,14 +115,25 @@ def get_os_processes_default(module):  # noqa
                 status = f.read()
                 ppid = re.findall(r"Ppid:\s+(\d+)", status, re.MULTILINE | re.I | re.DOTALL)[0]
                 uid = re.findall(r"Uid:\s+(\d+)", status, re.MULTILINE | re.I | re.DOTALL)[0]
+            cwd = os.readlink("/proc/%s/cwd" % pid)
             try:
                 user = pwd.getpwuid(int(uid)).pw_name
             except KeyError:
                 user = str(uid)
-            processes.append({"pid": pid, "ppid": ppid, "user": user, "cmdline": cmdline})
+            processes.append({"pid": pid, "ppid": ppid, "user": user, "cmdline": cmdline, "cwd": cwd})
         except (IOError, OSError):  # proc has already terminated
             continue
     return processes
+
+
+def _get_pid_cwd(module, pid):
+    command = "pwdx %s" % pid
+    rc, stdout, stderr = module.run_command(args=command,
+                                            use_unsafe_shell=True)
+    cwd = None
+    if rc == 0:
+        cwd = re.findall(r"%s:(.*?)$" % pid, stdout, re.MULTILINE | re.I | re.DOTALL)[0].strip()
+    return cwd
 
 
 def _process_ps_command_stdout(module, command):
@@ -129,7 +145,8 @@ def _process_ps_command_stdout(module, command):
             process = re.findall(r"([\d-]+)\s+([\d-]+)\s+(.*?)\s+(.*)", line.strip(), re.DOTALL)
             if process:
                 pid, ppid, user, cmdline = process[0]
-                processes.append({"pid": pid, "ppid": ppid, "user": user, "cmdline": cmdline})
+                cwd = _get_pid_cwd(module, pid)
+                processes.append({"pid": pid, "ppid": ppid, "user": user, "cmdline": cmdline, "cwd": cwd})
     return processes
 
 

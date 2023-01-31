@@ -32,5 +32,6 @@
           - item.pid is defined
           - item.ppid is defined
           - item.cmdline is defined
+          - item.cwd is defined
         fail_msg: Wrong process info
       loop: "{{ processes }}"

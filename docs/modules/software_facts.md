@@ -59,6 +59,8 @@ List of processes running in the host. Each element of the list has to have the 
 * cmdline (True, str, None):
       Command line of the process.
 
+* cwd (True, str, None):
+      Working directory of the process.
 
 ### tcp_listen (True, list, None)
 List of tcp ports listening in the host.

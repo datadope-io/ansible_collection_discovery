@@ -1,7 +1,15 @@
+# 1.4.0
+
+## Features
+- Include field `cwd` for modules `process_facts` and `win_process_facts`.
+- When a relative path is given to plugins `read_remote_file` or `add_file_info`, the process `cwd` will be
+  appended to the path to convert it from a relative path to an absolute path, avoiding potential errors.
+- Increase `postgres` commands timeout from `5` seconds to `10` seconds.
+
 # 1.3.1
 
 ## Fixes
-- Unexpected errors handling for SQL Server and IIS
+- Unexpected errors handling for SQL Server and IIS.
 
 # 1.3.0
 
@@ -12,21 +20,21 @@
 # 1.2.0
 
 ## Features
-- win_hyperv_facts module now shows hard_drives by default
+- win_hyperv_facts module now shows hard_drives by default.
 
 ## Fixes
-- win_process_facts module now uses same field types as process_facts
+- win_process_facts module now uses same field types as process_facts.
 
 # 1.1.1
 
 ## Fixes
-- Fixed a problem with the system identification when running tasks
+- Fixed a problem with the system identification when running tasks.
 
 # 1.1.0
 
 ## Features
-- New win_hyperv_facts module
-- New hyperv_vms role
+- New win_hyperv_facts module.
+- New hyperv_vms role.
 
 # 1.0.2
 

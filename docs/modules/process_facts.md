@@ -32,6 +32,9 @@ Facts to add to ansible_facts:
   * cmdline (always, str):
         Command line of the process.
 
+  * cwd (always, str):
+        Working directory of the process.
+
 # License
 
 GNU General Public License v3.0 or later

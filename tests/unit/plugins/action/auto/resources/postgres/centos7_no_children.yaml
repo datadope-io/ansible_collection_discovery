@@ -1,92 +1,100 @@
-task_vars:
-  inventory_hostname: the_host
+expected_result:
+- bindings:
+  - address: 127.0.0.1
+    class: service
+    port: 5432
+    protocol: tcp
+  discovery_time: '2022-05-26T18:00:00+02:00'
+  listening_ports:
+  - 5432
+  process:
+    cmdline: /usr/pgsql-11/bin/postmaster -D /var/lib/pgsql/11/data/
+    cwd: /usr/pgsql-11/bin/
+    listening_ports:
+    - 5432
+    pid: '24895'
+    ppid: '1'
+    user: root
+  the_fact: '5432'
+  type: PostgreSQL Database
 mocked_plugin_tasks:
-  "Task to mock 1":
+  Task to mock 1:
     plugin_result:
       key1: val1
       key2: val2
-
-expected_result:
-  - bindings:
-      - address: '127.0.0.1'
-        class: 'service'
-        port: 5432
-        protocol: 'tcp'
-    type: PostgreSQL Database
-    discovery_time: '2022-05-26T18:00:00+02:00'
-    process:
-      cmdline: /usr/pgsql-11/bin/postmaster -D /var/lib/pgsql/11/data/
-      listening_ports:
-        - 5432
-      pid: '24895'
-      ppid: '1'
-      user: 'root'
-    listening_ports:
-      - 5432
-    the_fact: '5432'
-
-software_list:
-  - name: PostgreSQL Database
-    cmd_regexp: 'postgres:'
-    pkg_regexp: postgresql.*-server|postgresql-\d
-    process_type: child
-    return_children: false
-    custom_tasks:
-      - name: Task to execute 1
-        testing_plugin:
-          host: "{{ inventory_hostname }}"
-        register: testing_plugin_result
-      - name: Task to execute 2
-        set_instance_fact:
-          the_fact: << __instance__.listening_ports  | last  >>
-        register: the_plugin_value
-      - name: Task to mock 1
-        read_remote_file:
-          file_path: "path_to_file"
-        register: the_plugin_value
 processes:
-  - cmdline: /usr/lib/systemd/systemd --switched-root --system --deserialize 21
-    pid: '1'
-    ppid: '0'
-    user: 'root'
-  - cmdline: /usr/pgsql-11/bin/postmaster -D /var/lib/pgsql/11/data/
-    pid: '24895'
-    ppid: '1'
-    user: 'root'
-  - cmdline: 'postgres: logger'
-    pid: '24898'
-    ppid: '24895'
-    user: 'root'
-  - cmdline: 'postgres: checkpointer'
-    pid: '24900'
-    ppid: '24895'
-    user: 'root'
-  - cmdline: 'postgres: background writer'
-    pid: '24901'
-    ppid: '24895'
-    user: 'root'
-  - cmdline: 'postgres: walwriter'
-    pid: '24902'
-    ppid: '24895'
-    user: 'root'
-  - cmdline: 'postgres: autovacuum launcher'
-    pid: '24903'
-    ppid: '24895'
-    user: 'root'
-  - cmdline: 'postgres: stats collector'
-    pid: '24904'
-    ppid: '24895'
-    user: 'root'
-  - cmdline: 'postgres: logical replication launcher'
-    pid: '24905'
-    ppid: '24895'
-    user: 'root'
+- cmdline: /usr/lib/systemd/systemd --switched-root --system --deserialize 21
+  cwd: /usr/lib/systemd/
+  pid: '1'
+  ppid: '0'
+  user: root
+- cmdline: /usr/pgsql-11/bin/postmaster -D /var/lib/pgsql/11/data/
+  cwd: /usr/pgsql-11/bin/
+  pid: '24895'
+  ppid: '1'
+  user: root
+- cmdline: 'postgres: logger'
+  cwd: /
+  pid: '24898'
+  ppid: '24895'
+  user: root
+- cmdline: 'postgres: checkpointer'
+  cwd: /
+  pid: '24900'
+  ppid: '24895'
+  user: root
+- cmdline: 'postgres: background writer'
+  cwd: /
+  pid: '24901'
+  ppid: '24895'
+  user: root
+- cmdline: 'postgres: walwriter'
+  cwd: /
+  pid: '24902'
+  ppid: '24895'
+  user: root
+- cmdline: 'postgres: autovacuum launcher'
+  cwd: /
+  pid: '24903'
+  ppid: '24895'
+  user: root
+- cmdline: 'postgres: stats collector'
+  cwd: /
+  pid: '24904'
+  ppid: '24895'
+  user: root
+- cmdline: 'postgres: logical replication launcher'
+  cwd: /
+  pid: '24905'
+  ppid: '24895'
+  user: root
+software_list:
+- cmd_regexp: 'postgres:'
+  custom_tasks:
+  - name: Task to execute 1
+    register: testing_plugin_result
+    testing_plugin:
+      host: '{{ inventory_hostname }}'
+  - name: Task to execute 2
+    register: the_plugin_value
+    set_instance_fact:
+      the_fact: << __instance__.listening_ports  | last  >>
+  - name: Task to mock 1
+    read_remote_file:
+      file_path: path_to_file
+    register: the_plugin_value
+  name: PostgreSQL Database
+  pkg_regexp: postgresql.*-server|postgresql-\d
+  process_type: child
+  return_children: false
+task_vars:
+  inventory_hostname: the_host
 tcp_listen:
-  - address: 127.0.0.1
-    name: postmaster
-    pid: 24895
-    port: 5432
-    protocol: tcp
-    stime: 'Fri Apr  8 01:14:02 2022'
-    user: postgres
+- address: 127.0.0.1
+  name: postmaster
+  pid: 24895
+  port: 5432
+  protocol: tcp
+  stime: Fri Apr  8 01:14:02 2022
+  user: postgres
 udp_listen: []
