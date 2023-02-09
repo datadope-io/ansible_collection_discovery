@@ -54,8 +54,34 @@
           'databases_per_instance': __instance__._databases_per_instance
         }) >>"
       when: __instance__._databases_per_instance is defined
-    - name: Remove temporary variables
-      del_instance_fact:
-        - _hostname
-        - _instances
-        - _databases_per_instance
+
+- name: Gather cluster information
+  block:
+    - name: Get SQL Server cluster entries
+      run_module:
+        ansible.windows.win_shell:
+          _raw_params: 'Import-Module FailoverClusters; Foreach ($entry in (Get-Cluster | Get-ClusterResource | Where-Object {$_.ResourceType -like "SQL Server*"})) {[pscustomobject]@{cluster=$entry.Cluster.Name;name=$entry.Name;resource_type=$entry.ResourceType.Name;owner_group=$entry.OwnerGroup.Name;owner_node=$entry.OwnerNode.Name} | ConvertTo-Json -Compress}'
+      register: result
+      ignore_errors: yes
+    - name: Process cluster entries
+      block:
+        - name: Format data
+          set_instance_fact:
+            _entry: "<< __item__ | from_json >>"
+        - name: Register cluster entry
+          set_instance_fact:
+            _clusters: "<< __instance__._clusters | default([]) + [__instance__._entry] >>"
+      loop: "<< result.stdout_lines | default([]) >>"
+    - name: Add cluster entries to extra data if needed
+      set_instance_fact:
+        extra_data: "<< __instance__.extra_data | default({}) | combine({
+                  'clusters': __instance__._clusters
+                }) >>"
+      when: __instance__._clusters is defined
+- name: Remove temporary variables
+  del_instance_fact:
+    - _hostname
+    - _instances
+    - _databases_per_instance
+    - _clusters
+    - entry

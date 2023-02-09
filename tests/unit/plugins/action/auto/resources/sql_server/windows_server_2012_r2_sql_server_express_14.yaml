@@ -38,6 +38,7 @@ expected_tasks_calls:
   Get databases of instance: 1
   Get hostname: 1
   Get installed instances: 1
+  Get SQL Server cluster entries: 1
 expected_tasks_calls_mode_strict: false
 mocked_plugin_tasks:
   Add databases if needed:
@@ -69,6 +70,10 @@ mocked_plugin_tasks:
       failed: false
       stdout_lines:
       - MSSQLSERVER
+  Get SQL Server cluster entries:
+    number_of_calls: 1
+    plugin_result:
+      failed: true
 packages:
   Azure Data Studio:
   - arch: AMD64
