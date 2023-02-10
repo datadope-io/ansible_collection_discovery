@@ -6,6 +6,7 @@
   appended to the path to convert it from a relative path to an absolute path, avoiding potential errors.
 - Increase `postgres` commands timeout from `5` seconds to `10` seconds.
 - Add SQL Server failover cluster detection
+- Improve Mulesoft software discovery with specific tasks
 
 # 1.3.1
 

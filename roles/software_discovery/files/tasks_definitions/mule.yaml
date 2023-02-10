@@ -1,0 +1,95 @@
+- name: Get home regex
+  set_instance_fact:
+    _home_regex: "<< __instance__.process.cmdline | regex_search('-Dmule\\.home=\"*?(.+?)\"*?\\ ', '\\1' ,ignorecase=True) | first >>"
+  ignore_errors: yes
+- name: Get home
+  block:
+    - name: Save home 1
+      set_instance_fact:
+        _home: "<<__instance__._home_regex>>"
+      when:
+        - "__instance__._home_regex[0] == '/'"
+    - name: Save home 2
+      set_instance_fact:
+        _home: "<< (env_vars.parsed.PWD, __instance__._home_regex) | datadope.discovery.path_join | realpath >>"
+      when:
+        - "__instance__._home_regex[0] != '/'"
+        - env_vars.parsed.PWD is defined
+  when:
+    - __instance__._home_regex is defined
+
+- name: Get base regex
+  set_instance_fact:
+    _base_regex: "<< __instance__.process.cmdline | regex_search('-Dmule\\.base=\"*?(.+?)\"*?\\ ', '\\1' ,ignorecase=True) | first >>"
+  ignore_errors: yes
+- name: Get base
+  block:
+    - name: Save base 1
+      set_instance_fact:
+        _base: "<<__instance__._base_regex>>"
+      when:
+        - "__instance__._base_regex[0] == '/'"
+    - name: Save base 2
+      set_instance_fact:
+        _base: "<< (env_vars.parsed.PWD, __instance__._base_regex) | datadope.discovery.path_join | realpath >>"
+      when:
+        - "__instance__._base_regex[0] != '/'"
+        - env_vars.parsed.PWD is defined
+  when:
+    - __instance__._base_regex is defined
+
+- name: Parse config
+  block:
+    - name: Set _wrapper_conf
+      set_instance_fact:
+        _wrapper_conf: "<< (__instance__._home, 'conf/wrapper.conf') | datadope.discovery.path_join >>"
+    - name: Check if _wrapper_conf is accessible
+      stat:
+        path: "<< __instance__._wrapper_conf>>"
+      register: result_conf
+    - name: Access and process conf file
+      block:
+        - name: Access conf file
+          read_remote_file:
+            file_path: "<< __instance__._wrapper_conf>>"
+          register: _conf_file
+        - name: Iterate and save conf file lines
+          set_instance_fact:
+            _parsed_conf_file: "<< __instance__._parsed_conf_file | default({}) | combine({
+              __item__.split('=', 1)[0]: __item__.split('=', 1)[1]
+            })>>"
+          when:
+            - not __item__.startswith('#')
+            - "'=' in __item__"
+          loop: "<< _conf_file.content.splitlines() >>"
+        - name: Save config file
+          set_instance_fact:
+            configuration: "<< __instance__._parsed_conf_file>>"
+      ignore_errors: yes
+      when:
+        - result_conf is not failed
+  when:
+    - __instance__._home is defined
+
+- name: Set home in files
+  add_file_info:
+    path: <<__instance__._home>>
+    type: 'config'
+    subtype: 'home'
+  when: __instance__._home is defined
+
+- name: Set base in files
+  add_file_info:
+    path: <<__instance__._base>>
+    type: 'config'
+    subtype: 'base'
+  when: __instance__._base is defined
+
+- name: Remove temporary vars
+  del_instance_fact:
+    - _home_regex
+    - _base_regex
+    - _wrapper_conf
+    - _parsed_conf_file
+    - _home
+    - _base

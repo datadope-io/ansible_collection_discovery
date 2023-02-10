@@ -1,0 +1,5638 @@
+dockers:
+  containers:
+    - AppArmorProfile: ''
+      Args:
+        - ./main.py
+      Config:
+        AttachStderr: false
+        AttachStdin: false
+        AttachStdout: false
+        Cmd:
+          - python
+          - ./main.py
+        Domainname: ''
+        Entrypoint: null
+        Env:
+          - TZ=Europe/Madrid
+          - PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+          - LANG=C.UTF-8
+          - GPG_KEY=E3FF2839C048B25C084DEBE9B26995E310250568
+          - PYTHON_VERSION=3.8.13
+          - PYTHON_PIP_VERSION=22.0.4
+          - PYTHON_SETUPTOOLS_VERSION=57.5.0
+          - PYTHON_GET_PIP_URL=https://github.com/pypa/get-pip/raw/6ce3639da143c5d79b44f94b04080abf2531fd6e/public/get-pip.py
+          - PYTHON_GET_PIP_SHA256=ba3ab8267d91fd41c58dbce08f76db99f747f716d85ce1865813842bb035524d
+        ExposedPorts:
+          3003/tcp: { }
+        Hostname: grafana01.novalocal
+        Image: nexusregistry.opensolutions.cloud/iometrics-visualizer-api:2.9.0-117ca93
+        Labels: { }
+        OnBuild: null
+        OpenStdin: false
+        StdinOnce: false
+        Tty: false
+        User: ''
+        Volumes:
+          /usr/src/app/config.yml: { }
+        WorkingDir: /usr/src/app
+      Created: '2022-07-01T10:19:13.828744881Z'
+      Driver: overlay2
+      ExecIDs: null
+      GraphDriver:
+        Data:
+          LowerDir: /var/lib/docker/overlay2/574bcf973ec6be2fa5c7647d7fb76598a9f8e7fe06722f358fd65b50143adcd2-init/diff:/var/lib/docker/overlay2/a7c3de64ba4481a9730e65bec2ae918b31d3ca95c1b3f929d535164342cfe625/diff:/var/lib/docker/overlay2/aecee580350a6caf0a584fbb144e9482aa6ed513b55ccd1f3107278b33f8c43c/diff:/var/lib/docker/overlay2/0bd5b6a7b67be8a25bc3efd2e29a92540f1b61319f8d5b666b6335200d30f1fd/diff:/var/lib/docker/overlay2/33b9cfc65d17c7e3ae80d874291c1e03eba48891235ed74751c332b89f497f56/diff:/var/lib/docker/overlay2/6b159a6c3e221de5dfc7294cf9b4d8ff95724a4be576a2acb8f37a255b8a0936/diff:/var/lib/docker/overlay2/7baf41714b8cde3ab7bc2d8b4da4796ed4981e11fcc3a226fd4b19103dfbe285/diff:/var/lib/docker/overlay2/ac925fdfdb073fbd242ccf6b46099b8fde68a91f45f7f1542948eafa32793c06/diff:/var/lib/docker/overlay2/d4c1fad72ecaf728f98d9db229f0bf845d5367d7c23d898b6d5a4144c7359355/diff:/var/lib/docker/overlay2/67190cdd2710c883dce5444e2a4b71fa1cbb96e0f83d3cf304e88c73bd71f5dc/diff:/var/lib/docker/overlay2/9bbdcf16e20272655e3c6dcf27ab8bc1ec3a7e2d49ab6195aa7f829922f04e51/diff:/var/lib/docker/overlay2/99285430c4c8a4587bbf2a749f8769bc0b938f6cdffe27efb3d243ce569fdf8e/diff:/var/lib/docker/overlay2/88b4dded6426c9fe9e65b6777231d4450c18285ee38b9e3644d6b4843ddb3985/diff
+          MergedDir: /var/lib/docker/overlay2/574bcf973ec6be2fa5c7647d7fb76598a9f8e7fe06722f358fd65b50143adcd2/merged
+          UpperDir: /var/lib/docker/overlay2/574bcf973ec6be2fa5c7647d7fb76598a9f8e7fe06722f358fd65b50143adcd2/diff
+          WorkDir: /var/lib/docker/overlay2/574bcf973ec6be2fa5c7647d7fb76598a9f8e7fe06722f358fd65b50143adcd2/work
+        Name: overlay2
+      HostConfig:
+        AutoRemove: false
+        Binds:
+          - /etc/iometrics/visualizer_api.yml:/usr/src/app/config.yml:ro
+        BlkioDeviceReadBps: null
+        BlkioDeviceReadIOps: null
+        BlkioDeviceWriteBps: null
+        BlkioDeviceWriteIOps: null
+        BlkioWeight: 0
+        BlkioWeightDevice: null
+        CapAdd: null
+        CapDrop: null
+        Capabilities: null
+        Cgroup: ''
+        CgroupParent: ''
+        ConsoleSize:
+          - 0
+          - 0
+        ContainerIDFile: ''
+        CpuCount: 0
+        CpuPercent: 0
+        CpuPeriod: 0
+        CpuQuota: 0
+        CpuRealtimePeriod: 0
+        CpuRealtimeRuntime: 0
+        CpuShares: 0
+        CpusetCpus: ''
+        CpusetMems: ''
+        DeviceCgroupRules: null
+        DeviceRequests: null
+        Devices: null
+        Dns: null
+        DnsOptions: null
+        DnsSearch: null
+        ExtraHosts: null
+        GroupAdd: null
+        IOMaximumBandwidth: 0
+        IOMaximumIOps: 0
+        IpcMode: private
+        Isolation: ''
+        KernelMemory: 0
+        KernelMemoryTCP: 0
+        Links: null
+        LogConfig:
+          Config:
+            max-file: '1'
+            max-size: 20m
+          Type: json-file
+        MaskedPaths:
+          - /proc/asound
+          - /proc/acpi
+          - /proc/kcore
+          - /proc/keys
+          - /proc/latency_stats
+          - /proc/timer_list
+          - /proc/timer_stats
+          - /proc/sched_debug
+          - /proc/scsi
+          - /sys/firmware
+        Memory: 0
+        MemoryReservation: 0
+        MemorySwap: 0
+        MemorySwappiness: null
+        NanoCpus: 0
+        NetworkMode: host
+        OomKillDisable: false
+        OomScoreAdj: 0
+        PidMode: ''
+        PidsLimit: null
+        PortBindings: null
+        Privileged: false
+        PublishAllPorts: false
+        ReadonlyPaths:
+          - /proc/bus
+          - /proc/fs
+          - /proc/irq
+          - /proc/sys
+          - /proc/sysrq-trigger
+        ReadonlyRootfs: false
+        RestartPolicy:
+          MaximumRetryCount: 0
+          Name: unless-stopped
+        Runtime: runc
+        SecurityOpt: null
+        ShmSize: 67108864
+        UTSMode: ''
+        Ulimits: null
+        UsernsMode: ''
+        VolumeDriver: ''
+        VolumesFrom: null
+      HostnamePath: /var/lib/docker/containers/a4b38b3959751680ce9d2af647ef4bc34d3cc032dad331e75f19ece54d114f17/hostname
+      HostsPath: /var/lib/docker/containers/a4b38b3959751680ce9d2af647ef4bc34d3cc032dad331e75f19ece54d114f17/hosts
+      Id: a4b38b3959751680ce9d2af647ef4bc34d3cc032dad331e75f19ece54d114f17
+      Image: sha256:cb568b4ec7a6c6229ea267a88e68a5b3689a73d81605292badd91d5ff3693c25
+      LogPath: /var/lib/docker/containers/a4b38b3959751680ce9d2af647ef4bc34d3cc032dad331e75f19ece54d114f17/a4b38b3959751680ce9d2af647ef4bc34d3cc032dad331e75f19ece54d114f17-json.log
+      MountLabel: ''
+      Mounts:
+        - Destination: /usr/src/app/config.yml
+          Mode: ro
+          Propagation: rprivate
+          RW: false
+          Source: /etc/iometrics/visualizer_api.yml
+          Type: bind
+      Name: /iometrics-visualizer-api
+      NetworkSettings:
+        Bridge: ''
+        EndpointID: ''
+        Gateway: ''
+        GlobalIPv6Address: ''
+        GlobalIPv6PrefixLen: 0
+        HairpinMode: false
+        IPAddress: ''
+        IPPrefixLen: 0
+        IPv6Gateway: ''
+        LinkLocalIPv6Address: ''
+        LinkLocalIPv6PrefixLen: 0
+        MacAddress: ''
+        Networks:
+          host:
+            Aliases: null
+            DriverOpts: null
+            EndpointID: deea1a5daf36026c50067ab1448d7778b4ae017dbc12b321110de5a27a4cd9fe
+            Gateway: ''
+            GlobalIPv6Address: ''
+            GlobalIPv6PrefixLen: 0
+            IPAMConfig: null
+            IPAddress: ''
+            IPPrefixLen: 0
+            IPv6Gateway: ''
+            Links: null
+            MacAddress: ''
+            NetworkID: d166e90a3e65452bcc73f9d1b143c0b6ea9afe4a6ca40c4da418b55d54714fe4
+        Ports: { }
+        SandboxID: 30c2b5ce70d79f7ea74b90637407889503acf4e92898e793f490ef220da83db8
+        SandboxKey: /var/run/docker/netns/default
+        SecondaryIPAddresses: null
+        SecondaryIPv6Addresses: null
+      Path: python
+      Platform: linux
+      ProcessLabel: ''
+      ResolvConfPath: /var/lib/docker/containers/a4b38b3959751680ce9d2af647ef4bc34d3cc032dad331e75f19ece54d114f17/resolv.conf
+      RestartCount: 0
+      State:
+        Dead: false
+        Error: ''
+        ExitCode: 0
+        FinishedAt: '2022-07-01T10:19:17.320021144Z'
+        OOMKilled: false
+        Paused: false
+        Pid: 1464
+        Restarting: false
+        Running: true
+        StartedAt: '2022-07-01T10:19:21.335877833Z'
+        Status: running
+    - AppArmorProfile: ''
+      Args: [ ]
+      Config:
+        AttachStderr: false
+        AttachStdin: false
+        AttachStdout: false
+        Cmd: null
+        Domainname: ''
+        Entrypoint:
+          - /run.sh
+        Env:
+          - NO_PROXY=localhost,127.0.0.1
+          - HTTPS_PROXY=
+          - GF_PATHS_PLUGINS=/usr/share/grafana/plugins
+          - HTTP_PROXY=
+          - PATH=/usr/share/grafana/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+          - GF_PATHS_CONFIG=/etc/grafana/grafana.ini
+          - GF_PATHS_DATA=/var/lib/grafana
+          - GF_PATHS_HOME=/usr/share/grafana
+          - GF_PATHS_LOGS=/var/log/grafana
+          - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
+          - GF_USERS_DEFAULT_THEME=light
+        ExposedPorts:
+          3000/tcp: { }
+        Hostname: grafana01.novalocal
+        Image: nexusregistry.opensolutions.cloud/iometrics-ui:6.6.2_iometrics-9
+        Labels:
+          maintainer: Grafana team <hello@grafana.com>
+          os_container_type: grafana
+          os_environment: default
+        OnBuild: null
+        OpenStdin: false
+        StdinOnce: false
+        Tty: false
+        User: grafana
+        Volumes:
+          /etc/grafana: { }
+          /etc/hosts: { }
+          /etc/localtime: { }
+          /var/lib/grafana: { }
+          /var/log/grafana: { }
+        WorkingDir: /usr/share/grafana
+      Created: '2021-09-27T08:31:19.822793809Z'
+      Driver: overlay2
+      ExecIDs:
+        - 64683dbfa93ab6f59f4b0e67bc65143db85b7fa9d1a797d94bcf010e2846b865
+      GraphDriver:
+        Data:
+          LowerDir: /var/lib/docker/overlay2/97a551cf8c09153f22e51bac5c5ab5258f7e19228316ba27ea6e0fac4e529614-init/diff:/var/lib/docker/overlay2/60eab00eb9fabe5ba0a23e0a466bce2b00f4fe995c3c76de971fd168325090a2/diff:/var/lib/docker/overlay2/edb08e77bf8e9df0e2be9572e009a912be5df7edffb054fbbf49ce51df492f91/diff:/var/lib/docker/overlay2/32482813dd1954cd14348ef87f07f8be832a804c565390b151e07b8bdcde068a/diff:/var/lib/docker/overlay2/b52983972d4056c0e7d9b431c15cfb7b1338c693929659f60bbeaa87bc2b06fd/diff:/var/lib/docker/overlay2/9a7fd779a1b87114dec1335d0005553834c52b75f51d50bfebc79d1920b28f72/diff:/var/lib/docker/overlay2/43cbfa43d5ba7ec40b7fdd9950d16a46e1b8649821efd9a7e52e7c3c6a9f70f9/diff:/var/lib/docker/overlay2/ea6298eb0454ef0d21da5ee6f673282091c84450ed84d240831e8243d0ccf296/diff:/var/lib/docker/overlay2/a63bb3f03cd931dae0647353d985b083452885f308a0eec5142e29d2b85d6a3a/diff:/var/lib/docker/overlay2/8b69840bb467575ee80ee7fc2213564c73e7ed8e0dc2eff00ac9796b21ab554d/diff:/var/lib/docker/overlay2/56678a247e5c0af0d3fb04f2e8afb2d3eedd20608e02c4757c7456620d4f7700/diff:/var/lib/docker/overlay2/a9824716686ce55b21d9ebeb5db3db5b56442cb594c61372aaebd5d69e1bd631/diff:/var/lib/docker/overlay2/1ff8aa475bda01d333f09b7837c6431fd7da33285ab31323d42c4bb450f8bf9f/diff:/var/lib/docker/overlay2/1bc0395e11179850815244df6dd7d1e8a56c19a9b10497a956e17b942e9e371c/diff
+          MergedDir: /var/lib/docker/overlay2/97a551cf8c09153f22e51bac5c5ab5258f7e19228316ba27ea6e0fac4e529614/merged
+          UpperDir: /var/lib/docker/overlay2/97a551cf8c09153f22e51bac5c5ab5258f7e19228316ba27ea6e0fac4e529614/diff
+          WorkDir: /var/lib/docker/overlay2/97a551cf8c09153f22e51bac5c5ab5258f7e19228316ba27ea6e0fac4e529614/work
+        Name: overlay2
+      HostConfig:
+        AutoRemove: false
+        Binds:
+          - /etc/hosts:/etc/hosts:rw
+          - /etc/grafana:/etc/grafana:rw
+          - /var/lib/grafana:/var/lib/grafana:rw
+          - /var/log/grafana:/var/log/grafana:rw
+          - /etc/localtime:/etc/localtime:rw
+        BlkioDeviceReadBps: null
+        BlkioDeviceReadIOps: null
+        BlkioDeviceWriteBps: null
+        BlkioDeviceWriteIOps: null
+        BlkioWeight: 0
+        BlkioWeightDevice: null
+        CapAdd: null
+        CapDrop: null
+        Capabilities: null
+        Cgroup: ''
+        CgroupParent: ''
+        ConsoleSize:
+          - 0
+          - 0
+        ContainerIDFile: ''
+        CpuCount: 0
+        CpuPercent: 0
+        CpuPeriod: 0
+        CpuQuota: 0
+        CpuRealtimePeriod: 0
+        CpuRealtimeRuntime: 0
+        CpuShares: 0
+        CpusetCpus: ''
+        CpusetMems: ''
+        DeviceCgroupRules: null
+        DeviceRequests: null
+        Devices: null
+        Dns: [ ]
+        DnsOptions: [ ]
+        DnsSearch: [ ]
+        ExtraHosts: null
+        GroupAdd: null
+        IOMaximumBandwidth: 0
+        IOMaximumIOps: 0
+        IpcMode: private
+        Isolation: ''
+        KernelMemory: 0
+        KernelMemoryTCP: 0
+        Links: null
+        LogConfig:
+          Config:
+            max-file: '1'
+            max-size: 20m
+          Type: json-file
+        MaskedPaths:
+          - /proc/asound
+          - /proc/acpi
+          - /proc/kcore
+          - /proc/keys
+          - /proc/latency_stats
+          - /proc/timer_list
+          - /proc/timer_stats
+          - /proc/sched_debug
+          - /proc/scsi
+          - /sys/firmware
+        Memory: 0
+        MemoryReservation: 0
+        MemorySwap: 0
+        MemorySwappiness: null
+        NanoCpus: 0
+        NetworkMode: host
+        OomKillDisable: false
+        OomScoreAdj: 0
+        PidMode: ''
+        PidsLimit: null
+        PortBindings: null
+        Privileged: false
+        PublishAllPorts: false
+        ReadonlyPaths:
+          - /proc/bus
+          - /proc/fs
+          - /proc/irq
+          - /proc/sys
+          - /proc/sysrq-trigger
+        ReadonlyRootfs: false
+        RestartPolicy:
+          MaximumRetryCount: 0
+          Name: unless-stopped
+        Runtime: runc
+        SecurityOpt: null
+        ShmSize: 67108864
+        UTSMode: ''
+        Ulimits: null
+        UsernsMode: ''
+        VolumeDriver: ''
+        VolumesFrom: null
+      HostnamePath: /var/lib/docker/containers/45b1547f48483d7edfc528a908042b053880aeb37a003915a06aac061854bacf/hostname
+      HostsPath: /etc/hosts
+      Id: 45b1547f48483d7edfc528a908042b053880aeb37a003915a06aac061854bacf
+      Image: sha256:0acaf089aba85b7d445ce677b22a9390074493bf12fba4a8c8d5908ebc1034b5
+      LogPath: /var/lib/docker/containers/45b1547f48483d7edfc528a908042b053880aeb37a003915a06aac061854bacf/45b1547f48483d7edfc528a908042b053880aeb37a003915a06aac061854bacf-json.log
+      MountLabel: ''
+      Mounts:
+        - Destination: /etc/grafana
+          Mode: rw
+          Propagation: rprivate
+          RW: true
+          Source: /etc/grafana
+          Type: bind
+        - Destination: /etc/hosts
+          Mode: rw
+          Propagation: rprivate
+          RW: true
+          Source: /etc/hosts
+          Type: bind
+        - Destination: /etc/localtime
+          Mode: rw
+          Propagation: rprivate
+          RW: true
+          Source: /etc/localtime
+          Type: bind
+        - Destination: /var/lib/grafana
+          Mode: rw
+          Propagation: rprivate
+          RW: true
+          Source: /var/lib/grafana
+          Type: bind
+        - Destination: /var/log/grafana
+          Mode: rw
+          Propagation: rprivate
+          RW: true
+          Source: /var/log/grafana
+          Type: bind
+      Name: /grafana
+      NetworkSettings:
+        Bridge: ''
+        EndpointID: ''
+        Gateway: ''
+        GlobalIPv6Address: ''
+        GlobalIPv6PrefixLen: 0
+        HairpinMode: false
+        IPAddress: ''
+        IPPrefixLen: 0
+        IPv6Gateway: ''
+        LinkLocalIPv6Address: ''
+        LinkLocalIPv6PrefixLen: 0
+        MacAddress: ''
+        Networks:
+          host:
+            Aliases: null
+            DriverOpts: null
+            EndpointID: 83785f8ce5e374560837912661e8b8057acd3131516d06c4198768d72498e38d
+            Gateway: ''
+            GlobalIPv6Address: ''
+            GlobalIPv6PrefixLen: 0
+            IPAMConfig: null
+            IPAddress: ''
+            IPPrefixLen: 0
+            IPv6Gateway: ''
+            Links: null
+            MacAddress: ''
+            NetworkID: d166e90a3e65452bcc73f9d1b143c0b6ea9afe4a6ca40c4da418b55d54714fe4
+        Ports: { }
+        SandboxID: 9e08560d904cfb84acb94ad6b8dddcf0096427bde2931546391b7634d49db3aa
+        SandboxKey: /var/run/docker/netns/default
+        SecondaryIPAddresses: null
+        SecondaryIPv6Addresses: null
+      Path: /run.sh
+      Platform: linux
+      ProcessLabel: ''
+      ResolvConfPath: /var/lib/docker/containers/45b1547f48483d7edfc528a908042b053880aeb37a003915a06aac061854bacf/resolv.conf
+      RestartCount: 0
+      State:
+        Dead: false
+        Error: ''
+        ExitCode: 0
+        FinishedAt: '2022-04-26T15:57:03.953904795Z'
+        OOMKilled: false
+        Paused: false
+        Pid: 10876
+        Restarting: false
+        Running: true
+        StartedAt: '2022-04-26T15:57:07.542217497Z'
+        Status: running
+    - AppArmorProfile: ''
+      Args:
+        - postgres
+      Config:
+        AttachStderr: false
+        AttachStdin: false
+        AttachStdout: false
+        Cmd:
+          - postgres
+        Domainname: ''
+        Entrypoint:
+          - docker-entrypoint.sh
+        Env:
+          - POSTGRES_PASSWORD=the_password
+          - TZ=Europe/Madrid
+          - POSTGRES_DB=grafana
+          - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/lib/postgresql/12/bin
+          - GOSU_VERSION=1.12
+          - LANG=en_US.utf8
+          - PG_MAJOR=12
+          - PG_VERSION=12.5-1.pgdg100+1
+          - PGDATA=/var/lib/postgresql/data
+        ExposedPorts:
+          5432/tcp: { }
+        Hostname: grafana01.novalocal
+        Image: nexusregistry.opensolutions.cloud/postgres:12
+        Labels: { }
+        OnBuild: null
+        OpenStdin: false
+        StdinOnce: false
+        StopSignal: SIGINT
+        Tty: false
+        User: ''
+        Volumes:
+          /docker-entrypoint-initdb.d: { }
+          /var/lib/postgresql/data: { }
+        WorkingDir: ''
+      Created: '2020-12-17T09:26:36.676895901Z'
+      Driver: overlay2
+      ExecIDs:
+        - 93047f7627a4586cda091f300aebc11241a38a3cbaacb7bd23310e07742e8f0d
+      GraphDriver:
+        Data:
+          LowerDir: /var/lib/docker/overlay2/662cb0610dabd866292fea547108cc9c0c8cca18e38331a3b1d151bdab6d0429-init/diff:/var/lib/docker/overlay2/bc137b6e30eccddfaa5ad00d60415fee06b4945ad5183e048a79ae8ccc3e2160/diff:/var/lib/docker/overlay2/375b7137e55997093f69d73adf172b531d4ae6c028250e1057ce5df4e341acb2/diff:/var/lib/docker/overlay2/690b06be0c588f9a19ee5ca8da640eccbead09cdef07998dc19df4a6731f912d/diff:/var/lib/docker/overlay2/d8d27fae62379c9caac0cfbbccb6a2a63d6069a52f75efc73961a43466d978e3/diff:/var/lib/docker/overlay2/ebaea625a104e39e4c99224242031855eb17d771f234a0cb331cca76ada8210e/diff:/var/lib/docker/overlay2/e1a23343bb5307e73c288885a07feba5c5d562efcf72eae0fb7702c2a59f94da/diff:/var/lib/docker/overlay2/a7d7fad7fb26d98128b39ecd2fcbe918b7bf673817966b575edc755df3ec50a2/diff:/var/lib/docker/overlay2/a8ff0e63bdc7d497743e7c286be73a751e9622545b6b778ef2bc38bfddc5a235/diff:/var/lib/docker/overlay2/2329a53df5e0abfccf0babaffbb4f022c19e82661973352b4a8a85cdd4296c3e/diff:/var/lib/docker/overlay2/b42c82e4b141eac5f4537b55ac47c092e160fcd967c7b53563827a97f14404ba/diff:/var/lib/docker/overlay2/b1640cd6fd6faa4a3492bd188d06c2ff7bf759ba31bb284a12799dd62ac21b65/diff:/var/lib/docker/overlay2/f6ea6239be6ef1774f0969d5b35b138445847f7b69d3f88e2744e9e0ffee437f/diff:/var/lib/docker/overlay2/d2b1752471feba9f98252e2e8b0a7c24db452a57ab54ccc2d8a67bba51799cde/diff:/var/lib/docker/overlay2/e9273e415b8dd36766130b496c47d8b7576e191ca752b9b8584df6d6c48d4aff/diff
+          MergedDir: /var/lib/docker/overlay2/662cb0610dabd866292fea547108cc9c0c8cca18e38331a3b1d151bdab6d0429/merged
+          UpperDir: /var/lib/docker/overlay2/662cb0610dabd866292fea547108cc9c0c8cca18e38331a3b1d151bdab6d0429/diff
+          WorkDir: /var/lib/docker/overlay2/662cb0610dabd866292fea547108cc9c0c8cca18e38331a3b1d151bdab6d0429/work
+        Name: overlay2
+      HostConfig:
+        AutoRemove: false
+        Binds:
+          - /var/lib/postgresql_grafana/data:/var/lib/postgresql/data:rw
+          - /etc/postgres_init:/docker-entrypoint-initdb.d:ro
+        BlkioDeviceReadBps: null
+        BlkioDeviceReadIOps: null
+        BlkioDeviceWriteBps: null
+        BlkioDeviceWriteIOps: null
+        BlkioWeight: 0
+        BlkioWeightDevice: null
+        CapAdd: null
+        CapDrop: null
+        Capabilities: null
+        Cgroup: ''
+        CgroupParent: ''
+        ConsoleSize:
+          - 0
+          - 0
+        ContainerIDFile: ''
+        CpuCount: 0
+        CpuPercent: 0
+        CpuPeriod: 0
+        CpuQuota: 0
+        CpuRealtimePeriod: 0
+        CpuRealtimeRuntime: 0
+        CpuShares: 0
+        CpusetCpus: ''
+        CpusetMems: ''
+        DeviceCgroupRules: null
+        DeviceRequests: null
+        Devices: null
+        Dns: [ ]
+        DnsOptions: [ ]
+        DnsSearch: [ ]
+        ExtraHosts: null
+        GroupAdd: null
+        IOMaximumBandwidth: 0
+        IOMaximumIOps: 0
+        IpcMode: private
+        Isolation: ''
+        KernelMemory: 0
+        KernelMemoryTCP: 0
+        Links: null
+        LogConfig:
+          Config:
+            max-file: '1'
+            max-size: 20m
+          Type: json-file
+        MaskedPaths:
+          - /proc/asound
+          - /proc/acpi
+          - /proc/kcore
+          - /proc/keys
+          - /proc/latency_stats
+          - /proc/timer_list
+          - /proc/timer_stats
+          - /proc/sched_debug
+          - /proc/scsi
+          - /sys/firmware
+        Memory: 0
+        MemoryReservation: 0
+        MemorySwap: 0
+        MemorySwappiness: null
+        NanoCpus: 0
+        NetworkMode: host
+        OomKillDisable: false
+        OomScoreAdj: 0
+        PidMode: ''
+        PidsLimit: null
+        PortBindings: null
+        Privileged: false
+        PublishAllPorts: false
+        ReadonlyPaths:
+          - /proc/bus
+          - /proc/fs
+          - /proc/irq
+          - /proc/sys
+          - /proc/sysrq-trigger
+        ReadonlyRootfs: false
+        RestartPolicy:
+          MaximumRetryCount: 0
+          Name: unless-stopped
+        Runtime: runc
+        SecurityOpt: null
+        ShmSize: 67108864
+        UTSMode: ''
+        Ulimits: null
+        UsernsMode: ''
+        VolumeDriver: ''
+        VolumesFrom: null
+      HostnamePath: /var/lib/docker/containers/e20d969a92f5e88a116b24784f9b43b1fa326f1a17b8e6bbe754cb224cff5a40/hostname
+      HostsPath: /var/lib/docker/containers/e20d969a92f5e88a116b24784f9b43b1fa326f1a17b8e6bbe754cb224cff5a40/hosts
+      Id: e20d969a92f5e88a116b24784f9b43b1fa326f1a17b8e6bbe754cb224cff5a40
+      Image: sha256:386fd8c60839b215769740e718232f704cf38e0faed924a2d55c7ae012492fd6
+      LogPath: /var/lib/docker/containers/e20d969a92f5e88a116b24784f9b43b1fa326f1a17b8e6bbe754cb224cff5a40/e20d969a92f5e88a116b24784f9b43b1fa326f1a17b8e6bbe754cb224cff5a40-json.log
+      MountLabel: ''
+      Mounts:
+        - Destination: /docker-entrypoint-initdb.d
+          Mode: ro
+          Propagation: rprivate
+          RW: false
+          Source: /etc/postgres_init
+          Type: bind
+        - Destination: /var/lib/postgresql/data
+          Mode: rw
+          Propagation: rprivate
+          RW: true
+          Source: /var/lib/postgresql_grafana/data
+          Type: bind
+      Name: /postgres-grafana
+      NetworkSettings:
+        Bridge: ''
+        EndpointID: ''
+        Gateway: ''
+        GlobalIPv6Address: ''
+        GlobalIPv6PrefixLen: 0
+        HairpinMode: false
+        IPAddress: ''
+        IPPrefixLen: 0
+        IPv6Gateway: ''
+        LinkLocalIPv6Address: ''
+        LinkLocalIPv6PrefixLen: 0
+        MacAddress: ''
+        Networks:
+          host:
+            Aliases: null
+            DriverOpts: null
+            EndpointID: 867e10fdf347aa83e5947ac63860cf64360acd942d29c969029d448dc45889fb
+            Gateway: ''
+            GlobalIPv6Address: ''
+            GlobalIPv6PrefixLen: 0
+            IPAMConfig: null
+            IPAddress: ''
+            IPPrefixLen: 0
+            IPv6Gateway: ''
+            Links: null
+            MacAddress: ''
+            NetworkID: d166e90a3e65452bcc73f9d1b143c0b6ea9afe4a6ca40c4da418b55d54714fe4
+        Ports: { }
+        SandboxID: 9e798f638ddfdf2ca330c8c62bb4dea7c31a5a569ed2843bd4cca0e0b398248e
+        SandboxKey: /var/run/docker/netns/default
+        SecondaryIPAddresses: null
+        SecondaryIPv6Addresses: null
+      Path: docker-entrypoint.sh
+      Platform: linux
+      ProcessLabel: ''
+      ResolvConfPath: /var/lib/docker/containers/e20d969a92f5e88a116b24784f9b43b1fa326f1a17b8e6bbe754cb224cff5a40/resolv.conf
+      RestartCount: 0
+      State:
+        Dead: false
+        Error: ''
+        ExitCode: 0
+        FinishedAt: '2022-04-26T15:56:35.84481573Z'
+        OOMKilled: false
+        Paused: false
+        Pid: 10435
+        Restarting: false
+        Running: true
+        StartedAt: '2022-04-26T15:56:53.428443571Z'
+        Status: running
+    - AppArmorProfile: ''
+      Args:
+        - -g
+        - daemon off;
+      Config:
+        AttachStderr: false
+        AttachStdin: false
+        AttachStdout: false
+        Cmd:
+          - nginx
+          - -g
+          - daemon off;
+        Domainname: ''
+        Entrypoint: null
+        Env:
+          - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+          - NGINX_VERSION=1.17.9
+          - NJS_VERSION=0.3.9
+          - PKG_RELEASE=1~buster
+        ExposedPorts:
+          80/tcp: { }
+        Hostname: grafana01.novalocal
+        Image: nexusregistry.opensolutions.cloud/nginx:1.17.9
+        Labels:
+          maintainer: NGINX Docker Maintainers <docker-maint@nginx.com>
+          os_contianer_type: nginx
+          os_environment: default
+        OnBuild: null
+        OpenStdin: false
+        StdinOnce: false
+        StopSignal: SIGTERM
+        Tty: false
+        User: ''
+        Volumes:
+          /etc/hosts: { }
+          /etc/localtime: { }
+          /etc/nginx: { }
+        WorkingDir: ''
+      Created: '2020-11-10T16:50:27.911193137Z'
+      Driver: overlay2
+      ExecIDs: null
+      GraphDriver:
+        Data:
+          LowerDir: /var/lib/docker/overlay2/1a64f2984fb524442e714c9f269a015764c3ec7e79af02825ebd881aea84edfb-init/diff:/var/lib/docker/overlay2/6a2922602060526fa64479e796822524952f6a9953962de666fc1600cac1c1dc/diff:/var/lib/docker/overlay2/4f02c4085ee5f463d8ca5b115780fefd4ef7b7153c260e5897e6fccfde9944a2/diff:/var/lib/docker/overlay2/4996d0413102f08e30ed9b152595f59c1f3e7c99d74472c321333a388a8b8e19/diff
+          MergedDir: /var/lib/docker/overlay2/1a64f2984fb524442e714c9f269a015764c3ec7e79af02825ebd881aea84edfb/merged
+          UpperDir: /var/lib/docker/overlay2/1a64f2984fb524442e714c9f269a015764c3ec7e79af02825ebd881aea84edfb/diff
+          WorkDir: /var/lib/docker/overlay2/1a64f2984fb524442e714c9f269a015764c3ec7e79af02825ebd881aea84edfb/work
+        Name: overlay2
+      HostConfig:
+        AutoRemove: false
+        Binds:
+          - /etc/hosts:/etc/hosts:rw
+          - /etc/localtime:/etc/localtime:rw
+          - /etc/nginx:/etc/nginx:rw
+        BlkioDeviceReadBps: null
+        BlkioDeviceReadIOps: null
+        BlkioDeviceWriteBps: null
+        BlkioDeviceWriteIOps: null
+        BlkioWeight: 0
+        BlkioWeightDevice: null
+        CapAdd: null
+        CapDrop: null
+        Capabilities: null
+        Cgroup: ''
+        CgroupParent: ''
+        ConsoleSize:
+          - 0
+          - 0
+        ContainerIDFile: ''
+        CpuCount: 0
+        CpuPercent: 0
+        CpuPeriod: 0
+        CpuQuota: 0
+        CpuRealtimePeriod: 0
+        CpuRealtimeRuntime: 0
+        CpuShares: 0
+        CpusetCpus: ''
+        CpusetMems: ''
+        DeviceCgroupRules: null
+        DeviceRequests: null
+        Devices: null
+        Dns: [ ]
+        DnsOptions: [ ]
+        DnsSearch: [ ]
+        ExtraHosts: null
+        GroupAdd: null
+        IOMaximumBandwidth: 0
+        IOMaximumIOps: 0
+        IpcMode: private
+        Isolation: ''
+        KernelMemory: 0
+        KernelMemoryTCP: 0
+        Links: null
+        LogConfig:
+          Config:
+            max-file: '1'
+            max-size: 20m
+          Type: json-file
+        MaskedPaths:
+          - /proc/asound
+          - /proc/acpi
+          - /proc/kcore
+          - /proc/keys
+          - /proc/latency_stats
+          - /proc/timer_list
+          - /proc/timer_stats
+          - /proc/sched_debug
+          - /proc/scsi
+          - /sys/firmware
+        Memory: 0
+        MemoryReservation: 0
+        MemorySwap: 0
+        MemorySwappiness: null
+        NanoCpus: 0
+        NetworkMode: host
+        OomKillDisable: false
+        OomScoreAdj: 0
+        PidMode: ''
+        PidsLimit: null
+        PortBindings: null
+        Privileged: false
+        PublishAllPorts: false
+        ReadonlyPaths:
+          - /proc/bus
+          - /proc/fs
+          - /proc/irq
+          - /proc/sys
+          - /proc/sysrq-trigger
+        ReadonlyRootfs: false
+        RestartPolicy:
+          MaximumRetryCount: 0
+          Name: unless-stopped
+        Runtime: runc
+        SecurityOpt: null
+        ShmSize: 67108864
+        UTSMode: ''
+        Ulimits: null
+        UsernsMode: ''
+        VolumeDriver: ''
+        VolumesFrom: null
+      HostnamePath: /var/lib/docker/containers/048eff94641c3bd9fc2e2aec9f434ab2a3a028c8f6d76dd1899c5c47ee21ad4a/hostname
+      HostsPath: /etc/hosts
+      Id: 048eff94641c3bd9fc2e2aec9f434ab2a3a028c8f6d76dd1899c5c47ee21ad4a
+      Image: sha256:6678c7c2e56c970388f8d5a398aa30f2ab60e85f20165e101053c3d3a11e6663
+      LogPath: /var/lib/docker/containers/048eff94641c3bd9fc2e2aec9f434ab2a3a028c8f6d76dd1899c5c47ee21ad4a/048eff94641c3bd9fc2e2aec9f434ab2a3a028c8f6d76dd1899c5c47ee21ad4a-json.log
+      MountLabel: ''
+      Mounts:
+        - Destination: /etc/hosts
+          Mode: rw
+          Propagation: rprivate
+          RW: true
+          Source: /etc/hosts
+          Type: bind
+        - Destination: /etc/localtime
+          Mode: rw
+          Propagation: rprivate
+          RW: true
+          Source: /etc/localtime
+          Type: bind
+        - Destination: /etc/nginx
+          Mode: rw
+          Propagation: rprivate
+          RW: true
+          Source: /etc/nginx
+          Type: bind
+      Name: /nginx
+      NetworkSettings:
+        Bridge: ''
+        EndpointID: ''
+        Gateway: ''
+        GlobalIPv6Address: ''
+        GlobalIPv6PrefixLen: 0
+        HairpinMode: false
+        IPAddress: ''
+        IPPrefixLen: 0
+        IPv6Gateway: ''
+        LinkLocalIPv6Address: ''
+        LinkLocalIPv6PrefixLen: 0
+        MacAddress: ''
+        Networks:
+          host:
+            Aliases: null
+            DriverOpts: null
+            EndpointID: cc5fe108a25d65ff687c7f0bf2d2adb8fc2d6d0f927c22c91351ae98ff19c6f2
+            Gateway: ''
+            GlobalIPv6Address: ''
+            GlobalIPv6PrefixLen: 0
+            IPAMConfig: null
+            IPAddress: ''
+            IPPrefixLen: 0
+            IPv6Gateway: ''
+            Links: null
+            MacAddress: ''
+            NetworkID: d166e90a3e65452bcc73f9d1b143c0b6ea9afe4a6ca40c4da418b55d54714fe4
+        Ports: { }
+        SandboxID: 8a70c2fe3e69b976146e6ae0f3113bb5be2e0a8185f1c14d1dc639766907c479
+        SandboxKey: /var/run/docker/netns/default
+        SecondaryIPAddresses: null
+        SecondaryIPv6Addresses: null
+      Path: nginx
+      Platform: linux
+      ProcessLabel: ''
+      ResolvConfPath: /var/lib/docker/containers/048eff94641c3bd9fc2e2aec9f434ab2a3a028c8f6d76dd1899c5c47ee21ad4a/resolv.conf
+      RestartCount: 0
+      State:
+        Dead: false
+        Error: ''
+        ExitCode: 0
+        FinishedAt: '2022-04-26T15:56:35.859574137Z'
+        OOMKilled: false
+        Paused: false
+        Pid: 10501
+        Restarting: false
+        Running: true
+        StartedAt: '2022-04-26T15:56:53.285690919Z'
+        Status: running
+    - AppArmorProfile: ''
+      Args:
+        - es-kg-sync.py
+        - -c
+        - /app/etc/config.yml
+      Config:
+        AttachStderr: false
+        AttachStdin: false
+        AttachStdout: false
+        Cmd:
+          - -c
+          - /app/etc/config.yml
+        Domainname: ''
+        Entrypoint:
+          - python3
+          - es-kg-sync.py
+        Env:
+          - GOOGLE_APPLICATION_CREDENTIALS=/app/etc/credentials.json
+          - PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+          - LANG=C.UTF-8
+          - GPG_KEY=E3FF2839C048B25C084DEBE9B26995E310250568
+          - PYTHON_VERSION=3.8.6
+          - PYTHON_PIP_VERSION=20.2.4
+          - PYTHON_GET_PIP_URL=https://github.com/pypa/get-pip/raw/fa7dc83944936bf09a0e4cb5d5ec852c0d256599/get-pip.py
+          - PYTHON_GET_PIP_SHA256=6e0bb0a2c2533361d7f297ed547237caf1b7507f197835974c0dd7eba998c53c
+          - PYTHONUNBUFFERED=true
+        Hostname: grafana01.novalocal
+        Image: nexusregistry.opensolutions.cloud/es-kg-sync:1.3.4
+        Labels:
+          maintainer: fgonzalez
+        OnBuild: null
+        OpenStdin: false
+        StdinOnce: false
+        Tty: false
+        User: ''
+        Volumes:
+          /app/etc: { }
+        WorkingDir: /app
+      Created: '2020-11-06T15:49:46.647862103Z'
+      Driver: overlay2
+      ExecIDs: null
+      GraphDriver:
+        Data:
+          LowerDir: /var/lib/docker/overlay2/caf72c37755a777b68d58b6d1da8799f6886bb0b535adee6a53cac19f46f60c7-init/diff:/var/lib/docker/overlay2/20785a6672262cd131687a278bc4b48442436ee9eb7027fc8a0b0db9e829cec0/diff:/var/lib/docker/overlay2/bb789e0d27794838938b60addf99ea82a15bc853c6d7f8860ee9bfd4c80e060c/diff:/var/lib/docker/overlay2/5945abe0f336bf5998fd77dda863da52dd6633d16ae77f37a806e3028bb7004d/diff:/var/lib/docker/overlay2/5b96b4410e0bff57c24c2d2fc9de1412a01454bca5179aad853c31afe445a83e/diff:/var/lib/docker/overlay2/69c86d2ff3b70e251a0119f05dc78e8ede6e1803ac816453d989f7aed28f4f30/diff:/var/lib/docker/overlay2/9ab680cacc4c1081f79bc8af516ddc73413befa0183e6753f6a5b87196df1891/diff:/var/lib/docker/overlay2/e5039299ff6b760921408c90406254c371d3ad6bb1a7803ab2bb419a393ed66b/diff:/var/lib/docker/overlay2/5b85515f7cc254ab6c71a720df9c2009ca8ddb4c1b57d545cddf8b0cec34c3a6/diff:/var/lib/docker/overlay2/ceaa1d45c24cc7ca8ef623ecc2c691226c181133f8dcb01cf7b6912bd8afc395/diff:/var/lib/docker/overlay2/de5f6f22702f280955ccd50cfa7790f2a24dfd69d5affde1cc3da1880390aef6/diff
+          MergedDir: /var/lib/docker/overlay2/caf72c37755a777b68d58b6d1da8799f6886bb0b535adee6a53cac19f46f60c7/merged
+          UpperDir: /var/lib/docker/overlay2/caf72c37755a777b68d58b6d1da8799f6886bb0b535adee6a53cac19f46f60c7/diff
+          WorkDir: /var/lib/docker/overlay2/caf72c37755a777b68d58b6d1da8799f6886bb0b535adee6a53cac19f46f60c7/work
+        Name: overlay2
+      HostConfig:
+        AutoRemove: false
+        Binds:
+          - /etc/datadope/es_kg_sync:/app/etc:rw
+        BlkioDeviceReadBps: null
+        BlkioDeviceReadIOps: null
+        BlkioDeviceWriteBps: null
+        BlkioDeviceWriteIOps: null
+        BlkioWeight: 0
+        BlkioWeightDevice: null
+        CapAdd: null
+        CapDrop: null
+        Capabilities: null
+        Cgroup: ''
+        CgroupParent: ''
+        ConsoleSize:
+          - 0
+          - 0
+        ContainerIDFile: ''
+        CpuCount: 0
+        CpuPercent: 0
+        CpuPeriod: 0
+        CpuQuota: 0
+        CpuRealtimePeriod: 0
+        CpuRealtimeRuntime: 0
+        CpuShares: 0
+        CpusetCpus: ''
+        CpusetMems: ''
+        DeviceCgroupRules: null
+        DeviceRequests: null
+        Devices: null
+        Dns: [ ]
+        DnsOptions: [ ]
+        DnsSearch: [ ]
+        ExtraHosts: null
+        GroupAdd: null
+        IOMaximumBandwidth: 0
+        IOMaximumIOps: 0
+        IpcMode: private
+        Isolation: ''
+        KernelMemory: 0
+        KernelMemoryTCP: 0
+        Links: null
+        LogConfig:
+          Config:
+            max-file: '3'
+            max-size: 20m
+          Type: json-file
+        MaskedPaths:
+          - /proc/asound
+          - /proc/acpi
+          - /proc/kcore
+          - /proc/keys
+          - /proc/latency_stats
+          - /proc/timer_list
+          - /proc/timer_stats
+          - /proc/sched_debug
+          - /proc/scsi
+          - /sys/firmware
+        Memory: 0
+        MemoryReservation: 0
+        MemorySwap: 0
+        MemorySwappiness: null
+        NanoCpus: 0
+        NetworkMode: host
+        OomKillDisable: false
+        OomScoreAdj: 0
+        PidMode: ''
+        PidsLimit: null
+        PortBindings: null
+        Privileged: false
+        PublishAllPorts: false
+        ReadonlyPaths:
+          - /proc/bus
+          - /proc/fs
+          - /proc/irq
+          - /proc/sys
+          - /proc/sysrq-trigger
+        ReadonlyRootfs: false
+        RestartPolicy:
+          MaximumRetryCount: 0
+          Name: unless-stopped
+        Runtime: runc
+        SecurityOpt: null
+        ShmSize: 67108864
+        UTSMode: ''
+        Ulimits: null
+        UsernsMode: ''
+        VolumeDriver: ''
+        VolumesFrom: null
+      HostnamePath: /var/lib/docker/containers/ae71b1f21f85bed81466cce31da9f63d9c448782cc36c1c9d76c59834769c05c/hostname
+      HostsPath: /var/lib/docker/containers/ae71b1f21f85bed81466cce31da9f63d9c448782cc36c1c9d76c59834769c05c/hosts
+      Id: ae71b1f21f85bed81466cce31da9f63d9c448782cc36c1c9d76c59834769c05c
+      Image: sha256:2a55385bb40904bddc8e07595f478e16f8b73db1a5c161acfe49029ff2aba86e
+      LogPath: /var/lib/docker/containers/ae71b1f21f85bed81466cce31da9f63d9c448782cc36c1c9d76c59834769c05c/ae71b1f21f85bed81466cce31da9f63d9c448782cc36c1c9d76c59834769c05c-json.log
+      MountLabel: ''
+      Mounts:
+        - Destination: /app/etc
+          Mode: rw
+          Propagation: rprivate
+          RW: true
+          Source: /etc/datadope/es_kg_sync
+          Type: bind
+      Name: /es_kg_sync
+      NetworkSettings:
+        Bridge: ''
+        EndpointID: ''
+        Gateway: ''
+        GlobalIPv6Address: ''
+        GlobalIPv6PrefixLen: 0
+        HairpinMode: false
+        IPAddress: ''
+        IPPrefixLen: 0
+        IPv6Gateway: ''
+        LinkLocalIPv6Address: ''
+        LinkLocalIPv6PrefixLen: 0
+        MacAddress: ''
+        Networks:
+          host:
+            Aliases: null
+            DriverOpts: null
+            EndpointID: 41646a2e4cefe3075ce860a5b43a7fd895356fab3f730fb2fbf31eab4b3b63b8
+            Gateway: ''
+            GlobalIPv6Address: ''
+            GlobalIPv6PrefixLen: 0
+            IPAMConfig: null
+            IPAddress: ''
+            IPPrefixLen: 0
+            IPv6Gateway: ''
+            Links: null
+            MacAddress: ''
+            NetworkID: d166e90a3e65452bcc73f9d1b143c0b6ea9afe4a6ca40c4da418b55d54714fe4
+        Ports: { }
+        SandboxID: 6be7362230495d2759721f5bb7d6cccdfc95270e72eb2f0ce0281b3576039ae4
+        SandboxKey: /var/run/docker/netns/default
+        SecondaryIPAddresses: null
+        SecondaryIPv6Addresses: null
+      Path: python3
+      Platform: linux
+      ProcessLabel: ''
+      ResolvConfPath: /var/lib/docker/containers/ae71b1f21f85bed81466cce31da9f63d9c448782cc36c1c9d76c59834769c05c/resolv.conf
+      RestartCount: 1
+      State:
+        Dead: false
+        Error: ''
+        ExitCode: 0
+        FinishedAt: '2022-07-05T16:21:19.700599103Z'
+        OOMKilled: false
+        Paused: false
+        Pid: 21867
+        Restarting: false
+        Running: true
+        StartedAt: '2022-07-05T16:21:20.43263416Z'
+        Status: running
+expected_result:
+  - bindings: [ ]
+    configuration:
+      wrapper.console.format: M
+      wrapper.console.loglevel: INFO
+      wrapper.console.title: "%MULE_APP_LONG%"
+      wrapper.ignore_sequence_gaps: 'TRUE'
+      wrapper.java.additional.1: -Dmule.home="%MULE_HOME%"
+      wrapper.java.additional.1.stripquotes: 'TRUE'
+      wrapper.java.additional.10: "-XX:+AlwaysPreTouch"
+      wrapper.java.additional.11: "-XX:NewRatio=1"
+      wrapper.java.additional.12: "-XX:MaxTenuringThreshold=8"
+      wrapper.java.additional.13: "-Dorg.quartz.scheduler.skipUpdateCheck=true"
+      wrapper.java.additional.14: "-Dmule.metadata.cache.entryTtl.minutes=10"
+      wrapper.java.additional.15: "-Dmule.metadata.cache.expirationInterval.millis=5000"
+      wrapper.java.additional.16: "-Djava.locale.providers=COMPAT,CLDR,SPI"
+      wrapper.java.additional.17: "-Dlog4j2.disable.jmx=true"
+      wrapper.java.additional.19: "-Dcom.sun.management.jmxremote "
+      wrapper.java.additional.2: -Dmule.base="%MULE_BASE%"
+      wrapper.java.additional.2.stripquotes: 'TRUE'
+      wrapper.java.additional.20: "-Dcom.sun.management.jmxremote.port=1098 "
+      wrapper.java.additional.21: "-Dcom.sun.management.jmxremote.authenticate=false "
+      wrapper.java.additional.22: "-Dcom.sun.management.jmxremote.ssl=false "
+      wrapper.java.additional.23: "-Dcom.sun.management.jmxremote.host=10.100.7.96"
+      wrapper.java.additional.24: "-Dmule.deployment.parallel"
+      wrapper.java.additional.25: "-Dserver.env=dev"
+      wrapper.java.additional.3: "-Djava.net.preferIPv4Stack=TRUE"
+      wrapper.java.additional.4: "-Dmvel2.disable.jit=TRUE"
+      wrapper.java.additional.5: "-Dorg.glassfish.grizzly.nio.transport.TCPNIOTransport.max-receive-buffer-size=1048576"
+      wrapper.java.additional.6: "-Dorg.glassfish.grizzly.nio.transport.TCPNIOTransport.max-send-buffer-size=1048576"
+      wrapper.java.additional.7: "-XX:MaxMetaspaceSize=256m"
+      wrapper.java.additional.8: "-XX:MaxMetaspaceSize=256m"
+      wrapper.java.additional.9: "-XX:+HeapDumpOnOutOfMemoryError"
+      wrapper.java.classpath.1: "%MULE_LIB%"
+      wrapper.java.classpath.2: "%MULE_BASE%/conf"
+      wrapper.java.classpath.3: "%MULE_HOME%/lib/boot/*.jar"
+      wrapper.java.command: java
+      wrapper.java.initmemory: '1024'
+      wrapper.java.library.path.1: "%LD_LIBRARY_PATH%"
+      wrapper.java.library.path.2: "%MULE_HOME%/lib/boot"
+      wrapper.java.mainclass: org.mule.runtime.module.reboot.MuleContainerBootstrap
+      wrapper.java.maxmemory: '4096'
+      wrapper.logfile: "%MULE_BASE%/logs/%MULE_APP%.log"
+      wrapper.logfile.format: M
+      wrapper.logfile.loglevel: INFO
+      wrapper.logfile.maxfiles: '10'
+      wrapper.logfile.maxsize: 1m
+      wrapper.ntservice.dependency.1: ''
+      wrapper.ntservice.description: "%MULE_APP_LONG%"
+      wrapper.ntservice.displayname: "%MULE_APP_LONG%"
+      wrapper.ntservice.interactive: 'false'
+      wrapper.ntservice.name: "%MULE_APP%"
+      wrapper.ntservice.starttype: AUTO_START
+      wrapper.startup.timeout: '600'
+      wrapper.syslog.loglevel: NONE
+    discovery_time: '2022-07-05T18:21:21+02:00'
+    files:
+      - path: "/tmp/mule-enterprise-standalone-4.4.0-20220622"
+        subtype: home
+        type: config
+      - path: "/tmp/mule-enterprise-standalone-4.4.0-20220622"
+        subtype: base
+        type: config
+    listening_ports: [ ]
+    packages: [ ]
+    process:
+      cmdline: "/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.322.b06-1.el7_9.x86_64/jre/bin/java
+      -Dmule.home=/tmp/mule-enterprise-standalone-4.4.0-20220622 -Dmule.base=/tmp/mule-enterprise-standalone-4.4.0-20220622
+      -Djava.net.preferIPv4Stack=TRUE -Dmvel2.disable.jit=TRUE -Dorg.glassfish.grizzly.nio.transport.TCPNIOTransport.max-receive-buffer-size=1048576
+      -Dorg.glassfish.grizzly.nio.transport.TCPNIOTransport.max-send-buffer-size=1048576
+      -XX:MaxMetaspaceSize=256m -XX:MetaspaceSize=128m -XX:+HeapDumpOnOutOfMemoryError
+      -XX:+AlwaysPreTouch -XX:NewRatio=1 -XX:MaxTenuringThreshold=8 -Dorg.quartz.scheduler.skipUpdateCheck=true
+      -Dmule.metadata.cache.entryTtl.minutes=10 -Dmule.metadata.cache.expirationInterval.millis=5000
+      -Djava.locale.providers=COMPAT,CLDR,SPI -Dlog4j2.disable.jmx=true -Danypoint.platform.analytics_base_uri=https://analytics-ingest.anypoint.mulesoft.com
+      -Xms1024m -Xmx1024m -Djava.library.path=/tmp/mule-enterprise-standalone-4.4.0-20220622/lib/boot
+      -classpath %MULE_LIB%:/tmp/mule-enterprise-standalone-4.4.0-20220622/conf:/tmp/mule-enterprise-standalone-4.4.0-20220622/lib/boot/commons-cli-1.2.jar:/tmp/mule-enterprise-standalone-4.4.0-20220622/lib/boot/commons-codec-1.15.jar:/tmp/mule-enterprise-standalone-4.4.0-20220622/lib/boot/disruptor-3.4.2.jar:/tmp/mule-enterprise-standalone-4.4.0-20220622/lib/boot/jackson-annotations-2.13.3.jar:/tmp/mule-enterprise-standalone-4.4.0-20220622/lib/boot/jackson-core-2.13.3.jar:/tmp/mule-enterprise-standalone-4.4.0-20220622/lib/boot/jackson-databind-2.13.3.jar:/tmp/mule-enterprise-standalone-4.4.0-20220622/lib/boot/jcl-over-slf4j-1.7.30.jar:/tmp/mule-enterprise-standalone-4.4.0-20220622/lib/boot/jul-to-slf4j-1.7.30.jar:/tmp/mule-enterprise-standalone-4.4.0-20220622/lib/boot/licm-2.1.7.jar:/tmp/mule-enterprise-standalone-4.4.0-20220622/lib/boot/log4j-1.2-api-2.17.1.jar:/tmp/mule-enterprise-standalone-4.4.0-20220622/lib/boot/log4j-api-2.17.1.jar:/tmp/mule-enterprise-standalone-4.4.0-20220622/lib/boot/log4j-core-2.17.1.jar:/tmp/mule-enterprise-standalone-4.4.0-20220622/lib/boot/log4j-slf4j-impl-2.17.1.jar:/tmp/mule-enterprise-standalone-4.4.0-20220622/lib/boot/mule-module-boot-ee-4.4.0-20220622.jar:/tmp/mule-enterprise-standalone-4.4.0-20220622/lib/boot/oscore-2.2.6.jar:/tmp/mule-enterprise-standalone-4.4.0-20220622/lib/boot/propertyset-1.3.jar:/tmp/mule-enterprise-standalone-4.4.0-20220622/lib/boot/slf4j-api-1.7.30.jar:/tmp/mule-enterprise-standalone-4.4.0-20220622/lib/boot/slf4j-ext-1.7.30.jar:/tmp/mule-enterprise-standalone-4.4.0-20220622/lib/boot/truelicense-1.29.jar:/tmp/mule-enterprise-standalone-4.4.0-20220622/lib/boot/truexml-1.29.jar:/tmp/mule-enterprise-standalone-4.4.0-20220622/lib/boot/wrapper-3.5.45.jar
+      -Dwrapper.key=B7vZxw-jkCrQAKrrRRZO48h5e3mnWXmB -Dwrapper.backend=pipe -Dwrapper.disable_console_input=TRUE
+      -Dwrapper.pid=15105 -Dwrapper.version=3.5.45-st -Dwrapper.native_library=wrapper
+      -Dwrapper.arch=x86 -Dwrapper.service=TRUE -Dwrapper.cpu.timeout=10 -Dwrapper.jvmid=1
+      -Dwrapper.lang.domain=wrapper -Dwrapper.lang.folder=../lang org.mule.runtime.module.reboot.MuleContainerBootstrap
+      sysd start0"
+      cwd: "/"
+      pid: '15117'
+      ppid: '15105'
+      user: root
+    type: MuleSoft AppServer
+    version: [ ]
+mocked_plugin_tasks:
+  Check if _wrapper_conf is accessible:
+    number_of_calls: 1
+    plugin_result:
+      failed: false
+  Access conf file:
+    number_of_calls: 1
+    plugin_result:
+      failed: false
+      content: |-
+        #encoding=UTF-8
+        #********************************************************************
+        # System Properties
+        #********************************************************************
+        # Location of your Mule installation.
+        wrapper.java.additional.1=-Dmule.home="%MULE_HOME%"
+        wrapper.java.additional.1.stripquotes=TRUE
+        wrapper.java.additional.2=-Dmule.base="%MULE_BASE%"
+        wrapper.java.additional.2.stripquotes=TRUE
+
+        # Sets IPv4 addresses in order to avoid multicasting issues
+        wrapper.java.additional.3=-Djava.net.preferIPv4Stack=TRUE
+
+        # Needed to avoid a memory leak on mvel (see MULE-7650)
+        wrapper.java.additional.4=-Dmvel2.disable.jit=TRUE
+
+        # Limit HTTP module send and receive buffers size to 1MB by default to avoid running out of Direct Memory.  To optimize for
+        # performance this system property should be removed and direct memory increased as required.
+        wrapper.java.additional.5=-Dorg.glassfish.grizzly.nio.transport.TCPNIOTransport.max-receive-buffer-size=1048576
+        wrapper.java.additional.6=-Dorg.glassfish.grizzly.nio.transport.TCPNIOTransport.max-send-buffer-size=1048576
+
+        # agent
+        #wrapper.java.additional.7="-javaagent:%MULE_BASE%/lib/opt/jolokia-mule-1.6.2-agent.jar=port=8900"
+        #wrapper.java.additional.7.stripquotes=TRUE
+        wrapper.java.additional.7=-XX:MaxMetaspaceSize=256m
+
+
+        # Limit the Metaspace Size to protect system memory from unwanted usage
+        # Increase this value if you get "Java.lang.OutOfMemoryError: Metaspace" error
+        wrapper.java.additional.8=-XX:MaxMetaspaceSize=256m
+
+        # GC settings
+        wrapper.java.additional.9=-XX:+HeapDumpOnOutOfMemoryError
+        wrapper.java.additional.10=-XX:+AlwaysPreTouch
+        wrapper.java.additional.11=-XX:NewRatio=1
+        wrapper.java.additional.12=-XX:MaxTenuringThreshold=8
+
+        # Default GC
+        # Uncomment and tune if you wish to select a collector other than the default.
+        # Keep in mind that because the default has changed in Java 11, this entry will be necessary to guarantee consistency among
+        # different environments.
+        #wrapper.java.additional.19=-XX:+UseParallelGC
+
+        # Avoid Quartz update check. See https://jira.terracotta.org/jira/browse/QTZ-29
+        wrapper.java.additional.13=-Dorg.quartz.scheduler.skipUpdateCheck=true
+
+        # Metadata Cache
+        wrapper.java.additional.14=-Dmule.metadata.cache.entryTtl.minutes=10
+        wrapper.java.additional.15=-Dmule.metadata.cache.expirationInterval.millis=5000
+
+        # Locale Compatibility Mode
+        wrapper.java.additional.16=-Djava.locale.providers=COMPAT,CLDR,SPI
+
+        # Disable JMX for log4j
+        wrapper.java.additional.17=-Dlog4j2.disable.jmx=true
+
+        # prometheus metrics
+        #wrapper.java.additional.18="-javaagent:%MULE_BASE%/lib/opt/jmx_prometheus_javaagent-0.12.0.jar=9191:/etc/jmx_exporter/mule4-prom-config.yaml"
+        #wrapper.java.additional.18.stripquotes=TRUE
+
+        wrapper.java.additional.19=-Dcom.sun.management.jmxremote 
+        wrapper.java.additional.20=-Dcom.sun.management.jmxremote.port=1098 
+        wrapper.java.additional.21=-Dcom.sun.management.jmxremote.authenticate=false 
+        wrapper.java.additional.22=-Dcom.sun.management.jmxremote.ssl=false 
+        wrapper.java.additional.23=-Dcom.sun.management.jmxremote.host=10.100.7.96
+        #wrapper.java.additional.24=-Dcom.sun.management.jmxremote.username=mule
+        #wrapper.java.additional.25=-Dcom.sun.management.jmxremote.password=admin
+
+        # *** IMPORTANT ***
+        # If you enable any of the options below, you _must_ change the <n> to be a
+        # consecutive number (based on the number of additional properties) otherwise
+        # Java will not parse this properties file correctly!
+        # (see http://wrapper.tanukisoftware.org/doc/english/prop-java-additional-n.html)
+        # *** IMPORTANT ***
+
+        # Stack traces are truncated in the logs by default
+        #wrapper.java.additional.<n>=-Dmule.verbose.exceptions=true
+
+        # Debug remotely, the application will wait for the external debugger to connect.
+        #wrapper.java.additional.<n>=-Xdebug
+        #wrapper.java.additional.<n>=-Xnoagent
+        #wrapper.java.additional.<n>=-Djava.compiler=NONE
+        #wrapper.java.additional.<n>=-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005
+
+        # Specify an HTTP proxy if you are behind a firewall.
+        #wrapper.java.additional.<n>=-Dhttp.proxyHost=YOUR_HOST
+        #wrapper.java.additional.<n>=-Dhttp.proxyPort=YOUR_PORT
+        #wrapper.java.additional.<n>=-Dhttp.proxyUsername=YOUR_USER_NAME
+        #wrapper.java.additional.<n>=-Dhttp.proxyPassword=YOUR_PASSWORD
+
+        # Identification of your Mule server
+        #wrapper.java.additional.<n>=-Dmule.serverId=YOUR_MULE_SERVER
+        #wrapper.java.additional.<n>=-Dmule.clusterId=YOUR_MULE_CLUSTER
+        #wrapper.java.additional.<n>=-Dmule.domainId=YOUR_MULE_DOMAIN
+
+        # Mule's working directory for VM queue persistence, transactions, etc.
+        #wrapper.java.additional.<n>=-Dmule.workingDirectory=./.mule
+
+        # Enables fips140-2 mode, disabling any cryptographic modes of operation not approved in the standard.
+        # Note that full compliance also requires a certified JCE provider installed
+        #wrapper.java.additional.<n>=-Dmule.security.model=fips140-2
+
+        # Enables/disables the runtime startup log verbosity
+        # Default is true, set to false to reduce log size
+        #wrapper.java.additional.<n>=-Dmule.runtime.verbose=true
+
+
+        # Miscellaneous settings
+        #wrapper.java.additional.<n>=-Dmule.encoding=UTF-8
+        #wrapper.java.additional.<n>=-Dmule.endpoints.synchronous=false
+        #wrapper.java.additional.<n>=-Dmule.remoteSync=false
+        #wrapper.java.additional.<n>=-Dmule.systemModelType=seda
+        #wrapper.java.additional.<n>=-Dmule.clientMode=false
+
+        # Debug options
+        #wrapper.java.additional.<n>=-Dmule.disable.threadsafemessages=false
+        #wrapper.java.additional.<n>=-Dmule.message.cacheBytes=true
+        #wrapper.java.additional.<n>=-Dmule.message.cacheOriginal=true
+        #wrapper.java.additional.<n>=-Dmule.streaming.enable=true
+        #wrapper.java.additional.<n>=-Dmule.message.assertAccess=true
+        #wrapper.java.additional.<n>=-Dmule.transform.autoWrap=true
+
+        wrapper.java.additional.24=-Dmule.deployment.parallel
+        wrapper.java.additional.25=-Dserver.env=dev
+
+        # Performance settings
+        #wrapper.java.additional.<n>=-XX:+UseConcMarkSweepGC
+        #wrapper.java.additional.<n>=-XX:CMSInitiatingOccupancyFraction=65
+        #wrapper.java.additional.<n>=-XX:+UseCMSInitiatingOccupancyOnly
+        #wrapper.java.additional.<n>=-XX:+PrintGCApplicationStoppedTime
+        #wrapper.java.additional.<n>=-XX:+PrintGCDetails
+        #wrapper.java.additional.<n>=-XX:+PrintGCDateStamps
+        #wrapper.java.additional.<n>=-XX:+PrintTenuringDistribution
+        #wrapper.java.additional.<n>=-Xloggc:%MULE_HOME%/logs/gc.log
+        #wrapper.java.additional.<n>=-XX:+UseGCLogFileRotation
+        #wrapper.java.additional.<n>=-XX:NumberOfGCLogFiles=5
+        #wrapper.java.additional.<n>=-XX:GCLogFileSize=1M
+        #wrapper.java.additional.<n>=-XX:ErrorFile=%MULE_HOME%/logs/err.log
+
+
+        #********************************************************************
+        # Wrapper Properties
+        #********************************************************************
+        # Uncomment this line in the case of startup failure.
+        #wrapper.debug=true
+
+        # Java Application
+        wrapper.java.command=java
+
+        # Java Main class
+        wrapper.java.mainclass=org.mule.runtime.module.reboot.MuleContainerBootstrap
+
+        # Java Classpath
+        wrapper.java.classpath.1=%MULE_LIB%
+        wrapper.java.classpath.2=%MULE_BASE%/conf
+        wrapper.java.classpath.3=%MULE_HOME%/lib/boot/*.jar
+
+        # Java Native Library Path (location of .DLL or .so files)
+        wrapper.java.library.path.1=%LD_LIBRARY_PATH%
+        wrapper.java.library.path.2=%MULE_HOME%/lib/boot
+
+        # Increase the default startup timeout so that the JVM has enough
+        # time to download the required jars on a slow connection
+        wrapper.startup.timeout=600
+
+        # Initial Java Heap Size (in MB)
+        wrapper.java.initmemory=1024
+
+        # Maximum Java Heap Size (in MB)
+        wrapper.java.maxmemory=4096
+
+        # Ignore gaps in additional properties sequence
+        wrapper.ignore_sequence_gaps=TRUE
+
+        #********************************************************************
+        # Wrapper Logging Properties
+        #********************************************************************
+        # Format of output for the console.  (See docs for formats)
+        wrapper.console.format=M
+
+        # Log Level for console output.  (See docs for log levels)
+        wrapper.console.loglevel=INFO
+
+        # Log file to use for wrapper output logging.
+        wrapper.logfile=%MULE_BASE%/logs/%MULE_APP%.log
+
+        # Format of output for the log file.  (See docs for formats)
+        wrapper.logfile.format=M
+
+        # Log Level for log file output.  (See docs for log levels)
+        wrapper.logfile.loglevel=INFO
+
+        # Maximum size that the log file will be allowed to grow to before
+        #  the log is rolled. Size is specified in bytes.  The default value
+        #  of 0, disables log rolling.  May abbreviate with the 'k' (kb) or
+        #  'm' (mb) suffix.  For example: 10m = 10 megabytes.
+        wrapper.logfile.maxsize=1m
+
+        # Maximum number of rolled log files which will be allowed before old
+        #  files are deleted.  The default value of 0 implies no limit.
+        wrapper.logfile.maxfiles=10
+
+        # Log Level for sys/event log output.  (See docs for log levels)
+        wrapper.syslog.loglevel=NONE
+
+        #********************************************************************
+        # Wrapper Windows Properties
+        #********************************************************************
+        # Title to use when running as a console
+        wrapper.console.title=%MULE_APP_LONG%
+
+        #********************************************************************
+        # Wrapper Windows NT/2000/XP Service Properties
+        #********************************************************************
+        # WARNING - Do not modify any of these properties when an application
+        #  using this configuration file has been installed as a service.
+        #  Please uninstall the service before modifying this section.  The
+        #  service can then be reinstalled.
+
+        # Name of the service
+        wrapper.ntservice.name=%MULE_APP%
+
+        # Display name of the service
+        wrapper.ntservice.displayname=%MULE_APP_LONG%
+
+        # Description of the service
+        wrapper.ntservice.description=%MULE_APP_LONG%
+
+        # Service dependencies.  Add dependencies as needed starting from 1
+        wrapper.ntservice.dependency.1=
+
+        # Mode in which the service is installed.  AUTO_START or DEMAND_START
+        wrapper.ntservice.starttype=AUTO_START
+
+        # Allow the service to interact with the desktop.
+        wrapper.ntservice.interactive=false
+
+
+        # Do not edit lines below!
+        # This include should point to wrapper-additional.conf file in the same directory as this file
+        # ATTENTION: Path must be either absolute or relative to wrapper executable.
+        #include %MULE_BASE%/conf/wrapper-additional.conf
+
+packages:
+  GeoIP:
+    - arch: x86_64
+      epoch:
+      name: GeoIP
+      release: 14.el7
+      source: rpm
+      version: 1.5.0
+  PyYAML:
+    - arch: x86_64
+      epoch:
+      name: PyYAML
+      release: 11.el7
+      source: rpm
+      version: '3.10'
+  acl:
+    - arch: x86_64
+      epoch:
+      name: acl
+      release: 15.el7
+      source: rpm
+      version: 2.2.51
+  alsa-lib:
+    - arch: x86_64
+      epoch:
+      name: alsa-lib
+      release: 1.el7
+      source: rpm
+      version: 1.1.8
+  apache-commons-collections:
+    - arch: noarch
+      epoch:
+      name: apache-commons-collections
+      release: 22.el7_2
+      source: rpm
+      version: 3.2.1
+  apache-commons-daemon:
+    - arch: x86_64
+      epoch:
+      name: apache-commons-daemon
+      release: 7.el7
+      source: rpm
+      version: 1.0.13
+  apache-commons-dbcp:
+    - arch: noarch
+      epoch:
+      name: apache-commons-dbcp
+      release: 17.el7
+      source: rpm
+      version: '1.4'
+  apache-commons-logging:
+    - arch: noarch
+      epoch:
+      name: apache-commons-logging
+      release: 7.el7
+      source: rpm
+      version: 1.1.2
+  apache-commons-pool:
+    - arch: noarch
+      epoch:
+      name: apache-commons-pool
+      release: 9.el7
+      source: rpm
+      version: '1.6'
+  atk:
+    - arch: x86_64
+      epoch:
+      name: atk
+      release: 2.el7
+      source: rpm
+      version: 2.28.1
+  audit:
+    - arch: x86_64
+      epoch:
+      name: audit
+      release: 4.el7
+      source: rpm
+      version: 2.8.5
+  audit-libs:
+    - arch: x86_64
+      epoch:
+      name: audit-libs
+      release: 4.el7
+      source: rpm
+      version: 2.8.5
+  audit-libs-python:
+    - arch: x86_64
+      epoch:
+      name: audit-libs-python
+      release: 4.el7
+      source: rpm
+      version: 2.8.5
+  authconfig:
+    - arch: x86_64
+      epoch:
+      name: authconfig
+      release: 30.el7
+      source: rpm
+      version: 6.2.8
+  avahi-libs:
+    - arch: x86_64
+      epoch:
+      name: avahi-libs
+      release: 20.el7
+      source: rpm
+      version: 0.6.31
+  avalon-framework:
+    - arch: noarch
+      epoch: 0
+      name: avalon-framework
+      release: 10.el7
+      source: rpm
+      version: '4.3'
+  avalon-logkit:
+    - arch: noarch
+      epoch: 0
+      name: avalon-logkit
+      release: 14.el7
+      source: rpm
+      version: '2.1'
+  basesystem:
+    - arch: noarch
+      epoch:
+      name: basesystem
+      release: 7.el7.centos
+      source: rpm
+      version: '10.0'
+  bash:
+    - arch: x86_64
+      epoch:
+      name: bash
+      release: 35.el7_9
+      source: rpm
+      version: 4.2.46
+  bc:
+    - arch: x86_64
+      epoch:
+      name: bc
+      release: 13.el7
+      source: rpm
+      version: 1.06.95
+  bind-export-libs:
+    - arch: x86_64
+      epoch: 32
+      name: bind-export-libs
+      release: 26.P2.el7_9.8
+      source: rpm
+      version: 9.11.4
+  bind-libs:
+    - arch: x86_64
+      epoch: 32
+      name: bind-libs
+      release: 26.P2.el7_9.8
+      source: rpm
+      version: 9.11.4
+  bind-libs-lite:
+    - arch: x86_64
+      epoch: 32
+      name: bind-libs-lite
+      release: 26.P2.el7_9.8
+      source: rpm
+      version: 9.11.4
+  bind-license:
+    - arch: noarch
+      epoch: 32
+      name: bind-license
+      release: 26.P2.el7_9.8
+      source: rpm
+      version: 9.11.4
+  bind-utils:
+    - arch: x86_64
+      epoch: 32
+      name: bind-utils
+      release: 26.P2.el7_9.8
+      source: rpm
+      version: 9.11.4
+  binutils:
+    - arch: x86_64
+      epoch:
+      name: binutils
+      release: 44.base.el7_9.1
+      source: rpm
+      version: '2.27'
+  btrfs-progs:
+    - arch: x86_64
+      epoch:
+      name: btrfs-progs
+      release: 1.el7
+      source: rpm
+      version: 4.9.1
+  bzip2-libs:
+    - arch: x86_64
+      epoch:
+      name: bzip2-libs
+      release: 13.el7
+      source: rpm
+      version: 1.0.6
+  ca-certificates:
+    - arch: noarch
+      epoch:
+      name: ca-certificates
+      release: 72.el7_9
+      source: rpm
+      version: 2021.2.50
+  cairo:
+    - arch: x86_64
+      epoch:
+      name: cairo
+      release: 4.el7
+      source: rpm
+      version: 1.15.12
+  centos-release:
+    - arch: x86_64
+      epoch:
+      name: centos-release
+      release: 9.2009.1.el7.centos
+      source: rpm
+      version: '7'
+  checkpolicy:
+    - arch: x86_64
+      epoch:
+      name: checkpolicy
+      release: 8.el7
+      source: rpm
+      version: '2.5'
+  chkconfig:
+    - arch: x86_64
+      epoch:
+      name: chkconfig
+      release: 1.el7
+      source: rpm
+      version: 1.7.6
+  chrony:
+    - arch: x86_64
+      epoch:
+      name: chrony
+      release: 1.el7
+      source: rpm
+      version: '3.4'
+  cloud-init:
+    - arch: x86_64
+      epoch:
+      name: cloud-init
+      release: 7.el7.centos.5
+      source: rpm
+      version: '19.4'
+  cloud-utils-growpart:
+    - arch: noarch
+      epoch:
+      name: cloud-utils-growpart
+      release: 5.el7
+      source: rpm
+      version: '0.29'
+  container-selinux:
+    - arch: noarch
+      epoch: 2
+      name: container-selinux
+      release: 1.911c772.el7_8
+      source: rpm
+      version: 2.119.2
+  containerd.io:
+    - arch: x86_64
+      epoch:
+      name: containerd.io
+      release: 3.1.el7
+      source: rpm
+      version: 1.4.12
+  copy-jdk-configs:
+    - arch: noarch
+      epoch:
+      name: copy-jdk-configs
+      release: 10.el7_5
+      source: rpm
+      version: '3.3'
+  coreutils:
+    - arch: x86_64
+      epoch:
+      name: coreutils
+      release: 24.el7_9.2
+      source: rpm
+      version: '8.22'
+  cpio:
+    - arch: x86_64
+      epoch:
+      name: cpio
+      release: 28.el7
+      source: rpm
+      version: '2.11'
+  cracklib:
+    - arch: x86_64
+      epoch:
+      name: cracklib
+      release: 11.el7
+      source: rpm
+      version: 2.9.0
+  cracklib-dicts:
+    - arch: x86_64
+      epoch:
+      name: cracklib-dicts
+      release: 11.el7
+      source: rpm
+      version: 2.9.0
+  cronie:
+    - arch: x86_64
+      epoch:
+      name: cronie
+      release: 24.el7_9
+      source: rpm
+      version: 1.4.11
+  cronie-anacron:
+    - arch: x86_64
+      epoch:
+      name: cronie-anacron
+      release: 24.el7_9
+      source: rpm
+      version: 1.4.11
+  crontabs:
+    - arch: noarch
+      epoch:
+      name: crontabs
+      release: 6.20121102git.el7
+      source: rpm
+      version: '1.11'
+  cryptsetup-libs:
+    - arch: x86_64
+      epoch:
+      name: cryptsetup-libs
+      release: 6.el7
+      source: rpm
+      version: 2.0.3
+  cups-libs:
+    - arch: x86_64
+      epoch: 1
+      name: cups-libs
+      release: 51.el7
+      source: rpm
+      version: 1.6.3
+  curl:
+    - arch: x86_64
+      epoch:
+      name: curl
+      release: 59.el7_9.1
+      source: rpm
+      version: 7.29.0
+  cyrus-sasl-lib:
+    - arch: i686
+      epoch:
+      name: cyrus-sasl-lib
+      release: 23.el7
+      source: rpm
+      version: 2.1.26
+    - arch: x86_64
+      epoch:
+      name: cyrus-sasl-lib
+      release: 23.el7
+      source: rpm
+      version: 2.1.26
+  dbus:
+    - arch: x86_64
+      epoch: 1
+      name: dbus
+      release: 15.el7
+      source: rpm
+      version: 1.10.24
+  dbus-glib:
+    - arch: x86_64
+      epoch:
+      name: dbus-glib
+      release: 7.el7
+      source: rpm
+      version: '0.100'
+  dbus-libs:
+    - arch: x86_64
+      epoch: 1
+      name: dbus-libs
+      release: 15.el7
+      source: rpm
+      version: 1.10.24
+  dbus-python:
+    - arch: x86_64
+      epoch:
+      name: dbus-python
+      release: 9.el7
+      source: rpm
+      version: 1.1.1
+  dejavu-fonts-common:
+    - arch: noarch
+      epoch:
+      name: dejavu-fonts-common
+      release: 6.el7
+      source: rpm
+      version: '2.33'
+  dejavu-sans-fonts:
+    - arch: noarch
+      epoch:
+      name: dejavu-sans-fonts
+      release: 6.el7
+      source: rpm
+      version: '2.33'
+  device-mapper:
+    - arch: x86_64
+      epoch: 7
+      name: device-mapper
+      release: 6.el7_9.5
+      source: rpm
+      version: 1.02.170
+  device-mapper-libs:
+    - arch: x86_64
+      epoch: 7
+      name: device-mapper-libs
+      release: 6.el7_9.5
+      source: rpm
+      version: 1.02.170
+  dhclient:
+    - arch: x86_64
+      epoch: 12
+      name: dhclient
+      release: 83.el7.centos.1
+      source: rpm
+      version: 4.2.5
+  dhcp-common:
+    - arch: x86_64
+      epoch: 12
+      name: dhcp-common
+      release: 83.el7.centos.1
+      source: rpm
+      version: 4.2.5
+  dhcp-libs:
+    - arch: x86_64
+      epoch: 12
+      name: dhcp-libs
+      release: 83.el7.centos.1
+      source: rpm
+      version: 4.2.5
+  diffutils:
+    - arch: x86_64
+      epoch:
+      name: diffutils
+      release: 5.el7
+      source: rpm
+      version: '3.3'
+  dmidecode:
+    - arch: x86_64
+      epoch: 1
+      name: dmidecode
+      release: 5.el7_9.1
+      source: rpm
+      version: '3.2'
+  docker-ce:
+    - arch: x86_64
+      epoch: 3
+      name: docker-ce
+      release: 3.el7
+      source: rpm
+      version: 20.10.12
+  docker-ce-cli:
+    - arch: x86_64
+      epoch: 1
+      name: docker-ce-cli
+      release: 3.el7
+      source: rpm
+      version: 20.10.12
+  docker-ce-rootless-extras:
+    - arch: x86_64
+      epoch: 0
+      name: docker-ce-rootless-extras
+      release: 3.el7
+      source: rpm
+      version: 20.10.12
+  docker-scan-plugin:
+    - arch: x86_64
+      epoch: 0
+      name: docker-scan-plugin
+      release: 3.el7
+      source: rpm
+      version: 0.12.0
+  dracut:
+    - arch: x86_64
+      epoch:
+      name: dracut
+      release: 572.el7
+      source: rpm
+      version: '033'
+  dracut-config-generic:
+    - arch: x86_64
+      epoch:
+      name: dracut-config-generic
+      release: 572.el7
+      source: rpm
+      version: '033'
+  dracut-config-rescue:
+    - arch: x86_64
+      epoch:
+      name: dracut-config-rescue
+      release: 572.el7
+      source: rpm
+      version: '033'
+  dracut-network:
+    - arch: x86_64
+      epoch:
+      name: dracut-network
+      release: 572.el7
+      source: rpm
+      version: '033'
+  e2fsprogs:
+    - arch: x86_64
+      epoch:
+      name: e2fsprogs
+      release: 19.el7
+      source: rpm
+      version: 1.42.9
+  e2fsprogs-libs:
+    - arch: x86_64
+      epoch:
+      name: e2fsprogs-libs
+      release: 19.el7
+      source: rpm
+      version: 1.42.9
+  ecj:
+    - arch: x86_64
+      epoch: 1
+      name: ecj
+      release: 3.el7
+      source: rpm
+      version: 4.5.2
+  elfutils-default-yama-scope:
+    - arch: noarch
+      epoch:
+      name: elfutils-default-yama-scope
+      release: 5.el7
+      source: rpm
+      version: '0.176'
+  elfutils-libelf:
+    - arch: x86_64
+      epoch:
+      name: elfutils-libelf
+      release: 5.el7
+      source: rpm
+      version: '0.176'
+  elfutils-libs:
+    - arch: x86_64
+      epoch:
+      name: elfutils-libs
+      release: 5.el7
+      source: rpm
+      version: '0.176'
+  epel-release:
+    - arch: noarch
+      epoch:
+      name: epel-release
+      release: '14'
+      source: rpm
+      version: '7'
+  ethtool:
+    - arch: x86_64
+      epoch: 2
+      name: ethtool
+      release: 10.el7
+      source: rpm
+      version: '4.8'
+  expat:
+    - arch: x86_64
+      epoch:
+      name: expat
+      release: 12.el7
+      source: rpm
+      version: 2.1.0
+  file:
+    - arch: x86_64
+      epoch:
+      name: file
+      release: 37.el7
+      source: rpm
+      version: '5.11'
+  file-libs:
+    - arch: x86_64
+      epoch:
+      name: file-libs
+      release: 37.el7
+      source: rpm
+      version: '5.11'
+  filebeat:
+    - arch: x86_64
+      epoch:
+      name: filebeat
+      release: '1'
+      source: rpm
+      version: 7.4.2
+  filesystem:
+    - arch: x86_64
+      epoch:
+      name: filesystem
+      release: 25.el7
+      source: rpm
+      version: '3.2'
+  findutils:
+    - arch: x86_64
+      epoch: 1
+      name: findutils
+      release: 6.el7
+      source: rpm
+      version: 4.5.11
+  fipscheck:
+    - arch: x86_64
+      epoch:
+      name: fipscheck
+      release: 6.el7
+      source: rpm
+      version: 1.4.1
+  fipscheck-lib:
+    - arch: x86_64
+      epoch:
+      name: fipscheck-lib
+      release: 6.el7
+      source: rpm
+      version: 1.4.1
+  fontconfig:
+    - arch: x86_64
+      epoch:
+      name: fontconfig
+      release: 4.3.el7
+      source: rpm
+      version: 2.13.0
+  fontpackages-filesystem:
+    - arch: noarch
+      epoch:
+      name: fontpackages-filesystem
+      release: 8.el7
+      source: rpm
+      version: '1.44'
+  forkstat:
+    - arch: x86_64
+      epoch:
+      name: forkstat
+      release: '1.1'
+      source: rpm
+      version: 0.02.12
+  freetype:
+    - arch: x86_64
+      epoch:
+      name: freetype
+      release: 14.el7_9.1
+      source: rpm
+      version: '2.8'
+  fribidi:
+    - arch: x86_64
+      epoch:
+      name: fribidi
+      release: 1.el7_7.1
+      source: rpm
+      version: 1.0.2
+  fuse-overlayfs:
+    - arch: x86_64
+      epoch:
+      name: fuse-overlayfs
+      release: 6.el7_8
+      source: rpm
+      version: 0.7.2
+  fuse3-libs:
+    - arch: x86_64
+      epoch:
+      name: fuse3-libs
+      release: 4.el7
+      source: rpm
+      version: 3.6.1
+  gawk:
+    - arch: x86_64
+      epoch:
+      name: gawk
+      release: 4.el7_3.1
+      source: rpm
+      version: 4.0.2
+  gdbm:
+    - arch: x86_64
+      epoch:
+      name: gdbm
+      release: 8.el7
+      source: rpm
+      version: '1.10'
+  gdk-pixbuf2:
+    - arch: x86_64
+      epoch:
+      name: gdk-pixbuf2
+      release: 3.el7
+      source: rpm
+      version: 2.36.12
+  geoipupdate:
+    - arch: x86_64
+      epoch:
+      name: geoipupdate
+      release: 1.el7
+      source: rpm
+      version: 2.5.0
+  geronimo-jms:
+    - arch: noarch
+      epoch:
+      name: geronimo-jms
+      release: 19.el7
+      source: rpm
+      version: 1.1.1
+  geronimo-jta:
+    - arch: noarch
+      epoch:
+      name: geronimo-jta
+      release: 17.el7
+      source: rpm
+      version: 1.1.1
+  gettext:
+    - arch: x86_64
+      epoch:
+      name: gettext
+      release: 3.el7
+      source: rpm
+      version: 0.19.8.1
+  gettext-libs:
+    - arch: x86_64
+      epoch:
+      name: gettext-libs
+      release: 3.el7
+      source: rpm
+      version: 0.19.8.1
+  giflib:
+    - arch: x86_64
+      epoch:
+      name: giflib
+      release: 9.el7
+      source: rpm
+      version: 4.1.6
+  glib2:
+    - arch: x86_64
+      epoch:
+      name: glib2
+      release: 9.el7_9
+      source: rpm
+      version: 2.56.1
+  glibc:
+    - arch: x86_64
+      epoch:
+      name: glibc
+      release: 325.el7_9
+      source: rpm
+      version: '2.17'
+    - arch: i686
+      epoch:
+      name: glibc
+      release: 325.el7_9
+      source: rpm
+      version: '2.17'
+  glibc-common:
+    - arch: x86_64
+      epoch:
+      name: glibc-common
+      release: 325.el7_9
+      source: rpm
+      version: '2.17'
+  glibc-devel:
+    - arch: x86_64
+      epoch:
+      name: glibc-devel
+      release: 325.el7_9
+      source: rpm
+      version: '2.17'
+  glibc-headers:
+    - arch: x86_64
+      epoch:
+      name: glibc-headers
+      release: 325.el7_9
+      source: rpm
+      version: '2.17'
+  gmp:
+    - arch: x86_64
+      epoch: 1
+      name: gmp
+      release: 15.el7
+      source: rpm
+      version: 6.0.0
+  gnupg2:
+    - arch: x86_64
+      epoch:
+      name: gnupg2
+      release: 5.el7_5
+      source: rpm
+      version: 2.0.22
+  gobject-introspection:
+    - arch: x86_64
+      epoch:
+      name: gobject-introspection
+      release: 1.el7
+      source: rpm
+      version: 1.56.1
+  gpg-pubkey:
+    - arch:
+      epoch:
+      name: gpg-pubkey
+      release: 58adea78
+      source: rpm
+      version: 621e9f35
+    - arch:
+      epoch:
+      name: gpg-pubkey
+      release: 53a7ff4b
+      source: rpm
+      version: f4a80eb5
+    - arch:
+      epoch:
+      name: gpg-pubkey
+      release: 52ae6884
+      source: rpm
+      version: 352c64e5
+    - arch:
+      epoch:
+      name: gpg-pubkey
+      release: 467e318a
+      source: rpm
+      version: 00f97f56
+  gpgme:
+    - arch: x86_64
+      epoch:
+      name: gpgme
+      release: 5.el7
+      source: rpm
+      version: 1.3.2
+  graphite2:
+    - arch: x86_64
+      epoch:
+      name: graphite2
+      release: 1.el7_3
+      source: rpm
+      version: 1.3.10
+  grep:
+    - arch: x86_64
+      epoch:
+      name: grep
+      release: 3.el7
+      source: rpm
+      version: '2.20'
+  groff-base:
+    - arch: x86_64
+      epoch:
+      name: groff-base
+      release: 8.el7
+      source: rpm
+      version: 1.22.2
+  grub2:
+    - arch: x86_64
+      epoch: 1
+      name: grub2
+      release: 0.87.el7.centos.7
+      source: rpm
+      version: '2.02'
+  grub2-common:
+    - arch: noarch
+      epoch: 1
+      name: grub2-common
+      release: 0.87.el7.centos.7
+      source: rpm
+      version: '2.02'
+  grub2-pc:
+    - arch: x86_64
+      epoch: 1
+      name: grub2-pc
+      release: 0.87.el7.centos.7
+      source: rpm
+      version: '2.02'
+  grub2-pc-modules:
+    - arch: noarch
+      epoch: 1
+      name: grub2-pc-modules
+      release: 0.87.el7.centos.7
+      source: rpm
+      version: '2.02'
+  grub2-tools:
+    - arch: x86_64
+      epoch: 1
+      name: grub2-tools
+      release: 0.87.el7.centos.7
+      source: rpm
+      version: '2.02'
+  grub2-tools-extra:
+    - arch: x86_64
+      epoch: 1
+      name: grub2-tools-extra
+      release: 0.87.el7.centos.7
+      source: rpm
+      version: '2.02'
+  grub2-tools-minimal:
+    - arch: x86_64
+      epoch: 1
+      name: grub2-tools-minimal
+      release: 0.87.el7.centos.7
+      source: rpm
+      version: '2.02'
+  grubby:
+    - arch: x86_64
+      epoch:
+      name: grubby
+      release: 26.el7
+      source: rpm
+      version: '8.28'
+  gssproxy:
+    - arch: x86_64
+      epoch:
+      name: gssproxy
+      release: 30.el7_9
+      source: rpm
+      version: 0.7.0
+  gtk-update-icon-cache:
+    - arch: x86_64
+      epoch:
+      name: gtk-update-icon-cache
+      release: 6.el7
+      source: rpm
+      version: 3.22.30
+  gtk2:
+    - arch: x86_64
+      epoch:
+      name: gtk2
+      release: 1.el7
+      source: rpm
+      version: 2.24.31
+  gzip:
+    - arch: x86_64
+      epoch:
+      name: gzip
+      release: 10.el7
+      source: rpm
+      version: '1.5'
+  hardlink:
+    - arch: x86_64
+      epoch: 1
+      name: hardlink
+      release: 19.el7
+      source: rpm
+      version: '1.0'
+  harfbuzz:
+    - arch: x86_64
+      epoch:
+      name: harfbuzz
+      release: 2.el7
+      source: rpm
+      version: 1.7.5
+  hicolor-icon-theme:
+    - arch: noarch
+      epoch:
+      name: hicolor-icon-theme
+      release: 7.el7
+      source: rpm
+      version: '0.12'
+  hostname:
+    - arch: x86_64
+      epoch:
+      name: hostname
+      release: 3.el7_7.1
+      source: rpm
+      version: '3.13'
+  hwdata:
+    - arch: x86_64
+      epoch:
+      name: hwdata
+      release: 9.7.el7
+      source: rpm
+      version: '0.252'
+  info:
+    - arch: x86_64
+      epoch:
+      name: info
+      release: 5.el7
+      source: rpm
+      version: '5.1'
+  initscripts:
+    - arch: x86_64
+      epoch:
+      name: initscripts
+      release: 1.el7_9.1
+      source: rpm
+      version: 9.49.53
+  iometrics-agent:
+    - arch: x86_64
+      epoch:
+      name: iometrics-agent
+      release: '25'
+      source: rpm
+      version: 1.11.3
+  iometrics-agent-plugin-oracle-lib-connector:
+    - arch: x86_64
+      epoch:
+      name: iometrics-agent-plugin-oracle-lib-connector
+      release: '25'
+      source: rpm
+      version: 18.5.0_1.11.3
+  iometrics-agent-plugin-oracle-libs:
+    - arch: x86_64
+      epoch:
+      name: iometrics-agent-plugin-oracle-libs
+      release: '1'
+      source: rpm
+      version: 18.5.0
+  iotop:
+    - arch: noarch
+      epoch:
+      name: iotop
+      release: 4.el7
+      source: rpm
+      version: '0.6'
+  iproute:
+    - arch: x86_64
+      epoch:
+      name: iproute
+      release: 30.el7
+      source: rpm
+      version: 4.11.0
+  iptables:
+    - arch: x86_64
+      epoch:
+      name: iptables
+      release: 35.el7
+      source: rpm
+      version: 1.4.21
+  iputils:
+    - arch: x86_64
+      epoch:
+      name: iputils
+      release: 10.el7
+      source: rpm
+      version: '20160308'
+  irqbalance:
+    - arch: x86_64
+      epoch: 3
+      name: irqbalance
+      release: 12.el7
+      source: rpm
+      version: 1.0.7
+  jakarta-taglibs-standard:
+    - arch: noarch
+      epoch: 0
+      name: jakarta-taglibs-standard
+      release: 14.el7_1
+      source: rpm
+      version: 1.1.2
+  jansson:
+    - arch: x86_64
+      epoch:
+      name: jansson
+      release: 1.el7
+      source: rpm
+      version: '2.10'
+  jasper-libs:
+    - arch: x86_64
+      epoch:
+      name: jasper-libs
+      release: 33.el7
+      source: rpm
+      version: 1.900.1
+  java-1.8.0-openjdk:
+    - arch: x86_64
+      epoch: 1
+      name: java-1.8.0-openjdk
+      release: 1.el7_9
+      source: rpm
+      version: 1.8.0.322.b06
+  java-1.8.0-openjdk-headless:
+    - arch: x86_64
+      epoch: 1
+      name: java-1.8.0-openjdk-headless
+      release: 1.el7_9
+      source: rpm
+      version: 1.8.0.322.b06
+  javamail:
+    - arch: noarch
+      epoch:
+      name: javamail
+      release: 8.el7
+      source: rpm
+      version: 1.4.6
+  javapackages-tools:
+    - arch: noarch
+      epoch:
+      name: javapackages-tools
+      release: 11.el7
+      source: rpm
+      version: 3.4.1
+  jbigkit-libs:
+    - arch: x86_64
+      epoch:
+      name: jbigkit-libs
+      release: 11.el7
+      source: rpm
+      version: '2.0'
+  jq:
+    - arch: x86_64
+      epoch:
+      name: jq
+      release: 2.el7
+      source: rpm
+      version: '1.6'
+  json-c:
+    - arch: x86_64
+      epoch:
+      name: json-c
+      release: 4.el7_0
+      source: rpm
+      version: '0.11'
+  kbd:
+    - arch: x86_64
+      epoch:
+      name: kbd
+      release: 16.el7_9
+      source: rpm
+      version: 1.15.5
+  kbd-legacy:
+    - arch: noarch
+      epoch:
+      name: kbd-legacy
+      release: 16.el7_9
+      source: rpm
+      version: 1.15.5
+  kbd-misc:
+    - arch: noarch
+      epoch:
+      name: kbd-misc
+      release: 16.el7_9
+      source: rpm
+      version: 1.15.5
+  kernel:
+    - arch: x86_64
+      epoch:
+      name: kernel
+      release: 1127.el7
+      source: rpm
+      version: 3.10.0
+    - arch: x86_64
+      epoch:
+      name: kernel
+      release: 1160.53.1.el7
+      source: rpm
+      version: 3.10.0
+  kernel-headers:
+    - arch: x86_64
+      epoch:
+      name: kernel-headers
+      release: 1160.53.1.el7
+      source: rpm
+      version: 3.10.0
+  kernel-tools:
+    - arch: x86_64
+      epoch:
+      name: kernel-tools
+      release: 1160.53.1.el7
+      source: rpm
+      version: 3.10.0
+  kernel-tools-libs:
+    - arch: x86_64
+      epoch:
+      name: kernel-tools-libs
+      release: 1160.53.1.el7
+      source: rpm
+      version: 3.10.0
+  kexec-tools:
+    - arch: x86_64
+      epoch:
+      name: kexec-tools
+      release: 51.el7_9.3
+      source: rpm
+      version: 2.0.15
+  keyutils:
+    - arch: x86_64
+      epoch:
+      name: keyutils
+      release: 3.el7
+      source: rpm
+      version: 1.5.8
+  keyutils-libs:
+    - arch: i686
+      epoch:
+      name: keyutils-libs
+      release: 3.el7
+      source: rpm
+      version: 1.5.8
+    - arch: x86_64
+      epoch:
+      name: keyutils-libs
+      release: 3.el7
+      source: rpm
+      version: 1.5.8
+  kmod:
+    - arch: x86_64
+      epoch:
+      name: kmod
+      release: 28.el7
+      source: rpm
+      version: '20'
+  kmod-libs:
+    - arch: x86_64
+      epoch:
+      name: kmod-libs
+      release: 28.el7
+      source: rpm
+      version: '20'
+  kpartx:
+    - arch: x86_64
+      epoch:
+      name: kpartx
+      release: 135.el7_9
+      source: rpm
+      version: 0.4.9
+  krb5-libs:
+    - arch: i686
+      epoch:
+      name: krb5-libs
+      release: 51.el7_9
+      source: rpm
+      version: 1.15.1
+    - arch: x86_64
+      epoch:
+      name: krb5-libs
+      release: 51.el7_9
+      source: rpm
+      version: 1.15.1
+  ksh:
+    - arch: x86_64
+      epoch:
+      name: ksh
+      release: 143.el7_9
+      source: rpm
+      version: '20120801'
+  less:
+    - arch: x86_64
+      epoch:
+      name: less
+      release: 9.el7
+      source: rpm
+      version: '458'
+  libICE:
+    - arch: x86_64
+      epoch:
+      name: libICE
+      release: 9.el7
+      source: rpm
+      version: 1.0.9
+  libSM:
+    - arch: x86_64
+      epoch:
+      name: libSM
+      release: 2.el7
+      source: rpm
+      version: 1.2.2
+  libX11:
+    - arch: x86_64
+      epoch:
+      name: libX11
+      release: 4.el7_9
+      source: rpm
+      version: 1.6.7
+  libX11-common:
+    - arch: noarch
+      epoch:
+      name: libX11-common
+      release: 4.el7_9
+      source: rpm
+      version: 1.6.7
+  libXau:
+    - arch: x86_64
+      epoch:
+      name: libXau
+      release: 2.1.el7
+      source: rpm
+      version: 1.0.8
+  libXcomposite:
+    - arch: x86_64
+      epoch:
+      name: libXcomposite
+      release: 4.1.el7
+      source: rpm
+      version: 0.4.4
+  libXcursor:
+    - arch: x86_64
+      epoch:
+      name: libXcursor
+      release: 1.el7
+      source: rpm
+      version: 1.1.15
+  libXdamage:
+    - arch: x86_64
+      epoch:
+      name: libXdamage
+      release: 4.1.el7
+      source: rpm
+      version: 1.1.4
+  libXext:
+    - arch: x86_64
+      epoch:
+      name: libXext
+      release: 3.el7
+      source: rpm
+      version: 1.3.3
+  libXfixes:
+    - arch: x86_64
+      epoch:
+      name: libXfixes
+      release: 1.el7
+      source: rpm
+      version: 5.0.3
+  libXft:
+    - arch: x86_64
+      epoch:
+      name: libXft
+      release: 2.el7
+      source: rpm
+      version: 2.3.2
+  libXi:
+    - arch: x86_64
+      epoch:
+      name: libXi
+      release: 1.el7
+      source: rpm
+      version: 1.7.9
+  libXinerama:
+    - arch: x86_64
+      epoch:
+      name: libXinerama
+      release: 2.1.el7
+      source: rpm
+      version: 1.1.3
+  libXmu:
+    - arch: x86_64
+      epoch:
+      name: libXmu
+      release: 2.el7
+      source: rpm
+      version: 1.1.2
+  libXrandr:
+    - arch: x86_64
+      epoch:
+      name: libXrandr
+      release: 2.el7
+      source: rpm
+      version: 1.5.1
+  libXrender:
+    - arch: x86_64
+      epoch:
+      name: libXrender
+      release: 1.el7
+      source: rpm
+      version: 0.9.10
+  libXt:
+    - arch: x86_64
+      epoch:
+      name: libXt
+      release: 3.el7
+      source: rpm
+      version: 1.1.5
+  libXtst:
+    - arch: x86_64
+      epoch:
+      name: libXtst
+      release: 1.el7
+      source: rpm
+      version: 1.2.3
+  libXv:
+    - arch: x86_64
+      epoch:
+      name: libXv
+      release: 1.el7
+      source: rpm
+      version: 1.0.11
+  libXxf86dga:
+    - arch: x86_64
+      epoch:
+      name: libXxf86dga
+      release: 2.1.el7
+      source: rpm
+      version: 1.1.4
+  libXxf86misc:
+    - arch: x86_64
+      epoch:
+      name: libXxf86misc
+      release: 7.1.el7
+      source: rpm
+      version: 1.0.3
+  libXxf86vm:
+    - arch: x86_64
+      epoch:
+      name: libXxf86vm
+      release: 1.el7
+      source: rpm
+      version: 1.1.4
+  libacl:
+    - arch: x86_64
+      epoch:
+      name: libacl
+      release: 15.el7
+      source: rpm
+      version: 2.2.51
+  libaio:
+    - arch: x86_64
+      epoch:
+      name: libaio
+      release: 13.el7
+      source: rpm
+      version: 0.3.109
+  libassuan:
+    - arch: x86_64
+      epoch:
+      name: libassuan
+      release: 3.el7
+      source: rpm
+      version: 2.1.0
+  libattr:
+    - arch: x86_64
+      epoch:
+      name: libattr
+      release: 13.el7
+      source: rpm
+      version: 2.4.46
+  libbasicobjects:
+    - arch: x86_64
+      epoch:
+      name: libbasicobjects
+      release: 32.el7
+      source: rpm
+      version: 0.1.1
+  libblkid:
+    - arch: x86_64
+      epoch:
+      name: libblkid
+      release: 65.el7_9.1
+      source: rpm
+      version: 2.23.2
+  libcap:
+    - arch: x86_64
+      epoch:
+      name: libcap
+      release: 11.el7
+      source: rpm
+      version: '2.22'
+  libcap-ng:
+    - arch: x86_64
+      epoch:
+      name: libcap-ng
+      release: 4.el7
+      source: rpm
+      version: 0.7.5
+  libcgroup:
+    - arch: x86_64
+      epoch:
+      name: libcgroup
+      release: 21.el7
+      source: rpm
+      version: '0.41'
+  libcollection:
+    - arch: x86_64
+      epoch:
+      name: libcollection
+      release: 32.el7
+      source: rpm
+      version: 0.7.0
+  libcom_err:
+    - arch: x86_64
+      epoch:
+      name: libcom_err
+      release: 19.el7
+      source: rpm
+      version: 1.42.9
+    - arch: i686
+      epoch:
+      name: libcom_err
+      release: 19.el7
+      source: rpm
+      version: 1.42.9
+  libcroco:
+    - arch: x86_64
+      epoch:
+      name: libcroco
+      release: 6.el7_9
+      source: rpm
+      version: 0.6.12
+  libcurl:
+    - arch: x86_64
+      epoch:
+      name: libcurl
+      release: 59.el7_9.1
+      source: rpm
+      version: 7.29.0
+  libdaemon:
+    - arch: x86_64
+      epoch:
+      name: libdaemon
+      release: 7.el7
+      source: rpm
+      version: '0.14'
+  libdb:
+    - arch: i686
+      epoch:
+      name: libdb
+      release: 25.el7
+      source: rpm
+      version: 5.3.21
+    - arch: x86_64
+      epoch:
+      name: libdb
+      release: 25.el7
+      source: rpm
+      version: 5.3.21
+  libdb-utils:
+    - arch: x86_64
+      epoch:
+      name: libdb-utils
+      release: 25.el7
+      source: rpm
+      version: 5.3.21
+  libdmx:
+    - arch: x86_64
+      epoch:
+      name: libdmx
+      release: 3.el7
+      source: rpm
+      version: 1.1.3
+  libdrm:
+    - arch: x86_64
+      epoch:
+      name: libdrm
+      release: 2.el7
+      source: rpm
+      version: 2.4.97
+  libedit:
+    - arch: x86_64
+      epoch:
+      name: libedit
+      release: 12.20121213cvs.el7
+      source: rpm
+      version: '3.0'
+  libestr:
+    - arch: x86_64
+      epoch:
+      name: libestr
+      release: 2.el7
+      source: rpm
+      version: 0.1.9
+  libevent:
+    - arch: x86_64
+      epoch:
+      name: libevent
+      release: 4.el7
+      source: rpm
+      version: 2.0.21
+  libfastjson:
+    - arch: x86_64
+      epoch:
+      name: libfastjson
+      release: 3.el7
+      source: rpm
+      version: 0.99.4
+  libffi:
+    - arch: x86_64
+      epoch:
+      name: libffi
+      release: 19.el7
+      source: rpm
+      version: 3.0.13
+  libfontenc:
+    - arch: x86_64
+      epoch:
+      name: libfontenc
+      release: 3.el7
+      source: rpm
+      version: 1.1.3
+  libgcc:
+    - arch: x86_64
+      epoch:
+      name: libgcc
+      release: 44.el7
+      source: rpm
+      version: 4.8.5
+    - arch: i686
+      epoch:
+      name: libgcc
+      release: 44.el7
+      source: rpm
+      version: 4.8.5
+  libgcrypt:
+    - arch: x86_64
+      epoch:
+      name: libgcrypt
+      release: 14.el7
+      source: rpm
+      version: 1.5.3
+  libglvnd:
+    - arch: x86_64
+      epoch: 1
+      name: libglvnd
+      release: 0.8.git5baa1e5.el7
+      source: rpm
+      version: 1.0.1
+  libglvnd-egl:
+    - arch: x86_64
+      epoch: 1
+      name: libglvnd-egl
+      release: 0.8.git5baa1e5.el7
+      source: rpm
+      version: 1.0.1
+  libglvnd-glx:
+    - arch: x86_64
+      epoch: 1
+      name: libglvnd-glx
+      release: 0.8.git5baa1e5.el7
+      source: rpm
+      version: 1.0.1
+  libgomp:
+    - arch: x86_64
+      epoch:
+      name: libgomp
+      release: 44.el7
+      source: rpm
+      version: 4.8.5
+  libgpg-error:
+    - arch: x86_64
+      epoch:
+      name: libgpg-error
+      release: 3.el7
+      source: rpm
+      version: '1.12'
+  libicu:
+    - arch: x86_64
+      epoch:
+      name: libicu
+      release: 4.el7_7
+      source: rpm
+      version: '50.2'
+  libidn:
+    - arch: x86_64
+      epoch:
+      name: libidn
+      release: 4.el7
+      source: rpm
+      version: '1.28'
+  libini_config:
+    - arch: x86_64
+      epoch:
+      name: libini_config
+      release: 32.el7
+      source: rpm
+      version: 1.3.1
+  libjpeg-turbo:
+    - arch: x86_64
+      epoch:
+      name: libjpeg-turbo
+      release: 8.el7
+      source: rpm
+      version: 1.2.90
+  libmnl:
+    - arch: x86_64
+      epoch:
+      name: libmnl
+      release: 7.el7
+      source: rpm
+      version: 1.0.3
+  libmount:
+    - arch: x86_64
+      epoch:
+      name: libmount
+      release: 65.el7_9.1
+      source: rpm
+      version: 2.23.2
+  libndp:
+    - arch: x86_64
+      epoch:
+      name: libndp
+      release: 9.el7
+      source: rpm
+      version: '1.2'
+  libnetfilter_conntrack:
+    - arch: x86_64
+      epoch:
+      name: libnetfilter_conntrack
+      release: 1.el7_3
+      source: rpm
+      version: 1.0.6
+  libnfnetlink:
+    - arch: x86_64
+      epoch:
+      name: libnfnetlink
+      release: 4.el7
+      source: rpm
+      version: 1.0.1
+  libnfsidmap:
+    - arch: x86_64
+      epoch:
+      name: libnfsidmap
+      release: 19.el7
+      source: rpm
+      version: '0.25'
+  libnl3:
+    - arch: x86_64
+      epoch:
+      name: libnl3
+      release: 4.el7
+      source: rpm
+      version: 3.2.28
+  libnl3-cli:
+    - arch: x86_64
+      epoch:
+      name: libnl3-cli
+      release: 4.el7
+      source: rpm
+      version: 3.2.28
+  libpath_utils:
+    - arch: x86_64
+      epoch:
+      name: libpath_utils
+      release: 32.el7
+      source: rpm
+      version: 0.2.1
+  libpcap:
+    - arch: x86_64
+      epoch: 14
+      name: libpcap
+      release: 12.el7
+      source: rpm
+      version: 1.5.3
+  libpciaccess:
+    - arch: x86_64
+      epoch:
+      name: libpciaccess
+      release: 1.el7
+      source: rpm
+      version: '0.14'
+  libpipeline:
+    - arch: x86_64
+      epoch:
+      name: libpipeline
+      release: 3.el7
+      source: rpm
+      version: 1.2.3
+  libpng:
+    - arch: x86_64
+      epoch: 2
+      name: libpng
+      release: 8.el7
+      source: rpm
+      version: 1.5.13
+  libpwquality:
+    - arch: x86_64
+      epoch:
+      name: libpwquality
+      release: 5.el7
+      source: rpm
+      version: 1.2.3
+  libref_array:
+    - arch: x86_64
+      epoch:
+      name: libref_array
+      release: 32.el7
+      source: rpm
+      version: 0.1.5
+  libseccomp:
+    - arch: x86_64
+      epoch:
+      name: libseccomp
+      release: 4.el7
+      source: rpm
+      version: 2.3.1
+  libselinux:
+    - arch: x86_64
+      epoch:
+      name: libselinux
+      release: 15.el7
+      source: rpm
+      version: '2.5'
+    - arch: i686
+      epoch:
+      name: libselinux
+      release: 15.el7
+      source: rpm
+      version: '2.5'
+  libselinux-python:
+    - arch: x86_64
+      epoch:
+      name: libselinux-python
+      release: 15.el7
+      source: rpm
+      version: '2.5'
+  libselinux-python3:
+    - arch: x86_64
+      epoch:
+      name: libselinux-python3
+      release: 15.el7
+      source: rpm
+      version: '2.5'
+  libselinux-utils:
+    - arch: x86_64
+      epoch:
+      name: libselinux-utils
+      release: 15.el7
+      source: rpm
+      version: '2.5'
+  libsemanage:
+    - arch: x86_64
+      epoch:
+      name: libsemanage
+      release: 14.el7
+      source: rpm
+      version: '2.5'
+  libsemanage-python:
+    - arch: x86_64
+      epoch:
+      name: libsemanage-python
+      release: 14.el7
+      source: rpm
+      version: '2.5'
+  libsepol:
+    - arch: i686
+      epoch:
+      name: libsepol
+      release: 10.el7
+      source: rpm
+      version: '2.5'
+    - arch: x86_64
+      epoch:
+      name: libsepol
+      release: 10.el7
+      source: rpm
+      version: '2.5'
+  libsmartcols:
+    - arch: x86_64
+      epoch:
+      name: libsmartcols
+      release: 65.el7_9.1
+      source: rpm
+      version: 2.23.2
+  libss:
+    - arch: x86_64
+      epoch:
+      name: libss
+      release: 19.el7
+      source: rpm
+      version: 1.42.9
+  libssh2:
+    - arch: x86_64
+      epoch:
+      name: libssh2
+      release: 4.el7
+      source: rpm
+      version: 1.8.0
+  libstdc++:
+    - arch: x86_64
+      epoch:
+      name: libstdc++
+      release: 44.el7
+      source: rpm
+      version: 4.8.5
+    - arch: i686
+      epoch:
+      name: libstdc++
+      release: 44.el7
+      source: rpm
+      version: 4.8.5
+  libsysfs:
+    - arch: x86_64
+      epoch:
+      name: libsysfs
+      release: 16.el7
+      source: rpm
+      version: 2.1.0
+  libtasn1:
+    - arch: x86_64
+      epoch:
+      name: libtasn1
+      release: 1.el7
+      source: rpm
+      version: '4.10'
+  libteam:
+    - arch: x86_64
+      epoch:
+      name: libteam
+      release: 3.el7
+      source: rpm
+      version: '1.29'
+  libthai:
+    - arch: x86_64
+      epoch:
+      name: libthai
+      release: 9.el7
+      source: rpm
+      version: 0.1.14
+  libtiff:
+    - arch: x86_64
+      epoch:
+      name: libtiff
+      release: 35.el7
+      source: rpm
+      version: 4.0.3
+  libtirpc:
+    - arch: x86_64
+      epoch:
+      name: libtirpc
+      release: 0.16.el7
+      source: rpm
+      version: 0.2.4
+  libunistring:
+    - arch: x86_64
+      epoch:
+      name: libunistring
+      release: 9.el7
+      source: rpm
+      version: 0.9.3
+  libuser:
+    - arch: x86_64
+      epoch:
+      name: libuser
+      release: 9.el7
+      source: rpm
+      version: '0.60'
+  libutempter:
+    - arch: x86_64
+      epoch:
+      name: libutempter
+      release: 4.el7
+      source: rpm
+      version: 1.1.6
+  libuuid:
+    - arch: x86_64
+      epoch:
+      name: libuuid
+      release: 65.el7_9.1
+      source: rpm
+      version: 2.23.2
+  libverto:
+    - arch: x86_64
+      epoch:
+      name: libverto
+      release: 4.el7
+      source: rpm
+      version: 0.2.5
+    - arch: i686
+      epoch:
+      name: libverto
+      release: 4.el7
+      source: rpm
+      version: 0.2.5
+  libverto-libevent:
+    - arch: x86_64
+      epoch:
+      name: libverto-libevent
+      release: 4.el7
+      source: rpm
+      version: 0.2.5
+  libwayland-client:
+    - arch: x86_64
+      epoch:
+      name: libwayland-client
+      release: 1.el7
+      source: rpm
+      version: 1.15.0
+  libwayland-server:
+    - arch: x86_64
+      epoch:
+      name: libwayland-server
+      release: 1.el7
+      source: rpm
+      version: 1.15.0
+  libxcb:
+    - arch: x86_64
+      epoch:
+      name: libxcb
+      release: 1.el7
+      source: rpm
+      version: '1.13'
+  libxml2:
+    - arch: x86_64
+      epoch:
+      name: libxml2
+      release: 6.el7_9.6
+      source: rpm
+      version: 2.9.1
+  libxml2-python:
+    - arch: x86_64
+      epoch:
+      name: libxml2-python
+      release: 6.el7_9.6
+      source: rpm
+      version: 2.9.1
+  libxshmfence:
+    - arch: x86_64
+      epoch:
+      name: libxshmfence
+      release: 1.el7
+      source: rpm
+      version: '1.2'
+  libxslt:
+    - arch: x86_64
+      epoch:
+      name: libxslt
+      release: 6.el7
+      source: rpm
+      version: 1.1.28
+  libyaml:
+    - arch: x86_64
+      epoch:
+      name: libyaml
+      release: 11.el7_0
+      source: rpm
+      version: 0.1.4
+  linux-firmware:
+    - arch: noarch
+      epoch:
+      name: linux-firmware
+      release: 80.git78c0348.el7_9
+      source: rpm
+      version: '20200421'
+  lksctp-tools:
+    - arch: x86_64
+      epoch:
+      name: lksctp-tools
+      release: 2.el7
+      source: rpm
+      version: 1.0.17
+  lm_sensors-libs:
+    - arch: x86_64
+      epoch:
+      name: lm_sensors-libs
+      release: 8.20160601gitf9185e5.el7
+      source: rpm
+      version: 3.4.0
+  log4j:
+    - arch: noarch
+      epoch: 0
+      name: log4j
+      release: 18.el7_4
+      source: rpm
+      version: 1.2.17
+  logrotate:
+    - arch: x86_64
+      epoch:
+      name: logrotate
+      release: 19.el7
+      source: rpm
+      version: 3.8.6
+  lshw:
+    - arch: x86_64
+      epoch:
+      name: lshw
+      release: 17.el7
+      source: rpm
+      version: B.02.18
+  lsof:
+    - arch: x86_64
+      epoch:
+      name: lsof
+      release: 6.el7
+      source: rpm
+      version: '4.87'
+  lua:
+    - arch: x86_64
+      epoch:
+      name: lua
+      release: 15.el7
+      source: rpm
+      version: 5.1.4
+  lz4:
+    - arch: x86_64
+      epoch:
+      name: lz4
+      release: 1.el7
+      source: rpm
+      version: 1.8.3
+  lzo:
+    - arch: x86_64
+      epoch:
+      name: lzo
+      release: 8.el7
+      source: rpm
+      version: '2.06'
+  mailx:
+    - arch: x86_64
+      epoch:
+      name: mailx
+      release: 19.el7
+      source: rpm
+      version: '12.5'
+  make:
+    - arch: x86_64
+      epoch: 1
+      name: make
+      release: 24.el7
+      source: rpm
+      version: '3.82'
+  man-db:
+    - arch: x86_64
+      epoch:
+      name: man-db
+      release: 11.el7
+      source: rpm
+      version: 2.6.3
+  mariadb-libs:
+    - arch: x86_64
+      epoch: 1
+      name: mariadb-libs
+      release: 1.el7
+      source: rpm
+      version: 5.5.68
+  mesa-libEGL:
+    - arch: x86_64
+      epoch:
+      name: mesa-libEGL
+      release: 12.el7_9
+      source: rpm
+      version: 18.3.4
+  mesa-libGL:
+    - arch: x86_64
+      epoch:
+      name: mesa-libGL
+      release: 12.el7_9
+      source: rpm
+      version: 18.3.4
+  mesa-libgbm:
+    - arch: x86_64
+      epoch:
+      name: mesa-libgbm
+      release: 12.el7_9
+      source: rpm
+      version: 18.3.4
+  mesa-libglapi:
+    - arch: x86_64
+      epoch:
+      name: mesa-libglapi
+      release: 12.el7_9
+      source: rpm
+      version: 18.3.4
+  microcode_ctl:
+    - arch: x86_64
+      epoch: 2
+      name: microcode_ctl
+      release: 73.11.el7_9
+      source: rpm
+      version: '2.1'
+  mozjs17:
+    - arch: x86_64
+      epoch:
+      name: mozjs17
+      release: 20.el7
+      source: rpm
+      version: 17.0.0
+  ncurses:
+    - arch: x86_64
+      epoch:
+      name: ncurses
+      release: 14.20130511.el7_4
+      source: rpm
+      version: '5.9'
+  ncurses-base:
+    - arch: noarch
+      epoch:
+      name: ncurses-base
+      release: 14.20130511.el7_4
+      source: rpm
+      version: '5.9'
+  ncurses-libs:
+    - arch: x86_64
+      epoch:
+      name: ncurses-libs
+      release: 14.20130511.el7_4
+      source: rpm
+      version: '5.9'
+    - arch: i686
+      epoch:
+      name: ncurses-libs
+      release: 14.20130511.el7_4
+      source: rpm
+      version: '5.9'
+  net-tools:
+    - arch: x86_64
+      epoch:
+      name: net-tools
+      release: 0.25.20131004git.el7
+      source: rpm
+      version: '2.0'
+  newt:
+    - arch: x86_64
+      epoch:
+      name: newt
+      release: 4.el7
+      source: rpm
+      version: 0.52.15
+  newt-python:
+    - arch: x86_64
+      epoch:
+      name: newt-python
+      release: 4.el7
+      source: rpm
+      version: 0.52.15
+  nfs-utils:
+    - arch: x86_64
+      epoch: 1
+      name: nfs-utils
+      release: 0.68.el7.2
+      source: rpm
+      version: 1.3.0
+  nmap-ncat:
+    - arch: x86_64
+      epoch: 2
+      name: nmap-ncat
+      release: 19.el7
+      source: rpm
+      version: '6.40'
+  nspr:
+    - arch: i686
+      epoch:
+      name: nspr
+      release: 1.el7_9
+      source: rpm
+      version: 4.32.0
+    - arch: x86_64
+      epoch:
+      name: nspr
+      release: 1.el7_9
+      source: rpm
+      version: 4.32.0
+  nss:
+    - arch: x86_64
+      epoch:
+      name: nss
+      release: 4.el7_9
+      source: rpm
+      version: 3.67.0
+    - arch: i686
+      epoch:
+      name: nss
+      release: 4.el7_9
+      source: rpm
+      version: 3.67.0
+  nss-pem:
+    - arch: x86_64
+      epoch:
+      name: nss-pem
+      release: 7.el7
+      source: rpm
+      version: 1.0.3
+    - arch: i686
+      epoch:
+      name: nss-pem
+      release: 7.el7
+      source: rpm
+      version: 1.0.3
+  nss-softokn:
+    - arch: x86_64
+      epoch:
+      name: nss-softokn
+      release: 3.el7_9
+      source: rpm
+      version: 3.67.0
+    - arch: i686
+      epoch:
+      name: nss-softokn
+      release: 3.el7_9
+      source: rpm
+      version: 3.67.0
+  nss-softokn-freebl:
+    - arch: i686
+      epoch:
+      name: nss-softokn-freebl
+      release: 3.el7_9
+      source: rpm
+      version: 3.67.0
+    - arch: x86_64
+      epoch:
+      name: nss-softokn-freebl
+      release: 3.el7_9
+      source: rpm
+      version: 3.67.0
+  nss-sysinit:
+    - arch: x86_64
+      epoch:
+      name: nss-sysinit
+      release: 4.el7_9
+      source: rpm
+      version: 3.67.0
+  nss-tools:
+    - arch: x86_64
+      epoch:
+      name: nss-tools
+      release: 4.el7_9
+      source: rpm
+      version: 3.67.0
+  nss-util:
+    - arch: x86_64
+      epoch:
+      name: nss-util
+      release: 1.el7_9
+      source: rpm
+      version: 3.67.0
+    - arch: i686
+      epoch:
+      name: nss-util
+      release: 1.el7_9
+      source: rpm
+      version: 3.67.0
+  numactl-libs:
+    - arch: x86_64
+      epoch:
+      name: numactl-libs
+      release: 5.el7
+      source: rpm
+      version: 2.0.12
+  oniguruma:
+    - arch: x86_64
+      epoch:
+      name: oniguruma
+      release: 1.el7
+      source: rpm
+      version: 6.8.2
+  openldap:
+    - arch: x86_64
+      epoch:
+      name: openldap
+      release: 24.el7_9
+      source: rpm
+      version: 2.4.44
+    - arch: i686
+      epoch:
+      name: openldap
+      release: 24.el7_9
+      source: rpm
+      version: 2.4.44
+  openssh:
+    - arch: x86_64
+      epoch:
+      name: openssh
+      release: 22.el7_9
+      source: rpm
+      version: 7.4p1
+  openssh-clients:
+    - arch: x86_64
+      epoch:
+      name: openssh-clients
+      release: 22.el7_9
+      source: rpm
+      version: 7.4p1
+  openssh-server:
+    - arch: x86_64
+      epoch:
+      name: openssh-server
+      release: 22.el7_9
+      source: rpm
+      version: 7.4p1
+  openssl:
+    - arch: x86_64
+      epoch: 1
+      name: openssl
+      release: 24.el7_9
+      source: rpm
+      version: 1.0.2k
+  openssl-libs:
+    - arch: x86_64
+      epoch: 1
+      name: openssl-libs
+      release: 24.el7_9
+      source: rpm
+      version: 1.0.2k
+    - arch: i686
+      epoch: 1
+      name: openssl-libs
+      release: 24.el7_9
+      source: rpm
+      version: 1.0.2k
+  oracle-database-preinstall-21c:
+    - arch: x86_64
+      epoch:
+      name: oracle-database-preinstall-21c
+      release: 1.el7
+      source: rpm
+      version: '1.0'
+  oracle-database-xe-21c:
+    - arch: x86_64
+      epoch:
+      name: oracle-database-xe-21c
+      release: '1'
+      source: rpm
+      version: '1.0'
+  os-prober:
+    - arch: x86_64
+      epoch:
+      name: os-prober
+      release: 9.el7
+      source: rpm
+      version: '1.58'
+  p11-kit:
+    - arch: x86_64
+      epoch:
+      name: p11-kit
+      release: 3.el7
+      source: rpm
+      version: 0.23.5
+  p11-kit-trust:
+    - arch: x86_64
+      epoch:
+      name: p11-kit-trust
+      release: 3.el7
+      source: rpm
+      version: 0.23.5
+  pam:
+    - arch: x86_64
+      epoch:
+      name: pam
+      release: 23.el7
+      source: rpm
+      version: 1.1.8
+  pango:
+    - arch: x86_64
+      epoch:
+      name: pango
+      release: 4.el7_7
+      source: rpm
+      version: 1.42.4
+  parted:
+    - arch: x86_64
+      epoch:
+      name: parted
+      release: 32.el7
+      source: rpm
+      version: '3.1'
+  passwd:
+    - arch: x86_64
+      epoch:
+      name: passwd
+      release: 6.el7
+      source: rpm
+      version: '0.79'
+  pciutils-libs:
+    - arch: x86_64
+      epoch:
+      name: pciutils-libs
+      release: 3.el7
+      source: rpm
+      version: 3.5.1
+  pcre:
+    - arch: i686
+      epoch:
+      name: pcre
+      release: 17.el7
+      source: rpm
+      version: '8.32'
+    - arch: x86_64
+      epoch:
+      name: pcre
+      release: 17.el7
+      source: rpm
+      version: '8.32'
+  pcsc-lite-libs:
+    - arch: x86_64
+      epoch:
+      name: pcsc-lite-libs
+      release: 8.el7
+      source: rpm
+      version: 1.8.8
+  pinentry:
+    - arch: x86_64
+      epoch:
+      name: pinentry
+      release: 17.el7
+      source: rpm
+      version: 0.8.1
+  pixman:
+    - arch: x86_64
+      epoch:
+      name: pixman
+      release: 1.el7
+      source: rpm
+      version: 0.34.0
+  pkgconfig:
+    - arch: x86_64
+      epoch: 1
+      name: pkgconfig
+      release: 4.el7
+      source: rpm
+      version: 0.27.1
+  policycoreutils:
+    - arch: x86_64
+      epoch:
+      name: policycoreutils
+      release: 34.el7
+      source: rpm
+      version: '2.5'
+  policycoreutils-python:
+    - arch: x86_64
+      epoch:
+      name: policycoreutils-python
+      release: 34.el7
+      source: rpm
+      version: '2.5'
+  polkit:
+    - arch: x86_64
+      epoch:
+      name: polkit
+      release: 26.el7_9.1
+      source: rpm
+      version: '0.112'
+  polkit-pkla-compat:
+    - arch: x86_64
+      epoch:
+      name: polkit-pkla-compat
+      release: 4.el7
+      source: rpm
+      version: '0.1'
+  popt:
+    - arch: x86_64
+      epoch:
+      name: popt
+      release: 16.el7
+      source: rpm
+      version: '1.13'
+  postfix:
+    - arch: x86_64
+      epoch: 2
+      name: postfix
+      release: 9.el7
+      source: rpm
+      version: 2.10.1
+  postgresql:
+    - arch: x86_64
+      epoch:
+      name: postgresql
+      release: 7.el7_9
+      source: rpm
+      version: 9.2.24
+  postgresql-contrib:
+    - arch: x86_64
+      epoch:
+      name: postgresql-contrib
+      release: 7.el7_9
+      source: rpm
+      version: 9.2.24
+  postgresql-libs:
+    - arch: x86_64
+      epoch:
+      name: postgresql-libs
+      release: 7.el7_9
+      source: rpm
+      version: 9.2.24
+    - arch: i686
+      epoch:
+      name: postgresql-libs
+      release: 7.el7_9
+      source: rpm
+      version: 9.2.24
+  postgresql-server:
+    - arch: x86_64
+      epoch:
+      name: postgresql-server
+      release: 7.el7_9
+      source: rpm
+      version: 9.2.24
+  procps-ng:
+    - arch: x86_64
+      epoch:
+      name: procps-ng
+      release: 28.el7
+      source: rpm
+      version: 3.3.10
+  psmisc:
+    - arch: x86_64
+      epoch:
+      name: psmisc
+      release: 17.el7
+      source: rpm
+      version: '22.20'
+  pth:
+    - arch: x86_64
+      epoch:
+      name: pth
+      release: 23.el7
+      source: rpm
+      version: 2.0.7
+  pygpgme:
+    - arch: x86_64
+      epoch:
+      name: pygpgme
+      release: 9.el7
+      source: rpm
+      version: '0.3'
+  pyliblzma:
+    - arch: x86_64
+      epoch:
+      name: pyliblzma
+      release: 11.el7
+      source: rpm
+      version: 0.5.3
+  pyserial:
+    - arch: noarch
+      epoch:
+      name: pyserial
+      release: 6.el7
+      source: rpm
+      version: '2.6'
+  python:
+    - arch: x86_64
+      epoch:
+      name: python
+      release: 90.el7
+      source: rpm
+      version: 2.7.5
+  python-IPy:
+    - arch: noarch
+      epoch:
+      name: python-IPy
+      release: 6.el7
+      source: rpm
+      version: '0.75'
+  python-babel:
+    - arch: noarch
+      epoch:
+      name: python-babel
+      release: 8.el7
+      source: rpm
+      version: 0.9.6
+  python-backports:
+    - arch: x86_64
+      epoch:
+      name: python-backports
+      release: 8.el7
+      source: rpm
+      version: '1.0'
+  python-backports-ssl_match_hostname:
+    - arch: noarch
+      epoch:
+      name: python-backports-ssl_match_hostname
+      release: 1.el7
+      source: rpm
+      version: 3.5.0.1
+  python-chardet:
+    - arch: noarch
+      epoch:
+      name: python-chardet
+      release: 3.el7
+      source: rpm
+      version: 2.2.1
+  python-configobj:
+    - arch: noarch
+      epoch:
+      name: python-configobj
+      release: 7.el7
+      source: rpm
+      version: 4.7.2
+  python-decorator:
+    - arch: noarch
+      epoch:
+      name: python-decorator
+      release: 3.el7
+      source: rpm
+      version: 3.4.0
+  python-gobject-base:
+    - arch: x86_64
+      epoch:
+      name: python-gobject-base
+      release: 1.el7_4.1
+      source: rpm
+      version: 3.22.0
+  python-iniparse:
+    - arch: noarch
+      epoch:
+      name: python-iniparse
+      release: 9.el7
+      source: rpm
+      version: '0.4'
+  python-ipaddress:
+    - arch: noarch
+      epoch:
+      name: python-ipaddress
+      release: 2.el7
+      source: rpm
+      version: 1.0.16
+  python-javapackages:
+    - arch: noarch
+      epoch:
+      name: python-javapackages
+      release: 11.el7
+      source: rpm
+      version: 3.4.1
+  python-jinja2:
+    - arch: noarch
+      epoch:
+      name: python-jinja2
+      release: 4.el7
+      source: rpm
+      version: 2.7.2
+  python-jsonpatch:
+    - arch: noarch
+      epoch:
+      name: python-jsonpatch
+      release: 4.el7
+      source: rpm
+      version: '1.2'
+  python-jsonpointer:
+    - arch: noarch
+      epoch:
+      name: python-jsonpointer
+      release: 2.el7
+      source: rpm
+      version: '1.9'
+  python-kitchen:
+    - arch: noarch
+      epoch:
+      name: python-kitchen
+      release: 5.el7
+      source: rpm
+      version: 1.1.1
+  python-libs:
+    - arch: x86_64
+      epoch:
+      name: python-libs
+      release: 90.el7
+      source: rpm
+      version: 2.7.5
+  python-linux-procfs:
+    - arch: noarch
+      epoch:
+      name: python-linux-procfs
+      release: 4.el7
+      source: rpm
+      version: 0.4.11
+  python-lxml:
+    - arch: x86_64
+      epoch:
+      name: python-lxml
+      release: 4.el7
+      source: rpm
+      version: 3.2.1
+  python-markupsafe:
+    - arch: x86_64
+      epoch:
+      name: python-markupsafe
+      release: 10.el7
+      source: rpm
+      version: '0.11'
+  python-perf:
+    - arch: x86_64
+      epoch:
+      name: python-perf
+      release: 1160.53.1.el7
+      source: rpm
+      version: 3.10.0
+  python-prettytable:
+    - arch: noarch
+      epoch:
+      name: python-prettytable
+      release: 3.el7
+      source: rpm
+      version: 0.7.2
+  python-pycurl:
+    - arch: x86_64
+      epoch:
+      name: python-pycurl
+      release: 19.el7
+      source: rpm
+      version: 7.19.0
+  python-pyudev:
+    - arch: noarch
+      epoch:
+      name: python-pyudev
+      release: 9.el7
+      source: rpm
+      version: '0.15'
+  python-requests:
+    - arch: noarch
+      epoch:
+      name: python-requests
+      release: 10.el7
+      source: rpm
+      version: 2.6.0
+  python-schedutils:
+    - arch: x86_64
+      epoch:
+      name: python-schedutils
+      release: 6.el7
+      source: rpm
+      version: '0.4'
+  python-setuptools:
+    - arch: noarch
+      epoch:
+      name: python-setuptools
+      release: 7.el7
+      source: rpm
+      version: 0.9.8
+  python-six:
+    - arch: noarch
+      epoch:
+      name: python-six
+      release: 2.el7
+      source: rpm
+      version: 1.9.0
+  python-urlgrabber:
+    - arch: noarch
+      epoch:
+      name: python-urlgrabber
+      release: 10.el7
+      source: rpm
+      version: '3.10'
+  python-urllib3:
+    - arch: noarch
+      epoch:
+      name: python-urllib3
+      release: 7.el7
+      source: rpm
+      version: 1.10.2
+  python2-pip:
+    - arch: noarch
+      epoch:
+      name: python2-pip
+      release: 14.el7
+      source: rpm
+      version: 8.1.2
+  python3:
+    - arch: x86_64
+      epoch:
+      name: python3
+      release: 18.el7
+      source: rpm
+      version: 3.6.8
+  python3-libs:
+    - arch: x86_64
+      epoch:
+      name: python3-libs
+      release: 18.el7
+      source: rpm
+      version: 3.6.8
+  python3-pip:
+    - arch: noarch
+      epoch:
+      name: python3-pip
+      release: 8.el7
+      source: rpm
+      version: 9.0.3
+  python3-setuptools:
+    - arch: noarch
+      epoch:
+      name: python3-setuptools
+      release: 10.el7
+      source: rpm
+      version: 39.2.0
+  pyxattr:
+    - arch: x86_64
+      epoch:
+      name: pyxattr
+      release: 5.el7
+      source: rpm
+      version: 0.5.1
+  qemu-guest-agent:
+    - arch: x86_64
+      epoch: 10
+      name: qemu-guest-agent
+      release: 3.el7
+      source: rpm
+      version: 2.12.0
+  qrencode-libs:
+    - arch: x86_64
+      epoch:
+      name: qrencode-libs
+      release: 3.el7
+      source: rpm
+      version: 3.4.1
+  quota:
+    - arch: x86_64
+      epoch: 1
+      name: quota
+      release: 19.el7
+      source: rpm
+      version: '4.01'
+  quota-nls:
+    - arch: noarch
+      epoch: 1
+      name: quota-nls
+      release: 19.el7
+      source: rpm
+      version: '4.01'
+  readline:
+    - arch: i686
+      epoch:
+      name: readline
+      release: 11.el7
+      source: rpm
+      version: '6.2'
+    - arch: x86_64
+      epoch:
+      name: readline
+      release: 11.el7
+      source: rpm
+      version: '6.2'
+  redis:
+    - arch: x86_64
+      epoch:
+      name: redis
+      release: 1.el7.remi
+      source: rpm
+      version: 6.2.6
+  remi-release:
+    - arch: noarch
+      epoch:
+      name: remi-release
+      release: 2.el7.remi
+      source: rpm
+      version: '7.9'
+  rootfiles:
+    - arch: noarch
+      epoch:
+      name: rootfiles
+      release: 11.el7
+      source: rpm
+      version: '8.1'
+  rpcbind:
+    - arch: x86_64
+      epoch:
+      name: rpcbind
+      release: 49.el7
+      source: rpm
+      version: 0.2.0
+  rpm:
+    - arch: x86_64
+      epoch:
+      name: rpm
+      release: 48.el7_9
+      source: rpm
+      version: 4.11.3
+  rpm-build-libs:
+    - arch: x86_64
+      epoch:
+      name: rpm-build-libs
+      release: 48.el7_9
+      source: rpm
+      version: 4.11.3
+  rpm-libs:
+    - arch: x86_64
+      epoch:
+      name: rpm-libs
+      release: 48.el7_9
+      source: rpm
+      version: 4.11.3
+  rpm-python:
+    - arch: x86_64
+      epoch:
+      name: rpm-python
+      release: 48.el7_9
+      source: rpm
+      version: 4.11.3
+  rsync:
+    - arch: x86_64
+      epoch:
+      name: rsync
+      release: 10.el7
+      source: rpm
+      version: 3.1.2
+  rsyslog:
+    - arch: x86_64
+      epoch:
+      name: rsyslog
+      release: 57.el7_9.1
+      source: rpm
+      version: 8.24.0
+  sed:
+    - arch: x86_64
+      epoch:
+      name: sed
+      release: 7.el7
+      source: rpm
+      version: 4.2.2
+  selinux-policy:
+    - arch: noarch
+      epoch:
+      name: selinux-policy
+      release: 268.el7_9.2
+      source: rpm
+      version: 3.13.1
+  selinux-policy-targeted:
+    - arch: noarch
+      epoch:
+      name: selinux-policy-targeted
+      release: 268.el7_9.2
+      source: rpm
+      version: 3.13.1
+  setools-libs:
+    - arch: x86_64
+      epoch:
+      name: setools-libs
+      release: 4.el7
+      source: rpm
+      version: 3.3.8
+  setup:
+    - arch: noarch
+      epoch:
+      name: setup
+      release: 11.el7
+      source: rpm
+      version: 2.8.71
+  sg3_utils:
+    - arch: x86_64
+      epoch: 1
+      name: sg3_utils
+      release: 19.el7
+      source: rpm
+      version: '1.37'
+  sg3_utils-libs:
+    - arch: x86_64
+      epoch: 1
+      name: sg3_utils-libs
+      release: 19.el7
+      source: rpm
+      version: '1.37'
+  shadow-utils:
+    - arch: x86_64
+      epoch: 2
+      name: shadow-utils
+      release: 5.el7
+      source: rpm
+      version: '4.6'
+  shared-mime-info:
+    - arch: x86_64
+      epoch:
+      name: shared-mime-info
+      release: 5.el7
+      source: rpm
+      version: '1.8'
+  slang:
+    - arch: x86_64
+      epoch:
+      name: slang
+      release: 11.el7
+      source: rpm
+      version: 2.2.4
+  slirp4netns:
+    - arch: x86_64
+      epoch:
+      name: slirp4netns
+      release: 4.el7_8
+      source: rpm
+      version: 0.4.3
+  smartmontools:
+    - arch: x86_64
+      epoch: 1
+      name: smartmontools
+      release: 2.el7
+      source: rpm
+      version: '7.0'
+  smem:
+    - arch: noarch
+      epoch:
+      name: smem
+      release: 1.el7
+      source: rpm
+      version: '1.4'
+  snappy:
+    - arch: x86_64
+      epoch:
+      name: snappy
+      release: 3.el7
+      source: rpm
+      version: 1.1.0
+  sqlite:
+    - arch: i686
+      epoch:
+      name: sqlite
+      release: 8.el7_7.1
+      source: rpm
+      version: 3.7.17
+    - arch: x86_64
+      epoch:
+      name: sqlite
+      release: 8.el7_7.1
+      source: rpm
+      version: 3.7.17
+  sudo:
+    - arch: x86_64
+      epoch:
+      name: sudo
+      release: 10.el7_9.2
+      source: rpm
+      version: 1.8.23
+  sysstat:
+    - arch: x86_64
+      epoch:
+      name: sysstat
+      release: 19.el7
+      source: rpm
+      version: 10.1.5
+  systemd:
+    - arch: x86_64
+      epoch:
+      name: systemd
+      release: 78.el7_9.5
+      source: rpm
+      version: '219'
+  systemd-libs:
+    - arch: x86_64
+      epoch:
+      name: systemd-libs
+      release: 78.el7_9.5
+      source: rpm
+      version: '219'
+  systemd-sysv:
+    - arch: x86_64
+      epoch:
+      name: systemd-sysv
+      release: 78.el7_9.5
+      source: rpm
+      version: '219'
+  sysvinit-tools:
+    - arch: x86_64
+      epoch:
+      name: sysvinit-tools
+      release: 14.dsf.el7
+      source: rpm
+      version: '2.88'
+  tar:
+    - arch: x86_64
+      epoch: 2
+      name: tar
+      release: 35.el7
+      source: rpm
+      version: '1.26'
+  tcp_wrappers:
+    - arch: x86_64
+      epoch:
+      name: tcp_wrappers
+      release: 77.el7
+      source: rpm
+      version: '7.6'
+  tcp_wrappers-libs:
+    - arch: x86_64
+      epoch:
+      name: tcp_wrappers-libs
+      release: 77.el7
+      source: rpm
+      version: '7.6'
+  tcpdump:
+    - arch: x86_64
+      epoch: 14
+      name: tcpdump
+      release: 4.el7_7.1
+      source: rpm
+      version: 4.9.2
+  teamd:
+    - arch: x86_64
+      epoch:
+      name: teamd
+      release: 3.el7
+      source: rpm
+      version: '1.29'
+  tmux:
+    - arch: x86_64
+      epoch:
+      name: tmux
+      release: 4.el7
+      source: rpm
+      version: '1.8'
+  tomcat:
+    - arch: noarch
+      epoch: 0
+      name: tomcat
+      release: 16.el7_9
+      source: rpm
+      version: 7.0.76
+  tomcat-admin-webapps:
+    - arch: noarch
+      epoch: 0
+      name: tomcat-admin-webapps
+      release: 16.el7_9
+      source: rpm
+      version: 7.0.76
+  tomcat-docs-webapp:
+    - arch: noarch
+      epoch: 0
+      name: tomcat-docs-webapp
+      release: 16.el7_9
+      source: rpm
+      version: 7.0.76
+  tomcat-el-2.2-api:
+    - arch: noarch
+      epoch: 0
+      name: tomcat-el-2.2-api
+      release: 16.el7_9
+      source: rpm
+      version: 7.0.76
+  tomcat-javadoc:
+    - arch: noarch
+      epoch: 0
+      name: tomcat-javadoc
+      release: 16.el7_9
+      source: rpm
+      version: 7.0.76
+  tomcat-jsp-2.2-api:
+    - arch: noarch
+      epoch: 0
+      name: tomcat-jsp-2.2-api
+      release: 16.el7_9
+      source: rpm
+      version: 7.0.76
+  tomcat-lib:
+    - arch: noarch
+      epoch: 0
+      name: tomcat-lib
+      release: 16.el7_9
+      source: rpm
+      version: 7.0.76
+  tomcat-servlet-3.0-api:
+    - arch: noarch
+      epoch: 0
+      name: tomcat-servlet-3.0-api
+      release: 16.el7_9
+      source: rpm
+      version: 7.0.76
+  tomcat-webapps:
+    - arch: noarch
+      epoch: 0
+      name: tomcat-webapps
+      release: 16.el7_9
+      source: rpm
+      version: 7.0.76
+  ttmkfdir:
+    - arch: x86_64
+      epoch:
+      name: ttmkfdir
+      release: 42.el7
+      source: rpm
+      version: 3.0.9
+  tuned:
+    - arch: noarch
+      epoch:
+      name: tuned
+      release: 11.el7_9
+      source: rpm
+      version: 2.11.0
+  tzdata:
+    - arch: noarch
+      epoch:
+      name: tzdata
+      release: 1.el7
+      source: rpm
+      version: 2021e
+  tzdata-java:
+    - arch: noarch
+      epoch:
+      name: tzdata-java
+      release: 1.el7
+      source: rpm
+      version: 2021e
+  unzip:
+    - arch: x86_64
+      epoch:
+      name: unzip
+      release: 24.el7_9
+      source: rpm
+      version: '6.0'
+  ustr:
+    - arch: x86_64
+      epoch:
+      name: ustr
+      release: 16.el7
+      source: rpm
+      version: 1.0.4
+  util-linux:
+    - arch: x86_64
+      epoch:
+      name: util-linux
+      release: 65.el7_9.1
+      source: rpm
+      version: 2.23.2
+  uuid:
+    - arch: x86_64
+      epoch:
+      name: uuid
+      release: 26.el7
+      source: rpm
+      version: 1.6.2
+  vim-minimal:
+    - arch: x86_64
+      epoch: 2
+      name: vim-minimal
+      release: 8.el7_9
+      source: rpm
+      version: 7.4.629
+  virt-what:
+    - arch: x86_64
+      epoch:
+      name: virt-what
+      release: 4.el7_9.1
+      source: rpm
+      version: '1.18'
+  wget:
+    - arch: x86_64
+      epoch:
+      name: wget
+      release: 18.el7_6.1
+      source: rpm
+      version: '1.14'
+  which:
+    - arch: x86_64
+      epoch:
+      name: which
+      release: 7.el7
+      source: rpm
+      version: '2.20'
+  wpa_supplicant:
+    - arch: x86_64
+      epoch: 1
+      name: wpa_supplicant
+      release: 12.el7_9.2
+      source: rpm
+      version: '2.6'
+  xalan-j2:
+    - arch: noarch
+      epoch: 0
+      name: xalan-j2
+      release: 23.el7
+      source: rpm
+      version: 2.7.1
+  xerces-j2:
+    - arch: noarch
+      epoch:
+      name: xerces-j2
+      release: 17.el7_0
+      source: rpm
+      version: 2.11.0
+  xfsprogs:
+    - arch: x86_64
+      epoch:
+      name: xfsprogs
+      release: 22.el7
+      source: rpm
+      version: 4.5.0
+  xml-commons-apis:
+    - arch: noarch
+      epoch:
+      name: xml-commons-apis
+      release: 16.el7
+      source: rpm
+      version: 1.4.01
+  xml-commons-resolver:
+    - arch: noarch
+      epoch: 0
+      name: xml-commons-resolver
+      release: 15.el7
+      source: rpm
+      version: '1.2'
+  xorg-x11-font-utils:
+    - arch: x86_64
+      epoch: 1
+      name: xorg-x11-font-utils
+      release: 21.el7
+      source: rpm
+      version: '7.5'
+  xorg-x11-fonts-Type1:
+    - arch: noarch
+      epoch:
+      name: xorg-x11-fonts-Type1
+      release: 9.el7
+      source: rpm
+      version: '7.5'
+  xorg-x11-utils:
+    - arch: x86_64
+      epoch:
+      name: xorg-x11-utils
+      release: 23.el7
+      source: rpm
+      version: '7.5'
+  xorg-x11-xauth:
+    - arch: x86_64
+      epoch: 1
+      name: xorg-x11-xauth
+      release: 1.el7
+      source: rpm
+      version: 1.0.9
+  xz:
+    - arch: x86_64
+      epoch:
+      name: xz
+      release: 1.el7
+      source: rpm
+      version: 5.2.2
+  xz-libs:
+    - arch: x86_64
+      epoch:
+      name: xz-libs
+      release: 1.el7
+      source: rpm
+      version: 5.2.2
+  yum:
+    - arch: noarch
+      epoch:
+      name: yum
+      release: 168.el7.centos
+      source: rpm
+      version: 3.4.3
+  yum-metadata-parser:
+    - arch: x86_64
+      epoch:
+      name: yum-metadata-parser
+      release: 10.el7
+      source: rpm
+      version: 1.1.4
+  yum-plugin-fastestmirror:
+    - arch: noarch
+      epoch:
+      name: yum-plugin-fastestmirror
+      release: 54.el7_8
+      source: rpm
+      version: 1.1.31
+  yum-utils:
+    - arch: noarch
+      epoch:
+      name: yum-utils
+      release: 54.el7_8
+      source: rpm
+      version: 1.1.31
+  zlib:
+    - arch: x86_64
+      epoch:
+      name: zlib
+      release: 19.el7_9
+      source: rpm
+      version: 1.2.7
+    - arch: i686
+      epoch:
+      name: zlib
+      release: 19.el7_9
+      source: rpm
+      version: 1.2.7
+processes:
+  - cmdline: "/usr/lib/systemd/systemd --switched-root --system --deserialize 21"
+    cwd: "/"
+    pid: '1'
+    ppid: '0'
+    user: root
+  - cmdline: ''
+    cwd: "/"
+    pid: '2'
+    ppid: '0'
+    user: root
+  - cmdline: ''
+    cwd: "/"
+    pid: '4'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    cwd: "/"
+    pid: '6'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    cwd: "/"
+    pid: '7'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    cwd: "/"
+    pid: '8'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    cwd: "/"
+    pid: '9'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    cwd: "/"
+    pid: '10'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    cwd: "/"
+    pid: '11'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    cwd: "/"
+    pid: '13'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    cwd: "/"
+    pid: '14'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    cwd: "/"
+    pid: '15'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    cwd: "/"
+    pid: '16'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    cwd: "/"
+    pid: '17'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    cwd: "/"
+    pid: '18'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    cwd: "/"
+    pid: '19'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    cwd: "/"
+    pid: '20'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    cwd: "/"
+    pid: '21'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    cwd: "/"
+    pid: '22'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    cwd: "/"
+    pid: '23'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    cwd: "/"
+    pid: '24'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    cwd: "/"
+    pid: '30'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    cwd: "/"
+    pid: '31'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    cwd: "/"
+    pid: '32'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    cwd: "/"
+    pid: '33'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    cwd: "/"
+    pid: '41'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    cwd: "/"
+    pid: '43'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    cwd: "/"
+    pid: '44'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    cwd: "/"
+    pid: '45'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    cwd: "/"
+    pid: '46'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    cwd: "/"
+    pid: '59'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    cwd: "/"
+    pid: '122'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    cwd: "/"
+    pid: '193'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    cwd: "/"
+    pid: '194'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    cwd: "/"
+    pid: '262'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    cwd: "/"
+    pid: '266'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    cwd: "/"
+    pid: '267'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    cwd: "/"
+    pid: '268'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    cwd: "/"
+    pid: '269'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    cwd: "/"
+    pid: '273'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    cwd: "/"
+    pid: '283'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    cwd: "/"
+    pid: '284'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    cwd: "/"
+    pid: '285'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    cwd: "/"
+    pid: '286'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    cwd: "/"
+    pid: '287'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    cwd: "/"
+    pid: '288'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    cwd: "/"
+    pid: '289'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    cwd: "/"
+    pid: '290'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    cwd: "/"
+    pid: '291'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    cwd: "/"
+    pid: '292'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    cwd: "/"
+    pid: '293'
+    ppid: '2'
+    user: root
+  - cmdline: "/usr/lib/systemd/systemd-journald"
+    cwd: "/"
+    pid: '410'
+    ppid: '1'
+    user: root
+  - cmdline: "/usr/lib/systemd/systemd-udevd"
+    cwd: "/"
+    pid: '446'
+    ppid: '1'
+    user: root
+  - cmdline: "/sbin/auditd"
+    cwd: "/"
+    pid: '481'
+    ppid: '1'
+    user: root
+  - cmdline: ''
+    cwd: "/"
+    pid: '486'
+    ppid: '2'
+    user: root
+  - cmdline: "/sbin/rpcbind -w"
+    cwd: "/"
+    pid: '514'
+    ppid: '1'
+    user: rpc
+  - cmdline: "/usr/lib/polkit-1/polkitd --no-debug"
+    cwd: "/"
+    pid: '519'
+    ppid: '1'
+    user: polkitd
+  - cmdline: "/usr/sbin/smartd -n -q never"
+    cwd: "/"
+    pid: '521'
+    ppid: '1'
+    user: root
+  - cmdline: "/usr/bin/dbus-daemon --system --address=systemd: --nofork --nopidfile
+    --systemd-activation"
+    cwd: "/"
+    pid: '522'
+    ppid: '1'
+    user: dbus
+  - cmdline: "/usr/sbin/chronyd"
+    cwd: "/"
+    pid: '527'
+    ppid: '1'
+    user: chrony
+  - cmdline: "/usr/sbin/gssproxy -D"
+    cwd: "/"
+    pid: '547'
+    ppid: '1'
+    user: root
+  - cmdline: ''
+    cwd: "/"
+    pid: '598'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    cwd: "/"
+    pid: '605'
+    ppid: '2'
+    user: root
+  - cmdline: "/sbin/dhclient -1 -q -lf /var/lib/dhclient/dhclient--eth0.lease -pf /var/run/dhclient-eth0.pid
+    -H test-ram-norm01 eth0"
+    cwd: "/"
+    pid: '852'
+    ppid: '1'
+    user: root
+  - cmdline: "/usr/bin/python2 -Es /usr/sbin/tuned -l -P"
+    cwd: "/"
+    pid: '909'
+    ppid: '1'
+    user: root
+  - cmdline: "/usr/lib/jvm/jre/bin/java -Djavax.sql.DataSource.Factory=org.apache.commons.dbcp.BasicDataSourceFactory
+    -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=8050 -Dcom.sun.management.jmxremote.rmi.port=8050
+    -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false
+    -Djava.rmi.server.hostname=test-ram-norm01.lab.iometrics.io -classpath /usr/share/tomcat/bin/bootstrap.jar:/usr/share/tomcat/bin/tomcat-juli.jar:/usr/share/java/commons-daemon.jar
+    -Dcatalina.base=/usr/share/tomcat -Dcatalina.home=/usr/share/tomcat -Djava.endorsed.dirs=
+    -Djava.io.tmpdir=/var/cache/tomcat/temp -Djava.util.logging.config.file=/usr/share/tomcat/conf/logging.properties
+    -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager org.apache.catalina.startup.Bootstrap
+    start"
+    cwd: "/usr/share/tomcat"
+    pid: '912'
+    ppid: '1'
+    user: tomcat
+  - cmdline: "/usr/bin/containerd"
+    cwd: "/"
+    pid: '928'
+    ppid: '1'
+    user: root
+  - cmdline: "/usr/bin/postgres -D /var/lib/pgsql/data -p 5432"
+    cwd: "/var/lib/pgsql/data"
+    pid: '951'
+    ppid: '1'
+    user: postgres
+  - cmdline: 'postgres: logger process'
+    cwd: "/var/lib/pgsql/data"
+    pid: '967'
+    ppid: '951'
+    user: postgres
+  - cmdline: 'postgres: checkpointer process'
+    cwd: "/var/lib/pgsql/data"
+    pid: '969'
+    ppid: '951'
+    user: postgres
+  - cmdline: 'postgres: writer process'
+    cwd: "/var/lib/pgsql/data"
+    pid: '970'
+    ppid: '951'
+    user: postgres
+  - cmdline: 'postgres: wal writer process'
+    cwd: "/var/lib/pgsql/data"
+    pid: '971'
+    ppid: '951'
+    user: postgres
+  - cmdline: 'postgres: autovacuum launcher process'
+    cwd: "/var/lib/pgsql/data"
+    pid: '972'
+    ppid: '951'
+    user: postgres
+  - cmdline: 'postgres: stats collector process'
+    cwd: "/var/lib/pgsql/data"
+    pid: '974'
+    ppid: '951'
+    user: postgres
+  - cmdline: "/usr/libexec/postfix/master -w"
+    cwd: "/var/spool/postfix"
+    pid: '1108'
+    ppid: '1'
+    user: root
+  - cmdline: qmgr -l -t unix -u
+    cwd: "/var/spool/postfix"
+    pid: '1111'
+    ppid: '1108'
+    user: postfix
+  - cmdline: "/usr/sbin/rsyslogd -n"
+    cwd: "/"
+    pid: '1153'
+    ppid: '1'
+    user: root
+  - cmdline: "/usr/bin/redis-server 127.0.0.1:6379"
+    cwd: "/var/lib/redis"
+    pid: '1154'
+    ppid: '1'
+    user: redis
+  - cmdline: "/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock"
+    cwd: "/"
+    pid: '1155'
+    ppid: '1'
+    user: root
+  - cmdline: "/usr/sbin/sshd -D"
+    cwd: "/"
+    pid: '1163'
+    ppid: '1'
+    user: root
+  - cmdline: "/sbin/agetty --noclear tty1 linux"
+    cwd: "/"
+    pid: '1165'
+    ppid: '1'
+    user: root
+  - cmdline: "/usr/sbin/crond -n"
+    cwd: "/"
+    pid: '1166'
+    ppid: '1'
+    user: root
+  - cmdline: "/sbin/agetty --keep-baud 115200,38400,9600 ttyS0 vt220"
+    cwd: "/"
+    pid: '1167'
+    ppid: '1'
+    user: root
+  - cmdline: "/opt/oracle/product/21c/dbhomeXE/bin/tnslsnr LISTENER -inherit"
+    cwd: "/"
+    pid: '1370'
+    ppid: '1'
+    user: oracle
+  - cmdline: "/usr/bin/telegraf -config /etc/telegraf/telegraf.conf -config-directory
+    /etc/telegraf/telegraf.d"
+    cwd: "/"
+    pid: '1930'
+    ppid: '1'
+    user: root
+  - cmdline: 'postgres: postgres datadope [local] idle'
+    cwd: "/var/lib/pgsql/data"
+    pid: '1969'
+    ppid: '951'
+    user: postgres
+  - cmdline: pickup -l -t unix -u
+    cwd: "/var/spool/postfix"
+    pid: '6277'
+    ppid: '1108'
+    user: postfix
+  - cmdline: "/usr/share/filebeat/bin/filebeat -e -c /etc/filebeat/filebeat.yml -path.home
+    /usr/share/filebeat -path.config /etc/filebeat -path.data /var/lib/filebeat -path.logs
+    /var/log/filebeat"
+    cwd: "/"
+    pid: '9458'
+    ppid: '1'
+    user: root
+  - cmdline: "/usr/bin/containerd-shim-runc-v2 -namespace moby -id e66de67272f986672f4a829c96981039d431f2d8f22a0342364f7acb2b6ed3b3
+    -address /run/containerd/containerd.sock"
+    cwd: "/run/containerd/io.containerd.runtime.v2.task/moby/e66de67272f986672f4a829c96981039d431f2d8f22a0342364f7acb2b6ed3b3"
+    pid: '15035'
+    ppid: '1'
+    user: root
+  - cmdline: "/tmp/mule-enterprise-standalone-4.4.0-20220622/lib/boot/exec/wrapper-linux-x86-64
+    /tmp/mule-enterprise-standalone-4.4.0-20220622/conf/wrapper.conf wrapper.syslog.ident=mule_ee
+    wrapper.pidfile=/tmp/mule-enterprise-standalone-4.4.0-20220622/./mule_ee.pid wrapper.daemonize=TRUE
+    wrapper.name=mule_ee wrapper.displayname=Mule Enterprise Edition wrapper.statusfile=/tmp/mule-enterprise-standalone-4.4.0-20220622/./mule_ee.status
+    wrapper.java.statusfile=/tmp/mule-enterprise-standalone-4.4.0-20220622/./mule_ee.java.status
+    wrapper.lockfile=/var/lock/subsys/mule_ee wrapper.script.version=3.5.45 wrapper.working.dir=/
+    wrapper.app.parameter.1=sysd wrapper.app.parameter.2= wrapper.app.parameter.3=
+    wrapper.app.parameter.4= wrapper.app.parameter.5= wrapper.app.parameter.6= wrapper.app.parameter.7=
+    wrapper.app.parameter.8= wrapper.app.parameter.9=start0"
+    cwd: "/"
+    pid: '15105'
+    ppid: '1'
+    user: root
+  - cmdline: "/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.322.b06-1.el7_9.x86_64/jre/bin/java
+    -Dmule.home=/tmp/mule-enterprise-standalone-4.4.0-20220622 -Dmule.base=/tmp/mule-enterprise-standalone-4.4.0-20220622
+    -Djava.net.preferIPv4Stack=TRUE -Dmvel2.disable.jit=TRUE -Dorg.glassfish.grizzly.nio.transport.TCPNIOTransport.max-receive-buffer-size=1048576
+    -Dorg.glassfish.grizzly.nio.transport.TCPNIOTransport.max-send-buffer-size=1048576
+    -XX:MaxMetaspaceSize=256m -XX:MetaspaceSize=128m -XX:+HeapDumpOnOutOfMemoryError
+    -XX:+AlwaysPreTouch -XX:NewRatio=1 -XX:MaxTenuringThreshold=8 -Dorg.quartz.scheduler.skipUpdateCheck=true
+    -Dmule.metadata.cache.entryTtl.minutes=10 -Dmule.metadata.cache.expirationInterval.millis=5000
+    -Djava.locale.providers=COMPAT,CLDR,SPI -Dlog4j2.disable.jmx=true -Danypoint.platform.analytics_base_uri=https://analytics-ingest.anypoint.mulesoft.com
+    -Xms1024m -Xmx1024m -Djava.library.path=/tmp/mule-enterprise-standalone-4.4.0-20220622/lib/boot
+    -classpath %MULE_LIB%:/tmp/mule-enterprise-standalone-4.4.0-20220622/conf:/tmp/mule-enterprise-standalone-4.4.0-20220622/lib/boot/commons-cli-1.2.jar:/tmp/mule-enterprise-standalone-4.4.0-20220622/lib/boot/commons-codec-1.15.jar:/tmp/mule-enterprise-standalone-4.4.0-20220622/lib/boot/disruptor-3.4.2.jar:/tmp/mule-enterprise-standalone-4.4.0-20220622/lib/boot/jackson-annotations-2.13.3.jar:/tmp/mule-enterprise-standalone-4.4.0-20220622/lib/boot/jackson-core-2.13.3.jar:/tmp/mule-enterprise-standalone-4.4.0-20220622/lib/boot/jackson-databind-2.13.3.jar:/tmp/mule-enterprise-standalone-4.4.0-20220622/lib/boot/jcl-over-slf4j-1.7.30.jar:/tmp/mule-enterprise-standalone-4.4.0-20220622/lib/boot/jul-to-slf4j-1.7.30.jar:/tmp/mule-enterprise-standalone-4.4.0-20220622/lib/boot/licm-2.1.7.jar:/tmp/mule-enterprise-standalone-4.4.0-20220622/lib/boot/log4j-1.2-api-2.17.1.jar:/tmp/mule-enterprise-standalone-4.4.0-20220622/lib/boot/log4j-api-2.17.1.jar:/tmp/mule-enterprise-standalone-4.4.0-20220622/lib/boot/log4j-core-2.17.1.jar:/tmp/mule-enterprise-standalone-4.4.0-20220622/lib/boot/log4j-slf4j-impl-2.17.1.jar:/tmp/mule-enterprise-standalone-4.4.0-20220622/lib/boot/mule-module-boot-ee-4.4.0-20220622.jar:/tmp/mule-enterprise-standalone-4.4.0-20220622/lib/boot/oscore-2.2.6.jar:/tmp/mule-enterprise-standalone-4.4.0-20220622/lib/boot/propertyset-1.3.jar:/tmp/mule-enterprise-standalone-4.4.0-20220622/lib/boot/slf4j-api-1.7.30.jar:/tmp/mule-enterprise-standalone-4.4.0-20220622/lib/boot/slf4j-ext-1.7.30.jar:/tmp/mule-enterprise-standalone-4.4.0-20220622/lib/boot/truelicense-1.29.jar:/tmp/mule-enterprise-standalone-4.4.0-20220622/lib/boot/truexml-1.29.jar:/tmp/mule-enterprise-standalone-4.4.0-20220622/lib/boot/wrapper-3.5.45.jar
+    -Dwrapper.key=B7vZxw-jkCrQAKrrRRZO48h5e3mnWXmB -Dwrapper.backend=pipe -Dwrapper.disable_console_input=TRUE
+    -Dwrapper.pid=15105 -Dwrapper.version=3.5.45-st -Dwrapper.native_library=wrapper
+    -Dwrapper.arch=x86 -Dwrapper.service=TRUE -Dwrapper.cpu.timeout=10 -Dwrapper.jvmid=1
+    -Dwrapper.lang.domain=wrapper -Dwrapper.lang.folder=../lang org.mule.runtime.module.reboot.MuleContainerBootstrap
+    sysd start0"
+    cwd: "/"
+    pid: '15117'
+    ppid: '15105'
+    user: root
+  - cmdline: ''
+    cwd: "/"
+    pid: '15309'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    cwd: "/"
+    pid: '16564'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    cwd: "/"
+    pid: '16890'
+    ppid: '2'
+    user: root
+  - cmdline: ''
+    cwd: "/"
+    pid: '17539'
+    ppid: '2'
+    user: root
+  - cmdline: "/usr/lib/systemd/systemd-logind"
+    cwd: "/"
+    pid: '18885'
+    ppid: '1'
+    user: root
+  - cmdline: ''
+    cwd: "/"
+    pid: '20823'
+    ppid: '2'
+    user: root
+  - cmdline: "/bin/bash /opt/wildfly/bin/launch.sh standalone standalone.xml 0.0.0.0"
+    cwd: "/"
+    pid: '21600'
+    ppid: '1'
+    user: wildfly
+  - cmdline: "/bin/sh /opt/wildfly/bin/standalone.sh -c standalone.xml -b 0.0.0.0"
+    cwd: "/"
+    pid: '21601'
+    ppid: '21600'
+    user: wildfly
+  - cmdline: java -D[Standalone] -server -Xms64m -Xmx512m -XX:MetaspaceSize=96M -XX:MaxMetaspaceSize=256m
+      -Djava.net.preferIPv4Stack=true -Djboss.modules.system.pkgs=org.jboss.byteman
+      -Djava.awt.headless=true -Dorg.jboss.boot.log.file=/opt/wildfly/standalone/log/server.log
+      -Dlogging.configuration=file:/opt/wildfly/standalone/configuration/logging.properties
+      -jar /opt/wildfly/jboss-modules.jar -mp /opt/wildfly/modules org.jboss.as.standalone
+      -Djboss.home.dir=/opt/wildfly -Djboss.server.base.dir=/opt/wildfly/standalone
+      -c standalone.xml -b 0.0.0.0
+    cwd: "/"
+    pid: '21658'
+    ppid: '21601'
+    user: wildfly
+  - cmdline: "/usr/lib64/sa/sadc -S DISK 44 2 /tmp/sysstat-1675992557"
+    cwd: "/"
+    pid: '21780'
+    ppid: '1930'
+    user: root
+  - cmdline: 'sshd: centos [priv]'
+    cwd: "/"
+    pid: '21882'
+    ppid: '1163'
+    user: root
+  - cmdline: 'sshd: centos@pts/0'
+    cwd: "/"
+    pid: '21884'
+    ppid: '21882'
+    user: centos
+  - cmdline: "/bin/sh -c sudo -H -S -n  -u root /bin/sh -c 'echo BECOME-SUCCESS-bptdubjsxzkxenppfpjutngkvclvzjmy
+    ; /usr/bin/python /home/centos/.ansible/tmp/ansible-tmp-1675992581.320678-34301-195064929427817/AnsiballZ_process_facts.py'
+    && sleep 0"
+    cwd: "/home/centos"
+    pid: '22045'
+    ppid: '21884'
+    user: centos
+  - cmdline: sudo -H -S -n -u root /bin/sh -c echo BECOME-SUCCESS-bptdubjsxzkxenppfpjutngkvclvzjmy
+      ; /usr/bin/python /home/centos/.ansible/tmp/ansible-tmp-1675992581.320678-34301-195064929427817/AnsiballZ_process_facts.py
+    cwd: "/home/centos"
+    pid: '22058'
+    ppid: '22045'
+    user: root
+  - cmdline: "/bin/sh -c echo BECOME-SUCCESS-bptdubjsxzkxenppfpjutngkvclvzjmy ; /usr/bin/python
+    /home/centos/.ansible/tmp/ansible-tmp-1675992581.320678-34301-195064929427817/AnsiballZ_process_facts.py"
+    cwd: "/home/centos"
+    pid: '22059'
+    ppid: '22058'
+    user: root
+  - cmdline: "/usr/bin/python /home/centos/.ansible/tmp/ansible-tmp-1675992581.320678-34301-195064929427817/AnsiballZ_process_facts.py"
+    cwd: "/home/centos"
+    pid: '22060'
+    ppid: '22059'
+    user: root
+  - cmdline: ''
+    cwd: "/"
+    pid: '24508'
+    ppid: '2'
+    user: root
+  - cmdline: "/usr/sbin/crond -n"
+    cwd: "/"
+    pid: '27821'
+    ppid: '1166'
+    user: root
+  - cmdline: "/usr/sbin/crond -n"
+    cwd: "/"
+    pid: '28689'
+    ppid: '1166'
+    user: root
+  - cmdline: 'sshd: centos [priv]'
+    cwd: "/"
+    pid: '30323'
+    ppid: '1163'
+    user: root
+  - cmdline: 'sshd: centos@pts/1'
+    cwd: "/"
+    pid: '30326'
+    ppid: '30323'
+    user: centos
+  - cmdline: "-bash"
+    cwd: "/tmp/mule-enterprise-standalone-4.4.0-20220622/conf"
+    pid: '30327'
+    ppid: '30326'
+    user: centos
+software_list:
+  - cmd_regexp: MuleContainerBootstrap
+    name: MuleSoft AppServer
+    process_type: parent
+    return_children: false
+    return_packages: true
+    custom_tasks:
+      - name: Include MuleSoft specific plugins
+        include_tasks:
+          file: "{{ software_discovery__custom_tasks_definition_files_path }}/mule.yaml"
+tcp_listen:
+  - address: 127.0.0.1
+    name: java
+    pid: 21658
+    port: 9990
+    protocol: tcp
+    stime: Mon Dec 12 11:21:04 2022
+    user: wildfly
+  - address: 172.16.0.26
+    name: redis-server
+    pid: 1154
+    port: 6379
+    protocol: tcp
+    stime: Sun Dec 11 09:14:47 2022
+    user: redis
+  - address: 127.0.0.1
+    name: redis-server
+    pid: 1154
+    port: 6379
+    protocol: tcp
+    stime: Sun Dec 11 09:14:47 2022
+    user: redis
+  - address: 0.0.0.0
+    name: rpcbind
+    pid: 514
+    port: 111
+    protocol: tcp
+    stime: Sun Dec 11 09:14:40 2022
+    user: rpc
+  - address: 0.0.0.0
+    name: java
+    pid: 21658
+    port: 8080
+    protocol: tcp
+    stime: Mon Dec 12 11:21:04 2022
+    user: wildfly
+  - address: 0.0.0.0
+    name: sshd
+    pid: 1163
+    port: 22
+    protocol: tcp
+    stime: Sun Dec 11 09:14:47 2022
+    user: root
+  - address: 127.0.0.1
+    name: postgres
+    pid: 951
+    port: 5432
+    protocol: tcp
+    stime: Sun Dec 11 09:14:45 2022
+    user: postgres
+  - address: 127.0.0.1
+    name: master
+    pid: 1108
+    port: 25
+    protocol: tcp
+    stime: Sun Dec 11 09:14:47 2022
+    user: root
+  - address: 0.0.0.0
+    name: java
+    pid: 21658
+    port: 8443
+    protocol: tcp
+    stime: Mon Dec 12 11:21:04 2022
+    user: wildfly
+  - address: "::"
+    name: tnslsnr
+    pid: 1370
+    port: 1539
+    protocol: tcp
+    stime: Sun Dec 11 09:14:50 2022
+    user: oracle
+  - address: 127.0.0.1
+    name: java
+    pid: 912
+    port: 8005
+    protocol: tcp
+    stime: Sun Dec 11 09:14:44 2022
+    user: tomcat
+  - address: "::"
+    name: java
+    pid: 912
+    port: 8009
+    protocol: tcp
+    stime: Sun Dec 11 09:14:44 2022
+    user: tomcat
+  - address: "::1"
+    name: redis-server
+    pid: 1154
+    port: 6379
+    protocol: tcp
+    stime: Sun Dec 11 09:14:47 2022
+    user: redis
+  - address: "::"
+    name: rpcbind
+    pid: 514
+    port: 111
+    protocol: tcp
+    stime: Sun Dec 11 09:14:40 2022
+    user: rpc
+  - address: "::"
+    name: java
+    pid: 912
+    port: 8082
+    protocol: tcp
+    stime: Sun Dec 11 09:14:44 2022
+    user: tomcat
+  - address: "::"
+    name: java
+    pid: 912
+    port: 8050
+    protocol: tcp
+    stime: Sun Dec 11 09:14:44 2022
+    user: tomcat
+  - address: "::"
+    name: sshd
+    pid: 1163
+    port: 22
+    protocol: tcp
+    stime: Sun Dec 11 09:14:47 2022
+    user: root
+  - address: "::"
+    name: java
+    pid: 912
+    port: 25975
+    protocol: tcp
+    stime: Sun Dec 11 09:14:44 2022
+    user: tomcat
+  - address: "::1"
+    name: postgres
+    pid: 951
+    port: 5432
+    protocol: tcp
+    stime: Sun Dec 11 09:14:45 2022
+    user: postgres
+  - address: "::1"
+    name: master
+    pid: 1108
+    port: 25
+    protocol: tcp
+    stime: Sun Dec 11 09:14:47 2022
+    user: root
+udp_listen:
+  - address: 0.0.0.0
+    name: dhclient
+    pid: 852
+    port: 68
+    protocol: udp
+    stime: Sun Dec 11 09:14:44 2022
+    user: root
+  - address: 0.0.0.0
+    name: rpcbind
+    pid: 514
+    port: 111
+    protocol: udp
+    stime: Sun Dec 11 09:14:40 2022
+    user: rpc
+  - address: 127.0.0.1
+    name: chronyd
+    pid: 527
+    port: 323
+    protocol: udp
+    stime: Sun Dec 11 09:14:40 2022
+    user: chrony
+  - address: 0.0.0.0
+    name: rpcbind
+    pid: 514
+    port: 683
+    protocol: udp
+    stime: Sun Dec 11 09:14:40 2022
+    user: rpc
+  - address: "::"
+    name: rpcbind
+    pid: 514
+    port: 111
+    protocol: udp
+    stime: Sun Dec 11 09:14:40 2022
+    user: rpc
+  - address: "::1"
+    name: chronyd
+    pid: 527
+    port: 323
+    protocol: udp
+    stime: Sun Dec 11 09:14:40 2022
+    user: chrony
+  - address: "::"
+    name: rpcbind
+    pid: 514
+    port: 683
+    protocol: udp
+    stime: Sun Dec 11 09:14:40 2022
+    user: rpc

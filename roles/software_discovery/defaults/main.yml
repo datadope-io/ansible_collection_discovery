@@ -187,7 +187,7 @@ software_discovery__software_list:
     return_children: true
     return_packages: true
     custom_tasks:
-      - name: Include nginx specific plugins
+      - name: Include Nginx specific plugins
         include_tasks:
           file: "{{ software_discovery__custom_tasks_definition_files_path }}/nginx.yaml"
 
@@ -198,7 +198,7 @@ software_discovery__software_list:
     return_children: false
     return_packages: true
     custom_tasks:
-      - name: Include keepalived specific plugins
+      - name: Include KeepAliveD specific plugins
         include_tasks:
           file: "{{ software_discovery__custom_tasks_definition_files_path }}/keepalived.yaml"
 
@@ -253,7 +253,7 @@ software_discovery__software_list:
     return_children: false
     return_packages: true
     custom_tasks:
-      - name: Include skydive specific plugins
+      - name: Include Skydive specific plugins
         include_tasks:
           file: "{{ software_discovery__custom_tasks_definition_files_path }}/skydive.yaml"
 
@@ -273,7 +273,11 @@ software_discovery__software_list:
     cmd_regexp: MuleContainerBootstrap
     process_type: parent
     return_children: false
-    return_packages: false
+    return_packages: true
+    custom_tasks:
+      - name: Include MuleSoft specific plugins
+        include_tasks:
+          file: "{{ software_discovery__custom_tasks_definition_files_path }}/mule.yaml"
 
   - name: SAP HANA DatabaseServer
     cmd_regexp: hdbindexserver
@@ -281,7 +285,7 @@ software_discovery__software_list:
     return_children: false
     return_packages: true
     custom_tasks:
-      - name: Include skydive specific plugins
+      - name: Include SAP HANA specific plugins
         include_tasks:
           file: "{{ software_discovery__custom_tasks_definition_files_path }}/sap_hana.yaml"
 
@@ -304,7 +308,7 @@ software_discovery__software_list:
     process_type: parent
     return_children: false
     custom_tasks:
-      - name: Include sap ccms specific plugins
+      - name: Include SAP CCMS specific plugins
         include_tasks:
           file: "{{ software_discovery__custom_tasks_definition_files_path }}/sap_ccms.yaml"
 
@@ -314,7 +318,7 @@ software_discovery__software_list:
     return_children: false
     return_packages: false
     custom_tasks:
-      - name: Include sap control specific plugins
+      - name: Include SAP Control specific plugins
         include_tasks:
           file: "{{ software_discovery__custom_tasks_definition_files_path }}/sap_control.yaml"
 
