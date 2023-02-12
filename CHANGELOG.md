@@ -7,6 +7,7 @@
 - Increase `postgres` commands timeout from `5` seconds to `10` seconds.
 - Add SQL Server failover cluster detection
 - Improve Mulesoft software discovery with specific tasks
+- Improve MongoDB software discovery with specific tasks
 
 # 1.3.1
 
