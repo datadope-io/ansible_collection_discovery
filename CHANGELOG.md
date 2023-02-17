@@ -9,6 +9,9 @@
 - Improve Mulesoft software discovery with specific tasks
 - Improve MongoDB software discovery with specific tasks
 
+## Fixes
+- Handling of empty path for `add_file_info` plugin.
+
 # 1.3.1
 
 ## Fixes

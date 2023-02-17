@@ -12,6 +12,12 @@ expected_result:
     protocol: tcp
   discovery_time: '2022-05-31T13:49:37+02:00'
   extra_data:
+    clusters:
+      - cluster: CLUSTER_NAME
+        name: SQLCLUSTER
+        owner_group: SQLCLUSTER
+        owner_node: HOST-2
+        resource_type: SQL Server Availability Group
     databases_per_instance:
       MSSQLSERVER:
       - master
@@ -73,7 +79,9 @@ mocked_plugin_tasks:
   Get SQL Server cluster entries:
     number_of_calls: 1
     plugin_result:
-      failed: true
+      failed: false
+      stdout_lines:
+        - "{\"cluster\":\"CLUSTER_NAME\",\"name\":\"SQLCLUSTER\",\"resource_type\":\"SQL Server Availability Group\",\"owner_group\":\"SQLCLUSTER\",\"owner_node\":\"HOST-2\"}"
 packages:
   Azure Data Studio:
   - arch: AMD64

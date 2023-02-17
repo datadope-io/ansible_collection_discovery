@@ -88,7 +88,8 @@ class AddFileInfo(SoftwareFactsPlugin):
 
         path_module = ntpath if self._task_vars.get('ansible_facts', {}) \
             .get('os_family', '').lower().startswith('windows') else posixpath
-        if not path_module.isabs(file_info['path']) and software_instance.get('process', {}).get("cwd"):
+        if 'path' in file_info and not path_module.isabs(file_info['path']) \
+                and software_instance.get('process', {}).get("cwd"):
             file_info['path'] = os.path.normpath(os.path.join(software_instance['process']['cwd'], file_info['path']))
 
         result = dict(__instance__={'files': []}, __list_merge__='append')
