@@ -73,12 +73,16 @@ software_discovery__software_list:
           file: "{{ software_discovery__custom_tasks_definition_files_path }}/apache_webserver.yaml"
 
   - name: Redis
-    cmd_regexp: redis-serve
+    cmd_regexp: redis-server
     pkg_regexp: ^redis
     process_type: parent
     return_children: false
     return_packages: true
-    vars: {}
+    vars:
+      connection:
+        auth_user: "{{ redis_auth_user | default('') }}"
+        auth_password: "{{ redis_auth_password | default('') }}"
+        unix_socket: "{{ redis_unix_socket_path | default('') }}"
     custom_tasks:
       - name: Include redis specific plugins
         include_tasks:

@@ -32,32 +32,60 @@
       set_instance_fact:
         _bin_file: "<< __instance__.process.cmdline | regex_search('^\\s*(\\S*)\\s*', '\\1', ignorecase=True) | first >>"
       ignore_errors: yes
+    - name: Set redis-cli path if _bin_file is available
+      set_instance_fact:
+        _rc_bin_file: "<< (__instance__._bin_file | dirname, 'redis-cli') | datadope.discovery.path_join >>"
+      when: __instance__._bin_file is defined
     - name: Look for executable
       block:
-        - name: Run which
+        - name: Run which for _bin_file
           which:
-            name: << __instance__._bin_file >>
-            paths: << environment.parsed.PATH | datadope.discovery.split(':') >>
+            name: "<< __instance__._bin_file >>"
+            paths: "<< environment.parsed.PATH | datadope.discovery.split(':') >>"
           register: result
           when:
             - environment.parsed.PATH is defined
             - __instance__._bin_file | length > 0
-        - name: Store bin_file
+        - name: Run which for _rc_bin_file
+          which:
+            name: "<< __instance__._rc_bin_file >>"
+            paths: "<< environment.parsed.PATH | datadope.discovery.split(':') >>"
+          register: rc_result
+          when:
+            - environment.parsed.PATH is defined
+            - __instance__._rc_bin_file | length > 0
+        - name: Store _bin_file
           set_instance_fact:
             _bin_file: "<< result.file.path >>"
           when:
             - result is not failed
             - result is not skipped
-      when: "'/' not in __instance__._bin_file"
+        - name: Store _rc_bin_file
+          set_instance_fact:
+            _rc_bin_file: "<< rc_result.file.path >>"
+          when:
+            - rc_result is not failed
+            - rc_result is not skipped
+      when:
+        - __instance__._bin_file is defined
+        - "'/' not in __instance__._bin_file"
   when: __instance__.process.cmdline is defined
 
-- name: Add bin_file to files dict
+- name: Add _bin_file to files dict
   add_file_info:
-    path: "<< __instance__._bin_file | dirname>>"
+    path: "<< __instance__._bin_file | dirname >>"
     name: "<< __instance__._bin_file | basename >>"
-    type:  binary
-    subtype: generic
+    type: binary
+    subtype: server
   when: __instance__._bin_file is defined
+
+- name: Add _rc_bin_file to files dict
+  add_file_info:
+    path: "<< __instance__._rc_bin_file | dirname >>"
+    name: "<< __instance__._rc_bin_file | basename >>"
+    type: binary
+    subtype: client
+  when: __instance__._rc_bin_file is defined
 
 - name: Get version from command
   block:
@@ -75,8 +103,37 @@
         version_type: 'command'
         version_number: << __instance__._tmp_version >>
       when: __instance__._tmp_version is defined
-    - name: Remove temporary vars
-      del_instance_fact:
-        - _tmp_version
-        - _bin_file
   when: __instance__._bin_file is defined
+
+- name: Get redis configuration if client was found
+  block:
+    - name: Iterate over available ports if configuration was not already extracted
+      block:
+        - name: Run redis-cli command
+          run_command:
+            cmd: >-
+              << __instance__._rc_bin_file >>
+              << ('--user "' + connection.auth_user + '"') if connection.auth_user else '' >>
+              << ('-a "' + connection.auth_password + '"') if connection.auth_password else '' >>
+              << ('-s "' + connection.unix_socket + '"') if connection.unix_socket else ''>>
+              -p << __item__ >> 
+              --raw 
+              config get "*"
+          register: rc_result
+        - name: Store configuration entry
+          set_instance_fact:
+            configuration: "<< __instance__.configuration | default({}) | combine({
+              rc_result.stdout_lines[__index__ | int]: rc_result.stdout_lines[__index__ | int + 1] | default('')
+            }) >>"
+          loop: "<< range(0, rc_result.stdout_lines | length, 2) | list >>"
+          loop_control:
+            loop_var: __index__
+      when: __instance__.configuration is not defined
+      loop: "<< __instance__.listening_ports >>"
+  when: __instance__._rc_bin_file is defined
+
+- name: Remove temporary vars
+  del_instance_fact:
+    - _tmp_version
+    - _bin_file
+    - _rc_bin_file
