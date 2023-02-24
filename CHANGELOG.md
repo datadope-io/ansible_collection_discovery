@@ -8,7 +8,9 @@
 - Add SQL Server failover cluster detection.
 - Improve Mulesoft software discovery with specific tasks.
 - Improve MongoDB software discovery with specific tasks.
-- Improve Redis software discovery with additional tasks.
+- Improve Redis software discovery with additional tasks for configuration retrieving.
+- Improve Apache Tomcat software discovery with enhanced `base` logic and more HTTP/1.1 protocol detection.
+- Enhanced cmd regex for `Apache Tomcat` and `Apache Webserver` detection.
 
 ## Fixes
 - Handling of empty path for `add_file_info` plugin.

@@ -6457,7 +6457,7 @@ processes:
   ppid: '83946'
   user: root
 software_list:
-- cmd_regexp: \.apache\.tomcat\.startup|\.apache\.catalina\.startup
+- cmd_regexp: '^.*\.apache\.(?:tomcat|catalina)\.startup|^.*-Dcatalina\.(?:base|home)='
   name: Apache Tomcat Servlet Engine
   pkg_regexp: tomcat
   process_type: child

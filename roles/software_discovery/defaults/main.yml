@@ -62,7 +62,7 @@ software_discovery__software_list:
           file: "{{ software_discovery__custom_tasks_definition_files_path }}/iis.yaml"
 
   - name: Apache WebServer
-    cmd_regexp: "^.*/(?:sbin|bin)/(?:httpd|apache2)(?:[-_](?:prefork|worker))?(?:.*)?"
+    cmd_regexp: '^.*/(?:sbin|bin)/(?:httpd|httpd2|apache2)(?!-tomcat)(?:[-_](?:prefork|worker))?'
     pkg_regexp: 'apache2|^httpd$'
     process_type: parent
     return_children: true
@@ -174,7 +174,7 @@ software_discovery__software_list:
           default_client_file: mysql
 
   - name: Apache Tomcat Servlet Engine
-    cmd_regexp: \.apache\.tomcat\.startup|\.apache\.catalina\.startup
+    cmd_regexp: '^.*\.apache\.(?:tomcat|catalina)\.startup|^.*-Dcatalina\.(?:base|home)='
     pkg_regexp: tomcat
     process_type: parent
     return_children: true

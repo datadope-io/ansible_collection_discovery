@@ -55,6 +55,10 @@
       set_instance_fact:
         _config_base: "<<__instance__._base_homereg>>"
       when: __instance__._base_homereg is defined
+    - name: Save home as base if base is not defined
+      set_instance_fact:
+        _config_base: "<<__instance__._home_reg>>"
+      when: __instance__._base_homereg is not defined
     - name: Get config from cmdline
       set_instance_fact:
         _config_homereg: "<< __instance__._process_aux.cmdline | regex_search('.*-Dcatalina.config=file:([\\w\\/\\.\\-\\d]*)', '\\1' ,ignorecase=True, multiline=True, dotall=True) | first  >>"
@@ -301,8 +305,9 @@
                     set_instance_fact:
                       _connector_http: "<<connector_item>>"
                     when:
+                      - __instance__._connector_http is not defined
                       - connector_item['attr-protocol'] is defined
-                      - connector_item['attr-protocol'] == 'HTTP/1.1'
+                      - "connector_item['attr-protocol'] == 'HTTP/1.1' or connector_item['attr-protocol'] == 'org.apache.coyote.http11.Http11NioProtocol' or connector_item['attr-protocol'] == 'org.apache.coyote.http11.Http11AprProtocol'"
                   - name: Register ajp if exist
                     set_instance_fact:
                       _connector_ajp: "<<connector_item>>"

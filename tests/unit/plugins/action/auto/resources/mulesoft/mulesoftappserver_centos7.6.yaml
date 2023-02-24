@@ -1078,12 +1078,12 @@ expected_result:
       wrapper.java.additional.15: "-Dmule.metadata.cache.expirationInterval.millis=5000"
       wrapper.java.additional.16: "-Djava.locale.providers=COMPAT,CLDR,SPI"
       wrapper.java.additional.17: "-Dlog4j2.disable.jmx=true"
-      wrapper.java.additional.19: "-Dcom.sun.management.jmxremote "
+      wrapper.java.additional.19: "-Dcom.sun.management.jmxremote"
       wrapper.java.additional.2: -Dmule.base="%MULE_BASE%"
       wrapper.java.additional.2.stripquotes: 'TRUE'
-      wrapper.java.additional.20: "-Dcom.sun.management.jmxremote.port=1098 "
-      wrapper.java.additional.21: "-Dcom.sun.management.jmxremote.authenticate=false "
-      wrapper.java.additional.22: "-Dcom.sun.management.jmxremote.ssl=false "
+      wrapper.java.additional.20: "-Dcom.sun.management.jmxremote.port=1098"
+      wrapper.java.additional.21: "-Dcom.sun.management.jmxremote.authenticate=false"
+      wrapper.java.additional.22: "-Dcom.sun.management.jmxremote.ssl=false"
       wrapper.java.additional.23: "-Dcom.sun.management.jmxremote.host=10.100.7.96"
       wrapper.java.additional.24: "-Dmule.deployment.parallel"
       wrapper.java.additional.25: "-Dserver.env=dev"
@@ -1117,6 +1117,31 @@ expected_result:
       wrapper.startup.timeout: '600'
       wrapper.syslog.loglevel: NONE
     discovery_time: '2022-07-05T18:21:21+02:00'
+    extra_data:
+      parsed_args:
+        "-Dcom.sun.management.jmxremote": ''
+        "-Dcom.sun.management.jmxremote.authenticate": 'false'
+        "-Dcom.sun.management.jmxremote.host": 10.100.7.96
+        "-Dcom.sun.management.jmxremote.port": '1098'
+        "-Dcom.sun.management.jmxremote.ssl": 'false'
+        "-Djava.locale.providers": COMPAT,CLDR,SPI
+        "-Djava.net.preferIPv4Stack": 'TRUE'
+        "-Dlog4j2.disable.jmx": 'true'
+        "-Dmule.base": '"%MULE_BASE%"'
+        "-Dmule.deployment.parallel": ''
+        "-Dmule.home": '"%MULE_HOME%"'
+        "-Dmule.metadata.cache.entryTtl.minutes": '10'
+        "-Dmule.metadata.cache.expirationInterval.millis": '5000'
+        "-Dmvel2.disable.jit": 'TRUE'
+        "-Dorg.glassfish.grizzly.nio.transport.TCPNIOTransport.max-receive-buffer-size": '1048576'
+        "-Dorg.glassfish.grizzly.nio.transport.TCPNIOTransport.max-send-buffer-size": '1048576'
+        "-Dorg.quartz.scheduler.skipUpdateCheck": 'true'
+        "-Dserver.env": dev
+        "-XX:+AlwaysPreTouch": ''
+        "-XX:+HeapDumpOnOutOfMemoryError": ''
+        "-XX:MaxMetaspaceSize": 256m
+        "-XX:MaxTenuringThreshold": '8'
+        "-XX:NewRatio": '1'
     files:
       - path: "/tmp/mule-enterprise-standalone-4.4.0-20220622"
         subtype: home
