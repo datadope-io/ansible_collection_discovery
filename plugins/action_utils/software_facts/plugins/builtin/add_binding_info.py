@@ -85,7 +85,11 @@ class AddBindingInfo(SoftwareFactsPlugin):
         item_binding = {}
         for item, value in iteritems(args):
             if value:
+                # Strip IPv6 addresses like [::] of brackets
+                if item == 'address':
+                    value = value.strip('[]')
                 item_binding[item] = value
+
         result = dict(__instance__={'bindings': []}, __list_merge__='append')
         for binding in software_instance.get('bindings', []):
             if binding.get('address') == item_binding.get('address') \

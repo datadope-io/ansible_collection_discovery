@@ -4,6 +4,7 @@
 - Include field `cwd` for modules `process_facts` and `win_process_facts`.
 - When a relative path is given to plugins `read_remote_file` or `add_file_info`, the process `cwd` will be
   appended to the path to convert it from a relative path to an absolute path, avoiding potential errors.
+- Strip Ipv6 brackets when present when using plugin `add_binding_info`
 - Increase `postgres` commands timeout from `5` seconds to `10` seconds.
 - Add SQL Server failover cluster detection.
 - Improve Mulesoft software discovery with specific tasks.
