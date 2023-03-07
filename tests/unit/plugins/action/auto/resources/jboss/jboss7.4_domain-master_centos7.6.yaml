@@ -6780,6 +6780,8 @@ mocked_plugin_tasks:
         message: '''NoneType'' object is not iterable'
     - expected_exception:
         message: '''NoneType'' object is not iterable'
+    - expected_exception:
+        message: '''NoneType'' object is not iterable'
     - run
     - run
     - expected_exception:

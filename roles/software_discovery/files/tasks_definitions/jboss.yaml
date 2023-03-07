@@ -21,7 +21,10 @@
       ],
       '_heap_initial_allocation_memory': "-Xms(\d+\w)",
       '_heap_max_memory': "-Xmx(\d+\w)",
-      '_bind_address': "-Djboss.bind.address=([\w\d\.]*)",
+      '_bind_address': [
+        "-b ([\w\d\.]*)",
+        "-Djboss.bind.address=([\w\d\.]*)"
+      ], 
       '_bind_address_management': "-Djboss.bind.address.management=([\w\d\.]*)",
       '_domain_log_dir': "-Djboss.domain.log.dir=([\w\/\.\-\d]*)",
       '_log_dir': "-Djboss.server.log.dir=([\w\/\.\-\d]*)",
