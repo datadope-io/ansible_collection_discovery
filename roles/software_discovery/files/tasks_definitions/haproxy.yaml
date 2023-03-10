@@ -1,42 +1,175 @@
-- name: Get conf_file_path from cmdline
-  set_instance_fact:
-    _conf_file_path: "<< __instance__.process.cmdline | regex_search('.*-f (.*haproxy\\.cfg|.*conf).*', '\\1', ignorecase=True) | first >>"
-  ignore_errors: yes
 - name: Read process environment
   read_environment_for_process:
     pid: "<< __instance__.process.pid >>"
   register: env_vars
   ignore_errors: yes
-- name: Check if config file is accesible
-  stat:
-    path: "<< __instance__._conf_file_path >>"
-  register: check_access
-  when: __instance__._conf_file_path is defined
-- name: Parse config file
-  read_remote_file:
-    file_path: "<< __instance__._conf_file_path >>"
-    delegate_reading: yes
-    parser: "custom"
-    parser_params:
-      module_name: "file_parser"
-      module_args:
-        parser: "haproxy"
-        env_vars: "<< env_vars.parsed >>"
-  register: config_file
-  when: check_access is not failed
-- name: Save parsed config file if necessary
-  set_instance_fact:
-      configuration: "<< config_file.parsed >>"
-  when: config_file.parsed is defined
 
-- name: Save config file
-  add_file_info:
-    path: '<<__instance__._conf_file_path | dirname>>'
-    name: '<<__instance__._conf_file_path | basename>>'
-    type: 'config'
-    subtype: 'generic'
-  when: __instance__._conf_file_path is defined
+- name: Get all config files paths from cmdline
+  set_instance_fact:
+    _conf_files_paths: "<< __instance__.process.cmdline | regex_findall('-f (\\S*)', ignorecase=True) >>"
+  ignore_errors: yes
+- name: Iterate over config files
+  block:
+    - name: Save config file
+      add_file_info:
+        path: '<< __conf_path__ | dirname >>'
+        name: '<< __conf_path__ | basename >>'
+        type: 'config'
+        subtype: 'generic'
+    - name: Check if config file is accesible
+      stat:
+        path: "<< __conf_path__ >>"
+      register: check_access
+    - name: Parse config file
+      read_remote_file:
+        file_path: "<< __conf_path__ >>"
+        delegate_reading: yes
+        parser: "custom"
+        parser_params:
+          module_name: "file_parser"
+          module_args:
+            parser: "haproxy"
+            env_vars: "<< env_vars.parsed >>"
+      register: config_file
+      when: check_access is not failed
+    - name: Save and merge parsed config file if necessary
+      set_instance_fact:
+        configuration: "<< __instance__.configuration | default({}) | combine(config_file.parsed) >>"
+      when: config_file.parsed is defined
+  loop: "<< __instance__._conf_files_paths | default([]) >>"
+  loop_control:
+    loop_var: __conf_path__
+
+- name: Process config file
+  block:
+    - name: Iterate over each configuration key
+      block:
+        - name: Get bind for 'frontend' or 'listen' entries
+          block:
+            - name: Process found bind entry
+              set_instance_fact:
+                _bind_entries: "<< (__binding__ | regex_findall('([0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}:[0-9]+|\\*:[0-9]+|:[0-9]+)') + __instance__._bind_entries | default([])) | unique >>"
+              ignore_errors: yes
+              loop: "<< __bindings__ >>"
+              loop_control:
+                loop_var: __binding__
+          vars:
+            __bindings__: "<< [__item__.value.bind] if __item__.value.bind is string else __item__.value.bind >>"
+          when:
+            - __item__.key.startswith(('frontend', 'listen'))
+            - "'bind' in __item__.value"
+            - __item__.value.bind
+        - name: Get binding for 'listen' entries without defined bind
+          set_instance_fact:
+            _bind_entries: "<< (__item__.key | regex_findall('([0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}:[0-9]+|\\*:[0-9]+|:[0-9]+)') + __instance__._bind_entries | default([])) | unique >>"
+          ignore_errors: yes
+          when:
+            - __item__.key.startswith('listen')
+            - "'bind' not in __item__.value"
+        - name: Get stats for 'global' entry
+          block:
+            - name: Process entry if is socket stats path
+              set_instance_fact:
+                _stats_socket_path: "<< __stat__ | regex_search('socket (\\S*)', '\\1', ignorecase=True) | first >>"
+              ignore_errors: yes
+              when: __stat__.startswith('socket')
+              loop: "<< __stats__ >>"
+              loop_control:
+                loop_var: __stat__
+          vars:
+            __stats__: "<< [__item__.value.stats] if __item__.value.stats is string else __item__.value.stats >>"
+          when:
+            - "__item__.key == 'global'"
+            - "'stats' in __item__.value"
+            - __item__.value.stats
+        - name: Get stats entries for 'listen stats' or 'frontend stats' entries
+          block:
+            - name: Attempt to find binding for listen stats entry
+              block:
+                - set_instance_fact:
+                    _bind: "<< __element__.key >>"
+                  when:
+                    - not __element__.value
+                    - __element__.key is regex(":[0-9]+$")
+                  loop: "<< __item__.value | dict2items >>"
+                  loop_control:
+                    loop_var: __element__
+                - set_instance_fact:
+                    _bind: "<< __item__.key | regex_search('listen stats ([\\S]*:[0-9]+)', '\\1', ignorecase=True) | first >>"
+                  ignore_errors: yes
+                  when:
+                    - __instance__._bind is not defined
+                    - __item__.key is regex("listen stats ([\\S]*:[0-9]+)")
+              when: "__item__.key.startswith('listen stats')"
+            - name: Get stats bind if defined and not already found
+              set_instance_fact:
+                _bind: "<< __item__.value.bind | regex_search('^(\\S*)', '\\1', ignorecase=True) | first >>"
+              ignore_errors: yes
+              when:
+                - __instance__._bind is not defined
+                - "'bind' in __item__.value"
+            - name: Attempt to find auth for current stats entry
+              block:
+                - set_instance_fact:
+                    _auth: "<< __stat__ | regex_search('auth (\\S*)', '\\1', ignorecase=True) | first >>"
+                  ignore_errors: yes
+                  when: __stat__.startswith('auth')
+                  loop: "<< __stats__ >>"
+                  loop_control:
+                    loop_var: __stat__
+              when: __instance__._bind is defined
+            - name: Process stat if bind was found
+              block:
+                - set_instance_fact:
+                    _stats_bind_entry:
+                      listen_ip: "<< __bind__[0] if __bind__[0] != '' else '*' >>"
+                      listen_port: "<< __bind__[1] >>"
+                - set_instance_fact:
+                    _stats_bind_entry: "<< __instance__._stats_bind_entry | combine({
+                      'auth_user': __auth__[0],
+                      'auth_pass': __auth__[1]
+                    }) >>"
+                  when: __instance__._auth is defined
+              vars:
+                __bind__: "<< __instance__._bind.rsplit(':', 1) >>"
+                __auth__: "<< __instance__._auth.split(':') if __instance__._auth is defined else None >>"
+              when: __instance__._bind is defined
+            - name: Store stat entry if defined
+              set_instance_fact:
+                _stats_bind_entries: "<< __instance__._stats_bind_entries | default([]) + [__instance__._stats_bind_entry] >>"
+              when: __instance__._stats_bind_entry is defined
+            - name: Remove stats temp vars
+              del_instance_fact:
+                - _bind
+                - _auth
+                - _stats_bind_entry
+          vars:
+            __stats__: "<< [__item__.value.stats] if __item__.value.stats is string else __item__.value.stats >>"
+          when: "__item__.key.startswith(('listen stats', 'frontend stats'))"
+      loop: "<< __instance__.configuration | dict2items >>"
+    - name: Store found bind entries
+      set_instance_fact:
+        extra_data: "<< (__instance__.extra_data | default({})) | combine({
+          'binded_ports': __instance__._bind_entries
+        }) >>"
+      when: __instance__._bind_entries is defined
+    - name: Store found stats socket path entry
+      set_instance_fact:
+        extra_data: "<< (__instance__.extra_data | default({})) | combine({
+            'stats_socket_path': __instance__._stats_socket_path
+          }) >>"
+      when: __instance__._stats_socket_path is defined
+    - name: Store found stats binds entries
+      set_instance_fact:
+        extra_data: "<< (__instance__.extra_data | default({})) | combine({
+            'stats_binds': __instance__._stats_bind_entries
+          }) >>"
+      when: __instance__._stats_bind_entries is defined
+  when: __instance__.configuration is defined
 
 - name: Remove temporary vars
   del_instance_fact:
-    - _conf_file_path
+    - _conf_files_paths
+    - _bind_entries
+    - _stats_socket_path
+    - _stats_bind_entries
