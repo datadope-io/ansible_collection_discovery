@@ -38,7 +38,6 @@ EXAMPLES = r'''
   register: result  # result will store the list: ['value3', 'inner'].
 '''
 
-from ansible import constants as C  # noqa
 from ansible.module_utils.six import iteritems  # noqa
 from ansible.utils.display import Display  # noqa
 

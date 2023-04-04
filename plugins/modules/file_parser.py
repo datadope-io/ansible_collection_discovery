@@ -67,11 +67,6 @@ parsed:
   type: dict
 '''
 
-import os  # noqa
-import pwd  # noqa
-import re  # noqa
-import sys  # noqa
-
 from ansible.module_utils.basic import AnsibleModule  # noqa
 
 

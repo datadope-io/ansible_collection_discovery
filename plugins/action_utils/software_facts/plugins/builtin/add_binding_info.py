@@ -53,7 +53,7 @@ EXAMPLES = r"""
 """
 
 from ansible.utils.display import Display  # noqa
-from ansible.errors import AnsibleRuntimeError, AnsibleActionFail  # noqa
+from ansible.errors import AnsibleRuntimeError  # noqa
 from ansible_collections.datadope.discovery.plugins.action_utils.software_facts.plugins.__init__ \
     import SoftwareFactsPlugin  # noqa
 from ansible.module_utils.six import iteritems  # noqa

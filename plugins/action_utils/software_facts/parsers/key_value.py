@@ -6,7 +6,6 @@ __metaclass__ = type
 
 import re
 
-from ansible.module_utils.six import text_type
 from ansible.utils.display import Display
 
 from ansible_collections.datadope.discovery.plugins.action_utils.software_facts.parsers.__init__ \
