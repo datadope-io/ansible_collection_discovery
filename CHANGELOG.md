@@ -17,6 +17,7 @@
 
 ## Fixes
 - Handling of empty path for `add_file_info` plugin.
+- Malformed regex usage for `Apache Webserver`
 
 # 1.3.1
 

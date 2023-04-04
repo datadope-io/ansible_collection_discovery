@@ -113,7 +113,7 @@
       when: listen.result is defined
     - name: If no listen configuration found, search listen in cmdline
       set_instance_fact:
-        _listen: "<< regex_search('^.*Listen ([0-9]+)', '\\1', multiline=True) >>"
+        _listen: "<< __instance__.process.cmdline | regex_search('^.*Listen ([0-9]+)', '\\1', multiline=True) >>"
       when: __instance__._listen is not defined
     - name: Process listen entries
       block:
