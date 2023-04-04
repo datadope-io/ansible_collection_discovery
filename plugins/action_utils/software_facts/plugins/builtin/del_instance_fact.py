@@ -26,7 +26,6 @@ EXAMPLES = r'''
     - var_temporary_2
 '''
 
-import ansible.constants as C  # noqa
 from ansible.errors import AnsibleActionFail, AnsibleRuntimeError  # noqa
 from ansible.module_utils.six import string_types  # noqa
 from ansible.utils.display import Display  # noqa
