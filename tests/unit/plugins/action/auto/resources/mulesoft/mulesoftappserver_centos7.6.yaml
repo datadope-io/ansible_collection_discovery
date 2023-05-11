@@ -1064,9 +1064,20 @@ dockers:
 expected_result:
   - bindings: [ ]
     configuration:
+      wrapper.app.parameter.1: sysd
+      wrapper.app.parameter.2: ''
+      wrapper.app.parameter.3: ''
+      wrapper.app.parameter.4: ''
+      wrapper.app.parameter.5: ''
+      wrapper.app.parameter.6: ''
+      wrapper.app.parameter.7: ''
+      wrapper.app.parameter.8: ''
+      wrapper.app.parameter.9: start0
       wrapper.console.format: M
       wrapper.console.loglevel: INFO
       wrapper.console.title: "%MULE_APP_LONG%"
+      wrapper.daemonize: 'TRUE'
+      wrapper.displayname: Mule
       wrapper.ignore_sequence_gaps: 'TRUE'
       wrapper.java.additional.1: -Dmule.home="%MULE_HOME%"
       wrapper.java.additional.1.stripquotes: 'TRUE'
@@ -1103,19 +1114,27 @@ expected_result:
       wrapper.java.library.path.2: "%MULE_HOME%/lib/boot"
       wrapper.java.mainclass: org.mule.runtime.module.reboot.MuleContainerBootstrap
       wrapper.java.maxmemory: '4096'
+      wrapper.java.statusfile: "/tmp/mule-enterprise-standalone-4.4.0-20220622/./mule_ee.java.status"
+      wrapper.lockfile: "/var/lock/subsys/mule_ee"
       wrapper.logfile: "%MULE_BASE%/logs/%MULE_APP%.log"
       wrapper.logfile.format: M
       wrapper.logfile.loglevel: INFO
       wrapper.logfile.maxfiles: '10'
       wrapper.logfile.maxsize: 1m
+      wrapper.name: mule_ee
       wrapper.ntservice.dependency.1: ''
       wrapper.ntservice.description: "%MULE_APP_LONG%"
       wrapper.ntservice.displayname: "%MULE_APP_LONG%"
       wrapper.ntservice.interactive: 'false'
       wrapper.ntservice.name: "%MULE_APP%"
       wrapper.ntservice.starttype: AUTO_START
+      wrapper.pidfile: "/tmp/mule-enterprise-standalone-4.4.0-20220622/./mule_ee.pid"
+      wrapper.script.version: 3.5.45
       wrapper.startup.timeout: '600'
+      wrapper.statusfile: "/tmp/mule-enterprise-standalone-4.4.0-20220622/./mule_ee.status"
+      wrapper.syslog.ident: mule_ee
       wrapper.syslog.loglevel: NONE
+      wrapper.working.dir: "/"
     discovery_time: '2022-07-05T18:21:21+02:00'
     extra_data:
       parsed_args:
@@ -1174,7 +1193,7 @@ expected_result:
     type: MuleSoft AppServer
     version: [ ]
 mocked_plugin_tasks:
-  Check if _wrapper_conf is accessible:
+  Check if _wrapper_conf_file is accessible:
     number_of_calls: 1
     plugin_result:
       failed: false
