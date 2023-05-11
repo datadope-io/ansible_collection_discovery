@@ -123,8 +123,8 @@ expected_result:
     User: apache
   discovery_time: '2022-06-08T19:34:47+02:00'
   extra_data:
-    instance_name: '80.80'
-    instance_name_uppercase: '80.80'
+    instance_name: '80'
+    instance_name_uppercase: '80'
   files:
   - name: httpd
     path: /usr/sbin
@@ -371,6 +371,10 @@ mocked_plugin_tasks:
         /run/httpd/httpd.pid\"\n -D DEFAULT_SCOREBOARD=\"logs/apache_runtime_status\"\
         \n -D DEFAULT_ERRORLOG=\"logs/error_log\"\n -D AP_TYPES_CONFIG_FILE=\"conf/mime.types\"\
         \n -D SERVER_CONFIG_FILE=\"conf/httpd.conf\""
+  Request information from endpoint:
+    plugin_result:
+      failed: true
+    number_of_calls: 1
   Run regex on the current item for custom_log_files:
     number_of_calls: 1
   Run regex on the current item for error_log_files:
