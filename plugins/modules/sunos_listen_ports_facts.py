@@ -71,7 +71,6 @@ import sys  # noqa
 from datetime import datetime  # noqa
 
 from ansible.module_utils.basic import AnsibleModule  # noqa
-from ansible.module_utils.six import iteritems  # noqa
 
 
 def _get_pid_stime(pid):

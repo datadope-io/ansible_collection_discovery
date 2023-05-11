@@ -20,7 +20,6 @@ def action_module():
             templar_mock = MagicMock()
         else:
             templar_mock = Templar(loader_mock,
-                                   shared_loader_obj=shared_loader_obj_mock,
                                    variables=task_vars)
         return class_(task_mock, connection_mock, play_context_mock, loader_mock, templar_mock, shared_loader_obj_mock)
     yield _action_module
