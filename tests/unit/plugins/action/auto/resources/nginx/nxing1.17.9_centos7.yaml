@@ -20,6 +20,9 @@ expected_result:
     class: service
     port: 81
     protocol: tcp
+    extra_data:
+      protocol: http
+      status: '404'
   configuration:
     error_log: /var/log/nginx/error.log
     events:
@@ -541,6 +544,136 @@ mocked_plugin_tasks:
         status: 404
         task: Request information from endpoint
         url: http://127.0.0.1:81/nginx_status
+    - expected_args:
+        uri:
+          body:
+            operation: read-resource
+          body_format: json
+          method: GET
+          url: http://[::]:81/status
+      plugin_result:
+        _ansible_parsed: true
+        changed: false
+        connection: close
+        content_length: '3650'
+        content_type: text/html
+        date: Mon, 27 Jun 2022 09:30:53 GMT
+        elapsed: 0
+        etag: '"60b6cf1d-e42"'
+        failed: true
+        invocation:
+          module_args:
+            attributes: null
+            body:
+              operation: read-resource
+            body_format: json
+            ca_path: null
+            client_cert: null
+            client_key: null
+            creates: null
+            dest: null
+            follow_redirects: safe
+            force: false
+            force_basic_auth: false
+            group: null
+            headers:
+              Content-Type: application/json
+            http_agent: ansible-httpget
+            method: GET
+            mode: null
+            owner: null
+            remote_src: false
+            removes: null
+            return_content: false
+            selevel: null
+            serole: null
+            setype: null
+            seuser: null
+            src: null
+            status_code:
+              - 200
+            timeout: 30
+            unix_socket: null
+            unredirected_headers: [ ]
+            unsafe_writes: false
+            url: http://[::]:81/status
+            url_password: null
+            url_username: null
+            use_gssapi: false
+            use_proxy: true
+            validate_certs: true
+        msg: 'Status code was 404 and not [200]: HTTP Error 404: Not Found'
+        redirected: false
+        server: nginx/1.20.1
+        skipped: false
+        status: 404
+        task: Request information from endpoint
+        url: http://[::]:81/status
+    - expected_args:
+        uri:
+          body:
+            operation: read-resource
+          body_format: json
+          method: GET
+          url: http://[::]:81/nginx_status
+      plugin_result:
+        _ansible_parsed: true
+        changed: false
+        connection: close
+        content_length: '3650'
+        content_type: text/html
+        date: Mon, 27 Jun 2022 09:30:54 GMT
+        elapsed: 0
+        etag: '"60b6cf1d-e42"'
+        failed: true
+        invocation:
+          module_args:
+            attributes: null
+            body:
+              operation: read-resource
+            body_format: json
+            ca_path: null
+            client_cert: null
+            client_key: null
+            creates: null
+            dest: null
+            follow_redirects: safe
+            force: false
+            force_basic_auth: false
+            group: null
+            headers:
+              Content-Type: application/json
+            http_agent: ansible-httpget
+            method: GET
+            mode: null
+            owner: null
+            remote_src: false
+            removes: null
+            return_content: false
+            selevel: null
+            serole: null
+            setype: null
+            seuser: null
+            src: null
+            status_code:
+              - 200
+            timeout: 30
+            unix_socket: null
+            unredirected_headers: [ ]
+            unsafe_writes: false
+            url: http://[::]:81/nginx_status
+            url_password: null
+            url_username: null
+            use_gssapi: false
+            use_proxy: true
+            validate_certs: true
+        msg: 'Status code was 404 and not [200]: HTTP Error 404: Not Found'
+        redirected: false
+        server: nginx/1.20.1
+        skipped: false
+        status: 404
+        task: Request information from endpoint
+        url: http://[::]:81/nginx_status
     - expected_args:
         uri:
           body:
