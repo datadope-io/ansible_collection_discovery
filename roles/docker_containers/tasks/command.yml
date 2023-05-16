@@ -10,15 +10,19 @@
       command: docker ps {% if docker_containers__docker_ps_all == true %}-a{% endif %} --format {% raw %}{{.ID}}{% endraw %}
       when: docker_installed.rc == 0
       register: psoutput
+      ignore_errors: yes
 
     - name: Read containers information
       command: docker inspect {{ psoutput.stdout_lines | join(' ') }}
-      when: psoutput.stdout_lines|length > 0
+      when:
+        - psoutput.stdout_lines|length > 0
+        - psoutput is not failed
       register: inspectoutput
 
     - name: Dockers result
       set_fact:
         dockers: {'containers': "{{ (inspectoutput.stdout|default('[]')) | from_json }}"}
+      when: psoutput is not failed
   when:
     - docker_installed is not failed
     - docker_installed.rc == 0

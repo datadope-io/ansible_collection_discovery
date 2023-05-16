@@ -25,7 +25,8 @@
 
 ## Fixes
 - Handling of empty path for `add_file_info` plugin.
-- Malformed regex usage for `Apache Webserver`
+- Malformed regex usage for `Apache Webserver`.
+- Role `docker_containers` now is able to handle machines where docker is installed but stopped.
 
 # 1.3.1
 
