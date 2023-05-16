@@ -757,6 +757,7 @@ expected_result:
             attr-port: '4713'
   discovery_time: '2022-06-23T20:55:14+02:00'
   extra_data:
+    family: wildfly
     heap_initial_allocation_memory: 64m
     heap_max_memory: 512m
     mode: standalone

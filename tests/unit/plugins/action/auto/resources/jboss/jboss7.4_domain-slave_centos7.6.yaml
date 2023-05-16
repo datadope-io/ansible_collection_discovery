@@ -34,6 +34,8 @@ expected_result:
     class: service
     port: 55200
     protocol: udp
+  - class: management_http
+    port: 19990
   - class: ajp
     port: 8009
   - class: http
@@ -59,8 +61,6 @@ expected_result:
     extra_data:
       security_realm: ManagementRealm
     port: 9999
-  - class: listener
-    port: 19990
   configuration:
     host_xml:
       host:
@@ -375,6 +375,15 @@ mocked_plugin_tasks:
   Check if controller information is available:
     expected_exception:
       message: '''NoneType'' object is not iterable'
+  Check if jboss_cmd is accessible:
+    expected_args:
+      follow: false
+      get_attributes: true
+      get_mime: true
+      in_docker: true
+      path: /opt/jboss/bin/domain.sh
+    plugin_result:
+      failed: true
   Check if domain_xml_file is accessible:
     expected_args:
       follow: false
