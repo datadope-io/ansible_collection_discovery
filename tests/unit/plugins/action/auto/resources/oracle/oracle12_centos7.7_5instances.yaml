@@ -15,7 +15,7 @@ expected_result:
     role: ASM NODE
   files:
   - path: /softOracle_local/app/oragrid/diag/asm/+asm/+ASM/trace
-    subtype: generic
+    subtype: alert
     type: log
   - path: /softOracle_local/app/oragrid/product/12.1.0.2/grid_infraestructure
     subtype: generic
@@ -49,7 +49,7 @@ expected_result:
     role: PRIMARY
   files:
   - path: /softOracle/app/oracle/diag/rdbms/arsys/ARSYS/trace
-    subtype: generic
+    subtype: alert
     type: log
   - path: /softOracle/app/oracle/product/12.1.0.2/db_1
     subtype: generic
@@ -83,7 +83,7 @@ expected_result:
     role: PRIMARY
   files:
   - path: /softOracle/app/oracle/diag/rdbms/bsaapp/BSAAPP/trace
-    subtype: generic
+    subtype: alert
     type: log
   - path: /softOracle/app/oracle/product/12.1.0.2/db_1
     subtype: generic
@@ -117,7 +117,7 @@ expected_result:
     role: PRIMARY
   files:
   - path: /softOracle/app/oracle/diag/rdbms/bnabbdd/BNABBDD/trace
-    subtype: generic
+    subtype: alert
     type: log
   - path: /softOracle/app/oracle/product/12.1.0.2/db_1
     subtype: generic
@@ -151,7 +151,7 @@ expected_result:
     role: PRIMARY
   files:
   - path: /softOracle/app/oracle/diag/rdbms/bsarep/BSAREP/trace
-    subtype: generic
+    subtype: alert
     type: log
   - path: /softOracle/app/oracle/product/12.1.0.2/db_1
     subtype: generic

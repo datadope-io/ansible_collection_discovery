@@ -31,7 +31,7 @@ expected_result:
     port: 8161
     protocol: tcp
   - address: 0.0.0.0
-    class: service
+    class: jetty
     port: 8161
   discovery_time: '2022-07-06T10:55:21+02:00'
   files:

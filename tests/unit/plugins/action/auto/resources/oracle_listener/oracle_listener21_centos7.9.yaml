@@ -224,11 +224,11 @@ expected_result:
     subtype: generic
     type: home
   - path: /opt/oracle/product/21c/dbhomeXE/bin/lsnrctl
-    subtype: generic
+    subtype: process_bin_file
     type: binary
   - name: log.xml
     path: /opt/oracle/diag/tnslsnr/test-ram-norm01/listener/trace
-    subtype: generic
+    subtype: logging_file
     type: log
   listening_ports:
   - 1539

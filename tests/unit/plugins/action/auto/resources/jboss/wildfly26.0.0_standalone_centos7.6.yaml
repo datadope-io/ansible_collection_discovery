@@ -15,7 +15,7 @@ expected_result:
     port: 28443
     protocol: tcp
   - address: 0.0.0.0
-    class: binding_address
+    class: bind_address
   - class: ajp
     port: 28009
   - class: http
@@ -31,7 +31,7 @@ expected_result:
   - class: txn_status_manager
     port: 4713
   - address: localhost
-    class: domain controller
+    class: domain_controller
   configuration:
     standalone_xml:
       server:
@@ -765,20 +765,20 @@ expected_result:
   files:
   - name: server.log
     path: /opt/wildfly/standalone/log
-    subtype: generic
+    subtype: logging_file
     type: log
   - name: logging.properties
     path: /opt/wildfly/standalone/configuration
-    subtype: generic
+    subtype: logging_config
     type: log
   - path: /opt/wildfly/standalone
-    subtype: generic
+    subtype: base_dir
     type: data
   - path: /opt/wildfly
-    subtype: generic
+    subtype: home_dir
     type: data
   - path: /standalone.xml
-    subtype: generic
+    subtype: config_file
     type: config
   - name: standalone.xml
     path: /opt/wildfly/standalone/configuration

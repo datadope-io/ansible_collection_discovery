@@ -54,14 +54,14 @@
   add_file_info:
     path: '<<__instance__._domain_log_dir>>'
     type: 'log'
-    subtype: 'generic'
+    subtype: 'domain_logging_dir'
   when: __instance__._domain_log_dir != None
 
 - name: Save domain logs dir
   add_file_info:
     path: '<<__instance__._log_dir>>'
     type: 'log'
-    subtype: 'generic'
+    subtype: 'logging_dir'
   when: __instance__._log_dir != None
 
 - name: Redefine server_name if necessary
@@ -73,7 +73,7 @@
 - name: Save binding address
   add_binding_info:
     address: '<<__instance__._bind_address>>'
-    class: 'binding_address'
+    class: 'bind_address'
   when: __instance__._bind_address != None
 
 - name: Save binding address management
@@ -221,7 +221,7 @@
     path: '<<__instance__._log_file | dirname>>'
     name: '<<__instance__._log_file | basename>>'
     type: 'log'
-    subtype: 'generic'
+    subtype: 'logging_file'
   when: __instance__._log_file is defined
 
 - name: Parse standalone mode configuration
@@ -500,7 +500,7 @@
     path: '<<__instance__._logging_conf_file | dirname>>'
     name: '<<__instance__._logging_conf_file | basename>>'
     type: 'log'
-    subtype: 'generic'
+    subtype: 'logging_config'
   when: __instance__._logging_conf_file is defined
 
 - name: Save host xml file
@@ -534,21 +534,21 @@
   add_file_info:
     path: '<<__instance__._base_dir>>'
     type: 'data'
-    subtype: 'generic'
+    subtype: 'base_dir'
   when: __instance__._base_dir != None
 
 - name: Save home dir
   add_file_info:
     path: '<<__instance__._home_dir>>'
     type: 'data'
-    subtype: 'generic'
+    subtype: 'home_dir'
   when: __instance__._home_dir != None
 
 - name: Save config file
   add_file_info:
     path: '<<__instance__._config_file>>'
     type: 'config'
-    subtype: 'generic'
+    subtype: 'config_file'
   when: __instance__._config_file != None
 
 - name: Save standole xml file
@@ -563,7 +563,7 @@
   add_binding_info:
     address: '<<__instance__._domain_controller.host>>'
     port: '<<__instance__._domain_controller.port>>'
-    class: 'domain controller'
+    class: 'domain_controller'
     extra_data:
       security_realm: '<<__instance__._domain_controller.security_realm>>'
   when:
@@ -573,7 +573,7 @@
 - name: Save domain controller if is str
   add_binding_info:
     address: '<<__instance__._domain_controller>>'
-    class: 'domain controller'
+    class: 'domain_controller'
   when:
     - __instance__._domain_controller is defined
     - __instance__._domain_controller is string
@@ -581,7 +581,7 @@
 - name: Save port remoting
   add_binding_info:
     port: '<<__instance__._port_remoting>>'
-    class: 'port remoting'
+    class: 'port_remoting'
   when: __instance__._port_remoting is defined
 
 - name: Save management port

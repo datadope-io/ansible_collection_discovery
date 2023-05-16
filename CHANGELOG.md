@@ -11,10 +11,16 @@
 - Improve `MongoDB` software discovery with specific tasks.
 - Improve `Redis` software discovery with additional tasks for configuration retrieving.
 - Improve `Apache Tomcat` software discovery with enhanced `base` logic and more `HTTP/1.1` protocol detection.
-- Improve `Apache Webserver` software discovery with mod_status check and enhanced field managing.
+- Improve `Apache WebServer` software discovery with mod_status check and enhanced field managing.
 - Improve `HAProxy` software discovery with additional tasks for configuration processing.
-- Enhanced cmd regex for `Apache Tomcat` and `Apache Webserver` detection.
+- Enhanced cmd regex for `Apache Tomcat` and `Apache WebServer` detection.
 - Enhance `JBoss Application Server` binding detection.
+- Attributes `class`, `type` and `subtype` refined for:
+  - `Apache ActiveMQ`
+  - `Apache WebServer`
+  - `JBoss Application Server`
+  - `Oracle DatabaseServer`
+  - `Oracle Listener`
 
 ## Fixes
 - Handling of empty path for `add_file_info` plugin.

@@ -3295,15 +3295,15 @@ expected_result:
       profile: full-ha
   files:
   - path: /opt/jboss/domain/servers/nodo1-server1/log
-    subtype: generic
+    subtype: logging_dir
     type: log
   - name: server.log
     path: /opt/jboss/domain/servers/nodo1-server1/log
-    subtype: generic
+    subtype: logging_file
     type: log
   - name: logging.properties
     path: /opt/jboss/domain/servers/nodo1-server1/data
-    subtype: generic
+    subtype: logging_config
     type: log
   - name: host.xml
     path: /opt/jboss/domain/configuration
@@ -3314,7 +3314,7 @@ expected_result:
     subtype: domain
     type: config
   - path: /opt/jboss
-    subtype: generic
+    subtype: home_dir
     type: data
   listening_ports:
   - 3528

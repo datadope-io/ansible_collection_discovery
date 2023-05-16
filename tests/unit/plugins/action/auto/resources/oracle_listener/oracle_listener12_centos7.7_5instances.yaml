@@ -17,11 +17,11 @@ expected_result:
     subtype: generic
     type: home
   - path: /softOracle/app/oracle/product/12.1.0.2/db_1/bin/lsnrctl
-    subtype: generic
+    subtype: process_bin_file
     type: binary
   - name: log.xml
     path: /softOracle/app/oracle/diag/tnslsnr/ld1bmb02/listener_bsaapp/trace
-    subtype: generic
+    subtype: logging_file
     type: log
   listening_ports:
   - 1524
@@ -53,11 +53,11 @@ expected_result:
     subtype: generic
     type: home
   - path: /softOracle/app/oracle/product/12.1.0.2/db_1/bin/lsnrctl
-    subtype: generic
+    subtype: process_bin_file
     type: binary
   - name: log.xml
     path: /softOracle/app/oracle/diag/tnslsnr/ld1bmb02/listener_bsarep/trace
-    subtype: generic
+    subtype: logging_file
     type: log
   listening_ports:
   - 1527
@@ -89,11 +89,11 @@ expected_result:
     subtype: generic
     type: home
   - path: /softOracle/app/oracle/product/12.1.0.2/db_1/bin/lsnrctl
-    subtype: generic
+    subtype: process_bin_file
     type: binary
   - name: log.xml
     path: /softOracle/app/oracle/diag/tnslsnr/ld1bmb02/listener_bnabbdd/trace
-    subtype: generic
+    subtype: logging_file
     type: log
   listening_ports:
   - 1523
@@ -125,11 +125,11 @@ expected_result:
     subtype: generic
     type: home
   - path: /softOracle_local/app/oragrid/product/12.1.0.2/grid_infraestructure/bin/lsnrctl
-    subtype: generic
+    subtype: process_bin_file
     type: binary
   - name: log.xml
     path: /softOracle_local/app/oragrid/diag/tnslsnr/ld1bmb02/listener/trace
-    subtype: generic
+    subtype: logging_file
     type: log
   listening_ports:
   - 1521
@@ -161,11 +161,11 @@ expected_result:
     subtype: generic
     type: home
   - path: /softOracle/app/oracle/product/12.1.0.2/db_1/bin/lsnrctl
-    subtype: generic
+    subtype: process_bin_file
     type: binary
   - name: log.xml
     path: /softOracle/app/oracle/diag/tnslsnr/ld1bmb02/listener_arsys/trace
-    subtype: generic
+    subtype: logging_file
     type: log
   listening_ports:
   - 1522

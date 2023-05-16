@@ -128,11 +128,11 @@ expected_result:
   files:
   - name: httpd
     path: /usr/sbin
-    subtype: generic
+    subtype: process_bin_file
     type: binary
   - name: httpd.conf
     path: /etc/httpd/conf
-    subtype: generic
+    subtype: config_file
     type: config
   - name: access_log
     path: /etc/httpd/logs

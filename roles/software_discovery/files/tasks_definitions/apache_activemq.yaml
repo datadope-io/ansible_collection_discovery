@@ -130,6 +130,7 @@
   add_binding_info:
     address: <<__instance__._host>>
     port: <<__instance__._port>>
+    class: jetty
   when: "__instance__._host is defined or __instance__._port is defined"
 
 - name: Remove temporary vars
