@@ -1137,6 +1137,7 @@ expected_result:
       wrapper.working.dir: "/"
     discovery_time: '2022-07-05T18:21:21+02:00'
     extra_data:
+      jmx_port: '1098'
       parsed_args:
         "-Dcom.sun.management.jmxremote": ''
         "-Dcom.sun.management.jmxremote.authenticate": 'false'

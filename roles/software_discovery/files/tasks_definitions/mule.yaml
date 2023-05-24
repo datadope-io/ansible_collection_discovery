@@ -134,6 +134,14 @@
               'parsed_args' : __instance__._parsed_args
             })>>"
           when: __instance__._parsed_args is defined
+        - name: Get jmx_port from parsed args if necessary
+          set_instance_fact:
+            extra_data: "<< __instance__.extra_data | default({}) | combine({
+              'jmx_port' : __instance__._parsed_args['-Dcom.sun.management.jmxremote.port']
+            })>>"
+          when:
+            - __instance__._parsed_args is defined
+            - "'-Dcom.sun.management.jmxremote.port' in __instance__._parsed_args"
       ignore_errors: yes
       when:
         - result_conf is not failed
