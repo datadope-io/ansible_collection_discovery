@@ -1,0 +1,34 @@
+---
+- name: Get _config_path regex
+  set_instance_fact:
+    _config_path: "<< __instance__.process.cmdline | regex_search('(?:-f|--config).([\\w\\/\\.\\-\\d]*)', '\\1' ,ignorecase=True) | first >>"
+  ignore_errors: yes
+- name: Define default config path if _config_path is undefined
+  set_instance_fact:
+    _config_path: "/etc/mongod.conf"
+  when: _config_path is undefined
+- name: Check if _config_path is accessible
+  stat:
+    path: "<< __instance__._config_path>>"
+  register: result_config
+- name: Store config file path if accessible
+  add_file_info:
+    path: '<< __instance__._config_path | dirname >>'
+    name: '<< __instance__._config_path | basename >>'
+    type: 'config'
+    subtype: 'generic'
+  when: result_config is not failed
+- name: Read config file if accessible
+  read_remote_file:
+    file_path: "<< __instance__._config_path>>"
+    parser: yaml
+  register: _config_file
+  when: result_config is not failed
+- name: Store config file if necessary
+  set_instance_fact:
+    configuration: "<< _config_file.parsed >>"
+  when: _config_file is not failed
+
+- name: Remove temporary variables
+  del_instance_fact:
+    - _config_path

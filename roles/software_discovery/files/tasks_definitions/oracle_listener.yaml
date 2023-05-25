@@ -48,7 +48,7 @@
   add_file_info:
     path: "<< __instance__._bin_file >>"
     type: binary
-    subtype: generic
+    subtype: process_bin_file
 - name: Block to execute command lsnrctl
   block:
     - name: Execute lsnrctl
@@ -102,7 +102,7 @@
             path: "<< __instance__._log_dir >>"
             name: "<< __instance__._log_file | basename >>"
             type: log
-            subtype: generic
+            subtype: logging_file
         - name: Check log_dir is a dir
           stat:
             path: << __instance__._log_dir >>

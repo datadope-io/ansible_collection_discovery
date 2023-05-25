@@ -123,16 +123,16 @@ expected_result:
     User: apache
   discovery_time: '2022-06-08T19:34:47+02:00'
   extra_data:
-    instance_name: '80.80'
-    instance_name_uppercase: '80.80'
+    instance_name: '80'
+    instance_name_uppercase: '80'
   files:
   - name: httpd
     path: /usr/sbin
-    subtype: generic
+    subtype: process_bin_file
     type: binary
   - name: httpd.conf
     path: /etc/httpd/conf
-    subtype: generic
+    subtype: config_file
     type: config
   - name: access_log
     path: /etc/httpd/logs
@@ -371,6 +371,10 @@ mocked_plugin_tasks:
         /run/httpd/httpd.pid\"\n -D DEFAULT_SCOREBOARD=\"logs/apache_runtime_status\"\
         \n -D DEFAULT_ERRORLOG=\"logs/error_log\"\n -D AP_TYPES_CONFIG_FILE=\"conf/mime.types\"\
         \n -D SERVER_CONFIG_FILE=\"conf/httpd.conf\""
+  Request information from endpoint:
+    plugin_result:
+      failed: true
+    number_of_calls: 1
   Run regex on the current item for custom_log_files:
     number_of_calls: 1
   Run regex on the current item for error_log_files:
@@ -4543,7 +4547,7 @@ processes:
   ppid: '27669'
   user: root
 software_list:
-- cmd_regexp: ^.*/(?:sbin|bin)/(?:httpd|apache2)(?:[-_](?:prefork|worker))?(?:.*)?
+- cmd_regexp: ^.*/(?:sbin|bin)/(?:httpd|httpd2|apache2)(?!-tomcat)(?:[-_](?:prefork|worker))?
   custom_tasks:
   - include_tasks:
       file: << software_discovery__custom_tasks_definition_files_path >>/apache_webserver.yaml

@@ -34,6 +34,8 @@ expected_result:
     class: service
     port: 55200
     protocol: udp
+  - class: management_http
+    port: 19990
   - class: ajp
     port: 8009
   - class: http
@@ -55,12 +57,10 @@ expected_result:
   - class: txn_status_manager
     port: 4713
   - address: 192.168.0.130
-    class: domain controller
+    class: domain_controller
     extra_data:
       security_realm: ManagementRealm
     port: 9999
-  - class: listener
-    port: 19990
   configuration:
     host_xml:
       host:
@@ -315,15 +315,15 @@ expected_result:
       profile: full-ha
   files:
   - path: /opt/jboss/domain/servers/nodo2-server1/log
-    subtype: generic
+    subtype: logging_dir
     type: log
   - name: server.log
     path: /opt/jboss/domain/servers/nodo2-server1/log
-    subtype: generic
+    subtype: logging_file
     type: log
   - name: logging.properties
     path: /opt/jboss/domain/servers/nodo2-server1/data
-    subtype: generic
+    subtype: logging_config
     type: log
   - name: host.xml
     path: /opt/jboss/domain/configuration
@@ -334,7 +334,7 @@ expected_result:
     subtype: domain
     type: config
   - path: /opt/jboss
-    subtype: generic
+    subtype: home_dir
     type: data
   listening_ports:
   - 3528
@@ -375,6 +375,15 @@ mocked_plugin_tasks:
   Check if controller information is available:
     expected_exception:
       message: '''NoneType'' object is not iterable'
+  Check if jboss_cmd is accessible:
+    expected_args:
+      follow: false
+      get_attributes: true
+      get_mime: true
+      in_docker: true
+      path: /opt/jboss/bin/domain.sh
+    plugin_result:
+      failed: true
   Check if domain_xml_file is accessible:
     expected_args:
       follow: false
@@ -912,6 +921,8 @@ mocked_plugin_tasks:
     - run
     - run
     - run
+    - expected_exception:
+        message: '''NoneType'' object is not iterable'
     - expected_exception:
         message: '''NoneType'' object is not iterable'
     - expected_exception:

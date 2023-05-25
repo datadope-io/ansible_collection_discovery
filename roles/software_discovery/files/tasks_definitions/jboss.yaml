@@ -21,7 +21,10 @@
       ],
       '_heap_initial_allocation_memory': "-Xms(\d+\w)",
       '_heap_max_memory': "-Xmx(\d+\w)",
-      '_bind_address': "-Djboss.bind.address=([\w\d\.]*)",
+      '_bind_address': [
+        "-b ([\w\d\.]*)",
+        "-Djboss.bind.address=([\w\d\.]*)"
+      ], 
       '_bind_address_management': "-Djboss.bind.address.management=([\w\d\.]*)",
       '_domain_log_dir': "-Djboss.domain.log.dir=([\w\/\.\-\d]*)",
       '_log_dir': "-Djboss.server.log.dir=([\w\/\.\-\d]*)",
@@ -51,14 +54,14 @@
   add_file_info:
     path: '<<__instance__._domain_log_dir>>'
     type: 'log'
-    subtype: 'generic'
+    subtype: 'domain_logging_dir'
   when: __instance__._domain_log_dir != None
 
 - name: Save domain logs dir
   add_file_info:
     path: '<<__instance__._log_dir>>'
     type: 'log'
-    subtype: 'generic'
+    subtype: 'logging_dir'
   when: __instance__._log_dir != None
 
 - name: Redefine server_name if necessary
@@ -70,7 +73,7 @@
 - name: Save binding address
   add_binding_info:
     address: '<<__instance__._bind_address>>'
-    class: 'binding_address'
+    class: 'bind_address'
   when: __instance__._bind_address != None
 
 - name: Save binding address management
@@ -111,41 +114,6 @@
   block:
     - name: Try to get version (1/6)
       block:
-        - name: Set version file
-          set_instance_fact:
-            _version_file_path: "<< __instance__._home_dir >>/version.txt"
-        - name: Check if version file is accessible
-          stat:
-            path: "<< __instance__._version_file_path >>"
-          register: result
-        - name: Read version file
-          read_remote_file:
-            file_path: "<< __instance__._version_file_path >>"
-          register: _version_file
-          when: result is not failed
-        - name: Gather version if version file is accessible
-          set_instance_fact:
-            _version: "<< _version_file.content.partition('- Version')[2].strip().rsplit('.', 1)[0] >>"
-          when:
-            - _version_file.content is defined
-      ignore_errors: yes
-    - name: Try to get version (2/6)
-      set_instance_fact:
-        _version: "<< __instance__._home_dir | regex_search('jboss[_\\\\/\\.-]?(?:\\w+-)*?(\\d+(?:[_\\.-]\\d+)*)', '\\1', ignorecase=True) | first >>"
-      ignore_errors: yes
-      when: __instance__._version is undefined
-    - name: Try to get version (3/6)
-      set_instance_fact:
-        _version: "<< __instance__._home_dir | regex_search('jboss(?:-eap)?[_\\\\/\\.-]?(?:base)?[_\\\\/\\.-]?(?:\\w+-)*?[_\\\\/\\.-]?(\\d+(?:[_\\.-]\\d+)*)', '\\1', ignorecase=True) | first >>"
-      ignore_errors: yes
-      when: __instance__._version is undefined
-    - name: Try to get version (4/6)
-      set_instance_fact:
-        _version: "<< __instance__._home_dir | regex_search('/jboss/as(\\d+)_', '\\1', ignorecase=True) | first >>"
-      ignore_errors: yes
-      when: __instance__._version is undefined
-    - name: Try to get version (5/6)
-      block:
         - name: Set bin for standalone mode
           set_instance_fact:
             _bin: "standalone.sh"
@@ -170,15 +138,58 @@
           set_instance_fact:
             _version: "<< result.stdout | regex_search('(?:JBoss|WildFly)(?: Full| Application Server)?(?: AS)?(?: EAP)?\\s+(\\d+(?:\\.\\d)*)', '\\1', multiline=True, ignorecase=True) | first >>"
           ignore_errors: yes
-          when: result is not failed
+          when:
+            - result is not failed
+            - result is not skipped
+        - name: Attempt to set _family if command is successful
+          set_instance_fact:
+            _family: "<< result.stdout | regex_search('(JBoss|WildFly)(?: Full| Application Server)?(?: AS)?(?: EAP)?\\s+(?:\\d+(?:\\.\\d)*)', '\\1', multiline=True, ignorecase=True) | first >>"
+          ignore_errors: yes
+          when:
+            - result is not failed
+            - result is not skipped
         - name: Remove temporary variables
           del_instance_fact:
             - _bin
             - _jboss_cmd
       ignore_errors: yes
-      when:
-        - __instance__._version is undefined
-        - "__instance__._mode == 'standalone' or __instance__._mode == 'domain'"
+      when: "__instance__._mode == 'standalone' or __instance__._mode == 'domain'"
+    - name: Try to get version (2/6)
+      block:
+        - name: Set version file
+          set_instance_fact:
+            _version_file_path: "<< __instance__._home_dir >>/version.txt"
+        - name: Check if version file is accessible
+          stat:
+            path: "<< __instance__._version_file_path >>"
+          register: result
+        - name: Read version file
+          read_remote_file:
+            file_path: "<< __instance__._version_file_path >>"
+          register: _version_file
+          when: result is not failed
+        - name: Gather version if version file is accessible
+          set_instance_fact:
+            _version: "<< _version_file.content.partition('- Version')[2].strip().rsplit('.', 1)[0] >>"
+          when:
+            - _version_file.content is defined
+      ignore_errors: yes
+      when: __instance__._version is undefined
+    - name: Try to get version (3/6)
+      set_instance_fact:
+        _version: "<< __instance__._home_dir | regex_search('jboss[_\\\\/\\.-]?(?:\\w+-)*?(\\d+(?:[_\\.-]\\d+)*)', '\\1', ignorecase=True) | first >>"
+      ignore_errors: yes
+      when: __instance__._version is undefined
+    - name: Try to get version (4/6)
+      set_instance_fact:
+        _version: "<< __instance__._home_dir | regex_search('jboss(?:-eap)?[_\\\\/\\.-]?(?:base)?[_\\\\/\\.-]?(?:\\w+-)*?[_\\\\/\\.-]?(\\d+(?:[_\\.-]\\d+)*)', '\\1', ignorecase=True) | first >>"
+      ignore_errors: yes
+      when: __instance__._version is undefined
+    - name: Try to get version (5/6)
+      set_instance_fact:
+        _version: "<< __instance__._home_dir | regex_search('/jboss/as(\\d+)_', '\\1', ignorecase=True) | first >>"
+      ignore_errors: yes
+      when: __instance__._version is undefined
     - name: Try to get version (6/6)
       set_instance_fact:
         _version: "<< __instance__.process.cmdline | regex_search('jboss-eap-([0-9\\.]*)', '\\1', multiline=True, ignorecase=True) | first >>"
@@ -218,7 +229,7 @@
     path: '<<__instance__._log_file | dirname>>'
     name: '<<__instance__._log_file | basename>>'
     type: 'log'
-    subtype: 'generic'
+    subtype: 'logging_file'
   when: __instance__._log_file is defined
 
 - name: Parse standalone mode configuration
@@ -260,11 +271,6 @@
                 port: '<<__instance__._socket_port | int + __instance__._port_offset | int>>'
                 class: '<<__instance__._socket_name>>'
           loop: "<< __instance__.configuration.standalone_xml['server']['socket-binding-group']['socket-binding'] | default([]) >>"
-        - name: Set management_port and port_remoting if needed
-          set_instance_fact:
-            _management_port: "<< __instance__.port_management_http >>"
-            _port_remoting: "<< __instance__.port_management_http >>"
-          when: __instance__.port_management_http is defined
         - name: Remove temporary vars
           del_instance_fact:
             - _port_offset
@@ -327,6 +333,11 @@
               set_instance_fact:
                 _management_port: "<< (_management_node.result | first)['management-interfaces']['http-interface']['socket']['attr-port'].lstrip('${jboss.management.http.port:').rstrip('}') | int >>"
               when: "(_management_node.result | first)['management-interfaces']['http-interface']['socket'] is defined"
+            - name: Add management_port binding if necessary
+              add_binding_info:
+                port: '<<__instance__._management_port>>'
+                class: 'management_http'
+              when: __instance__._management_port is defined
             - name: Find servers node
               find_in_dict:
                 item: "servers"
@@ -487,6 +498,7 @@
             - _server_socket_binding_group_name
             - _server_group
             - _binding
+            - _management_port
       when: result is not failed
   when:
     - __instance__._mode == 'domain'
@@ -497,7 +509,7 @@
     path: '<<__instance__._logging_conf_file | dirname>>'
     name: '<<__instance__._logging_conf_file | basename>>'
     type: 'log'
-    subtype: 'generic'
+    subtype: 'logging_config'
   when: __instance__._logging_conf_file is defined
 
 - name: Save host xml file
@@ -531,21 +543,21 @@
   add_file_info:
     path: '<<__instance__._base_dir>>'
     type: 'data'
-    subtype: 'generic'
+    subtype: 'base_dir'
   when: __instance__._base_dir != None
 
 - name: Save home dir
   add_file_info:
     path: '<<__instance__._home_dir>>'
     type: 'data'
-    subtype: 'generic'
+    subtype: 'home_dir'
   when: __instance__._home_dir != None
 
 - name: Save config file
   add_file_info:
     path: '<<__instance__._config_file>>'
     type: 'config'
-    subtype: 'generic'
+    subtype: 'config_file'
   when: __instance__._config_file != None
 
 - name: Save standole xml file
@@ -560,7 +572,7 @@
   add_binding_info:
     address: '<<__instance__._domain_controller.host>>'
     port: '<<__instance__._domain_controller.port>>'
-    class: 'domain controller'
+    class: 'domain_controller'
     extra_data:
       security_realm: '<<__instance__._domain_controller.security_realm>>'
   when:
@@ -570,22 +582,10 @@
 - name: Save domain controller if is str
   add_binding_info:
     address: '<<__instance__._domain_controller>>'
-    class: 'domain controller'
+    class: 'domain_controller'
   when:
     - __instance__._domain_controller is defined
     - __instance__._domain_controller is string
-
-- name: Save port remoting
-  add_binding_info:
-    port: '<<__instance__._port_remoting>>'
-    class: 'port remoting'
-  when: __instance__._port_remoting is defined
-
-- name: Save management port
-  add_binding_info:
-    port: '<<__instance__._management_port>>'
-    class: 'listener'
-  when: __instance__._management_port is defined
 
 - name: Save domain role
   set_instance_fact:
@@ -608,6 +608,13 @@
     ) >>"
   when: __instance__._mode is defined
 
+- name: Save family
+  set_instance_fact:
+    extra_data: "<< __instance__.extra_data | default({}) | combine (
+        {'family': __instance__._family | lower}
+    ) >>"
+  when: __instance__._family is defined
+
 - name: Remove temporary vars
   del_instance_fact:
     - _server_name
@@ -627,8 +634,7 @@
     - _domain_xml_file
     - _host_xml_file
     - _logging_conf_file
-    - _management_port
     - _mode
-    - _port_remoting
+    - _family
     - _server
     - _standalone_xml_file

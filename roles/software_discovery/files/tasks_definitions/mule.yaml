@@ -1,0 +1,178 @@
+- name: Get home regex
+  set_instance_fact:
+    _home_regex: "<< __instance__.process.cmdline | regex_search('-Dmule\\.home=\"*?(.+?)\"*?\\ ', '\\1' ,ignorecase=True) | first >>"
+  ignore_errors: yes
+- name: Get home
+  block:
+    - name: Save home 1
+      set_instance_fact:
+        _home: "<<__instance__._home_regex>>"
+      when:
+        - "__instance__._home_regex[0] == '/'"
+    - name: Save home 2
+      set_instance_fact:
+        _home: "<< (env_vars.parsed.PWD, __instance__._home_regex) | datadope.discovery.path_join | realpath >>"
+      when:
+        - "__instance__._home_regex[0] != '/'"
+        - env_vars.parsed.PWD is defined
+  when:
+    - __instance__._home_regex is defined
+
+- name: Get base regex
+  set_instance_fact:
+    _base_regex: "<< __instance__.process.cmdline | regex_search('-Dmule\\.base=\"*?(.+?)\"*?\\ ', '\\1' ,ignorecase=True) | first >>"
+  ignore_errors: yes
+- name: Get base
+  block:
+    - name: Save base 1
+      set_instance_fact:
+        _base: "<<__instance__._base_regex>>"
+      when:
+        - "__instance__._base_regex[0] == '/'"
+    - name: Save base 2
+      set_instance_fact:
+        _base: "<< (env_vars.parsed.PWD, __instance__._base_regex) | datadope.discovery.path_join | realpath >>"
+      when:
+        - "__instance__._base_regex[0] != '/'"
+        - env_vars.parsed.PWD is defined
+  when:
+    - __instance__._base_regex is defined
+
+- name: Get wrapper regex
+  set_instance_fact:
+    _wrapper_regex: "<< __instance__.process.cmdline | regex_search('-Dwrapper\\.pid=\"*?(.+?)\"*?\\ ', '\\1' ,ignorecase=True) | first >>"
+  ignore_errors: yes
+- name: Get wrapper process
+  block:
+    - name: Find wrapper process
+      find_processes:
+        filter:
+          pid: "^<< __instance__._wrapper_regex >>$"
+      register: wrapper_process
+    - name: Store wrapper process
+      set_instance_fact:
+        _wrapper_process: "<< wrapper_process.result | first >>"
+      when:
+        - wrapper_process is defined
+        - wrapper_process.result
+    - name: Extract conf file from wrapper process cmdline
+      set_instance_fact:
+        _wrapper_conf_file: "<< __instance__._wrapper_process.cmdline | regex_search('^\\S+\\s+(\\S+.conf)', '\\1' ,ignorecase=True) | first >>"
+      ignore_errors: yes
+    - name: Find runtime args from wrapper process cmdline
+      set_instance_fact:
+        _wrapper_raw_args: "<< __instance__._wrapper_process.cmdline | regex_findall('(\\S+=\\S*)', ignorecase=True) >>"
+      ignore_errors: yes
+    - name: Process runtime args from wrapper if necessary
+      block:
+        - name: Process wrapper arg
+          set_instance_fact:
+            _wrapper_args: "<< __instance__._wrapper_args | default({}) | combine({
+              _split_arg[0] | trim : _split_arg[1] | default('') | trim
+            })>>"
+          vars:
+            _split_arg: "<< __item__.split('=', 1) >>"
+      loop: "<< __instance__._wrapper_raw_args >>"
+      when:
+        - __instance__._wrapper_raw_args is defined
+        - __instance__._wrapper_raw_args
+  when:
+    - __instance__._wrapper_regex is defined
+
+- name: Parse config
+  block:
+    - name: Set _wrapper_conf_file if it is not defined
+      set_instance_fact:
+        _wrapper_conf_file: "<< (__instance__._home, 'conf/wrapper.conf') | datadope.discovery.path_join >>"
+      when: __instance__._wrapper_conf_file is not defined 
+    - name: Check if _wrapper_conf_file is accessible
+      stat:
+        path: "<< __instance__._wrapper_conf_file>>"
+      register: result_conf
+    - name: Access and process conf file
+      block:
+        - name: Access conf file
+          read_remote_file:
+            file_path: "<< __instance__._wrapper_conf_file>>"
+          register: _conf_file
+        - name: Iterate and save conf file lines
+          block:
+            - name: Split conf line
+              set_instance_fact:
+                _split_conf_line: "<< __item__.split('=', 1) >>"
+            - name: Store conf line
+              set_instance_fact:
+                _parsed_conf_file: "<< __instance__._parsed_conf_file | default({}) | combine({
+                  __instance__._split_conf_line[0] | trim : __instance__._split_conf_line[1] | default('') | trim
+                })>>"
+            - name: Store arg if necessary
+              set_instance_fact:
+                _parsed_args: "<< __instance__._parsed_args | default({}) | combine({
+                  _split_arg[0] | trim : _split_arg[1] | default('') | trim
+                })>>"
+              vars:
+                _split_arg: "<< __instance__._split_conf_line[1].split('=', 1) >>"
+              when:
+                - __item__.startswith('wrapper.java.additional.')
+                - __instance__._split_conf_line[0][-1].isdigit()
+          when:
+            - not __item__.startswith('#')
+            - "'=' in __item__"
+          loop: "<< _conf_file.content.splitlines() >>"
+        - name: Save config file
+          set_instance_fact:
+            configuration: "<< __instance__._parsed_conf_file>>"
+        - name: Update config file with wrapper args if necessary
+          set_instance_fact:
+            configuration: "<< __instance__.configuration | combine(__instance__._wrapper_args) >>"
+          when:
+            - __instance__._parsed_args is defined
+            - __instance__._wrapper_args is defined
+        - name: Save parsed args if necessary
+          set_instance_fact:
+            extra_data: "<< __instance__.extra_data | default({}) | combine({
+              'parsed_args' : __instance__._parsed_args
+            })>>"
+          when: __instance__._parsed_args is defined
+        - name: Get jmx_port from parsed args if necessary
+          set_instance_fact:
+            extra_data: "<< __instance__.extra_data | default({}) | combine({
+              'jmx_port' : __instance__._parsed_args['-Dcom.sun.management.jmxremote.port']
+            })>>"
+          when:
+            - __instance__._parsed_args is defined
+            - "'-Dcom.sun.management.jmxremote.port' in __instance__._parsed_args"
+      ignore_errors: yes
+      when:
+        - result_conf is not failed
+  when:
+    - __instance__._home is defined
+
+- name: Set home in files
+  add_file_info:
+    path: <<__instance__._home>>
+    type: 'config'
+    subtype: 'home'
+  when: __instance__._home is defined
+
+- name: Set base in files
+  add_file_info:
+    path: <<__instance__._base>>
+    type: 'config'
+    subtype: 'base'
+  when: __instance__._base is defined
+
+- name: Remove temporary vars
+  del_instance_fact:
+    - _home_regex
+    - _base_regex
+    - _wrapper_regex
+    - _wrapper_process
+    - _wrapper_raw_args
+    - _wrapper_args
+    - _wrapper_conf_file
+    - _split_conf_line
+    - _parsed_conf_file
+    - _parsed_args
+    - _home
+    - _base

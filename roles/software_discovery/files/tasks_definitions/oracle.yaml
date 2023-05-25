@@ -316,7 +316,7 @@
           add_file_info:
             path: "<< __instance__._alert_log_dir >>"
             type: log
-            subtype: generic
+            subtype: alert
           when: __instance__._alert_log_dir is defined
         - name: Store unknown role
           set_instance_fact:

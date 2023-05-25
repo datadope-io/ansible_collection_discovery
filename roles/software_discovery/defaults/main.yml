@@ -62,7 +62,7 @@ software_discovery__software_list:
           file: "{{ software_discovery__custom_tasks_definition_files_path }}/iis.yaml"
 
   - name: Apache WebServer
-    cmd_regexp: "^.*/(?:sbin|bin)/(?:httpd|apache2)(?:[-_](?:prefork|worker))?(?:.*)?"
+    cmd_regexp: '^.*/(?:sbin|bin)/(?:httpd|httpd2|apache2)(?!-tomcat)(?:[-_](?:prefork|worker))?'
     pkg_regexp: 'apache2|^httpd$'
     process_type: parent
     return_children: true
@@ -73,12 +73,16 @@ software_discovery__software_list:
           file: "{{ software_discovery__custom_tasks_definition_files_path }}/apache_webserver.yaml"
 
   - name: Redis
-    cmd_regexp: redis-serve
+    cmd_regexp: redis-server
     pkg_regexp: ^redis
     process_type: parent
     return_children: false
     return_packages: true
-    vars: {}
+    vars:
+      connection:
+        auth_user: "{{ redis_auth_user | default('') }}"
+        auth_password: "{{ redis_auth_password | default('') }}"
+        unix_socket: "{{ redis_unix_socket_path | default('') }}"
     custom_tasks:
       - name: Include redis specific plugins
         include_tasks:
@@ -170,7 +174,7 @@ software_discovery__software_list:
           default_client_file: mysql
 
   - name: Apache Tomcat Servlet Engine
-    cmd_regexp: \.apache\.tomcat\.startup|\.apache\.catalina\.startup
+    cmd_regexp: '^.*\.apache\.(?:tomcat|catalina)\.startup|^.*-Dcatalina\.(?:base|home)='
     pkg_regexp: tomcat
     process_type: parent
     return_children: true
@@ -187,7 +191,7 @@ software_discovery__software_list:
     return_children: true
     return_packages: true
     custom_tasks:
-      - name: Include nginx specific plugins
+      - name: Include Nginx specific plugins
         include_tasks:
           file: "{{ software_discovery__custom_tasks_definition_files_path }}/nginx.yaml"
 
@@ -198,7 +202,7 @@ software_discovery__software_list:
     return_children: false
     return_packages: true
     custom_tasks:
-      - name: Include keepalived specific plugins
+      - name: Include KeepAliveD specific plugins
         include_tasks:
           file: "{{ software_discovery__custom_tasks_definition_files_path }}/keepalived.yaml"
 
@@ -253,7 +257,7 @@ software_discovery__software_list:
     return_children: false
     return_packages: true
     custom_tasks:
-      - name: Include skydive specific plugins
+      - name: Include Skydive specific plugins
         include_tasks:
           file: "{{ software_discovery__custom_tasks_definition_files_path }}/skydive.yaml"
 
@@ -273,7 +277,11 @@ software_discovery__software_list:
     cmd_regexp: MuleContainerBootstrap
     process_type: parent
     return_children: false
-    return_packages: false
+    return_packages: true
+    custom_tasks:
+      - name: Include MuleSoft specific plugins
+        include_tasks:
+          file: "{{ software_discovery__custom_tasks_definition_files_path }}/mule.yaml"
 
   - name: SAP HANA DatabaseServer
     cmd_regexp: hdbindexserver
@@ -281,7 +289,7 @@ software_discovery__software_list:
     return_children: false
     return_packages: true
     custom_tasks:
-      - name: Include skydive specific plugins
+      - name: Include SAP HANA specific plugins
         include_tasks:
           file: "{{ software_discovery__custom_tasks_definition_files_path }}/sap_hana.yaml"
 
@@ -304,7 +312,7 @@ software_discovery__software_list:
     process_type: parent
     return_children: false
     custom_tasks:
-      - name: Include sap ccms specific plugins
+      - name: Include SAP CCMS specific plugins
         include_tasks:
           file: "{{ software_discovery__custom_tasks_definition_files_path }}/sap_ccms.yaml"
 
@@ -314,7 +322,7 @@ software_discovery__software_list:
     return_children: false
     return_packages: false
     custom_tasks:
-      - name: Include sap control specific plugins
+      - name: Include SAP Control specific plugins
         include_tasks:
           file: "{{ software_discovery__custom_tasks_definition_files_path }}/sap_control.yaml"
 
@@ -402,6 +410,10 @@ software_discovery__software_list:
     process_type: parent
     return_children: false
     return_packages: true
+    custom_tasks:
+      - name: Include MongoDB specific plugins
+        include_tasks:
+          file: "{{ software_discovery__custom_tasks_definition_files_path }}/mongodb.yaml"
 
   - name: chrony ntp service
     cmd_regexp: chronyd

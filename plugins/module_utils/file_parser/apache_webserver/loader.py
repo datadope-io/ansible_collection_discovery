@@ -61,7 +61,7 @@ def make_loader(configfile='', **kwargs):
         'includeglob': True,
         'ccomments': True,
         'includerelative': True,
-        'mergeduplicateoptions': True,
+        'mergeduplicateoptions': False,
         'useapacheinclude': True,
         'includeagain': True,
         'strictvars': False,

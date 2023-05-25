@@ -4,7 +4,29 @@
 - Include field `cwd` for modules `process_facts` and `win_process_facts`.
 - When a relative path is given to plugins `read_remote_file` or `add_file_info`, the process `cwd` will be
   appended to the path to convert it from a relative path to an absolute path, avoiding potential errors.
+- Strip Ipv6 brackets when present when using plugin `add_binding_info`
 - Increase `postgres` commands timeout from `5` seconds to `10` seconds.
+- Add `SQL Server` failover cluster detection.
+- Improve `Mulesoft` software discovery with specific tasks.
+- Improve `MongoDB` software discovery with specific tasks.
+- Improve `Redis` software discovery with additional tasks for configuration retrieving.
+- Improve `Apache Tomcat` software discovery with enhanced `base` logic and more `HTTP/1.1` protocol detection.
+- Improve `Apache WebServer` software discovery with mod_status check and enhanced field managing.
+- Improve `HAProxy` software discovery with additional tasks for configuration processing.
+- Improve `JBoss Application Server` software discovery by enhancing binding detection and finding the software family.
+- Improve `Nginx WebServer` ports processing.
+- Enhanced cmd regex for `Apache Tomcat` and `Apache WebServer` detection.
+- Attributes `class`, `type` and `subtype` refined for:
+  - `Apache ActiveMQ`
+  - `Apache WebServer`
+  - `JBoss Application Server`
+  - `Oracle DatabaseServer`
+  - `Oracle Listener`
+
+## Fixes
+- Handling of empty path for `add_file_info` plugin.
+- Malformed regex usage for `Apache Webserver`.
+- Role `docker_containers` now is able to handle machines where docker is installed but stopped.
 
 # 1.3.1
 

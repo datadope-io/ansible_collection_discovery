@@ -7,7 +7,7 @@
     path: "<<__instance__._bin_file | dirname >>"
     name: "<<__instance__._bin_file | basename >>"
     type: 'binary'
-    subtype: 'generic'
+    subtype: 'process_bin_file'
 
 - name: Get conf_file_path from cmdline
   set_instance_fact:
@@ -94,7 +94,7 @@
         path: "<<__instance__._conf_file_path | dirname>>"
         name: "<<__instance__._conf_file_path | basename>>"
         type: 'config'
-        subtype: 'generic'
+        subtype: 'config_file'
     - name: Set instance_name from config file
       set_instance_fact:
         extra_data: "<< (__instance__.extra_data | default({})) | combine({
@@ -109,11 +109,11 @@
     - name: Store listen configuration if available
       set_instance_fact:
         _listen: "<< __instance__._listen | default([]) + [__item__] >>"
-      loop: "<< listen.result >> "
+      loop: "<< listen.result | flatten >> "
       when: listen.result is defined
     - name: If no listen configuration found, search listen in cmdline
       set_instance_fact:
-        _listen: "<< regex_search('^.*Listen ([0-9]+)', '\\1', multiline=True) >>"
+        _listen: "<< __instance__.process.cmdline | regex_search('^.*Listen ([0-9]+)', '\\1', multiline=True) >>"
       when: __instance__._listen is not defined
     - name: Process listen entries
       block:
@@ -143,39 +143,70 @@
           set_instance_fact:
             _protocol: "http"
           when: __instance__._protocol == ""
-        - name: Set port info if necessary 1/2
+        - name: check mod_status
+          block:
+            - name: Set mod_status endpoint
+              set_instance_fact:
+                _mod_status_endpoint: "<< __instance__._protocol >>://<< __instance__._address >>:<< __instance__._port >>/server-status?auto"
+            - name: Request information from endpoint
+              run_module:
+                uri:
+                  url: "<< __instance__._mod_status_endpoint >>"
+                  validate_certs: false
+                  return_content:  yes
+              register: response
+            - name: Process response
+              block:
+                - name: Set mod_status as extended
+                  set_instance_fact:
+                    _extra_data:
+                      mod_status_config: extended
+                      mod_status_endpoint: "<< __instance__._mod_status_endpoint >>"
+                  when:
+                    - "'Scoreboard' in response.content"
+                    - "'ReqPerSec' in response.content"
+                    - "'BusyWorkers' in response.content"
+                - name: Set mod_status as simple
+                  set_instance_fact:
+                    _extra_data:
+                      mod_status_config: simple
+                      mod_status_endpoint: "<< __instance__._mod_status_endpoint >>"
+                  when:
+                    - "'IdleWorkers' in response.content"
+                    - "'ReqPerSec' not in response.content"
+              when:
+                - response is not failed
+                - response.status == 200
+                - response.content
+        - name: Add port binding when no extra_data is available
           add_binding_info:
             address: "<<__instance__._address>>"
             port: "<<__instance__._port | int>>"
             class: "<<__instance__._protocol>>"
-        - name: Set port info if necessary 2/2
-          set_instance_fact:
-            _bindings: "<<__instance__._bindings | default([]) + [__instance__._port] >>"
-          when: __instance__._port not in __instance__._bindings | default([])
-        - name: Add port data if necessary
-          set_instance_fact:
-            'bindings': "<< __instance__.bindings + [{__instance__._port: {'address': __item__.address + [__instance__._address] }}] >>"
-          when:
-            - __item__.port == __instance__._port
-            - __instance__._address not in __item__.address
-          loop: "<< __instance__.bindings | default([])>>"
+          when: __instance__._extra_data is not defined
+        - name: Add port binding with extra_data
+          add_binding_info:
+            address: "<<__instance__._address>>"
+            port: "<<__instance__._port | int>>"
+            class: "<<__instance__._protocol>>"
+            extra_data: "<< __instance__._extra_data >>"
+          when: __instance__._extra_data is defined
         - name: Remove temporary variables
           del_instance_fact:
             - _address
             - _port
             - _raw_port
             - _protocol
+            - _extra_data
+            - _mod_status_endpoint
       loop: "<< __instance__._listen >>"
       loop_control:
         loop_var: __listen__
   when: __instance__.configuration is defined
-- name: Reformat listen_ports
-  set_instance_fact:
-    bindings: "<< (__instance__.bindings | default([])) | list >>"
 - name: Set instance_name if possible and not defined
   set_instance_fact:
     extra_data: "<< (__instance__.extra_data | default({})) | combine({
-    'instance_name': __instance__.bindings | map(attribute='port') | list | join('.')
+    'instance_name': __instance__.bindings | map(attribute='port') | list | unique | join('.')
     }) >>"
   when:
     - __instance__.extra_data.instance_name is not defined
@@ -330,6 +361,5 @@
     - _parent_conf_path
     - _custom_log_files
     - _error_log_files
-    - _bindings
     - _listen
     - _httpd_root

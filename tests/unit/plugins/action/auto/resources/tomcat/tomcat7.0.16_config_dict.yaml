@@ -4820,7 +4820,7 @@ processes:
   ppid: '1'
   user: oracle
 software_list:
-- cmd_regexp: \.apache\.tomcat\.startup|\.apache\.catalina\.startup
+- cmd_regexp: '^.*\.apache\.(?:tomcat|catalina)\.startup|^.*-Dcatalina\.(?:base|home)='
   custom_tasks:
   - include_tasks:
       file: '{{ software_discovery__custom_tasks_definition_files_path }}/tomcat.yaml'
