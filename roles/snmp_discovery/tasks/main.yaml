@@ -1,0 +1,37 @@
+---
+- name: Discovery SNMP
+  block:
+    - name: SysobjectIDs file
+      include_vars:
+        file: "{{ snmp_discovery__sysobject_files_path }}/sysobject_ids.yaml"
+        name: sysobject_ids
+      run_once: True
+      no_log: True
+
+    - name: Enterprise-numbers file
+      include_vars:
+        file: "{{ snmp_discovery__sysobject_files_path }}/enterprise_numbers.json"
+        name: enterprise_numbers
+      run_once: True
+      no_log: True
+
+    - name: Gather facts with SNMP
+      datadope.discovery.snmp_facts:
+        host: "{{ snmp_discovery__host }}"
+        port: "{{ snmp_discovery__port }}"
+        timeout: "{{ snmp_discovery__timeout }}"
+        retries: "{{ snmp_discovery__retries }}"
+        version: "{{ snmp_discovery__version }}"
+        community: "{{ snmp_discovery__community }}"
+        security_level: "{{ snmp_discovery__security_level | default(omit) }}"
+        username: "{{ snmp_discovery__username | default(omit) }}"
+        integrity: "{{ snmp_discovery__integrity | default(omit) }}"
+        authkey: "{{ snmp_discovery__authkey | default(omit) }}"
+        privacy: "{{ snmp_discovery__privacy | default(omit) }}"
+        privkey: "{{ snmp_discovery__privkey | default(omit) }}"
+        context_name: "{{ snmp_discovery__context_name | default(omit) }}"
+        context_engine_id: "{{ snmp_discovery__context_engine_id | default(omit) }}"
+        sysobject_ids: "{{ sysobject_ids }}"
+        templates_path: "{{ snmp_discovery__templates_path }}"
+        _enterprise_numbers: "{{ enterprise_numbers }}"
+      register: snmp_facts_output

@@ -132,6 +132,13 @@ and check if the connection can be established.
 
 See [implementation](plugins/modules/check_connection.py) and [doc](docs/modules/check_connection.md).
 
+### snmp_discovery
+
+This module provides information about a device through the SNMP protocol by providing a template 
+with the OIDs configured.
+
+See [implementation](plugins/modules/snmp_discovery.py) and [doc](docs/modules/snmp_discovery.md).
+
 ## Roles
 
 ### software_discovery
@@ -160,6 +167,14 @@ This role checks if the target machine runs Hyper-V. If the result is positive, 
 machine's information extraction.
 
 See [implementation](roles/hyperv_vms) and [doc](docs/roles/hyperv_vms.md).
+
+### snmp_discovery
+
+This role executes a SNMP discovery in every target host. It will try to discover the device
+using the IP and UDP port through the SNMP protocol and provide valuable information about
+the network devices.
+
+See [implementation](roles/snmp_discovery) and [doc](docs/roles/snmp_discovery.md).
 
 ## Playbooks
 

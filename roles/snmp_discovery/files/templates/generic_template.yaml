@@ -1,0 +1,79 @@
+generic_template:
+  sysDescr: # default
+    oid: 1.3.6.1.2.1.1.1.0
+    post_process: decode_hex
+  sysObjectId: # default
+    oid: 1.3.6.1.2.1.1.2.0
+  sysUpTime:
+    oid: 1.3.6.1.2.1.1.3.0
+  sysContact:
+    oid: 1.3.6.1.2.1.1.4.0
+  sysName:
+    oid: 1.3.6.1.2.1.1.5.0
+  sysLocation:
+    oid: 1.3.6.1.2.1.1.6.0
+  if_mib:
+    type: list
+    omit: true
+    oid: 1.3.6.1.2.1.31.1.1.1
+    entries:
+      ifName:
+        oid: ".1"
+      ifHighSpeed:
+        oid: ".15"
+      ifAlias:
+        oid: ".18"
+  interfaces:
+    type: list
+    dependencies:
+      - table: if_mib
+        index:
+          type: index
+    oid: 1.3.6.1.2.1.2.2.1
+    entries:
+      ifIndex:
+        oid: ".1"
+      ifDescr:
+        oid: ".2"
+      ifType:
+        oid: ".3"
+      ifMtu:
+        oid: ".4"
+      ifSpeed:
+        oid: ".5"
+      ifPhysAddress:
+        oid: ".6"
+        post_process: decode_mac
+      ifAdminStatus:
+        oid: ".7"
+        post_process: lookup_adminstatus
+      ifOperStatus:
+        oid: ".8"
+#      ifAlias:
+#        oid: 1.3.6.1.2.1.31.1.1.1.18
+  ips:
+    type: list
+    dependencies:
+      - table: interfaces
+        index:
+          type: value
+          name: ipAdEntIfIndex
+    oid: 1.3.6.1.2.1.4.20.1
+    entries:
+      ipAdEntAddr:
+        oid: ".1"
+      ipAdEntIfIndex:
+        oid: ".2"
+        omit: true
+      ipAdEntNetMask:
+        oid: ".3"
+  serial_numbers:
+    type: list
+    oid: 1.3.6.1.2.1.47.1.1.1.1
+    entries:
+      entPhysicalSerialNum:
+        oid: ".11"
+      entPhysicalClass:
+        oid: ".5"
+      entPhysicalName:
+        oid: ".7"
