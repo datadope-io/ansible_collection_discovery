@@ -67,7 +67,7 @@ generic_template:
         omit: true
       ipAdEntNetMask:
         oid: ".3"
-  serial_numbers:
+  entities:
     type: list
     oid: 1.3.6.1.2.1.47.1.1.1.1
     entries:
