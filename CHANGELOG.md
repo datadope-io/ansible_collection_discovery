@@ -1,3 +1,8 @@
+# 1.6.0
+
+## Features
+- Minor changes on the SNMP template: changed the key `serial_numbers` to `entities`.
+
 # 1.5.0
 
 ## Features
