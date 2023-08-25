@@ -34,6 +34,6 @@ class IniParser(SoftwareFactsParser):
                 # https://stackoverflow.com/a/70134461/1407722
                 ini.read_string('[default]\n' + source, **config)
 
-            return { s: dict(ini.items(s)) for s in ini.sections() }
+            return {s: dict(ini.items(s)) for s in ini.sections()}
         except Exception as e:
             raise AnsibleRuntimeError("Cannot parse text into ini: {0}".format(str(e)))

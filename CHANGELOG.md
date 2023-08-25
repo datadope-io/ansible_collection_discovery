@@ -1,3 +1,8 @@
+# 1.8.0
+
+## Features
+- New php-fpm software discovery.
+
 # 1.7.0
 
 ## Features

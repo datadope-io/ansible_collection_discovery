@@ -24,8 +24,8 @@ software_discovery__software_list:
     return_children: true
     return_packages: true
     vars:
-      connect_with_users: "{{ postgresql_monitor_users_info 
-        | default([{'username': postgresql_monitor_user | default('postgres'), 
+      connect_with_users: "{{ postgresql_monitor_users_info
+        | default([{'username': postgresql_monitor_user | default('postgres'),
         'password': postgresql_monitor_pass | default('postgres')}]) }}"
       ignore_databases:
         - postgres
@@ -94,8 +94,8 @@ software_discovery__software_list:
     return_children: false
     return_packages: false
     vars:
-      connect_with_users: "{{ oracle_monitor_users_info 
-        | default([{'username': oracle_monitor_user | default('oracle'), 
+      connect_with_users: "{{ oracle_monitor_users_info
+        | default([{'username': oracle_monitor_user | default('oracle'),
         'password': oracle_monitor_pass | default('oracle')}]) }}"
       monitor_cluster_hostname: "{{ oracle_monitor_cluster_hostname | default('localhost') }}"
       read_configuration: "{{ oracle_monitor_read_configuration | default(False) }}"
@@ -138,9 +138,9 @@ software_discovery__software_list:
         - mysql
         - test
         - performance_schema
-      connect_with_users: "{{ mariadb_monitor_users_info 
-        | default(mysql_monitor_users_info 
-          | default([{'username': mariadb_monitor_user | default(mysql_monitor_user | default('mysql')), 
+      connect_with_users: "{{ mariadb_monitor_users_info
+        | default(mysql_monitor_users_info
+          | default([{'username': mariadb_monitor_user | default(mysql_monitor_user | default('mysql')),
                     'password': mariadb_monitor_pass | default(mysql_monitor_pass | default('mysql'))}])) }}"
     custom_tasks:
       - name: Include MariaDB specific plugins
@@ -162,8 +162,8 @@ software_discovery__software_list:
         - mysql
         - test
         - performance_schema
-      connect_with_users: "{{ mysql_monitor_users_info 
-        | default([{'username': mysql_monitor_user | default('mysql'), 
+      connect_with_users: "{{ mysql_monitor_users_info
+        | default([{'username': mysql_monitor_user | default('mysql'),
                     'password': mysql_monitor_pass | default('mysql')}]) }}"
     custom_tasks:
       - name: Include MariaDB specific plugins
@@ -468,3 +468,14 @@ software_discovery__software_list:
     process_type: parent
     return_children: false
     return_packages: false
+
+  - name: PHP-FPM
+    cmd_regexp: 'php-fpm\:?\s*master process'
+    pkg_regexp: 'php[0-9\.]-fpm'
+    process_type: parent
+    return_children: true
+    return_packages: true
+    custom_tasks:
+      - name: Include php-fpm specific plugins
+        include_tasks:
+          file: "{{ software_discovery__custom_tasks_definition_files_path }}/php-fpm.yaml"
