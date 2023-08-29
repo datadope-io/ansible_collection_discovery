@@ -140,6 +140,7 @@ def _remove_omitted_attrs(remove_attrs, indexed_results):
 def get_snmp_yml_file(file_path):
     return load_yaml(file_path)
 
+
 def get_snmp_json_file(file_path):
     return load_json(file_path)
 
@@ -150,6 +151,7 @@ def load_yaml(path):
     """
     with open(path, 'r') as stream:
         return yaml.load(stream, Loader=_SafeLoader)
+
 
 def load_json(path):
     """

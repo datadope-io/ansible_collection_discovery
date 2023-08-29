@@ -51,7 +51,7 @@ class ActionModule(ActionBase):
                     params['_template_content'] = get_snmp_yml_file(
                         os.path.join(
                             params.get('templates_path'), "{0}.yaml".format(template)
-                    ))
+                        ))
                 self.get_snmp_facts(result, params, task_vars)
             else:
                 return result
@@ -69,7 +69,7 @@ class ActionModule(ActionBase):
                         snmp_info['ansible_facts']['snmp']
                     )
                 )
-            
+
             return snmp_info
 
         return result

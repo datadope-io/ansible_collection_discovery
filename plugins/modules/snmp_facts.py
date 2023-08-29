@@ -159,7 +159,6 @@ ansible_facts:
 '''
 
 import traceback
-import json
 
 PYSNMP_IMP_ERR = None
 try:
