@@ -7,10 +7,12 @@ from __future__ import (absolute_import, division, print_function)
 
 __metaclass__ = type
 
+import os
+
 from ansible.plugins.action import ActionBase
 
 from ansible_collections.datadope.discovery.plugins.action_utils.snmp_utils.utils import processed_templating_result, \
-    get_info_by_sysobject, get_snmp_template, get_brand_by_sysobject
+    get_info_by_sysobject, get_snmp_yml_file, get_snmp_json_file, get_brand_by_sysobject
 
 
 class ActionModule(ActionBase):
@@ -34,19 +36,22 @@ class ActionModule(ActionBase):
             if 'ansible_facts' in result and 'snmp' in result['ansible_facts'] \
                     and 'sysObjectId' in result['ansible_facts']['snmp']:
                 snmp_info = get_info_by_sysobject(
-                    sysobject_ids_file=params.get('sysobject_ids', {}),
+                    sysobject_ids_file=get_snmp_yml_file(params.get('sysobject_ids')),
                     snmp_sysobjectid=result['ansible_facts']['snmp']['sysObjectId']
                 )
                 if 'brand' not in snmp_info:
                     snmp_info.update(get_brand_by_sysobject(
                         sysobjectid=result['ansible_facts']['snmp']['sysObjectId'],
-                        enterprise_numbers=params.get('_enterprise_numbers')
+                        enterprise_numbers=get_snmp_json_file(params.get('_enterprise_numbers'))
                     ))
                 result['ansible_facts']['snmp_template'] = template = snmp_info.pop('template')
                 result['ansible_facts']['snmp'].update(snmp_info)
 
                 if template and not params.get('_template_content'):
-                    params['_template_content'] = get_snmp_template(params.get('templates_path'), template)
+                    params['_template_content'] = get_snmp_yml_file(
+                        os.path.join(
+                            params.get('templates_path'), "{0}.yaml".format(template)
+                    ))
                 self.get_snmp_facts(result, params, task_vars)
             else:
                 return result
@@ -57,11 +62,15 @@ class ActionModule(ActionBase):
                 task_vars=task_vars
             )
 
-            return result['ansible_facts']['snmp'].update(
-                processed_templating_result(
-                    params.get('_template_content', {}),
-                    snmp_info['ansible_facts']['snmp']
-                ))
+            if 'ansible_facts' in snmp_info and 'snmp' in snmp_info['ansible_facts']:
+                return result['ansible_facts']['snmp'].update(
+                    processed_templating_result(
+                        params.get('_template_content', {}),
+                        snmp_info['ansible_facts']['snmp']
+                    )
+                )
+            
+            return snmp_info
 
         return result
 

@@ -903,11 +903,42 @@ generic_template:
       14823.1.2.34: 105 Access Point
       14823.1.2.47: 134 Access Point
       14823.1.2.48: 135 Access Point
+      14823.1.2.53: IAP-104
+      14823.1.2.58: IAP-224
+      14823.1.2.59: IAP-225
+      14823.1.2.60: IAP-114
+      14823.1.2.61: IAP-115
+      14823.1.2.63: IAP-274
+      14823.1.2.64: IAP-275
+      14823.1.2.67: IAP-204
       14823.1.2.68: AP 205
+      14823.1.2.69: IAP-103
       14823.1.2.71: AP 105
+      14823.1.2.73: IAP-214
+      14823.1.2.74: IAP-215
+      14823.1.2.75: IAP-228
+      14823.1.2.76: IAP-205H
+      14823.1.2.77: IAP-324
+      14823.1.2.78: IAP-325
+      14823.1.2.79: IAP-334
+      14823.1.2.80: IAP-335
+      14823.1.2.81: IAP-314
+      14823.1.2.82: IAP-315
+      14823.1.2.84: IAP-207
+      14823.1.2.85: IAP-304
       14823.1.2.86: AP 305
+      14823.1.2.87: IAP-303H
+      14823.1.2.88: IAP-365
+      14823.1.2.102: AP-535
+      14823.1.2.107: IAP-515
+      14823.1.2.111: AP-505
+      14823.1.2.114: AP-575
+      14823.1.2.115: AP-577
+    NETWORKING/Access Server:
+      14823.1.6.1: C2000
     NETWORKING/Layer 3 Switch:
       14823.1.1.26: S3500-48P
+      14823.1.1.38: S1500-12P
     NETWORKING/Wireless LAN Controller:
       14823.1.1.1: '5000'
       14823.1.1.10: '200'
@@ -934,6 +965,20 @@ generic_template:
       14823.1.1.9: 800-4
       14823.1.1.99: 2400-F
       14823.1.1.9999: '6000'
+      14823.1.1.33: 7220
+      14823.1.1.39: 7005
+      14823.1.1.40: 7010-US
+      14823.1.1.42: 7205
+      14823.1.1.43: 7024
+      14823.1.1.47: 7240XM
+      14823.1.1.48: 7008
+      14823.1.1.52: Mobility Controller Virtual Appliance
+      14823.1.1.54: Mobility Master Virtual Appliance
+      14823.1.1.55: Mobility Master Virtual Appliance
+    NETWORKING/Other:
+      14823.1.1.50: Mobility Master Virtual Appliance
+    NETWORKING/Gateway:
+      14823.1.1.56: Wireless Gateway 9004
   Asante:
     NETWORKING:
       298.2.2.1: '1012'
@@ -5447,6 +5492,45 @@ generic_template:
       12356.101.1.70: Fortigate VM64 HV
       12356.101.1.8003: Fortigate 800C
       12356.101.1.8004: Fortigate 800D
+      12356.101.1.36011: FortiGate 3601E
+      12356.101.1.38002: FortiGate 4200F
+      12356.101.1.5005: FortiGate 500E
+      12356.101.1.5006: FortiGate 501E
+      12356.101.1.6006: FortiGate 601E
+      12356.101.1.80013: FortiGate VM64
+      12356.101.1.846: FortiGate 80F
+      12356.101.1.90010: FortiGate Azure VM
+      12356.101.1.90081: FortiGate VM64
+      12356.107.1.10002: FortiWeb 1000B
+      12356.107.1.10003: FortiWeb 1000C
+      12356.107.1.10004: FortiWeb 1000D
+      12356.107.1.10005: FortiWeb 2000E
+      12356.107.1.10006: FortiWeb 1000E
+      12356.107.1.1004: FortiWeb 100D
+      12356.107.1.30003: FortiWeb 3000C
+      12356.107.1.30004: FortiWeb 3000C FSX
+      12356.107.1.30005: FortiWeb 3000D
+      12356.107.1.30006: FortiWeb 3000D-FSX
+      12356.107.1.30007: FortiWeb 3000E
+      12356.107.1.30008: FortiWeb 3010E
+      12356.107.1.40003: FortiWeb 4000C
+      12356.107.1.40004: FortiWeb 4000D
+      12356.107.1.40005: FortiWeb 4000E
+      12356.107.1.4002: FortiWeb 400B
+      12356.107.1.4003: FortiWeb 400C
+      12356.107.1.4004: FortiWeb 400D
+      12356.107.1.50001: FortiWeb VM
+      12356.107.1.50002: FortiWeb XenOpenSource
+      12356.107.1.50003: FortiWeb XenServer
+      12356.107.1.50004: FortiWeb XenAWS
+      12356.107.1.50005: FortiWeb HyperV
+      12356.107.1.50006: FortiWeb KVM
+      12356.107.1.50007: FortiWeb Azure
+      12356.107.1.50008: FortiWeb VM PAYG
+      12356.107.1.50009: FortiWeb KVM PAYG
+      12356.107.1.6004: FortiWeb 600D
+      '12356.111': FortiDDoS 900B
+      12356.113.100.101: FortiAuthenticator
     NETWORKING/Firewall, Router:
       '12356.1001': FortiNet 100A
       12356.101.1.1000: Fortigate 100
@@ -5577,10 +5661,84 @@ generic_template:
       '12356.603': FortiNet 60
       '12356.8001': Fortigate 800F
       '12356.801': Fortigate 800A
+      '12356.1': FortiGate 100
+      12356.101.1.10006: FortiGate 1000E
+      12356.101.1.10007: FortiGate 1101E
+      12356.101.1.1010: FortiGate 101F
+      12356.101.1.1042: FortiGate 100EF
+      12356.101.1.15002: FortiGate 1801F
+      12356.101.1.15003: FortiGate 1800F
+      12356.101.1.18000: FortiGate 2201E/2200E
+      12356.101.1.18001: FortiGate 2201E
+      12356.101.1.18003: FortiGate 1800F
+      12356.101.1.2010: FortiGate 201E
+      12356.101.1.2011: FortiGate 200F
+      12356.101.1.2012: FortiGate 201F
+      12356.101.1.25000: FortiGate 2500E
+      12356.101.1.26001: FortiGate 2600F
+      12356.101.1.30001: FortiGate 3301E
+      12356.101.1.30002: Fortigate 3300
+      12356.101.1.3007: FortiGate 300E
+      12356.101.1.3008: FortiGate 301E
+      12356.101.1.306: FortiGate 30E
+      12356.101.1.34001: FortiGate 3400E
+      12356.101.1.34011: FortiGate 3401E
+      12356.101.1.36001: Fortigate 3600E
+      12356.101.1.39601: FortiGate 3960E
+      12356.101.1.39801: FortiGate 3980E
+      12356.101.1.4008: FortiGate 401E
+      12356.101.1.6005: FortiGate 600E
+      12356.101.1.605: FortiGate 60C
+      12356.101.1.639: FortiWiFi 60E
+      12356.101.1.640: FortiGate 61E
+      12356.101.1.641: FortiGate 60E
+      12356.101.1.644: FortiGate 80F Bypass
+      12356.101.1.645: FortiGate 61F
+      12356.101.1.649: FortiWifi 61E
+      12356.101.1.842: FortiGate 80E
+      12356.101.1.843: FortiGate 81E
+      12356.101.1.844: FortiGate 81POE
+      12356.101.1.845: FortiGate 80F
+      12356.101.1.940: FortiGate 90E
+      12356.103.1.10004: FortiGate 1000D
+      12356.103.3.35005: FortiGate 3500E
+      12356.106.1.50031: FortiSwitch 5003B
+      '12356.3': FortiGate 300
+      '12356.36': FortiGate 3600
+      '12356.8': FortiGate 800
     NETWORKING/Other:
       '12356.105': FortiMail
+      12356.118.1.30007: FortiSandbox
     NETWORKING/Switch:
+      12356.106.1.1083: FortiSwitch 108E-POE
       12356.106.1.50030: FortiSwitch 5003A
+    NETWORKING/LoadBalancer, Firewall:
+      '12356.10004': FortiWeb 1000D
+      '12356.40004': FortiWeb 4000D
+      12356.112.100.10: FortiADC DEV
+      12356.112.100.1001: FortiADC 1000D
+      12356.112.100.1003: FortiADC 1000F
+      12356.112.100.101: FortiADC 100D
+      12356.112.100.103: FortiADC 100F
+      12356.112.100.1501: FortiADC 1500D
+      12356.112.100.20: FortiADC KVM
+      12356.112.100.2001: FortiADC 2000D
+      12356.112.100.2003: FortiADC 2000F
+      12356.112.100.201: FortiADC 200D
+      12356.112.100.30: FortiADC VM
+      12356.112.100.301: FortiADC 300D
+      12356.112.100.302: FortiADC 300E
+      12356.112.100.4001: FortiADC 4000D
+      12356.112.100.401: FortiADC 400D
+      12356.112.100.701: FortiADC 700D
+    NETWORKING/Web Caching, Proxy Server, WAN Accelerator:
+      12356.101.1.10405: FortiProxy 400E
+    NETWORKING/Layer 3 Switch:
+      12356.106.1.10482: FortiSwitch 1048E
+      12356.106.1.1242: FortiSwitch 124E-POE
+      12356.106.1.1245: FortiSwitch 124E-POE
+      12356.106.1.1249: FortiSwitch 124F-FPOE
+      12356.106.1.1486: FortiSwitch 148F-FPOE
   Foundry:
     NETWORKING:
       '1991': null
@@ -10511,82 +10669,13 @@ generic_template:
       177.11.5.5: VX1200
       177.11.5.6: VX1800
     NETWORKING/Access Point:
-      14823.1.2.102: AP-535
-      14823.1.2.107: IAP-515
-      14823.1.2.111: AP-505
-      14823.1.2.114: AP-575
-      14823.1.2.115: AP-577
-      14823.1.2.53: IAP-104
-      14823.1.2.58: IAP-224
-      14823.1.2.59: IAP-225
-      14823.1.2.60: IAP-114
-      14823.1.2.61: IAP-115
-      14823.1.2.63: IAP-274
-      14823.1.2.64: IAP-275
-      14823.1.2.67: IAP-204
-      14823.1.2.69: IAP-103
-      14823.1.2.73: IAP-214
-      14823.1.2.74: IAP-215
-      14823.1.2.75: IAP-228
-      14823.1.2.76: IAP-205H
-      14823.1.2.77: IAP-324
-      14823.1.2.78: IAP-325
-      14823.1.2.79: IAP-334
-      14823.1.2.80: IAP-335
-      14823.1.2.81: IAP-314
-      14823.1.2.82: IAP-315
-      14823.1.2.84: IAP-207
-      14823.1.2.85: IAP-304
-      14823.1.2.87: IAP-303H
-      14823.1.2.88: IAP-365
       161.19.250.256: PMP 450
-      25053.3.1.5.15: R320
       '26928.1': AP230
     NETWORKING/Access Server:
-      14823.1.6.1: C2000
       3375.2.1.3.4.37: FirePass 1200
       3375.2.1.3.4.38: FirePass 4100
       3375.2.1.3.4.39: FirePass 4300
     NETWORKING/Firewall:
-      12356.101.1.36011: FortiGate 3601E
-      12356.101.1.38002: FortiGate 4200F
-      12356.101.1.5005: FortiGate 500E
-      12356.101.1.5006: FortiGate 501E
-      12356.101.1.6006: FortiGate 601E
-      12356.101.1.80013: FortiGate VM64
-      12356.101.1.846: FortiGate 80F
-      12356.101.1.90010: FortiGate Azure VM
-      12356.101.1.90081: FortiGate VM64
-      12356.107.1.10002: FortiWeb 1000B
-      12356.107.1.10003: FortiWeb 1000C
-      12356.107.1.10004: FortiWeb 1000D
-      12356.107.1.10005: FortiWeb 2000E
-      12356.107.1.10006: FortiWeb 1000E
-      12356.107.1.1004: FortiWeb 100D
-      12356.107.1.30003: FortiWeb 3000C
-      12356.107.1.30004: FortiWeb 3000C FSX
-      12356.107.1.30005: FortiWeb 3000D
-      12356.107.1.30006: FortiWeb 3000D-FSX
-      12356.107.1.30007: FortiWeb 3000E
-      12356.107.1.30008: FortiWeb 3010E
-      12356.107.1.40003: FortiWeb 4000C
-      12356.107.1.40004: FortiWeb 4000D
-      12356.107.1.40005: FortiWeb 4000E
-      12356.107.1.4002: FortiWeb 400B
-      12356.107.1.4003: FortiWeb 400C
-      12356.107.1.4004: FortiWeb 400D
-      12356.107.1.50001: FortiWeb VM
-      12356.107.1.50002: FortiWeb XenOpenSource
-      12356.107.1.50003: FortiWeb XenServer
-      12356.107.1.50004: FortiWeb XenAWS
-      12356.107.1.50005: FortiWeb HyperV
-      12356.107.1.50006: FortiWeb KVM
-      12356.107.1.50007: FortiWeb Azure
-      12356.107.1.50008: FortiWeb VM PAYG
-      12356.107.1.50009: FortiWeb KVM PAYG
-      12356.107.1.6004: FortiWeb 600D
-      '12356.111': FortiDDoS 900B
-      12356.113.100.101: FortiAuthenticator
       25461.2.3.1: PA-4050
       25461.2.3.18: PA-3020
       25461.2.3.21: PA-3250
@@ -10614,55 +10703,7 @@ generic_template:
       28557.1.92: Security Appliance SG-6000-E5260
       3224.1.50: NetScreen SSG-520
       3375.2.1.3.4.41: TrafficShield 4100
-    NETWORKING/Firewall, LoadBalancer:
-      '12356.10004': FortiWeb 1000D
-      '12356.40004': FortiWeb 4000D
     NETWORKING/Firewall, Router:
-      '12356.1': FortiGate 100
-      12356.101.1.10006: FortiGate 1000E
-      12356.101.1.10007: FortiGate 1101E
-      12356.101.1.1010: FortiGate 101F
-      12356.101.1.1042: FortiGate 100EF
-      12356.101.1.15002: FortiGate 1801F
-      12356.101.1.15003: FortiGate 1800F
-      12356.101.1.18000: FortiGate 2201E/2200E
-      12356.101.1.18001: FortiGate 2201E
-      12356.101.1.18003: FortiGate 1800F
-      12356.101.1.2010: FortiGate 201E
-      12356.101.1.2011: FortiGate 200F
-      12356.101.1.2012: FortiGate 201F
-      12356.101.1.25000: FortiGate 2500E
-      12356.101.1.26001: FortiGate 2600F
-      12356.101.1.30001: FortiGate 3301E
-      12356.101.1.30002: Fortigate 3300
-      12356.101.1.3007: FortiGate 300E
-      12356.101.1.3008: FortiGate 301E
-      12356.101.1.306: FortiGate 30E
-      12356.101.1.34001: FortiGate 3400E
-      12356.101.1.34011: FortiGate 3401E
-      12356.101.1.36001: Fortigate 3600E
-      12356.101.1.39601: FortiGate 3960E
-      12356.101.1.39801: FortiGate 3980E
-      12356.101.1.4008: FortiGate 401E
-      12356.101.1.6005: FortiGate 600E
-      12356.101.1.605: FortiGate 60C
-      12356.101.1.639: FortiWiFi 60E
-      12356.101.1.640: FortiGate 61E
-      12356.101.1.641: FortiGate 60E
-      12356.101.1.644: FortiGate 80F Bypass
-      12356.101.1.645: FortiGate 61F
-      12356.101.1.649: FortiWifi 61E
-      12356.101.1.842: FortiGate 80E
-      12356.101.1.843: FortiGate 81E
-      12356.101.1.844: FortiGate 81POE
-      12356.101.1.845: FortiGate 80F
-      12356.101.1.940: FortiGate 90E
-      12356.103.1.10004: FortiGate 1000D
-      12356.103.3.35005: FortiGate 3500E
-      12356.106.1.50031: FortiSwitch 5003B
-      '12356.3': FortiGate 300
-      '12356.36': FortiGate 3600
-      '12356.8': FortiGate 800
       3224.1.10: NetScreen 208
       3224.1.11: NetScreen 5XT
       3224.1.12: NetScreen 5XP
@@ -10709,7 +10750,6 @@ generic_template:
       2636.1.1.1.2.65: SRX120
       2636.1.1.1.2.96: vSRX
     NETWORKING/Gateway:
-      14823.1.1.56: Wireless Gateway 9004
       177.15.1.1.1: UX2000
       177.15.1.1.2: SBC 1000
       177.15.1.1.4: SBC SWe Lite
@@ -10723,12 +10763,6 @@ generic_template:
       8284.2.1: Ewon 2005CD
       8284.3.2.10: Ewon Cosy 131
     NETWORKING/Layer 3 Switch:
-      12356.106.1.10482: FortiSwitch 1048E
-      12356.106.1.1242: FortiSwitch 124E-POE
-      12356.106.1.1245: FortiSwitch 124E-POE
-      12356.106.1.1249: FortiSwitch 124F-FPOE
-      12356.106.1.1486: FortiSwitch 148F-FPOE
-      14823.1.1.38: S1500-12P
       2636.1.1.1.2.100: QFX3100
       2636.1.1.1.2.103: EX9208
       2636.1.1.1.2.104: EX9204
@@ -10945,23 +10979,6 @@ generic_template:
       2636.1.1.1.4.82.15: QFX5200-32C
     NETWORKING/LoadBalancer:
       '7564': APV2600
-    NETWORKING/LoadBalancer, Firewall:
-      12356.112.100.10: FortiADC DEV
-      12356.112.100.1001: FortiADC 1000D
-      12356.112.100.1003: FortiADC 1000F
-      12356.112.100.101: FortiADC 100D
-      12356.112.100.103: FortiADC 100F
-      12356.112.100.1501: FortiADC 1500D
-      12356.112.100.20: FortiADC KVM
-      12356.112.100.2001: FortiADC 2000D
-      12356.112.100.2003: FortiADC 2000F
-      12356.112.100.201: FortiADC 200D
-      12356.112.100.30: FortiADC VM
-      12356.112.100.301: FortiADC 300D
-      12356.112.100.302: FortiADC 300E
-      12356.112.100.4001: FortiADC 4000D
-      12356.112.100.401: FortiADC 400D
-      12356.112.100.701: FortiADC 700D
     NETWORKING/LoadBalancer, Layer 3 Switch:
       3375.2.1.3.4.101: BIG-IP VPR-B2150 (A113)
       3375.2.1.3.4.102: BIG-IP 10350 (D112)
@@ -11037,9 +11054,7 @@ generic_template:
       3375.2.1.3.4.28: Enterprise Manager Appliance 500
       3375.2.1.3.4.90: BIG-IQ 7000
     NETWORKING/Other:
-      12356.118.1.30007: FortiSandbox
       12532.255.1.1: VA-SPE
-      14823.1.1.50: Mobility Master Virtual Appliance
       16901.1.1.1: SA-250
       18841.1.2.1.1.1: CTP 2024
       3375.2.1.3.4.42: WebAccelerator 4500
@@ -11143,7 +11158,6 @@ generic_template:
       3224.1.54: NetScreen SSG320M
       3224.1.55: NetScreen SSG350M
     NETWORKING/Switch:
-      12356.106.1.1083: FortiSwitch 108E-POE
       '21671': nGenius 5010 PFS
       2636.1.1.1.2.109: EX4600-40F
       3375.2.1.3.4.29: ARX1000
@@ -11189,8 +11203,6 @@ generic_template:
     NETWORKING/WAN Accelerator, Router:
       50114.11.1.10.2000: Cloudgenix ion 2000
       50114.11.1.10.3000: Cloudgenix ion 3000
-    NETWORKING/Web Caching, Proxy Server, WAN Accelerator:
-      12356.101.1.10405: FortiProxy 400E
     NETWORKING/Web Caching, WAN Accelerator:
       2636.3.41.1.1.5.1: WXC-250
       2636.3.41.1.1.5.2: WXC-500
@@ -11205,19 +11217,7 @@ generic_template:
       14525.3.3.4: WLC800R
       14525.3.3.5: WLC2800
       14525.3.3.6: WLC100
-      14823.1.1.33: 7220
-      14823.1.1.39: 7005
-      14823.1.1.40: 7010-US
-      14823.1.1.42: 7205
-      14823.1.1.43: 7024
-      14823.1.1.47: 7240XM
-      14823.1.1.48: 7008
-      14823.1.1.52: Mobility Controller Virtual Appliance
-      14823.1.1.54: Mobility Master Virtual Appliance
-      14823.1.1.55: Mobility Master Virtual Appliance
       15983.1.1.7.25: FortiWLC 500D
-      25053.3.1.10: SmartCell Gateway
-      25053.3.1.11.1: SmartZone vSZ-E
     STORAGE:
       789.1123.2: NetApp E2800
   Net-SNMP:
@@ -12006,9 +12006,6 @@ generic_template:
       164.6.1.6.6: RICi-4E1
     NETWORKING/Router, Other:
       164.6.1.11.12: FCD-IPM
-  RUCKUS:
-    NETWORKING:
-      '25053': null
   RadData:
     NETWORKING:
       '164': null
@@ -12181,7 +12178,13 @@ generic_template:
       9.1.1735: Stratix BMS12T4E2CG
   Ruckus:
     NETWORKING:
+      '25053': null
       25053.3.1.5.2: ZoneDirector
+    NETWORKING/Access Point:
+      25053.3.1.5.15: R320
+    NETWORKING/Wireless LAN Controller:
+      25053.3.1.10: SmartCell Gateway
+      25053.3.1.11.1: SmartZone vSZ-E
   RuggedCom:
     NETWORKING:
       '15004': null

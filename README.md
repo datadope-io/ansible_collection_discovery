@@ -12,10 +12,12 @@
     * [sunos_listen_ports_facts](#sunos_listen_ports_facts)
     * [file_parser](#file_parser)
     * [check_connection](#check_connection)
+    * [snmp_facts](#snmp_facts)
   * [Roles](#roles)
     * [software_discovery](#software_discovery)
     * [docker_containers](#docker_containers)
     * [hyperv_vms](#hyperv_vms)
+    * [snmp_discovery](#snmp_discovery)
   * [Playbooks](#playbooks)
     * [software_discovery.yml](#software_discoveryyml)
   * [Other artifacts](#other-artifacts)
@@ -132,12 +134,12 @@ and check if the connection can be established.
 
 See [implementation](plugins/modules/check_connection.py) and [doc](docs/modules/check_connection.md).
 
-### snmp_discovery
+### snmp_facts
 
 This module provides information about a device through the SNMP protocol by providing a template 
 with the OIDs configured.
 
-See [implementation](plugins/modules/snmp_discovery.py) and [doc](docs/modules/snmp_discovery.md).
+See [implementation](plugins/modules/snmp_facts.py) and [doc](docs/modules/snmp_facts.md).
 
 ## Roles
 

@@ -5,10 +5,10 @@ from __future__ import absolute_import, division, print_function
 
 __metaclass__ = type
 
-import os
 import re
 
 import yaml
+import json
 
 try:
     from yaml import CSafeLoader as _SafeLoader
@@ -137,8 +137,11 @@ def _remove_omitted_attrs(remove_attrs, indexed_results):
     return result
 
 
-def get_snmp_template(templates_path, template_name):
-    return load_yaml(os.path.join(templates_path, "{0}.yaml".format(template_name)))
+def get_snmp_yml_file(file_path):
+    return load_yaml(file_path)
+
+def get_snmp_json_file(file_path):
+    return load_json(file_path)
 
 
 def load_yaml(path):
@@ -147,3 +150,10 @@ def load_yaml(path):
     """
     with open(path, 'r') as stream:
         return yaml.load(stream, Loader=_SafeLoader)
+
+def load_json(path):
+    """
+    Load JSON file ``path``.
+    """
+    with open(path, 'r') as stream:
+        return json.load(stream)

@@ -94,11 +94,10 @@ options:
         type: str
     sysobject_ids:
         description:
-            - Dictionary of template definitions by brand, model and device type for discovered sysObjectId.
+            - Path of template definitions by brand, model and device type for discovered sysObjectId.
             - If not defined, brand, model and device type will not be discovered.
             - Requires template_content if not defined.
-        type: dict
-        default: {}
+        type: str
     templates_path:
         description:
             - Path where template files are located.
@@ -111,7 +110,7 @@ EXAMPLES = r'''
     host: '{{ inventory_hostname }}'
     version: v2c
     community: public
-    sysobject_ids: "{{ sysobject_ids }}"
+    sysobject_ids: "{{ snmp_discovery__sysobject_ids }}"
     templates_path: "{{ snmp_discovery__templates_directory_path }}"
 - name: Gather facts using SNMP version 3
   datadope.discovery.snmp_facts:
@@ -125,7 +124,7 @@ EXAMPLES = r'''
     privkey: def6789
     context_name: example-abc
     context_engine_id: 01234xyz
-    sysobject_ids: '{{ sysobject_ids }}'
+    sysobject_ids: '{{ snmp_discovery__sysobject_ids }}'
     templates_path: '{{ snmp_discovery__templates_directory_path }}'
 '''
 
@@ -160,6 +159,7 @@ ansible_facts:
 '''
 
 import traceback
+import json
 
 PYSNMP_IMP_ERR = None
 try:
@@ -360,10 +360,10 @@ def setup_module_object():
             privkey=dict(type='str', required=False, no_log=True),
             context_engine_id=dict(type='str', required=False, default=None),
             context_name=dict(type='str', required=False, default=None),
-            sysobject_ids=dict(type='dict', required=False, default={}),
+            sysobject_ids=dict(type='str', required=False),
             templates_path=dict(type='str', required=False),
             _template_content=dict(type='dict', required=False),
-            _enterprise_numbers=dict(type='dict', required=False),
+            _enterprise_numbers=dict(type='str', required=False),
             _pre_check=dict(type='bool', default=False),
         ),
         supports_check_mode=True,
