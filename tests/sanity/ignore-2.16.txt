@@ -79,7 +79,6 @@ plugins/module_utils/file_parser/nginx/lexer.py no-unicode-literals
 plugins/module_utils/file_parser/nginx/loader.py no-unicode-literals
 plugins/module_utils/file_parser/nginx/parser.py no-unicode-literals
 plugins/modules/check_connection.py replace-urlopen
-tests/unit/plugins/modules/test_check_connection.py replace-urlopen
 plugins/module_utils/file_parser/apache_webserver/lexer.py use-compat-six
 plugins/module_utils/file_parser/apache_webserver/loader.py use-compat-six
 plugins/module_utils/file_parser/apache_webserver/parser.py use-compat-six
