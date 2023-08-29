@@ -232,49 +232,52 @@ Supported software types must be included in the variable `software_discovery__s
 `software_discovery` [role default vars](roles/software_discovery/defaults/main.yml) because this is the default
 value of this var, and it is the one used by the role or playbook (if not explicitly overridden).
 
-- PostgreSQL Database
-- Microsoft SQL Server
-- IIS
+- AWX Task
+- AWX Web
+- Apache ActiveMQ
+- Apache Tomcat Servlet Engine
 - Apache WebServer
-- Redis
+- Chrony ntp service
+- Docker
+- Dynatrace Server
+- ElasticSearch
+- Grafana
+- HAProxy
+- HPE Data Protector
+- Hobbit
+- IIS
+- IOMetrics SLAtor
+- IOMetrics Visualizer API
+- InfluxDB
+- JBoss Application Server
+- KeepAliveD
+- Logstash
+- MariaDB DatabaseServer
+- Memcached
+- Microsoft SQL Server
+- MongoDB
+- MuleSoft AppServer
+- MySQL DatabaseServer
+- Nagios NRPE
+- Nginx WebServer
 - Oracle DatabaseServer
 - Oracle Listener
 - Oracle Management Agent
-- MariaDB DatabaseServer
-- MySQL DatabaseServer
-- Apache Tomcat Servlet Engine
-- Nginx WebServer
-- KeepAliveD
-- Grafana
-- JBoss Application Server
-- HAProxy
-- Patrol Agent
-- Skydive Analyzer
-- AWX Task
-- AWX Web
-- MuleSoft AppServer
-- SAP HANA DatabaseServer
-- Xymon
-- HPE Data Protector
-- SAP CCMS
-- SAPcontrol
-- Zabbix Server
-- IOMetrics Visualizer API
-- IOMetrics SLAtor
-- Dynatrace Server
-- ElasticSearch
-- InfluxDB
-- Logstash
-- Memcached
-- Telegraf
-- Nagios NRPE
-- Hobbit
-- MongoDB
-- chrony ntp service
-- Apache ActiveMQ
-- Docker
+- PHP-fpm
 - Panda Security Protection
-- php-fpm
+- Patrol Agent
+- PostgreSQL Database
+- Redis
+- SAP CCMS
+- SAP HANA DatabaseServer
+- SAPcontrol
+- Skydive Analyzer
+- Sybase ASE
+- Sybase IQ
+- Sybase Replication Server
+- Telegraf
+- Xymon
+- Zabbix Server
 
 # License
 
