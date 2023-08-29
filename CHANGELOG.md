@@ -1,3 +1,8 @@
+# 1.7.0
+
+## Features
+- Performance improvements in file reading for SNMP Facts.
+
 # 1.6.0
 
 ## Features

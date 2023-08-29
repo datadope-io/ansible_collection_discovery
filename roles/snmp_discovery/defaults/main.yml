@@ -12,7 +12,7 @@ snmp_discovery__community: "public"
 snmp_discovery__port: 161
 
 # (int) Timeout for SNMP Facts.
-snmp_discovery__timeout: 2
+snmp_discovery__timeout: 1
 
 # (float) Number of retries for SNMP Facts.
 snmp_discovery__retries: 0

@@ -20,6 +20,8 @@ The following collections are required:
 
 ###  Role vars
 * `snmp_discovery__sysobject_files_path`: (string) Path where the files required for the role are located.
+* `snmp_discovery__sysobject_ids`: (string) Path where the SysObjectsIDs file are located.
+* `snmp_discovery__enterprise_numbers`: (string) Path where the Enterprise numbers file are located.
 * `snmp_discovery__templates_path`: (string) Path where the template files are located.
 
 ### Role defaults

@@ -57,7 +57,7 @@ Specifies an SNMP context by its name, a case-sensitive string of 1 to 32 charac
 Unique SNMP Engine ID for the administrative domain.
 
 ### sysobject_ids (False, str, None)
-Dictionary of template definitions by brand, model and device type for discovered sysObjectId.
+Path of template definitions by brand, model and device type for discovered sysObjectId.
 
 If not defined, brand, model and device type will not be discovered.
 
