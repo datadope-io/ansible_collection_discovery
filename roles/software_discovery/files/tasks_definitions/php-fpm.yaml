@@ -1,0 +1,67 @@
+#
+# Fields added/modified from standard fields using this plugins file
+# ------------------------------------------------------------------
+# configuration: contents of configuration main file and included fails, as a dict, where sections are the keys.
+# extra_vars:
+#   pools: list of the pools names configured
+#
+---
+- name: Attempt to extract conf file
+  set_instance_fact:
+    _conf_file: "<< __instance__.process.cmdline | regex_search('master\\sprocess\\s\\(([^)]*)\\)', '\\1') | first >>"
+  ignore_errors: true
+
+- name: Read config file and store relevant information
+  ignore_errors: true
+  when: __instance__._conf_file is defined
+  block:
+    - name: Save main config file
+      add_file_info:
+        path: '<< __instance__._conf_file | dirname >>'
+        name: '<< __instance__._conf_file | basename>>'
+        type: 'config'
+        subtype: 'ini'
+
+    - name: Read configuration file as dict
+      read_remote_file:
+        file_path: "<< __instance__._conf_file >>"
+        parser: ini
+      register: main_config_file
+
+    - name: Store main configuration
+      set_instance_fact:
+        configuration: "<< main_config_file.parsed >>"
+      when:
+        - main_config_file is not failed
+
+    - name: Get included files
+      when:
+        - main_config_file is not failed
+        - main_config_file.parsed.default.include is defined
+      run_command:
+        argv:
+          - bash
+          - -c
+          - ls << main_config_file.parsed.default.include >>
+      register: included_files
+
+    - name: Read included configuration files
+      read_remote_file:
+        file_path: "<< __item__ >>"
+        parser: ini
+      loop: "<< included_files.stdout_lines >>"
+      register: included_config_files
+
+    - name: Append included files to configuration
+      set_instance_fact:
+        configuration: "<< __instance__.configuration | combine(__item__.parsed) >>"
+      when: not __item__.failed
+      loop: "<< included_config_files.results >>"
+
+    - name: Get the pools
+      set_instance_fact:
+        extra_data: "<< __instance__.extra_data | default({}) | combine ( {'pools': __instance__.configuration.keys() | difference(['default','global']) } ) >>"
+
+- name: Remove temporary vars
+  del_instance_fact:
+    - _conf_file

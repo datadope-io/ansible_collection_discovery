@@ -41,28 +41,28 @@
   * [Develop new plugins](#develop-new-plugins)
 <!-- TOC -->
 
-_software_facts_ ansible module available in `datadope.discovery` ansible collection performs a software discovery 
-in the target hosts, being able to discover several software types. This module receives a parameter, **software_list**, 
-with the definition of the kind of software that the module should try to discover. 
+_software_facts_ ansible module available in `datadope.discovery` ansible collection performs a software discovery
+in the target hosts, being able to discover several software types. This module receives a parameter, **software_list**,
+with the definition of the kind of software that the module should try to discover.
 
-With a basic definition of a software, some common features from every software can be discovered, 
-such as the process that is running the software, its command line or the ports that the software is publishing. 
-But there are other features of a software whose discovery will depend on the type of software. 
+With a basic definition of a software, some common features from every software can be discovered,
+such as the process that is running the software, its command line or the ports that the software is publishing.
+But there are other features of a software whose discovery will depend on the type of software.
 
 The _software_facts_ module provides a mechanism to discover these custom features that depend on the software type.
 
 This mechanism is based on the software definition parameter **custom_tasks** that may be provided as part of the
-software definition dictionary for every software in the _software_list_ module parameter. See 
+software definition dictionary for every software in the _software_list_ module parameter. See
 [software_facts module documentation][software_facts_module_doc].
 
 ## Custom task definition
 
-_custom_tasks_ parameter consists of a list of dictionaries. 
-Each dictionary defines an operation to perform over the information discovered for the specific software. 
+_custom_tasks_ parameter consists of a list of dictionaries.
+Each dictionary defines an operation to perform over the information discovered for the specific software.
 It has a definition similar to an ansible task definition, with three components:
 
 * **name**: the name of the task to provide information to the reader. It's an optional parameter.
-* **the operation to perform**: this part consists of the name of a provided software discovery "plugin" with its arguments. 
+* **the operation to perform**: this part consists of the name of a provided software discovery "plugin" with its arguments.
 * **attributes**: modifiers to the operation
 
 For example:
@@ -77,17 +77,17 @@ In this example "Save a variable" is the name of the task that will execute the 
 The operation to be performed consists of a "set_instance_fact" plugin with the provided dict of arguments:
 `{"var1": "{{ value}}"}`, and the task will be executed only if the value is greater than 0 thanks to the "_when_" attribute.
 
-The available operations like "_set_instance_fact_" are named "software discover plugins" 
-and the software_facts module provides a set of plugins that can be used to enrich the information to return as part 
+The available operations like "_set_instance_fact_" are named "software discover plugins"
+and the software_facts module provides a set of plugins that can be used to enrich the information to return as part
 of the discovered software.
 
-Task format is based on ansible and all ansible tools to manage variables, such as filters, lookups…,  
+Task format is based on ansible and all ansible tools to manage variables, such as filters, lookups…,
 can be used in these tasks.
 
-With the _custom_tasks_ software definition parameter, a list of tasks to execute can be provided for each type of defined 
-software. But a list of tasks to execute for every type of software before or after executing these custom tasks may 
-also be provided. This is done using _software_facts_ module arguments **pre_tasks** and **post_tasks** respectively. 
-Both arguments are a list of tasks that will be executed independently of the software type. See 
+With the _custom_tasks_ software definition parameter, a list of tasks to execute can be provided for each type of defined
+software. But a list of tasks to execute for every type of software before or after executing these custom tasks may
+also be provided. This is done using _software_facts_ module arguments **pre_tasks** and **post_tasks** respectively.
+Both arguments are a list of tasks that will be executed independently of the software type. See
 [software_facts module documentation][software_facts_module_doc].
 
 So, for a software type, the full discovery procedure will be:
@@ -99,99 +99,99 @@ So, for a software type, the full discovery procedure will be:
 
 ## Usage of variables
 
-A special variable can be used: `__instance__`. This variable contains the discovered software current information, 
+A special variable can be used: `__instance__`. This variable contains the discovered software current information,
 and it is the variable where to insert new information to return as the software discovery result.
 
-The processing of these tasks is made during ansible _software_facts_ module execution. 
-But variables referenced with ansible jinja2 format: "{{ var }}" will be replaced with its value just 
-before the processing of the software_facts module starts. 
+The processing of these tasks is made during ansible _software_facts_ module execution.
+But variables referenced with ansible jinja2 format: "{{ var }}" will be replaced with its value just
+before the processing of the software_facts module starts.
 This means that variables calculated during software_facts processing, like `__instance__`, can not be accessed using
-`{{ __instance__ }}` as this variable doesn't exist when the software_facts module starts processing. 
+`{{ __instance__ }}` as this variable doesn't exist when the software_facts module starts processing.
 
-To delay the instant a variable has to be replaced with its value, to the instant these software discovery tasks are 
-processed, variables must be enclosed between "<<" and ">>". For example: `<< __instance__ >>`. 
+To delay the instant a variable has to be replaced with its value, to the instant these software discovery tasks are
+processed, variables must be enclosed between "<<" and ">>". For example: `<< __instance__ >>`.
 This way, the variable is replaced at the moment that the task is going to be executed, ensuring it is defined.
 
 ## Supported attributes
 
-As referred before, a task may have one or more attributes that define the way the task plugin is executed. 
-The supported attributes are a subset of the attributes that ansible permits in ansible tasks. 
+As referred before, a task may have one or more attributes that define the way the task plugin is executed.
+The supported attributes are a subset of the attributes that ansible permits in ansible tasks.
 The way of working of each attribute is intended to be the same as the corresponding ansible task attributes.
 
 The supported attributes are:
 
 ### loop
 
-Used to iterate through a list of values. It must contain a list (or an expression that resolves to a list). 
-The plugin defined in the tasks is executed as many times as values in the list. 
-Each value of the list is provided to the task execution as a var with a default name of `__item__`, 
+Used to iterate through a list of values. It must contain a list (or an expression that resolves to a list).
+The plugin defined in the tasks is executed as many times as values in the list.
+Each value of the list is provided to the task execution as a var with a default name of `__item__`,
 although that name is configurable using the following attribute **loop_control**.
 
 ### loop_control
 
-It is a dict and, used together with the loop attribute, allows defining the name of the variable that stores 
-the value of the loop element for the current iteration. The default name for this variable is `__item__`. 
+It is a dict and, used together with the loop attribute, allows defining the name of the variable that stores
+the value of the loop element for the current iteration. The default name for this variable is `__item__`.
 To change this default value a key "**loop_var**" with the desired variable name as value must be provided in this dict.
 
-Apart from the variable that stores the loop list element value for the iteration, a variable with the index of the 
-iteration can also be provided to the task if a key "**index_var**" is provided in this dict 
+Apart from the variable that stores the loop list element value for the iteration, a variable with the index of the
+iteration can also be provided to the task if a key "**index_var**" is provided in this dict
 (no value with the iteration index is provided if this index_var key is not provided).
 
 ---
 **NOTE**
 
-It is important to point out that the rest of the available attributes are calculated for each of the iterations of a loop. 
-This way, for example, a "_when_" attribute may use the __item__ variable with the loop iteration value to check if the 
+It is important to point out that the rest of the available attributes are calculated for each of the iterations of a loop.
+This way, for example, a "_when_" attribute may use the __item__ variable with the loop iteration value to check if the
 plugin must be executed or not. It may be executed for some loop iterations and not for others.
 ---
 
 ### when
 
-A conditional statement. It may be a string with an expression that evaluates to true or false, 
-or a list or expressions. In case of using a list, all expressions in the list must be true to consider that the overall 
-expression is true (equivalent to an "AND" of all list expressions). 
+A conditional statement. It may be a string with an expression that evaluates to true or false,
+or a list or expressions. In case of using a list, all expressions in the list must be true to consider that the overall
+expression is true (equivalent to an "AND" of all list expressions).
 To specify an OR condition, it must be done inline using the "OR" operator.
 
-In case of the "when" expression evaluates to true the plugin defined in the task is executed. 
-Otherwise, it is not executed. 
+In case of the "when" expression evaluates to true the plugin defined in the task is executed.
+Otherwise, it is not executed.
 
-The expressions are evaluated using jinja2 evaluation so variables, filters, lookups, … may be used.  
+The expressions are evaluated using jinja2 evaluation so variables, filters, lookups, … may be used.
 
-It's important to point out that the expression or the list of expressions are considered jinja2 expressions so must 
+It's important to point out that the expression or the list of expressions are considered jinja2 expressions so must
 not be enclosed in "{{ }}" or "<< >>", string values must use quotes, etc…
 
 ### timeout
 
-Specifies the maximum time (in seconds) for the action to be performed generating an error in case the time reaches 
+Specifies the maximum time (in seconds) for the action to be performed generating an error in case the time reaches
 that timeout.
 
 ### ignore_errors
 
-Used to specify if the possible errors that certain actions could cause will be ignored (value `True`) 
-or not (value `False`). 
+Used to specify if the possible errors that certain actions could cause will be ignored (value `True`)
+or not (value `False`).
 
-This statement is often used when we want to continue through a group of tasks or a loop even 
+This statement is often used when we want to continue through a group of tasks or a loop even
 when something has gone wrong in one of the iterations.
 
 ### register
 
-Creates a variable that stores the output of a given plugin. The value of this attribute will be the name of the 
-variable. 
+Creates a variable that stores the output of a given plugin. The value of this attribute will be the name of the
+variable.
 
-This variable is defined when executing the task and will be available during the execution of all the 
-remaining tasks related to the software instance that is being processed, but will no longer be available for tasks 
-related to the processing of the remaining software instances. 
+This variable is defined when executing the task and will be available during the execution of all the
+remaining tasks related to the software instance that is being processed, but will no longer be available for tasks
+related to the processing of the remaining software instances.
 
 The value stored in the generated variable will depend on the executed plugin.
 
 ### environment
 
-This attribute is a dictionary with keys and values that will be provided to the plugin in the form of environment vars. 
+This attribute is a dictionary with keys and values that will be provided to the plugin in the form of environment vars.
 So, when the plugin is executed it will be executed with these environment variables as part of its environment.
 
 ### vars
-Dictionary with additional variables and their values to provide to the plugin when it is executed or to resolve 
-expressions used in the plugin arguments. 
+Dictionary with additional variables and their values to provide to the plugin when it is executed or to resolve
+expressions used in the plugin arguments.
 
 These vars will only be available during the specific task execution.
 
@@ -199,12 +199,12 @@ These vars will only be available during the specific task execution.
 
 As seen previously in this guide, we can make use of certain plugins in order to enrich the software discovery process.
 
-This collection provides a set of built-in plugins, located in [plugins/action_utils/software_facts/plugins/][plugins] 
+This collection provides a set of built-in plugins, located in [plugins/action_utils/software_facts/plugins/][plugins]
 collection folder:
 
 ### include_tasks
 
-This plugin executes the list of tasks available in an external file. This allows the organization of the tasks 
+This plugin executes the list of tasks available in an external file. This allows the organization of the tasks
 in different files and adds readability to the `software_list` variable.
 
 **Arguments**
@@ -214,9 +214,9 @@ in different files and adds readability to the `software_list` variable.
 | file | path | M   | Path to the file containing the list of tasks |
 
 
-For example, a file for each type of software may be available with its customization tasks. 
-Then, the _custom_task_ field of its definition in _software_list_ will only contain a task with this plugin, 
-pointing to the precise file. This limits the size of the software_list variable. 
+For example, a file for each type of software may be available with its customization tasks.
+Then, the _custom_task_ field of its definition in _software_list_ will only contain a task with this plugin,
+pointing to the precise file. This limits the size of the software_list variable.
 And this is the way that the built-in software types definitions are provided.
 
 **Example**
@@ -244,7 +244,7 @@ file to enrich the information gathered for this type of software.
 
 ### block
 
-This plugin is used to group actions, such as multiple tasks that must be accomplished following a certain 
+This plugin is used to group actions, such as multiple tasks that must be accomplished following a certain
 order or for code readability.
 
 **Arguments**
@@ -267,7 +267,7 @@ order or for code readability.
   when: __instance__.var3 is defined
 ```
 
-In this example, two vars: `var1` and `var2` will be added to the software instance result but only if instance 
+In this example, two vars: `var1` and `var2` will be added to the software instance result but only if instance
 var `var3` is defined. Using this block plugin group two tasks that has the same condition to be executed.
 
 Without using block, the same could be achieved with:
@@ -283,9 +283,9 @@ Without using block, the same could be achieved with:
   when: __instance__.var3 is defined
 ```
 
-### add_binding_info 
+### add_binding_info
 
-Adds information about a binding related to the discovered software in the `bindings` field of the software instance. 
+Adds information about a binding related to the discovered software in the `bindings` field of the software instance.
 
 **Arguments**
 
@@ -314,7 +314,7 @@ At least one of `address` or `port` must be provided.
 
 ### add_endpoint_info
 
-Adds information about an endpoint related to the discovered software in the `endpoints` field of the software instance. 
+Adds information about an endpoint related to the discovered software in the `endpoints` field of the software instance.
 
 **Arguments**
 
@@ -335,7 +335,7 @@ Adds information about an endpoint related to the discovered software in the `en
 
 ### add_file_info
 
-Adds information about a file/dir related to the discovered software in the `files` field of the software instance. 
+Adds information about a file/dir related to the discovered software in the `files` field of the software instance.
 
 **Arguments**
 
@@ -428,7 +428,7 @@ Deletes a specified list of variables from the instance given their names.
 
 This plugin searches for containers given a filter from the list of docker containers found in the target hosts.
 
-Filtering is made using [find_elements](#find_elements). 
+Filtering is made using [find_elements](#find_elements).
 Docker containers list is provided to this plugin as the source.
 
 **Arguments**
@@ -443,7 +443,7 @@ Docker containers list is provided to this plugin as the source.
 - name: Find containers
   find_containers:
     filter:
-      container_name: ^cont* 
+      container_name: ^cont*
   register: result
 ```
 
@@ -452,7 +452,7 @@ Docker containers list is provided to this plugin as the source.
 This plugin searches for elements that match the specified values inside a given collection.
 
 `filter` argument is a key/value dict. An element in `source` match the filter if it has all the keys in filter
-and those keys values match filter values, taking into account tha those filter values are considered regular 
+and those keys values match filter values, taking into account tha those filter values are considered regular
 expressions.
 
 **Arguments**
@@ -475,7 +475,7 @@ expressions.
 
 ### find_in_dict
 
-This plugin returns the list of values in the provided dict whose key is the provided item, 
+This plugin returns the list of values in the provided dict whose key is the provided item,
 processing the source dict recursively.
 
 **Arguments**
@@ -491,7 +491,7 @@ processing the source dict recursively.
 - name: Find in dict
   find_in_dict:
     item: key3
-    source: 
+    source:
       key1: value1
       key2: value2
       key3: value3
@@ -500,11 +500,11 @@ processing the source dict recursively.
   register: result  # result will store the list: ['value3', 'inner'].
 ```
 
-### find_packages 
+### find_packages
 
 This plugin searches for packages that match a given a filter from the list of packages found in the target host.
 
-Filtering is made using [find_elements](#find_elements). 
+Filtering is made using [find_elements](#find_elements).
 The packages list is provided to this plugin as the source.
 
 **Arguments**
@@ -527,7 +527,7 @@ The packages list is provided to this plugin as the source.
 
 This plugin searches for ports that match a given a filter from the lists of tcp ports and udp ports found in the target host.
 
-Filtering is made using [find_elements](#find_elements). 
+Filtering is made using [find_elements](#find_elements).
 The port lists are provided to this plugin as the source.
 
 **Arguments**
@@ -551,7 +551,7 @@ The port lists are provided to this plugin as the source.
 
 This plugin searches for processes that match a given a filter from the list of processes found in the target host.
 
-Filtering is made using [find_elements](#find_elements). 
+Filtering is made using [find_elements](#find_elements).
 The processes list is provided to this plugin as the source.
 
 **Arguments**
@@ -572,7 +572,7 @@ The processes list is provided to this plugin as the source.
 
 ### parse
 
-Provides a JSON representation of the content, given a parser type. 
+Provides a JSON representation of the content, given a parser type.
 
 **Arguments**
 
@@ -586,6 +586,7 @@ Several parsers are available:
 * `json`: Expects content to be a json string.
 * `yaml`: Expects content to be a YAML string.
 * `xml`: Expects content to be in XML.
+* `ini`: Expects content to be in INI format. If there are values without section, they will be added to the "default" section.
 * `key_value`: Expects content to be in a key/value format. The key and value separator may be defined using a parser parameter (defaults to `=`).
 * `environ`: Expects content to be an environ file in proc linux filesystem.
 * `custom`: An ansible module must be specified to parse the content. In this case, the content is expected to be a file path.
@@ -628,7 +629,7 @@ This plugin reads the environ file in `proc` filesystem and then parses the file
 Additionally, if the software instance is running in a docker container, proc file info (if available) is merged with
 docker environment info (from docker container `Config.Env` data).
 
-Its returns the content of the file before parsing (in `content` return value) 
+Its returns the content of the file before parsing (in `content` return value)
 and the parsed file as a JSON (in `parsed` return value).
 
 **Arguments**
@@ -649,7 +650,7 @@ and the parsed file as a JSON (in `parsed` return value).
 
 ### read_remote_file
 
-Reads a file from the target host. A parser may be defined to be applied to the content of the file. In this case, 
+Reads a file from the target host. A parser may be defined to be applied to the content of the file. In this case,
 the content of the file is provided to the [parse plugin](#parse).
 
 This plugin manages if the software instance is running in a docker container. If that is the case, it reads the
@@ -680,9 +681,9 @@ to `False`).
   register: result
 ```
 
-### run_command 
+### run_command
 
-This plugin executes a command on the target host, using ansible's `command` module. 
+This plugin executes a command on the target host, using ansible's `command` module.
 It manages if the software instance is running in a docker container. If that is the case, then it executes the command
 in the container.
 
@@ -708,13 +709,13 @@ One of `cmd` or `argv`arguments must be provided.
 
 - name: Run command using argv
   run_command:
-    argv: 
+    argv:
       - postgres
       - "-V"
   register: result
 ```
 
-### run_module 
+### run_module
 
 This plugin executes the provided ansible module.
 
@@ -724,7 +725,7 @@ This plugin executes the provided ansible module.
 |---------------|------|-----|---------------------------------------------------------------------------------------------------|
 | <module_name> | any  | M   | Module_args                                                                                       |
 
-This module should have only one argument which key will be the module name. The value of that key will be the arguments 
+This module should have only one argument which key will be the module name. The value of that key will be the arguments
 to pass to the module.
 
 **Example**
@@ -750,7 +751,7 @@ to pass to the module.
 
 ### set_instance_fact
 
-Stores variables in the software instance return data. 
+Stores variables in the software instance return data.
 
 **Arguments**
 
@@ -771,10 +772,10 @@ Stores variables in the software instance return data.
 ### stat
 
 Executes module `ansible.builtin.stat` (or `ansible.windows.win_stat` for Windows targets) on the provided path.
-If the software instance is running in a docker container, the path is adapted to point to the file in the docker 
+If the software instance is running in a docker container, the path is adapted to point to the file in the docker
 container file system.
 
-See [ansible.builtin.stat][ansible.builtin.stat] or [ansible.windows.win_stat][ansible.windows.win_stat] documentation 
+See [ansible.builtin.stat][ansible.builtin.stat] or [ansible.windows.win_stat][ansible.windows.win_stat] documentation
 for detailed information.
 
 **Arguments**
@@ -821,7 +822,7 @@ than using [set_instance_fact](#set_instance_fact) module.
 ### which
 
 Returns the file info if the file exists in the provided paths.
-If the software instance is running in a docker container, provided paths are adapted to point to the file system 
+If the software instance is running in a docker container, provided paths are adapted to point to the file system
 in the docker container.
 
 **Arguments**
@@ -851,12 +852,12 @@ in the docker container.
 
 New plugins may be developed to provide functionalities not available with the built-in plugins and tools.
 
-To develop a new plugin, a python class has to be implemented, and it must be a subclass of 
+To develop a new plugin, a python class has to be implemented, and it must be a subclass of
 [SoftwareFactsPlugin class][SoftwareFactsPlugin].
 
 ```python
 from ansible_collections.datadope.discovery.plugins.action_utils.software_facts.plugins.__init__  \
-    import SoftwareFactsPlugin 
+    import SoftwareFactsPlugin
 
 class MyPlugin(SoftwareFactsPlugin):
 
