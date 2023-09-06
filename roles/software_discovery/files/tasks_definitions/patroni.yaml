@@ -1,0 +1,54 @@
+---
+- name: Attempt to extract conf file
+  set_instance_fact:
+    _conf_file: "<< __instance__.process.cmdline | regex_search('(\\S+patroni\\.yml)', '\\1') | first >>"
+  ignore_errors: true
+
+- name: Read config file and store relevant information
+  ignore_errors: true
+  when: __instance__._conf_file is defined
+  block:
+    - name: Save main config file
+      add_file_info:
+        path: '<< __instance__._conf_file | dirname >>'
+        name: '<< __instance__._conf_file | basename >>'
+        type: 'config'
+        subtype: 'yaml'
+          
+    - name: Read configuration file as dict
+      read_remote_file:
+        file_path: "<< __instance__._conf_file >>"
+        parser: yaml
+      register: main_config_file
+
+    - name: Store main configuration
+      set_instance_fact:
+        configuration: "<< main_config_file.parsed >>"
+      when:
+        - main_config_file is not failed
+
+    - name: Get API address and port
+      set_instance_fact:
+        _address: "<< split_listen[0] >>"
+        _port: "<< split_listen[1] >>"
+      vars:
+        split_listen: "<< __instance__.configuration.restapi.listen.rsplit(':',1) >>"
+      when:
+        - __instance__.configuration is defined
+        - __instance__.configuration.restapi is defined
+        - __instance__.configuration.restapi.listen is defined
+
+    - name: Save address and port from API  
+      add_binding_info:
+        address: '<<__instance__._address >>'
+        port: '<<__instance__._port >>'
+        class: 'rest_api'
+      when:
+        - __instance__._address is defined
+        - __instance__._port is defined
+
+- name: Remove temporary vars
+  del_instance_fact:
+    - _conf_file
+    - _address
+    - _port
