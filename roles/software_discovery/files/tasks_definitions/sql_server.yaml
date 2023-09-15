@@ -24,7 +24,7 @@
     - name: Add instances to extra data
       set_instance_fact:
         extra_data: "<< __instance__.extra_data | default({}) | combine({
-              'instances' : __instance__._instances
+              'instances' : __instance__._instances | sort
             }) >>"
       when: result is not failed
     - name: Get databases for each instance
@@ -39,7 +39,7 @@
             - name: Add databases
               set_instance_fact:
                 _databases_per_instance: >-
-                  << _databases_per_instance | default({}) | combine({__bd_instance__: __databases__}) >>
+                  << _databases_per_instance | default({}) | combine({__bd_instance__: __databases__ | sort }) >>
           vars:
             __databases__: << result.stdout_lines | default([]) | difference(ignore_databases | default([])) >>
           when:

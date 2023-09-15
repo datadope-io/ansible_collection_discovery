@@ -227,7 +227,7 @@
 - name: Add active databases to extra data
   set_instance_fact:
     extra_data: "<< (__instance__.extra_data | default({})) | combine({
-    'active_databases': __instance__._active_databases
+    'active_databases': __instance__._active_databases | sort
     }) >>"
 - name: Get postgres user
   block:
@@ -348,7 +348,7 @@
 - name: Add databases to extra data
   set_instance_fact:
     extra_data: "<< (__instance__.extra_data | default({})) | combine({
-    'databases': __instance__._databases
+    'databases': __instance__._databases | sort
     }) >>"
 - name: Remove databases tmp var
   del_instance_fact:
