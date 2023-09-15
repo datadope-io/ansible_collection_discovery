@@ -266,6 +266,7 @@ value of this var, and it is the one used by the role or playbook (if not explic
 - PHP-fpm
 - Panda Security Protection
 - Patrol Agent
+- Patroni
 - PostgreSQL Database
 - Redis
 - SAP CCMS

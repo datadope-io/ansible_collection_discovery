@@ -1,3 +1,8 @@
+# 1.9.0
+
+## Features
+- New patroni software discovery.
+
 # 1.8.0
 
 ## Features

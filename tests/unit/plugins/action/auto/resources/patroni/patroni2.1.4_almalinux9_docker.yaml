@@ -1,0 +1,2016 @@
+mocked_plugin_tasks:
+  Read configuration file as dict:
+    expected_args:
+      delegate_reading: false
+      file_path: /etc/patroni.yml
+      in_docker: true
+      parser: yaml
+      parser_params: null
+    plugin_result:
+      parsed:
+        bootstrap:
+          dcs:
+            loop_wait: 10
+            maximum_lag_on_failover: 1048576
+            postgresql:
+              use_pg_rewind: true
+              use_slots: true
+            retry_timeout: 10
+            ttl: 30
+          initdb:
+            - encoding: UTF8
+            - data-checksums
+          pg_hba:
+            - host all all 0.0.0.0/0 scram-sha-256
+            - host replication all 0.0.0.0/0 scram-sha-256
+          post_init: /bin/bash -c "export PGHOST=$PGDATA; env && bash -x /docker-entrypoint-initdb.d/000_install_timescaledb.sh && bash -x /docker-entrypoint-initdb.d/001_timescaledb_tune.sh && bash -x /docker-entrypoint-initdb.d/010_install_timescaledb_toolkit.sh"
+          users:
+            postgres:
+              options:
+                - createrole
+                - createdb
+              password: postgres
+        etcd3:
+          hosts:
+            - etcd:2379
+        log:
+          level: WARNING
+        name: nodea
+        postgresql:
+          authentication:
+            replication:
+              password: replicator
+              username: replicator
+            rewind:
+              password: rewind
+              username: rewind
+            superuser:
+              password: postgres
+              username: postgres
+          connect_address: 127.0.0.1:5432
+          data_dir: /var/lib/postgresql/data
+          listen: 0.0.0.0:5432
+          parameters:
+            unix_socket_directories: /var/lib/postgresql
+          pgpass: /var/lib/postgresql/.pgpass
+        restapi:
+          authentication:
+            password: patroni
+            username: patroni
+          connect_address: 127.0.0.1:8008
+          listen: 0.0.0.0:8008
+        scope: patroni
+
+dockers:
+  containers:
+    - AppArmorProfile: ''
+      Args:
+        - -c
+        - umask 0077 && patroni /etc/patroni.yml
+      Config:
+        AttachStderr: true
+        AttachStdin: false
+        AttachStdout: true
+        Cmd:
+          - -c
+          - umask 0077 && patroni /etc/patroni.yml
+        Domainname: ''
+        Entrypoint:
+          - bash
+        Env:
+          - POSTGRES_PASSWORD=postgres
+          - PGDATA=/var/lib/postgresql/data
+          - PATH=/usr/lib/postgresql/14/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+          - PGROOT=/home/postgres
+          - PGLOG=/home/postgres/pg_log
+          - PGSOCKET=/home/postgres/pgdata
+          - BACKUPROOT=/home/postgres/pgdata/backup
+          - PGBACKREST_CONFIG=/home/postgres/pgdata/backup/pgbackrest.conf
+          - PGBACKREST_STANZA=poddb
+          - LC_ALL=C.UTF-8
+          - LANG=C.UTF-8
+          - PAGER=
+        ExposedPorts:
+          5432/tcp: { }
+          8008/tcp: { }
+          8081/tcp: { }
+        Hostname: patronidocker
+        Image: timescale/timescaledb-ha:pg14.5-ts2.7-patroni-static-primary-latest
+        Labels:
+          com.timescaledb.image.hotforge.version: 0.1.37
+          com.timescaledb.image.install_method: docker-ha
+          com.timescaledb.image.patroni.version: 2.1.4
+          com.timescaledb.image.pgBackRest.version: '2.40'
+          com.timescaledb.image.postgis.version: 3.2.3
+          com.timescaledb.image.postgresql.available_versions: 12.12,13.8,14.5
+          com.timescaledb.image.postgresql.version: '14.5'
+          com.timescaledb.image.promscale.available_versions: 0.0.0,0.1,0.1.1,0.1.2,0.1.3-beta,0.2.0,0.3.0,0.3.1,0.3.2,0.5.0,0.5.1,0.5.2,0.5.4,0.6.0
+          com.timescaledb.image.promscale.version: 0.6.0
+          com.timescaledb.image.timescaledb.available_versions: 2.4.2,2.5.0,2.5.1,2.5.2,2.6.0,2.6.1,2.7.0,2.7.1,2.7.2
+          com.timescaledb.image.timescaledb.version: 2.7.2
+          com.timescaledb.image.timescaledb_cloudutils.version: 1.1.6
+          com.timescaledb.image.timescaledb_toolkit.available_versions: 1.10.1,1.6.0,1.7.0,1.8.0
+          com.timescaledb.image.timescaledb_toolkit.version: 1.10.1
+          com.timescaledb.image.tsdb_admin.version: 1.0.0
+          org.opencontainers.image.created: '2022-08-29T13:31:37+00:00'
+          org.opencontainers.image.revision: v1.5.5
+          org.opencontainers.image.source: https://github.com/timescale/timescaledb-docker-ha
+          org.opencontainers.image.vendor: Timescale
+        OnBuild: null
+        OpenStdin: false
+        StdinOnce: false
+        Tty: false
+        User: postgres
+        Volumes: null
+        WorkingDir: /home/postgres
+      Created: '2023-09-14T12:53:32.526541404Z'
+      Driver: vfs
+      ExecIDs: null
+      GraphDriver:
+        Data: null
+        Name: vfs
+      HostConfig:
+        AutoRemove: false
+        Binds:
+          - /tmp/patronidocker.conf:/etc/patroni.yml:rw
+        BlkioDeviceReadBps: null
+        BlkioDeviceReadIOps: null
+        BlkioDeviceWriteBps: null
+        BlkioDeviceWriteIOps: null
+        BlkioWeight: 0
+        BlkioWeightDevice: null
+        CapAdd: null
+        CapDrop: null
+        Cgroup: ''
+        CgroupParent: ''
+        CgroupnsMode: private
+        ConsoleSize:
+          - 0
+          - 0
+        ContainerIDFile: ''
+        CpuCount: 0
+        CpuPercent: 0
+        CpuPeriod: 0
+        CpuQuota: 0
+        CpuRealtimePeriod: 0
+        CpuRealtimeRuntime: 0
+        CpuShares: 0
+        CpusetCpus: ''
+        CpusetMems: ''
+        DeviceCgroupRules: null
+        DeviceRequests: null
+        Devices: null
+        Dns: null
+        DnsOptions: null
+        DnsSearch: null
+        ExtraHosts: null
+        GroupAdd: null
+        IOMaximumBandwidth: 0
+        IOMaximumIOps: 0
+        IpcMode: private
+        Isolation: ''
+        Links: null
+        LogConfig:
+          Config: { }
+          Type: json-file
+        MaskedPaths:
+          - /proc/asound
+          - /proc/acpi
+          - /proc/kcore
+          - /proc/keys
+          - /proc/latency_stats
+          - /proc/timer_list
+          - /proc/timer_stats
+          - /proc/sched_debug
+          - /proc/scsi
+          - /sys/firmware
+        Memory: 0
+        MemoryReservation: 0
+        MemorySwap: 0
+        MemorySwappiness: null
+        NanoCpus: 0
+        NetworkMode: host
+        OomKillDisable: null
+        OomScoreAdj: 0
+        PidMode: ''
+        PidsLimit: null
+        PortBindings: null
+        Privileged: false
+        PublishAllPorts: false
+        ReadonlyPaths:
+          - /proc/bus
+          - /proc/fs
+          - /proc/irq
+          - /proc/sys
+          - /proc/sysrq-trigger
+        ReadonlyRootfs: false
+        RestartPolicy:
+          MaximumRetryCount: 0
+          Name: ''
+        Runtime: runc
+        SecurityOpt: null
+        ShmSize: 67108864
+        UTSMode: ''
+        Ulimits: null
+        UsernsMode: ''
+        VolumeDriver: ''
+        VolumesFrom: null
+      HostnamePath: /var/lib/docker/containers/5bccb90df8998ae8dbcd8cb1bad19b931e42ed4656d41b1b15e51d8cb977f5a7/hostname
+      HostsPath: /var/lib/docker/containers/5bccb90df8998ae8dbcd8cb1bad19b931e42ed4656d41b1b15e51d8cb977f5a7/hosts
+      Id: 5bccb90df8998ae8dbcd8cb1bad19b931e42ed4656d41b1b15e51d8cb977f5a7
+      Image: sha256:3ed50eabf06a0bd86158fbea204d5f2d4836c7c1943841d84d66bc65e8201c89
+      LogPath: /var/lib/docker/containers/5bccb90df8998ae8dbcd8cb1bad19b931e42ed4656d41b1b15e51d8cb977f5a7/5bccb90df8998ae8dbcd8cb1bad19b931e42ed4656d41b1b15e51d8cb977f5a7-json.log
+      MountLabel: ''
+      Mounts:
+        - Destination: /etc/patroni.yml
+          Mode: rw
+          Propagation: rprivate
+          RW: true
+          Source: /tmp/patronidocker.conf
+          Type: bind
+      Name: /timescale
+      NetworkSettings:
+        Bridge: ''
+        EndpointID: ''
+        Gateway: ''
+        GlobalIPv6Address: ''
+        GlobalIPv6PrefixLen: 0
+        HairpinMode: false
+        IPAddress: ''
+        IPPrefixLen: 0
+        IPv6Gateway: ''
+        LinkLocalIPv6Address: ''
+        LinkLocalIPv6PrefixLen: 0
+        MacAddress: ''
+        Networks:
+          host:
+            Aliases: null
+            DriverOpts: null
+            EndpointID: d462a7289f666eba8b8d0bd1409952aff25d3183d263c391e572281bf8c74805
+            Gateway: ''
+            GlobalIPv6Address: ''
+            GlobalIPv6PrefixLen: 0
+            IPAMConfig: null
+            IPAddress: ''
+            IPPrefixLen: 0
+            IPv6Gateway: ''
+            Links: null
+            MacAddress: ''
+            NetworkID: 0930512f4c306c124ef20f585230b59fbc82d767bc22dcfb05c11438456c6211
+        Ports: { }
+        SandboxID: 96b84f0ead0dd46b48ed5e9f31f746822ec99a00d3e3c6d2d2f22f1fb9f33665
+        SandboxKey: /var/run/docker/netns/default
+        SecondaryIPAddresses: null
+        SecondaryIPv6Addresses: null
+      Path: bash
+      Platform: linux
+      ProcessLabel: ''
+      ResolvConfPath: /var/lib/docker/containers/5bccb90df8998ae8dbcd8cb1bad19b931e42ed4656d41b1b15e51d8cb977f5a7/resolv.conf
+      RestartCount: 0
+      State:
+        Dead: false
+        Error: ''
+        ExitCode: 0
+        FinishedAt: '0001-01-01T00:00:00Z'
+        OOMKilled: false
+        Paused: false
+        Pid: 243
+        Restarting: false
+        Running: true
+        StartedAt: '2023-09-14T12:53:37.107494659Z'
+        Status: running
+expected_result:
+  - bindings:
+      - address: 0.0.0.0
+        class: rest_api
+        extra_data: { }
+        port: 8008
+        protocol: tcp
+      - address: 0.0.0.0
+        class: service
+        port: 5432
+        protocol: tcp
+    configuration:
+      bootstrap:
+        dcs:
+          loop_wait: 10
+          maximum_lag_on_failover: 1048576
+          postgresql:
+            use_pg_rewind: true
+            use_slots: true
+          retry_timeout: 10
+          ttl: 30
+        initdb:
+          - encoding: UTF8
+          - data-checksums
+        pg_hba:
+          - host all all 0.0.0.0/0 scram-sha-256
+          - host replication all 0.0.0.0/0 scram-sha-256
+        post_init: /bin/bash -c "export PGHOST=$PGDATA; env && bash -x /docker-entrypoint-initdb.d/000_install_timescaledb.sh && bash -x /docker-entrypoint-initdb.d/001_timescaledb_tune.sh && bash -x /docker-entrypoint-initdb.d/010_install_timescaledb_toolkit.sh"
+        users:
+          postgres:
+            options:
+              - createrole
+              - createdb
+            password: postgres
+      etcd3:
+        hosts:
+          - etcd:2379
+      log:
+        level: WARNING
+      name: nodea
+      postgresql:
+        authentication:
+          replication:
+            password: replicator
+            username: replicator
+          rewind:
+            password: rewind
+            username: rewind
+          superuser:
+            password: postgres
+            username: postgres
+        connect_address: 127.0.0.1:5432
+        data_dir: /var/lib/postgresql/data
+        listen: 0.0.0.0:5432
+        parameters:
+          unix_socket_directories: /var/lib/postgresql
+        pgpass: /var/lib/postgresql/.pgpass
+      restapi:
+        authentication:
+          password: patroni
+          username: patroni
+        connect_address: 127.0.0.1:8008
+        listen: 0.0.0.0:8008
+      scope: patroni
+    discovery_time: '2023-09-14T16:44:09+02:00'
+    docker:
+      exposed_ports:
+        5432/tcp: { }
+        8008/tcp: { }
+        8081/tcp: { }
+      id: 5bccb90df8998ae8dbcd8cb1bad19b931e42ed4656d41b1b15e51d8cb977f5a7
+      image: timescale/timescaledb-ha:pg14.5-ts2.7-patroni-static-primary-latest
+      name: /timescale
+      network_mode: host
+      port_bindings: { }
+    files:
+      - name: patroni.yml
+        path: /etc
+        subtype: yaml
+        type: config
+    listening_ports:
+      - 5432
+      - 8008
+    packages: [ ]
+    process:
+      cmdline: /usr/bin/python3 /usr/bin/patroni /etc/patroni.yml
+      cwd: /home/postgres
+      pid: '243'
+      ppid: '222'
+      user: '1000'
+    type: Patroni
+    version:
+      - number: pg14.5-ts2.7-patroni-static-primary-latest
+        type: docker
+packages:
+  acl:
+    - arch: x86_64
+      epoch: null
+      name: acl
+      release: 3.el9
+      source: rpm
+      version: 2.3.1
+  almalinux-gpg-keys:
+    - arch: x86_64
+      epoch: null
+      name: almalinux-gpg-keys
+      release: 4.el9
+      source: rpm
+      version: '9.0'
+  almalinux-release:
+    - arch: x86_64
+      epoch: null
+      name: almalinux-release
+      release: 4.el9
+      source: rpm
+      version: '9.0'
+  almalinux-repos:
+    - arch: x86_64
+      epoch: null
+      name: almalinux-repos
+      release: 4.el9
+      source: rpm
+      version: '9.0'
+  alternatives:
+    - arch: x86_64
+      epoch: null
+      name: alternatives
+      release: 2.el9
+      source: rpm
+      version: '1.20'
+  audit-libs:
+    - arch: x86_64
+      epoch: null
+      name: audit-libs
+      release: 103.el9
+      source: rpm
+      version: 3.0.7
+  basesystem:
+    - arch: noarch
+      epoch: null
+      name: basesystem
+      release: 13.el9
+      source: rpm
+      version: '11'
+  bash:
+    - arch: x86_64
+      epoch: null
+      name: bash
+      release: 5.el9
+      source: rpm
+      version: 5.1.8
+  bzip2-libs:
+    - arch: x86_64
+      epoch: null
+      name: bzip2-libs
+      release: 8.el9
+      source: rpm
+      version: 1.0.8
+  ca-certificates:
+    - arch: noarch
+      epoch: null
+      name: ca-certificates
+      release: 90.2.el9_0
+      source: rpm
+      version: 2022.2.54
+  checkpolicy:
+    - arch: x86_64
+      epoch: null
+      name: checkpolicy
+      release: 1.el9
+      source: rpm
+      version: '3.5'
+  container-selinux:
+    - arch: noarch
+      epoch: 3
+      name: container-selinux
+      release: 1.el9_2
+      source: rpm
+      version: 2.205.0
+  containerd.io:
+    - arch: x86_64
+      epoch: null
+      name: containerd.io
+      release: 3.1.el9
+      source: rpm
+      version: 1.6.22
+  coreutils-single:
+    - arch: x86_64
+      epoch: null
+      name: coreutils-single
+      release: 31.el9
+      source: rpm
+      version: '8.32'
+  cracklib:
+    - arch: x86_64
+      epoch: null
+      name: cracklib
+      release: 27.el9
+      source: rpm
+      version: 2.9.6
+  cracklib-dicts:
+    - arch: x86_64
+      epoch: null
+      name: cracklib-dicts
+      release: 27.el9
+      source: rpm
+      version: 2.9.6
+  crypto-policies:
+    - arch: noarch
+      epoch: null
+      name: crypto-policies
+      release: 1.git5203b41.el9_0.1
+      source: rpm
+      version: '20220223'
+  crypto-policies-scripts:
+    - arch: noarch
+      epoch: null
+      name: crypto-policies-scripts
+      release: 1.git5203b41.el9_0.1
+      source: rpm
+      version: '20220223'
+  cryptsetup-libs:
+    - arch: x86_64
+      epoch: null
+      name: cryptsetup-libs
+      release: 4.el9_0.1
+      source: rpm
+      version: 2.4.3
+  curl-minimal:
+    - arch: x86_64
+      epoch: null
+      name: curl-minimal
+      release: 14.el9_0.5
+      source: rpm
+      version: 7.76.1
+  cyrus-sasl-lib:
+    - arch: x86_64
+      epoch: null
+      name: cyrus-sasl-lib
+      release: 20.el9
+      source: rpm
+      version: 2.1.27
+  dbus:
+    - arch: x86_64
+      epoch: 1
+      name: dbus
+      release: 5.el9
+      source: rpm
+      version: 1.12.20
+  dbus-broker:
+    - arch: x86_64
+      epoch: null
+      name: dbus-broker
+      release: 5.1.el9_0
+      source: rpm
+      version: '28'
+  dbus-common:
+    - arch: noarch
+      epoch: 1
+      name: dbus-common
+      release: 5.el9
+      source: rpm
+      version: 1.12.20
+  dbus-libs:
+    - arch: x86_64
+      epoch: 1
+      name: dbus-libs
+      release: 7.el9_2.1
+      source: rpm
+      version: 1.12.20
+  device-mapper:
+    - arch: x86_64
+      epoch: 9
+      name: device-mapper
+      release: 4.el9
+      source: rpm
+      version: 1.02.183
+  device-mapper-libs:
+    - arch: x86_64
+      epoch: 9
+      name: device-mapper-libs
+      release: 4.el9
+      source: rpm
+      version: 1.02.183
+  diffutils:
+    - arch: x86_64
+      epoch: null
+      name: diffutils
+      release: 12.el9
+      source: rpm
+      version: '3.7'
+  dmidecode:
+    - arch: x86_64
+      epoch: 1
+      name: dmidecode
+      release: 7.el9
+      source: rpm
+      version: '3.3'
+  dnf:
+    - arch: noarch
+      epoch: null
+      name: dnf
+      release: 4.el9.alma
+      source: rpm
+      version: 4.12.0
+  dnf-data:
+    - arch: noarch
+      epoch: null
+      name: dnf-data
+      release: 4.el9.alma
+      source: rpm
+      version: 4.12.0
+  dnf-plugins-core:
+    - arch: noarch
+      epoch: null
+      name: dnf-plugins-core
+      release: 5.el9_2
+      source: rpm
+      version: 4.3.0
+  docker-buildx-plugin:
+    - arch: x86_64
+      epoch: 0
+      name: docker-buildx-plugin
+      release: 1.el9
+      source: rpm
+      version: 0.11.2
+  docker-ce:
+    - arch: x86_64
+      epoch: 3
+      name: docker-ce
+      release: 1.el9
+      source: rpm
+      version: 24.0.6
+  docker-ce-cli:
+    - arch: x86_64
+      epoch: 1
+      name: docker-ce-cli
+      release: 1.el9
+      source: rpm
+      version: 24.0.6
+  docker-ce-rootless-extras:
+    - arch: x86_64
+      epoch: 0
+      name: docker-ce-rootless-extras
+      release: 1.el9
+      source: rpm
+      version: 24.0.6
+  docker-compose-plugin:
+    - arch: x86_64
+      epoch: 0
+      name: docker-compose-plugin
+      release: 1.el9
+      source: rpm
+      version: 2.21.0
+  elfutils-default-yama-scope:
+    - arch: noarch
+      epoch: null
+      name: elfutils-default-yama-scope
+      release: 1.el9
+      source: rpm
+      version: '0.186'
+  elfutils-libelf:
+    - arch: x86_64
+      epoch: null
+      name: elfutils-libelf
+      release: 1.el9
+      source: rpm
+      version: '0.186'
+  elfutils-libs:
+    - arch: x86_64
+      epoch: null
+      name: elfutils-libs
+      release: 1.el9
+      source: rpm
+      version: '0.186'
+  expat:
+    - arch: x86_64
+      epoch: null
+      name: expat
+      release: 12.el9_0.2
+      source: rpm
+      version: 2.2.10
+  file-libs:
+    - arch: x86_64
+      epoch: null
+      name: file-libs
+      release: 8.el9
+      source: rpm
+      version: '5.39'
+  filesystem:
+    - arch: x86_64
+      epoch: null
+      name: filesystem
+      release: 2.el9
+      source: rpm
+      version: '3.16'
+  findutils:
+    - arch: x86_64
+      epoch: 1
+      name: findutils
+      release: 5.el9
+      source: rpm
+      version: 4.8.0
+  fuse-common:
+    - arch: x86_64
+      epoch: null
+      name: fuse-common
+      release: 5.el9
+      source: rpm
+      version: 3.10.2
+  fuse-overlayfs:
+    - arch: x86_64
+      epoch: null
+      name: fuse-overlayfs
+      release: 1.el9_2
+      source: rpm
+      version: '1.11'
+  fuse3:
+    - arch: x86_64
+      epoch: null
+      name: fuse3
+      release: 5.el9
+      source: rpm
+      version: 3.10.2
+  fuse3-libs:
+    - arch: x86_64
+      epoch: null
+      name: fuse3-libs
+      release: 5.el9
+      source: rpm
+      version: 3.10.2
+  gawk:
+    - arch: x86_64
+      epoch: null
+      name: gawk
+      release: 6.el9
+      source: rpm
+      version: 5.1.0
+  gdb-gdbserver:
+    - arch: x86_64
+      epoch: null
+      name: gdb-gdbserver
+      release: 9.el9
+      source: rpm
+      version: '10.2'
+  gdbm-libs:
+    - arch: x86_64
+      epoch: 1
+      name: gdbm-libs
+      release: 4.el9
+      source: rpm
+      version: '1.19'
+  glib2:
+    - arch: x86_64
+      epoch: null
+      name: glib2
+      release: 5.el9
+      source: rpm
+      version: 2.68.4
+  glibc:
+    - arch: x86_64
+      epoch: null
+      name: glibc
+      release: 28.el9_0.2
+      source: rpm
+      version: '2.34'
+  glibc-common:
+    - arch: x86_64
+      epoch: null
+      name: glibc-common
+      release: 28.el9_0.2
+      source: rpm
+      version: '2.34'
+  glibc-minimal-langpack:
+    - arch: x86_64
+      epoch: null
+      name: glibc-minimal-langpack
+      release: 28.el9_0.2
+      source: rpm
+      version: '2.34'
+  gmp:
+    - arch: x86_64
+      epoch: 1
+      name: gmp
+      release: 10.el9
+      source: rpm
+      version: 6.2.0
+  gnupg2:
+    - arch: x86_64
+      epoch: null
+      name: gnupg2
+      release: 2.el9_0
+      source: rpm
+      version: 2.3.3
+  gnutls:
+    - arch: x86_64
+      epoch: null
+      name: gnutls
+      release: 9.el9
+      source: rpm
+      version: 3.7.3
+  gpg-pubkey:
+    - arch: null
+      epoch: null
+      name: gpg-pubkey
+      release: 61e69f29
+      source: rpm
+      version: b86b3716
+    - arch: null
+      epoch: null
+      name: gpg-pubkey
+      release: 58adea78
+      source: rpm
+      version: 621e9f35
+  gpgme:
+    - arch: x86_64
+      epoch: null
+      name: gpgme
+      release: 6.el9
+      source: rpm
+      version: 1.15.1
+  grep:
+    - arch: x86_64
+      epoch: null
+      name: grep
+      release: 5.el9
+      source: rpm
+      version: '3.6'
+  gzip:
+    - arch: x86_64
+      epoch: null
+      name: gzip
+      release: 9.el9_0
+      source: rpm
+      version: '1.10'
+  ima-evm-utils:
+    - arch: x86_64
+      epoch: null
+      name: ima-evm-utils
+      release: 4.el9
+      source: rpm
+      version: '1.4'
+  iometrics-agent:
+    - arch: x86_64
+      epoch: null
+      name: iometrics-agent
+      release: '30'
+      source: rpm
+      version: 1.11.3
+  iproute:
+    - arch: x86_64
+      epoch: null
+      name: iproute
+      release: 1.el9
+      source: rpm
+      version: 5.18.0
+  iptables-libs:
+    - arch: x86_64
+      epoch: null
+      name: iptables-libs
+      release: 6.el9_1
+      source: rpm
+      version: 1.8.8
+  iptables-nft:
+    - arch: x86_64
+      epoch: null
+      name: iptables-nft
+      release: 6.el9_1
+      source: rpm
+      version: 1.8.8
+  json-c:
+    - arch: x86_64
+      epoch: null
+      name: json-c
+      release: 11.el9
+      source: rpm
+      version: '0.14'
+  keyutils-libs:
+    - arch: x86_64
+      epoch: null
+      name: keyutils-libs
+      release: 4.el9
+      source: rpm
+      version: 1.6.1
+  kmod:
+    - arch: x86_64
+      epoch: null
+      name: kmod
+      release: 7.el9
+      source: rpm
+      version: '28'
+  kmod-libs:
+    - arch: x86_64
+      epoch: null
+      name: kmod-libs
+      release: 7.el9
+      source: rpm
+      version: '28'
+  krb5-libs:
+    - arch: x86_64
+      epoch: null
+      name: krb5-libs
+      release: 15.el9_0
+      source: rpm
+      version: 1.19.1
+  libacl:
+    - arch: x86_64
+      epoch: null
+      name: libacl
+      release: 3.el9
+      source: rpm
+      version: 2.3.1
+  libarchive:
+    - arch: x86_64
+      epoch: null
+      name: libarchive
+      release: 2.el9_0
+      source: rpm
+      version: 3.5.3
+  libassuan:
+    - arch: x86_64
+      epoch: null
+      name: libassuan
+      release: 3.el9
+      source: rpm
+      version: 2.5.5
+  libattr:
+    - arch: x86_64
+      epoch: null
+      name: libattr
+      release: 3.el9
+      source: rpm
+      version: 2.5.1
+  libblkid:
+    - arch: x86_64
+      epoch: null
+      name: libblkid
+      release: 3.el9
+      source: rpm
+      version: 2.37.4
+  libbpf:
+    - arch: x86_64
+      epoch: 2
+      name: libbpf
+      release: 1.el9
+      source: rpm
+      version: 0.6.0
+  libcap:
+    - arch: x86_64
+      epoch: null
+      name: libcap
+      release: 8.el9
+      source: rpm
+      version: '2.48'
+  libcap-ng:
+    - arch: x86_64
+      epoch: null
+      name: libcap-ng
+      release: 7.el9
+      source: rpm
+      version: 0.8.2
+  libcom_err:
+    - arch: x86_64
+      epoch: null
+      name: libcom_err
+      release: 2.el9
+      source: rpm
+      version: 1.46.5
+  libcomps:
+    - arch: x86_64
+      epoch: null
+      name: libcomps
+      release: 1.el9
+      source: rpm
+      version: 0.1.18
+  libcurl-minimal:
+    - arch: x86_64
+      epoch: null
+      name: libcurl-minimal
+      release: 14.el9_0.5
+      source: rpm
+      version: 7.76.1
+  libdb:
+    - arch: x86_64
+      epoch: null
+      name: libdb
+      release: 53.el9
+      source: rpm
+      version: 5.3.28
+  libdnf:
+    - arch: x86_64
+      epoch: null
+      name: libdnf
+      release: 3.el9.alma
+      source: rpm
+      version: 0.67.0
+  libeconf:
+    - arch: x86_64
+      epoch: null
+      name: libeconf
+      release: 2.el9
+      source: rpm
+      version: 0.4.1
+  libevent:
+    - arch: x86_64
+      epoch: null
+      name: libevent
+      release: 6.el9
+      source: rpm
+      version: 2.1.12
+  libfdisk:
+    - arch: x86_64
+      epoch: null
+      name: libfdisk
+      release: 3.el9
+      source: rpm
+      version: 2.37.4
+  libffi:
+    - arch: x86_64
+      epoch: null
+      name: libffi
+      release: 7.el9
+      source: rpm
+      version: 3.4.2
+  libgcc:
+    - arch: x86_64
+      epoch: null
+      name: libgcc
+      release: 9.4.el9.alma
+      source: rpm
+      version: 11.2.1
+  libgcrypt:
+    - arch: x86_64
+      epoch: null
+      name: libgcrypt
+      release: 5.el9_0
+      source: rpm
+      version: 1.10.0
+  libgomp:
+    - arch: x86_64
+      epoch: null
+      name: libgomp
+      release: 9.4.el9.alma
+      source: rpm
+      version: 11.2.1
+  libgpg-error:
+    - arch: x86_64
+      epoch: null
+      name: libgpg-error
+      release: 5.el9
+      source: rpm
+      version: '1.42'
+  libibverbs:
+    - arch: x86_64
+      epoch: null
+      name: libibverbs
+      release: 2.el9
+      source: rpm
+      version: '44.0'
+  libidn2:
+    - arch: x86_64
+      epoch: null
+      name: libidn2
+      release: 7.el9
+      source: rpm
+      version: 2.3.0
+  libksba:
+    - arch: x86_64
+      epoch: null
+      name: libksba
+      release: 4.el9
+      source: rpm
+      version: 1.5.1
+  libmnl:
+    - arch: x86_64
+      epoch: null
+      name: libmnl
+      release: 15.el9
+      source: rpm
+      version: 1.0.4
+  libmodulemd:
+    - arch: x86_64
+      epoch: null
+      name: libmodulemd
+      release: 2.el9
+      source: rpm
+      version: 2.13.0
+  libmount:
+    - arch: x86_64
+      epoch: null
+      name: libmount
+      release: 3.el9
+      source: rpm
+      version: 2.37.4
+  libnetfilter_conntrack:
+    - arch: x86_64
+      epoch: null
+      name: libnetfilter_conntrack
+      release: 1.el9
+      source: rpm
+      version: 1.0.9
+  libnfnetlink:
+    - arch: x86_64
+      epoch: null
+      name: libnfnetlink
+      release: 21.el9
+      source: rpm
+      version: 1.0.1
+  libnftnl:
+    - arch: x86_64
+      epoch: null
+      name: libnftnl
+      release: 1.el9
+      source: rpm
+      version: 1.2.2
+  libnghttp2:
+    - arch: x86_64
+      epoch: null
+      name: libnghttp2
+      release: 5.el9
+      source: rpm
+      version: 1.43.0
+  libnl3:
+    - arch: x86_64
+      epoch: null
+      name: libnl3
+      release: 1.el9
+      source: rpm
+      version: 3.7.0
+  libpcap:
+    - arch: x86_64
+      epoch: 14
+      name: libpcap
+      release: 4.el9
+      source: rpm
+      version: 1.10.0
+  libpkgconf:
+    - arch: x86_64
+      epoch: null
+      name: libpkgconf
+      release: 9.el9
+      source: rpm
+      version: 1.7.3
+  libpwquality:
+    - arch: x86_64
+      epoch: null
+      name: libpwquality
+      release: 8.el9
+      source: rpm
+      version: 1.4.4
+  librepo:
+    - arch: x86_64
+      epoch: null
+      name: librepo
+      release: 1.el9
+      source: rpm
+      version: 1.14.2
+  libreport-filesystem:
+    - arch: noarch
+      epoch: null
+      name: libreport-filesystem
+      release: 6.el9.alma
+      source: rpm
+      version: 2.15.2
+  libseccomp:
+    - arch: x86_64
+      epoch: null
+      name: libseccomp
+      release: 2.el9
+      source: rpm
+      version: 2.5.2
+  libselinux:
+    - arch: x86_64
+      epoch: null
+      name: libselinux
+      release: 1.el9
+      source: rpm
+      version: '3.5'
+  libselinux-utils:
+    - arch: x86_64
+      epoch: null
+      name: libselinux-utils
+      release: 1.el9
+      source: rpm
+      version: '3.5'
+  libsemanage:
+    - arch: x86_64
+      epoch: null
+      name: libsemanage
+      release: 1.el9
+      source: rpm
+      version: '3.5'
+  libsepol:
+    - arch: x86_64
+      epoch: null
+      name: libsepol
+      release: 1.el9
+      source: rpm
+      version: '3.5'
+  libsigsegv:
+    - arch: x86_64
+      epoch: null
+      name: libsigsegv
+      release: 4.el9
+      source: rpm
+      version: '2.13'
+  libslirp:
+    - arch: x86_64
+      epoch: null
+      name: libslirp
+      release: 7.el9
+      source: rpm
+      version: 4.4.0
+  libsmartcols:
+    - arch: x86_64
+      epoch: null
+      name: libsmartcols
+      release: 3.el9
+      source: rpm
+      version: 2.37.4
+  libsolv:
+    - arch: x86_64
+      epoch: null
+      name: libsolv
+      release: 1.el9
+      source: rpm
+      version: 0.7.22
+  libstdc++:
+    - arch: x86_64
+      epoch: null
+      name: libstdc++
+      release: 9.4.el9.alma
+      source: rpm
+      version: 11.2.1
+  libtasn1:
+    - arch: x86_64
+      epoch: null
+      name: libtasn1
+      release: 7.el9
+      source: rpm
+      version: 4.16.0
+  libunistring:
+    - arch: x86_64
+      epoch: null
+      name: libunistring
+      release: 15.el9
+      source: rpm
+      version: 0.9.10
+  libusbx:
+    - arch: x86_64
+      epoch: null
+      name: libusbx
+      release: 4.el9
+      source: rpm
+      version: 1.0.24
+  libuser:
+    - arch: x86_64
+      epoch: null
+      name: libuser
+      release: 10.el9
+      source: rpm
+      version: '0.63'
+  libutempter:
+    - arch: x86_64
+      epoch: null
+      name: libutempter
+      release: 6.el9
+      source: rpm
+      version: 1.2.1
+  libuuid:
+    - arch: x86_64
+      epoch: null
+      name: libuuid
+      release: 3.el9
+      source: rpm
+      version: 2.37.4
+  libverto:
+    - arch: x86_64
+      epoch: null
+      name: libverto
+      release: 3.el9
+      source: rpm
+      version: 0.3.2
+  libxcrypt:
+    - arch: x86_64
+      epoch: null
+      name: libxcrypt
+      release: 3.el9
+      source: rpm
+      version: 4.4.18
+  libxcrypt-compat:
+    - arch: x86_64
+      epoch: null
+      name: libxcrypt-compat
+      release: 3.el9
+      source: rpm
+      version: 4.4.18
+  libxml2:
+    - arch: x86_64
+      epoch: null
+      name: libxml2
+      release: 1.el9_0.1
+      source: rpm
+      version: 2.9.13
+  libyaml:
+    - arch: x86_64
+      epoch: null
+      name: libyaml
+      release: 7.el9
+      source: rpm
+      version: 0.2.5
+  libzstd:
+    - arch: x86_64
+      epoch: null
+      name: libzstd
+      release: 2.el9
+      source: rpm
+      version: 1.5.1
+  lua-libs:
+    - arch: x86_64
+      epoch: null
+      name: lua-libs
+      release: 4.el9
+      source: rpm
+      version: 5.4.2
+  lz4-libs:
+    - arch: x86_64
+      epoch: null
+      name: lz4-libs
+      release: 5.el9
+      source: rpm
+      version: 1.9.3
+  mpfr:
+    - arch: x86_64
+      epoch: null
+      name: mpfr
+      release: 7.el9
+      source: rpm
+      version: 4.1.0
+  ncurses-base:
+    - arch: noarch
+      epoch: null
+      name: ncurses-base
+      release: 8.20210508.el9
+      source: rpm
+      version: '6.2'
+  ncurses-libs:
+    - arch: x86_64
+      epoch: null
+      name: ncurses-libs
+      release: 8.20210508.el9
+      source: rpm
+      version: '6.2'
+  nettle:
+    - arch: x86_64
+      epoch: null
+      name: nettle
+      release: 2.el9
+      source: rpm
+      version: 3.7.3
+  npth:
+    - arch: x86_64
+      epoch: null
+      name: npth
+      release: 8.el9
+      source: rpm
+      version: '1.6'
+  openldap:
+    - arch: x86_64
+      epoch: null
+      name: openldap
+      release: 1.el9_0
+      source: rpm
+      version: 2.6.2
+  openldap-compat:
+    - arch: x86_64
+      epoch: null
+      name: openldap-compat
+      release: 1.el9_0
+      source: rpm
+      version: 2.6.2
+  openssl:
+    - arch: x86_64
+      epoch: 1
+      name: openssl
+      release: 41.el9_0
+      source: rpm
+      version: 3.0.1
+  openssl-libs:
+    - arch: x86_64
+      epoch: 1
+      name: openssl-libs
+      release: 41.el9_0
+      source: rpm
+      version: 3.0.1
+  p11-kit:
+    - arch: x86_64
+      epoch: null
+      name: p11-kit
+      release: 2.el9
+      source: rpm
+      version: 0.24.1
+  p11-kit-trust:
+    - arch: x86_64
+      epoch: null
+      name: p11-kit-trust
+      release: 2.el9
+      source: rpm
+      version: 0.24.1
+  pam:
+    - arch: x86_64
+      epoch: null
+      name: pam
+      release: 9.el9_0.1
+      source: rpm
+      version: 1.5.1
+  passwd:
+    - arch: x86_64
+      epoch: null
+      name: passwd
+      release: 12.el9
+      source: rpm
+      version: '0.80'
+  pcre:
+    - arch: x86_64
+      epoch: null
+      name: pcre
+      release: 3.el9.3
+      source: rpm
+      version: '8.44'
+  pcre2:
+    - arch: x86_64
+      epoch: null
+      name: pcre2
+      release: 5.el9_0
+      source: rpm
+      version: '10.37'
+  pcre2-syntax:
+    - arch: noarch
+      epoch: null
+      name: pcre2-syntax
+      release: 5.el9_0
+      source: rpm
+      version: '10.37'
+  pkgconf:
+    - arch: x86_64
+      epoch: null
+      name: pkgconf
+      release: 9.el9
+      source: rpm
+      version: 1.7.3
+  pkgconf-m4:
+    - arch: noarch
+      epoch: null
+      name: pkgconf-m4
+      release: 9.el9
+      source: rpm
+      version: 1.7.3
+  pkgconf-pkg-config:
+    - arch: x86_64
+      epoch: null
+      name: pkgconf-pkg-config
+      release: 9.el9
+      source: rpm
+      version: 1.7.3
+  policycoreutils:
+    - arch: x86_64
+      epoch: null
+      name: policycoreutils
+      release: 1.el9
+      source: rpm
+      version: '3.5'
+  policycoreutils-python-utils:
+    - arch: noarch
+      epoch: null
+      name: policycoreutils-python-utils
+      release: 1.el9
+      source: rpm
+      version: '3.5'
+  popt:
+    - arch: x86_64
+      epoch: null
+      name: popt
+      release: 8.el9
+      source: rpm
+      version: '1.18'
+  procps-ng:
+    - arch: x86_64
+      epoch: null
+      name: procps-ng
+      release: 5.el9_0
+      source: rpm
+      version: 3.3.17
+  psmisc:
+    - arch: x86_64
+      epoch: null
+      name: psmisc
+      release: 3.el9
+      source: rpm
+      version: '23.4'
+  python3:
+    - arch: x86_64
+      epoch: null
+      name: python3
+      release: 1.el9_1.1
+      source: rpm
+      version: 3.9.14
+  python3-audit:
+    - arch: x86_64
+      epoch: null
+      name: python3-audit
+      release: 103.el9
+      source: rpm
+      version: 3.0.7
+  python3-dateutil:
+    - arch: noarch
+      epoch: 1
+      name: python3-dateutil
+      release: 6.el9
+      source: rpm
+      version: 2.8.1
+  python3-dbus:
+    - arch: x86_64
+      epoch: null
+      name: python3-dbus
+      release: 2.el9
+      source: rpm
+      version: 1.2.18
+  python3-devel:
+    - arch: x86_64
+      epoch: null
+      name: python3-devel
+      release: 1.el9_1.1
+      source: rpm
+      version: 3.9.14
+  python3-distro:
+    - arch: noarch
+      epoch: null
+      name: python3-distro
+      release: 7.el9
+      source: rpm
+      version: 1.5.0
+  python3-dnf:
+    - arch: noarch
+      epoch: null
+      name: python3-dnf
+      release: 4.el9.alma
+      source: rpm
+      version: 4.12.0
+  python3-dnf-plugins-core:
+    - arch: noarch
+      epoch: null
+      name: python3-dnf-plugins-core
+      release: 5.el9_2
+      source: rpm
+      version: 4.3.0
+  python3-gpg:
+    - arch: x86_64
+      epoch: null
+      name: python3-gpg
+      release: 6.el9
+      source: rpm
+      version: 1.15.1
+  python3-hawkey:
+    - arch: x86_64
+      epoch: null
+      name: python3-hawkey
+      release: 3.el9.alma
+      source: rpm
+      version: 0.67.0
+  python3-libcomps:
+    - arch: x86_64
+      epoch: null
+      name: python3-libcomps
+      release: 1.el9
+      source: rpm
+      version: 0.1.18
+  python3-libdnf:
+    - arch: x86_64
+      epoch: null
+      name: python3-libdnf
+      release: 3.el9.alma
+      source: rpm
+      version: 0.67.0
+  python3-libs:
+    - arch: x86_64
+      epoch: null
+      name: python3-libs
+      release: 1.el9_1.1
+      source: rpm
+      version: 3.9.14
+  python3-libselinux:
+    - arch: x86_64
+      epoch: null
+      name: python3-libselinux
+      release: 1.el9
+      source: rpm
+      version: '3.5'
+  python3-libsemanage:
+    - arch: x86_64
+      epoch: null
+      name: python3-libsemanage
+      release: 1.el9
+      source: rpm
+      version: '3.5'
+  python3-pip:
+    - arch: noarch
+      epoch: null
+      name: python3-pip
+      release: 6.el9
+      source: rpm
+      version: 21.2.3
+  python3-pip-wheel:
+    - arch: noarch
+      epoch: null
+      name: python3-pip-wheel
+      release: 6.el9
+      source: rpm
+      version: 21.2.3
+  python3-policycoreutils:
+    - arch: noarch
+      epoch: null
+      name: python3-policycoreutils
+      release: 1.el9
+      source: rpm
+      version: '3.5'
+  python3-rpm:
+    - arch: x86_64
+      epoch: null
+      name: python3-rpm
+      release: 22.el9
+      source: rpm
+      version: 4.16.1.3
+  python3-setools:
+    - arch: x86_64
+      epoch: null
+      name: python3-setools
+      release: 1.el9
+      source: rpm
+      version: 4.4.1
+  python3-setuptools:
+    - arch: noarch
+      epoch: null
+      name: python3-setuptools
+      release: 10.el9
+      source: rpm
+      version: 53.0.0
+  python3-setuptools-wheel:
+    - arch: noarch
+      epoch: null
+      name: python3-setuptools-wheel
+      release: 10.el9
+      source: rpm
+      version: 53.0.0
+  python3-six:
+    - arch: noarch
+      epoch: null
+      name: python3-six
+      release: 9.el9
+      source: rpm
+      version: 1.15.0
+  python3-systemd:
+    - arch: x86_64
+      epoch: null
+      name: python3-systemd
+      release: 18.el9
+      source: rpm
+      version: '234'
+  readline:
+    - arch: x86_64
+      epoch: null
+      name: readline
+      release: 4.el9
+      source: rpm
+      version: '8.1'
+  rootfiles:
+    - arch: noarch
+      epoch: null
+      name: rootfiles
+      release: 31.el9
+      source: rpm
+      version: '8.1'
+  rpm:
+    - arch: x86_64
+      epoch: null
+      name: rpm
+      release: 22.el9
+      source: rpm
+      version: 4.16.1.3
+  rpm-build-libs:
+    - arch: x86_64
+      epoch: null
+      name: rpm-build-libs
+      release: 22.el9
+      source: rpm
+      version: 4.16.1.3
+  rpm-libs:
+    - arch: x86_64
+      epoch: null
+      name: rpm-libs
+      release: 22.el9
+      source: rpm
+      version: 4.16.1.3
+  rpm-plugin-selinux:
+    - arch: x86_64
+      epoch: null
+      name: rpm-plugin-selinux
+      release: 22.el9
+      source: rpm
+      version: 4.16.1.3
+  rpm-sign-libs:
+    - arch: x86_64
+      epoch: null
+      name: rpm-sign-libs
+      release: 22.el9
+      source: rpm
+      version: 4.16.1.3
+  sed:
+    - arch: x86_64
+      epoch: null
+      name: sed
+      release: 9.el9
+      source: rpm
+      version: '4.8'
+  selinux-policy:
+    - arch: noarch
+      epoch: null
+      name: selinux-policy
+      release: 2.el9_2.3
+      source: rpm
+      version: 38.1.11
+  selinux-policy-targeted:
+    - arch: noarch
+      epoch: null
+      name: selinux-policy-targeted
+      release: 2.el9_2.3
+      source: rpm
+      version: 38.1.11
+  setup:
+    - arch: noarch
+      epoch: null
+      name: setup
+      release: 6.el9
+      source: rpm
+      version: 2.13.7
+  shadow-utils:
+    - arch: x86_64
+      epoch: 2
+      name: shadow-utils
+      release: 3.el9
+      source: rpm
+      version: '4.9'
+  slirp4netns:
+    - arch: x86_64
+      epoch: null
+      name: slirp4netns
+      release: 3.el9
+      source: rpm
+      version: 1.2.0
+  sqlite-libs:
+    - arch: x86_64
+      epoch: null
+      name: sqlite-libs
+      release: 5.el9
+      source: rpm
+      version: 3.34.1
+  sudo:
+    - arch: x86_64
+      epoch: null
+      name: sudo
+      release: 7.el9
+      source: rpm
+      version: 1.9.5p2
+  systemd:
+    - arch: x86_64
+      epoch: null
+      name: systemd
+      release: 6.el9_0.1
+      source: rpm
+      version: '250'
+  systemd-libs:
+    - arch: x86_64
+      epoch: null
+      name: systemd-libs
+      release: 6.el9_0.1
+      source: rpm
+      version: '250'
+  systemd-pam:
+    - arch: x86_64
+      epoch: null
+      name: systemd-pam
+      release: 6.el9_0.1
+      source: rpm
+      version: '250'
+  systemd-rpm-macros:
+    - arch: noarch
+      epoch: null
+      name: systemd-rpm-macros
+      release: 6.el9_0.1
+      source: rpm
+      version: '250'
+  tar:
+    - arch: x86_64
+      epoch: 2
+      name: tar
+      release: 3.el9
+      source: rpm
+      version: '1.34'
+  tpm2-tss:
+    - arch: x86_64
+      epoch: null
+      name: tpm2-tss
+      release: 7.el9
+      source: rpm
+      version: 3.0.3
+  tzdata:
+    - arch: noarch
+      epoch: null
+      name: tzdata
+      release: 1.el9_0
+      source: rpm
+      version: 2022c
+  usermode:
+    - arch: x86_64
+      epoch: null
+      name: usermode
+      release: 4.el9
+      source: rpm
+      version: '1.114'
+  util-linux:
+    - arch: x86_64
+      epoch: null
+      name: util-linux
+      release: 3.el9
+      source: rpm
+      version: 2.37.4
+  util-linux-core:
+    - arch: x86_64
+      epoch: null
+      name: util-linux-core
+      release: 3.el9
+      source: rpm
+      version: 2.37.4
+  vim-minimal:
+    - arch: x86_64
+      epoch: 2
+      name: vim-minimal
+      release: 16.el9_0.3
+      source: rpm
+      version: 8.2.2637
+  virt-what:
+    - arch: x86_64
+      epoch: null
+      name: virt-what
+      release: 2.el9.2
+      source: rpm
+      version: '1.21'
+  which:
+    - arch: x86_64
+      epoch: null
+      name: which
+      release: 27.el9
+      source: rpm
+      version: '2.21'
+  xz:
+    - arch: x86_64
+      epoch: null
+      name: xz
+      release: 8.el9_0
+      source: rpm
+      version: 5.2.5
+  xz-libs:
+    - arch: x86_64
+      epoch: null
+      name: xz-libs
+      release: 8.el9_0
+      source: rpm
+      version: 5.2.5
+  yum:
+    - arch: noarch
+      epoch: null
+      name: yum
+      release: 4.el9.alma
+      source: rpm
+      version: 4.12.0
+  zlib:
+    - arch: x86_64
+      epoch: null
+      name: zlib
+      release: 31.el9_0.1
+      source: rpm
+      version: 1.2.11
+processes:
+  - cmdline: /sbin/init
+    cwd: /
+    pid: '1'
+    ppid: '0'
+    user: root
+  - cmdline: /usr/lib/systemd/systemd-journald
+    cwd: /
+    pid: '19'
+    ppid: '1'
+    user: root
+  - cmdline: /usr/bin/containerd
+    cwd: /
+    pid: '34'
+    ppid: '1'
+    user: root
+  - cmdline: /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
+    cwd: /
+    pid: '49'
+    ppid: '1'
+    user: root
+  - cmdline: /usr/bin/containerd-shim-runc-v2 -namespace moby -id 5bccb90df8998ae8dbcd8cb1bad19b931e42ed4656d41b1b15e51d8cb977f5a7 -address /run/containerd/containerd.sock
+    cwd: /run/containerd/io.containerd.runtime.v2.task/moby/5bccb90df8998ae8dbcd8cb1bad19b931e42ed4656d41b1b15e51d8cb977f5a7
+    pid: '222'
+    ppid: '1'
+    user: root
+  - cmdline: /usr/bin/dbus-broker-launch --scope system --audit
+    cwd: /
+    pid: '239'
+    ppid: '1'
+    user: dbus
+  - cmdline: dbus-broker --log 4 --controller 9 --machine-id 404287b447c3ca0a5b02bc9b5138fd8b --max-bytes 536870912 --max-fds 4096 --max-matches 16384 --audit
+    cwd: /
+    pid: '240'
+    ppid: '239'
+    user: dbus
+  - cmdline: /usr/bin/python3 /usr/bin/patroni /etc/patroni.yml
+    cwd: /home/postgres
+    pid: '243'
+    ppid: '222'
+    user: '1000'
+  - cmdline: /usr/bin/python3 /usr/bin/patroni /etc/patroni.yml
+    cwd: /home/postgres
+    pid: '259'
+    ppid: '243'
+    user: '1000'
+  - cmdline: postgres -D /var/lib/postgresql/data --config-file=/var/lib/postgresql/data/postgresql.conf --listen_addresses=0.0.0.0 --port=5432 --cluster_name=patroni --wal_level=replica --hot_standby=on --max_connections=100 --max_wal_senders=10 --max_prepared_transactions=0 --max_locks_per_transaction=64 --track_commit_timestamp=off --max_replication_slots=10 --max_worker_processes=8 --wal_log_hints=on
+    cwd: /var/lib/postgresql/data
+    pid: '302'
+    ppid: '243'
+    user: '1000'
+  - cmdline: 'postgres: patroni: checkpointer'
+    cwd: /var/lib/postgresql/data
+    pid: '304'
+    ppid: '302'
+    user: '1000'
+  - cmdline: 'postgres: patroni: background writer'
+    cwd: /var/lib/postgresql/data
+    pid: '305'
+    ppid: '302'
+    user: '1000'
+  - cmdline: 'postgres: patroni: walwriter'
+    cwd: /var/lib/postgresql/data
+    pid: '306'
+    ppid: '302'
+    user: '1000'
+  - cmdline: 'postgres: patroni: autovacuum launcher'
+    cwd: /var/lib/postgresql/data
+    pid: '307'
+    ppid: '302'
+    user: '1000'
+  - cmdline: 'postgres: patroni: stats collector'
+    cwd: /var/lib/postgresql/data
+    pid: '308'
+    ppid: '302'
+    user: '1000'
+  - cmdline: 'postgres: patroni: TimescaleDB Background Worker Launcher'
+    cwd: /var/lib/postgresql/data
+    pid: '309'
+    ppid: '302'
+    user: '1000'
+  - cmdline: 'postgres: patroni: logical replication launcher'
+    cwd: /var/lib/postgresql/data
+    pid: '310'
+    ppid: '302'
+    user: '1000'
+  - cmdline: 'postgres: patroni: postgres postgres 127.0.0.1(48470) idle'
+    cwd: /var/lib/postgresql/data
+    pid: '316'
+    ppid: '302'
+    user: '1000'
+  - cmdline: /usr/bin/telegraf -config /etc/telegraf/telegraf.conf -config-directory /etc/telegraf/telegraf.d
+    cwd: /
+    pid: '858'
+    ppid: '1'
+    user: root
+  - cmdline: /bin/sh -c sudo -H -S -n  -u root /bin/sh -c 'echo BECOME-SUCCESS-gubcomslwsqtwkowvrxlkqyvekjnnaly ; /usr/bin/python3.9 /root/.ansible/tmp/ansible-tmp-1694702640.9653947-453021-70149311593002/AnsiballZ_process_facts.py' && sleep 0
+    cwd: /
+    pid: '2722'
+    ppid: '0'
+    user: root
+  - cmdline: sudo -H -S -n -u root /bin/sh -c echo BECOME-SUCCESS-gubcomslwsqtwkowvrxlkqyvekjnnaly ; /usr/bin/python3.9 /root/.ansible/tmp/ansible-tmp-1694702640.9653947-453021-70149311593002/AnsiballZ_process_facts.py
+    cwd: /
+    pid: '2723'
+    ppid: '2722'
+    user: root
+  - cmdline: /usr/bin/python3 /usr/bin/dnf makecache --timer
+    cwd: /
+    pid: '2724'
+    ppid: '1'
+    user: root
+  - cmdline: /usr/bin/python3.9 /root/.ansible/tmp/ansible-tmp-1694702640.9653947-453021-70149311593002/AnsiballZ_process_facts.py
+    cwd: /
+    pid: '2725'
+    ppid: '2723'
+    user: root
+software_list:
+  - cmd_regexp: /usr/bin/patroni
+    custom_tasks:
+      - include_tasks:
+          file: '{{ software_discovery__custom_tasks_definition_files_path }}/patroni.yaml'
+        name: Include patroni specific plugins
+    name: Patroni
+    pkg_regexp: patroni
+    process_type: parent
+    return_children: false
+    return_packages: true
+tcp_listen:
+  - address: 0.0.0.0
+    name: patroni
+    pid: 259
+    port: 8008
+    protocol: tcp
+    stime: Thu Sep 14 12:53:36 2023
+    user: '1000'
+  - address: 0.0.0.0
+    name: postgres
+    pid: 302
+    port: 5432
+    protocol: tcp
+    stime: Thu Sep 14 12:53:37 2023
+    user: '1000'
+udp_listen: [ ]
