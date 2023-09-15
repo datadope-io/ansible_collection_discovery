@@ -265,7 +265,7 @@
 - name: Add databases to extra data
   set_instance_fact:
     extra_data: "<< (__instance__.extra_data | default([])) | combine({
-    'databases': __instance__._databases
+    'databases': __instance__._databases | sort
     }) >>"
   when: __instance__._databases is defined
 - name: Remove temporary vars
