@@ -973,6 +973,15 @@ mocked_plugin_tasks:
         REDIS_DOWNLOAD_SHA: b8756e430479edc162ba9c44dc89ac394316cd482f2dc6b91bcd5fe12593f273
         REDIS_DOWNLOAD_URL: http://download.redis.io/releases/redis-6.0.1.tar.gz
         REDIS_VERSION: 6.0.1
+  Get config file from command line:
+    expected_exception:
+      message: '''NoneType'' object is not iterable'
+  Get config file from docker args:
+    expected_exception:
+      message: '''NoneType'' object is not iterable'
+  Read config file:
+    plugin_result:
+        failed: true
   Run version command:
     calls:
       - execute_module_result:
@@ -1031,6 +1040,11 @@ mocked_plugin_tasks:
           windows_valid_extensions: null
   Run redis-cli command:
     calls:
+      - execute_module_result:
+          failed: true
+        argv: null
+        cmd: '/usr/local/bin/redis-cli    --tls --insecure -p  6379 --raw config get "*"'
+        in_docker: true
       - execute_module_result:
           failed: false
           stdout_lines: [
@@ -1373,7 +1387,7 @@ mocked_plugin_tasks:
           ]
         expected_args:
           argv: null
-          cmd: '/usr/local/bin/redis-cli    -p 6378  --raw  config get "*"'
+          cmd: '/usr/local/bin/redis-cli     -p  6379 --raw config get "*"'
           in_docker: true
 packages:
   GeoIP:
@@ -4603,6 +4617,8 @@ software_list:
         auth_user: "{{ redis_auth_user | default('') }}"
         auth_password: "{{ redis_auth_password | default('') }}"
         unix_socket: "{{ redis_unix_socket_path | default('') }}"
+        tls: "{{ redis_tls | default('') }}"
+        tls_verify: "{{ redis_tls_verify | default('false') }}"
 tcp_listen:
   - address: 127.0.0.1
     name: master

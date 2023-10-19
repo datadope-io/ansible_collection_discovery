@@ -26,6 +26,50 @@
 #      when: __instance__._cmd_port is defined
 #  when: __instance__.process.cmdline is defined
 
+- name: Get config file
+  block:
+    - name: Get config file from command line
+      set_instance_fact:
+        _config_file_path: "<< __instance__.process.cmdline | regex_search('redis-server (\\S*\\.conf)', '\\1', ignorecase=True) | first >>"
+      ignore_errors: yes
+    - name: Get config file from docker args
+      set_instance_fact:
+        _config_file_path: "<< ' '.join(__instance__.docker.full_data.Args) | regex_search('(\\S*\\.conf)', '\\1', ignorecase=True) | first >>"
+      ignore_errors: yes
+      when:
+        - __instance__._config_file_path is not defined
+    - name: Read config file
+      read_remote_file:
+        file_path: "<< __instance__._config_file_path | default('/etc/redis/redis.conf') >>"
+        parser: "key_value"
+        parser_params:
+          separators:
+            - " "
+      register: result
+      ignore_errors: yes
+    - name: Store parsed configuration if needed
+      set_instance_fact:
+        _config_file: "<< result.parsed >>"
+      when:
+        - result is not failed
+        - result.parsed
+
+- name: Process Docker info
+  block:
+    - name: Store Docker configuration entry
+      set_instance_fact:
+        _config_docker: "<< __instance__._config_docker | default({}) | combine({
+          __instance__.docker.full_data.Args[__index__ | int].lstrip('-'): __instance__.docker.full_data.Args[__index__ | int + 1] | default('')
+        }) >>"
+      ignore_errors: yes
+      loop: "<< range(0, __instance__.docker.full_data.Args | length, 2) | list >>"
+      loop_control:
+        loop_var: __index__
+  when:
+    - __instance__.docker is defined
+    - __instance__.docker.full_data.Args is defined
+    - __instance__.docker.full_data.Args
+
 - name: Block to get bin_file
   block:
     - name: Get executable from command line
@@ -107,29 +151,199 @@
 
 - name: Get redis configuration if client was found
   block:
-    - name: Iterate over available ports if configuration was not already extracted
+    - name: Prepare user options
       block:
-        - name: Run redis-cli command
-          run_command:
-            cmd: >-
-              << __instance__._rc_bin_file >>
-              << ('--user "' + connection.auth_user + '"') if connection.auth_user else '' >>
-              << ('-a "' + connection.auth_password + '"') if connection.auth_password else '' >>
-              << ('-s "' + connection.unix_socket + '"') if connection.unix_socket else ''>>
-              -p << __item__ >> 
-              --raw 
-              config get "*"
-          register: rc_result
-        - name: Store configuration entry
+        - name: Add user if defined in _config_docker
           set_instance_fact:
-            configuration: "<< __instance__.configuration | default({}) | combine({
-              rc_result.stdout_lines[__index__ | int]: rc_result.stdout_lines[__index__ | int + 1] | default('')
-            }) >>"
-          loop: "<< range(0, rc_result.stdout_lines | length, 2) | list >>"
+            _users: "<< __instance__._users | default([]) + [__instance__._config_docker.user] >>"
+          when:
+            - __instance__._config_docker.user is defined
+            - __instance__._config_docker.user
+        - name: Add user if defined in _config_file
+          set_instance_fact:
+            _users: "<< __instance__._users | default([]) + [__instance__._config_file.user] >>"
+          when:
+            - __instance__._config_file.user is defined
+            - __instance__._config_file.user
+        - name: Add defined redis user
+          set_instance_fact:
+            _users: "<< __instance__._users | default([]) + [connection.auth_user] >>"
+          when: connection.auth_user
+        - name: Add default redis user
+          set_instance_fact:
+            _users: "<< (__instance__._users | default([]) + ['']) | unique >>"
+    - name: Prepare password options
+      block:
+        - name: Add password if defined in _config_docker
+          set_instance_fact:
+            _passwords: "<< __instance__._passwords | default([]) + [__instance__._config_docker.requirepass] >>"
+          when:
+            - __instance__._config_docker.requirepass is defined
+            - __instance__._config_docker.requirepass
+        - name: Add password if defined in _config_file
+          set_instance_fact:
+            _passwords: "<< __instance__._passwords | default([]) + [__instance__._config_file.requirepass] >>"
+          when:
+            - __instance__._config_file.requirepass is defined
+            - __instance__._config_file.requirepass
+        - name: Add defined redis password
+          set_instance_fact:
+            _passwords: "<< __instance__._passwords | default([]) + [connection.auth_password] >>"
+          when: connection.auth_password
+        - name: Add default redis password
+          set_instance_fact:
+            _passwords: "<< (__instance__._passwords | default([]) + ['']) | unique >>"
+    - name: Prepare UNIX socket options
+      block:
+        - name: Add UNIX socket if defined in _config_docker
+          set_instance_fact:
+            _unix_sockets: "<< __instance__._unix_sockets | default([]) + [__instance__._config_docker.unixsocket] >>"
+          when:
+            - __instance__._config_docker.unixsocket is defined
+            - __instance__._config_docker.unixsocket
+        - name: Add UNIX socket if defined in _config_file
+          set_instance_fact:
+            _unix_sockets: "<< __instance__._unix_sockets | default([]) + [__instance__._config_file.unixsocket] >>"
+          when:
+            - __instance__._config_file.unixsocket is defined
+            - __instance__._config_file.unixsocket
+        - name: Add defined UNIX socket
+          set_instance_fact:
+            _unix_sockets: "<< __instance__._unix_sockets | default([]) + [connection.unix_socket] >>"
+          when: connection.unix_socket
+        - name: Add default redis UNIX socket
+          set_instance_fact:
+            _unix_sockets: "<< (__instance__._unix_sockets | default([]) + []) | unique >>"
+    - name: Prepare TLS options
+      block:
+        - name: Add tls if defined in _config_docker
+          set_instance_fact:
+            _tls: "<< __instance__._tls | default([]) + ['yes'] >>"
+          when:
+            - __instance__._config_docker['tls-key-file'] is defined
+            - __instance__._config_docker['tls-key-file']
+        - name: Add tls if defined in _config_file
+          set_instance_fact:
+            _tls: "<< __instance__._tls | default([]) + ['yes'] >>"
+          when:
+            - __instance__._config_file['tls-key-file'] is defined
+            - __instance__._config_file['tls-key-file']
+        - name: Add defined redis tls
+          set_instance_fact:
+            _tls: "<< __instance__._tls | default([]) + [connection.tls] >>"
+          when: connection.tls
+        - name: Add default redis tls
+          set_instance_fact:
+            _tls: "<< (__instance__._tls | default([]) + ['no']) | unique >>"
+    - name: Prepare port options
+      block:
+        - name: Add port if defined in _config_docker
+          set_instance_fact:
+            _ports: "<< __instance__._ports | default([]) + [__instance__._config_docker.port | int] >>"
+          when:
+            - __instance__._config_docker.port is defined
+            - __instance__._config_docker.port
+            - __instance__._config_docker.port | int > 0
+        - name: Add tls-port if defined in _config_docker
+          set_instance_fact:
+            _ports: "<< __instance__._ports | default([]) + [__instance__._config_docker['tls-port'] | int] >>"
+          when:
+            - __instance__._config_docker['tls-port'] is defined
+            - __instance__._config_docker['tls-port']
+            - __instance__._config_docker['tls-port'] | int > 0
+        - name: Add port if defined in _config_file
+          set_instance_fact:
+            _ports: "<< __instance__._ports | default([]) + [__instance__._config_file.port | int] >>"
+          when:
+            - __instance__._config_file.port is defined
+            - __instance__._config_file.port
+            - __instance__._config_file.port | int > 0
+        - name: Add tls-port if defined in _config_file
+          set_instance_fact:
+            _ports: "<< __instance__._ports | default([]) + [__instance__._config_file['tls-port'] | int] >>"
+          when:
+            - __instance__._config_file['tls-port'] is defined
+            - __instance__._config_file['tls-port']
+            - __instance__._config_file['tls-port'] | int > 0
+        - name: Add listening ports
+          set_instance_fact:
+            _ports: "<< __instance__._ports | default([]) + __instance__.listening_ports >>"
+        - name: Add default redis port
+          set_instance_fact:
+            _ports: "<< (__instance__._ports | default([]) + [6379]) | unique >>"
+
+    - name: Iterate over users if configuration is not already extracted
+      block:
+        - name: iterate over passwords if configuration is not already extracted
+          block:
+            - name: Iterate over unix sockets if configuration is not already extracted
+              block:
+                - name: Run redis-cli command
+                  run_command:
+                    cmd: >-
+                      << __instance__._rc_bin_file >>
+                      << ('--user "' + __user__ + '"') if __user__ else '' >>
+                      << ('-a "' + __password__ + '"') if __password__ else '' >>
+                      << '-s "' + __unix_socket__ + '"' >>
+                      --raw
+                      config get "*"
+                  register: rc_result
+                  timeout: 10
+                - name: Store configuration entry
+                  set_instance_fact:
+                    configuration: "<< __instance__.configuration | default({}) | combine({
+                  rc_result.stdout_lines[__index__ | int]: rc_result.stdout_lines[__index__ | int + 1] | default('')
+                }) >>"
+                  loop: "<< range(0, rc_result.stdout_lines | length, 2) | list >>"
+                  loop_control:
+                    loop_var: __index__
+              ignore_errors: yes
+              when: __instance__.configuration is not defined
+              loop: "<< __instance__._unix_sockets >>"
+              loop_control:
+                loop_var: __unix_socket__
+            - name: Iterate over ports if configuration is not already extracted
+              block:
+                - name: Iterate over tls if configuration is not already extracted
+                  block:
+                    - name: Run redis-cli command
+                      run_command:
+                        cmd: >-
+                          << __instance__._rc_bin_file >>
+                          << ('--user "' + __user__ + '"') if __user__ else '' >>
+                          << ('-a "' + __password__ + '"') if __password__ else '' >>
+                          << '--tls' if __tls__ | lower in ['yes', 'true', '1'] else '' >>
+                          << '--insecure' if __tls__ | lower in ['yes', 'true', '1'] and connection.tls_verify in ['no', 'false', '0'] else '' >>
+                          -p  << __port__ >>
+                          --raw
+                          config get "*"
+                      register: rc_result
+                      timeout: 10
+                    - name: Store configuration entry
+                      set_instance_fact:
+                        configuration: "<< __instance__.configuration | default({}) | combine({
+                          rc_result.stdout_lines[__index__ | int]: rc_result.stdout_lines[__index__ | int + 1] | default('')
+                        }) >>"
+                      loop: "<< range(0, rc_result.stdout_lines | length, 2) | list >>"
+                      loop_control:
+                        loop_var: __index__
+                  ignore_errors: yes
+                  when: __instance__.configuration is not defined
+                  loop: "<< __instance__._tls >>"
+                  loop_control:
+                    loop_var: __tls__
+              when: __instance__.configuration is not defined
+              loop: "<< __instance__._ports >>"
+              loop_control:
+                loop_var: __port__
+          when: __instance__.configuration is not defined
+          loop: "<< __instance__._passwords >>"
           loop_control:
-            loop_var: __index__
+            loop_var: __password__
       when: __instance__.configuration is not defined
-      loop: "<< __instance__.listening_ports >>"
+      loop: "<< __instance__._users >>"
+      loop_control:
+        loop_var: __user__
   when: __instance__._rc_bin_file is defined
 
 - name: Remove temporary vars
@@ -137,3 +351,10 @@
     - _tmp_version
     - _bin_file
     - _rc_bin_file
+    - _config_file
+    - _config_docker
+    - _users
+    - _passwords
+    - _unix_sockets
+    - _tls
+    - _ports

@@ -409,6 +409,8 @@ software_discovery__software_list:
         auth_user: "{{ redis_auth_user | default('') }}"
         auth_password: "{{ redis_auth_password | default('') }}"
         unix_socket: "{{ redis_unix_socket_path | default('') }}"
+        tls: "{{ redis_tls | default('') }}"
+        tls_verify: "{{ redis_tls_verify | default('false') }}"
     custom_tasks:
       - name: Include redis specific plugins
         include_tasks:
