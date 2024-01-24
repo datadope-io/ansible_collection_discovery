@@ -12,7 +12,7 @@ from ansible_collections.datadope.discovery.plugins.action_utils.software_facts.
     import SoftwareFactsParser
 
 REMOVE_COMMENTS_REGEX = r"(?m)\s*<delimiter>.*$"
-EXTRACT_KEY_VALUE_REGEX = r"(\b\w+)\s*=\s*(.*?(?=\s\w+= |$))"
+EXTRACT_KEY_VALUE_REGEX = r"(\b[\w\-\ ]+)\s*=\s*(.*?(?=\s\w+= |$))"
 
 display = Display()
 

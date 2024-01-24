@@ -1,3 +1,10 @@
+# 1.10.0
+
+## Features
+
+- Improve `Redis` software discovery with TLS support and enhanced information gathering.
+- Improve `key_value` parser with support for `-` and ` ` in keys.
+
 # 1.9.0
 
 ## Features
