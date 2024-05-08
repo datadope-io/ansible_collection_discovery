@@ -4,7 +4,6 @@ __metaclass__ = type
 
 import pytest
 from ansible.module_utils.six.moves import builtins  # noqa
-from pytest_lazyfixture import lazy_fixture
 
 from ansible_collections.datadope.discovery.plugins.action.software_facts import ActionModule
 
@@ -229,11 +228,12 @@ def params_set_two_sw(sw_config, params_set_one_sw):
 
 @pytest.mark.parametrize(argnames=['params_and_expected_result'],
                          argvalues=[
-                             (lazy_fixture('params_set_one_sw'),),
-                             (lazy_fixture('params_set_two_sw'),),
-                             (lazy_fixture('params_set_no_sw'),)]
+                             ('params_set_one_sw',),
+                             ('params_set_two_sw',),
+                             ('params_set_no_sw',)]
                          )
-def test_get_software_ok(normalize, params_and_expected_result):
+def test_get_software_ok(normalize, params_and_expected_result, request):
+    params_and_expected_result = request.getfixturevalue(params_and_expected_result)
     params, expected_result = params_and_expected_result
     result = ActionModule(*[None] * 6).process_software(**params)
     assert normalize(result) == normalize(expected_result)

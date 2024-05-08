@@ -5,7 +5,6 @@ __metaclass__ = type
 import os
 
 import pytest
-from pytest_lazyfixture import lazy_fixture
 
 from ansible_collections.community.internal_test_tools.tools.lib.yaml import load_yaml
 from ansible_collections.datadope.discovery.plugins.action_utils.snmp_utils.utils import get_info_by_sysobject
@@ -122,14 +121,15 @@ def dell_match_generic(sysobject_ids_file):
 
 @pytest.mark.parametrize(argnames=['params_and_expected_result'],
                          argvalues=[
-                             (lazy_fixture('aruba_match_generic'),),
-                             (lazy_fixture('aruba_not_brand_generic'),),
-                             (lazy_fixture('cisco_match_generic'),),
-                             (lazy_fixture('cisco_match_testing'),),
-                             (lazy_fixture('dell_not_type_generic'),),
-                             (lazy_fixture('dell_match_generic'),), ]
+                             ('aruba_match_generic',),
+                             ('aruba_not_brand_generic',),
+                             ('cisco_match_generic',),
+                             ('cisco_match_testing',),
+                             ('dell_not_type_generic',),
+                             ('dell_match_generic',), ]
                          )
-def test_sysobjectids(params_and_expected_result):
+def test_sysobjectids(params_and_expected_result, request):
+    params_and_expected_result = request.getfixturevalue(params_and_expected_result)
     params, expected_result = params_and_expected_result
     result = get_info_by_sysobject(
         sysobject_ids_file=params['sysobject_ids_file'],
