@@ -83,11 +83,11 @@ class GenericDetector:
         ppid = process['ppid']
         if int(ppid) > 0 and ppid not in tested_pids and ppid not in used_pids \
                 and ppid in hierarchical_processes_by_pid:
+            tested_pids.append(ppid)
             found = self._check_process_hierarchy(hierarchical_processes_by_pid, hierarchical_processes_by_pid[ppid],
                                                   software_processes, tested_pids, used_pids)
         if not found:
             found = self._check_process_is_sw(hierarchical_processes_by_pid, process, software_processes, used_pids)
-        tested_pids.append(ppid)
         return found
 
     def _children_pids(self, process, pids):
