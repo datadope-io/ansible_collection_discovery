@@ -1,3 +1,9 @@
+# 1.10.1
+
+## Fixed
+
+- Avoid loops when a pid has it's ppid as pid on its child at any depth.
+
 # 1.10.0
 
 ## Features

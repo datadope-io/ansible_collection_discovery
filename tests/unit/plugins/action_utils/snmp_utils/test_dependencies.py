@@ -3,7 +3,6 @@ from __future__ import (absolute_import, division, print_function)
 __metaclass__ = type
 
 import pytest
-from pytest_lazyfixture import lazy_fixture
 
 from ansible_collections.datadope.discovery.plugins.action_utils.snmp_utils.utils import index_dependency
 
@@ -236,9 +235,10 @@ def params_index_dependency():
 
 @pytest.mark.parametrize(argnames=['params_and_expected_result'],
                          argvalues=[
-                             (lazy_fixture('params_index_dependency'),)]
+                             ('params_index_dependency',)]
                          )
-def test_dependencies(params_and_expected_result):
+def test_dependencies(params_and_expected_result, request):
+    params_and_expected_result = request.getfixturevalue(params_and_expected_result)
     params, expected_result = params_and_expected_result
     tagged_result = params['tagged_result']
     for config in params['config_dependencies']:

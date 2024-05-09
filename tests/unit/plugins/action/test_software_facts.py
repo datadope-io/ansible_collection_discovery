@@ -7,7 +7,6 @@ import os.path
 import pytest
 from ansible.errors import AnsibleError, AnsibleRuntimeError
 from ansible.module_utils.six import iteritems
-from pytest_lazyfixture import lazy_fixture
 
 from ansible_collections.community.internal_test_tools.tests.unit.compat.mock import call, patch, MagicMock, ANY
 from ansible_collections.datadope.discovery.plugins.action.software_facts import ActionModule
@@ -1124,7 +1123,7 @@ def test_init(action_module):
     argnames=('params', 'expected_result'),
     argvalues=[
         (
-                lazy_fixture('params_set_child_with_children'), True
+                'params_set_child_with_children', True
         ),
         (
                 {
@@ -1186,7 +1185,9 @@ def test_init(action_module):
                 }, False
         )
     ])
-def test_validate_parameters(action_module, params, expected_result):
+def test_validate_parameters(action_module, params, expected_result, request):
+    if isinstance(params, str):
+        params = request.getfixturevalue(params)
     instance = action_module(ActionModule)
     assert instance.validate_parameters(params[0] if isinstance(params, tuple) else params) is expected_result
 
@@ -1369,14 +1370,15 @@ def test_include_exclude(action_module, task_vars, original_list, include, exclu
 
 @pytest.mark.parametrize(argnames=['params_and_expected_result'],
                          argvalues=[
-                             (lazy_fixture('params_set_child_with_children'),),
-                             (lazy_fixture('params_set_child_without_children'),),
-                             (lazy_fixture('params_set_parent_with_children'),),
-                             (lazy_fixture('params_set_parent_without_children'),),
-                             (lazy_fixture('params_set_dockers_with_children'),),
-                             (lazy_fixture('params_set_dockers_without_children'),)]
+                             ('params_set_child_with_children',),
+                             ('params_set_child_without_children',),
+                             ('params_set_parent_with_children',),
+                             ('params_set_parent_without_children',),
+                             ('params_set_dockers_with_children',),
+                             ('params_set_dockers_without_children',)]
                          )
-def test_get_software_ok(action_module, normalize, params_and_expected_result):
+def test_get_software_ok(action_module, normalize, params_and_expected_result, request):
+    params_and_expected_result = request.getfixturevalue(params_and_expected_result)
     params, expected_result = params_and_expected_result
     result = action_module(ActionModule).process_software(**params)
     assert normalize(result) == normalize(expected_result)

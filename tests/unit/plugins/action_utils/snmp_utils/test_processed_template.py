@@ -3,7 +3,6 @@ from __future__ import (absolute_import, division, print_function)
 __metaclass__ = type
 
 import pytest
-from pytest_lazyfixture import lazy_fixture
 
 from ansible_collections.datadope.discovery.plugins.action_utils.snmp_utils.utils import processed_templating_result
 
@@ -270,9 +269,10 @@ def params_processed_template():
 
 @pytest.mark.parametrize(argnames=['params_and_expected_result'],
                          argvalues=[
-                             (lazy_fixture('params_processed_template'),)]
+                             ('params_processed_template',)]
                          )
-def test_util_process_templating(params_and_expected_result):
+def test_util_process_templating(params_and_expected_result, request):
+    params_and_expected_result = request.getfixturevalue(params_and_expected_result)
     params, expected_result = params_and_expected_result
     result = processed_templating_result(
         snmp_template=params['snmp_template'],

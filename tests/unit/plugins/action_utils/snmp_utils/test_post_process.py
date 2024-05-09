@@ -4,7 +4,6 @@ __metaclass__ = type
 
 
 import pytest
-from pytest_lazyfixture import lazy_fixture
 
 from ansible_collections.datadope.discovery.plugins.action_utils.snmp_utils.post_process import post_process
 
@@ -47,13 +46,14 @@ def unknown_method():
 
 @pytest.mark.parametrize(argnames=['params_and_expected_result'],
                          argvalues=[
-                             (lazy_fixture('decode_hex'),),
-                             (lazy_fixture('decode_mac'),),
-                             (lazy_fixture('lookups_adminstatus'),),
-                             (lazy_fixture('lookup_operstatus'),),
-                             (lazy_fixture('unknown_method'),)]
+                             ('decode_hex',),
+                             ('decode_mac',),
+                             ('lookups_adminstatus',),
+                             ('lookup_operstatus',),
+                             ('unknown_method',)]
                          )
-def test_post_process(params_and_expected_result):
+def test_post_process(params_and_expected_result, request):
+    params_and_expected_result = request.getfixturevalue(params_and_expected_result)
     params, expected_result = params_and_expected_result
     for i in range(len(params[1])):
         process_method = post_process(params[0])
