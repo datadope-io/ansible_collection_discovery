@@ -1,3 +1,9 @@
+# 1.10.2
+
+## Fixed
+
+- Avoid unexpected error for oracle instances processing.
+
 # 1.10.1
 
 ## Fixed

@@ -107,8 +107,7 @@
                         updates:
                           - path: _list_procs.<< _listener_index >>.instances.<< __item__[1] | replace('+', '') >>
                             value: << __instance__._list_procs[_listener_index].instances[__item__[1]] | default([]) + [__item__[0]] >>
-                      loop: << __instance__._instance_and_names >>
-                      when: __instance__._instance_and_names is defined
+                      loop: << __instance__._instance_and_names | default([]) >>
                   when: result is not failed
                 - name: Remove temporary vars
                   del_instance_fact:
