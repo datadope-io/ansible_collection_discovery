@@ -111,6 +111,8 @@ software_discovery__software_list:
     process_type: parent
     return_children: true
     return_packages: true
+    vars:
+      ignore_udp: "{{ haproxy_ignore_udp | default(true) }}"
     custom_tasks:
       - name: Include HAProxy specific plugins
         include_tasks:

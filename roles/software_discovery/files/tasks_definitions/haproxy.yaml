@@ -167,9 +167,30 @@
       when: __instance__._stats_bind_entries is defined
   when: __instance__.configuration is defined
 
+- name: Exclude UDP ports if needed
+  block:
+    - name: Iterate over bindings
+      block:
+        - name: Store binding if not UDP
+          set_instance_fact:
+            _cleared_bindings: "<< __instance__._cleared_bindings | default([]) + [__item__] >>"
+          when: __item__.protocol | default('tcp') | lower != 'udp'
+        - name: Remove binding from listening_ports if UDP
+          set_instance_fact:
+            listening_ports: "<< __instance__.listening_ports | reject('search', '^' + __item__.port | string + '$') | list >>"
+          when: __item__.protocol | default('tcp') | lower == 'udp'
+      when: __item__.port is defined
+      loop: "<< __instance__.bindings | default([]) >>"
+    - name: Store processed bindings
+      set_instance_fact:
+        bindings: "<< __instance__._cleared_bindings >>"
+      when: __instance__._cleared_bindings is defined
+  when: ignore_udp
+
 - name: Remove temporary vars
   del_instance_fact:
     - _conf_files_paths
     - _bind_entries
     - _stats_socket_path
     - _stats_bind_entries
+    - _cleared_bindings

@@ -4401,6 +4401,8 @@ software_list:
   process_type: parent
   return_children: true
   return_packages: true
+  vars:
+    ignore_udp: False
 tcp_listen:
 - address: 0.0.0.0
   name: rpcbind
