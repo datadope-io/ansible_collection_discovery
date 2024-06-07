@@ -5,6 +5,10 @@
 - Improve `HAProxy` software discovery with the new flag `haproxy_ignore_udp`, which 
   ignores UDP bindings and ports.
 
+## Fixed
+
+- Update `IIS` tests to match the latest `cmdline` changes. 
+
 # 1.10.2
 
 ## Fixed
