@@ -53,13 +53,11 @@ expected_result:
   - 443
   - 800
   process:
-    cmdline: c:\windows\system32\inetsrv\w3wp.exe -ap "DefaultAppPool" -v "v4.0" -l
-      "webengine4.dll" -a .\pipe\iisipm4bbd81c3-b78e-4b0c-9df3-5be8fdd12d40 -h "C:\inetpub\temp\apppools\DefaultAppPool\DefaultAppPool.config"
-      -w "\" -m 0 -t 20 -ta 0"
+    cmdline: C:\windows\system32\svchost.exe -k iissvcs
     cwd: /
-    pid: '1964'
-    ppid: '4972'
-    user: IIS APPPOOL\DefaultAppPool
+    pid: '4972'
+    ppid: '432'
+    user: NT AUTHORITY\SYSTEM
   type: IIS
   version:
   - number: 8.5.9600.16384
@@ -2100,7 +2098,7 @@ processes:
   ppid: '3212'
   user: TEST-NORM-WIN01\iometrics
 software_list:
-- cmd_regexp: w3wp.exe
+- cmd_regexp: iissvcs
   custom_tasks:
   - include_tasks:
       file: << software_discovery__custom_tasks_definition_files_path >>/iis.yaml

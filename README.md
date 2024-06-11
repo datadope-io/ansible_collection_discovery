@@ -250,6 +250,7 @@ value of this var, and it is the one used by the role or playbook (if not explic
 - IOMetrics Visualizer API
 - InfluxDB
 - JBoss Application Server
+- Jolokia Proxy
 - KeepAliveD
 - Logstash
 - MariaDB DatabaseServer
