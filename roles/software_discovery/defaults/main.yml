@@ -181,6 +181,16 @@ software_discovery__software_list:
         include_tasks:
           file: "{{ software_discovery__custom_tasks_definition_files_path }}/jboss.yaml"
 
+  - name: Jolokia Proxy
+    cmd_regexp: 'jetty'
+    process_type: parent
+    return_children: false
+    return_packages: false
+    custom_tasks:
+      - name: Include Jolokia Proxy specific plugins
+        include_tasks:
+          file: "{{ software_discovery__custom_tasks_definition_files_path }}/jolokia_proxy.yaml"
+
   - name: KeepAliveD
     cmd_regexp: 'keepalived.*'
     pkg_regexp: 'keepalived'

@@ -4,6 +4,7 @@
 
 - Improve `HAProxy` software discovery with the new flag `haproxy_ignore_udp`, which 
   ignores UDP bindings and ports.
+- New `Jolokia Proxy` software discovery.
 
 ## Fixed
 

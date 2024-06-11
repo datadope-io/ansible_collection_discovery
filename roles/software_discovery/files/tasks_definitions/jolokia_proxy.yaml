@@ -1,0 +1,53 @@
+# This Jolokia Proxy tasks assumes that Jolokia is deployed using Jetty
+---
+- name: Set software by default as a missmatch
+  set_instance_fact:
+    NOT_A_REAL_SOFTWARE_REMOVE_FROM_LIST: yes
+
+- name: Read process environment
+  read_environment_for_process:
+    pid: << __instance__.process.pid >>
+  register: env_vars
+  ignore_errors: yes
+
+- name: Get jetty base regex
+  set_instance_fact:
+    _base_regex: "<< __instance__.process.cmdline | regex_search('-Djetty.base=(\\S+)', '\\1' ,ignorecase=True) | first  >>"
+  ignore_errors: yes
+
+- name: Store jetty base if found
+  set_instance_fact:
+    extra_data: "<< (__instance__.extra_data | default({})) | combine({
+    'jetty_base': __instance__._base_regex
+    }) >>"
+
+- name: Locate jolokia war if jetty base was found
+  block:
+    - name: Locate jolokia war
+      stat:
+        path: "<< (__instance__._base_regex, 'webapps/jolokia.war') | datadope.discovery.path_join >>"
+      register: jolokia_stat
+
+    - name: Store jolokia war location if necessary
+      set_instance_fact:
+        extra_data: "<< (__instance__.extra_data | default({})) | combine({
+          'jolokia': jolokia_stat.stat.path
+        }) >>"
+      when:
+        - jolokia_stat is not failed
+        - jolokia_stat.stat.exists is defined
+        - jolokia_stat.stat.exists
+  when: __instance__._base_regex is defined
+
+- name: Set software as a match if all requirements are met
+  set_instance_fact:
+    NOT_A_REAL_SOFTWARE_REMOVE_FROM_LIST: no
+  when:
+    - __instance__.extra_data.jetty_base is defined
+    - __instance__.extra_data.jolokia is defined
+    - env_vars.parsed.JOLOKIA_JSR160_PROXY_ENABLED is defined
+    - env_vars.parsed.JOLOKIA_JSR160_PROXY_ENABLED | lower in ['true', 'yes', '1']
+
+- name: Remove temporary vars
+  del_instance_fact:
+    - _base_regex
