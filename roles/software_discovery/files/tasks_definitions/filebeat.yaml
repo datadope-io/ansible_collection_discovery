@@ -1,0 +1,55 @@
+- name: Read process environment
+  read_environment_for_process:
+    pid: << __instance__.process.pid >>
+  register: env_vars
+  ignore_errors: yes
+
+- name: Get filebeat config from cmdline regex
+  set_instance_fact:
+    _config_path: "<< __instance__.process.cmdline | regex_search('-c (\\S+)', '\\1' ,ignorecase=True) | first  >>"
+  ignore_errors: yes
+
+- name: Try default config paths if not found on cmdline
+  block:
+    - name: Attempt to locate filebeat config file
+      stat:
+        path: "<< __item__ >>"
+      register: filebeat_config_stat
+
+    - name: Store filebeat config file location if necessary
+      set_instance_fact:
+        _config_path: "<< __item__ >>"
+      when:
+        - filebeat_config_stat is not failed
+        - filebeat_config_stat.stat.exists is defined
+        - filebeat_config_stat.stat.exists
+  when: __instance__._config_path is not defined
+  loop:
+    # According to the official documentation, filebeat search the default configuration file on the following paths:
+    # https://www.elastic.co/guide/en/beats/filebeat/current/configuring-howto-filebeat.html
+    # https://www.elastic.co/guide/en/beats/filebeat/current/directory-layout.html
+    - /etc/filebeat/filebeat.yml
+    - /usr/share/filebeat.yml
+    - << (env_vars.parsed.PWD | default(''), 'filebeat.yml') | datadope.discovery.path_join >>
+
+- name: Process config if found
+  block:
+    - name: Store config
+      add_file_info:
+        path: "<< __instance__._config_path | dirname >>"
+        name: "<< __instance__._config_path | basename >>"
+        type: 'config'
+        subtype: 'config_file'
+
+    # Since multiple filebeat instances can run on the same machine, an attempt to make
+    # them differentiable is generating an ID derived from the config file hash.
+    - name: Generate config ID
+      set_instance_fact:
+        extra_data: "<< (__instance__.extra_data | default({})) | combine({
+          'config_id': (__instance__._config_path | md5)[:4]
+        }) >>"
+  when: __instance__._config_path is defined
+
+- name: Remove temporary vars
+  del_instance_fact:
+    - _config_path
