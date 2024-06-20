@@ -241,6 +241,7 @@ value of this var, and it is the one used by the role or playbook (if not explic
 - Docker
 - Dynatrace Server
 - ElasticSearch
+- Filebeat
 - Grafana
 - HAProxy
 - HPE Data Protector
