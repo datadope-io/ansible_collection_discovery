@@ -94,35 +94,40 @@ try {
             }
         }
 
-        Get-VHD -VMId $_.VMId | ForEach-Object {
-            $hard_drive = @{
-                attached = $_.Attached
-                computer_name = $_.ComputerName
-                disk_identifier = $_.DiskIdentifier
-                file_size = $_.FileSize
-                minimum_size = $_.MinimumSize
-                parent_path = $_.ParentPath
-                path = $_.Path
-                size = $_.Size
-            }
-
-            if ($extended_data) {
-                $hard_drive += @{
-                    address_abstraction_type = $_.AddressAbstractionType
-                    alignment = $_.Alignment
-                    block_size = $_.BlockSize
-                    disk_number = $_.DiskNumber
-                    fragmentation_percentage = $_.FragmentationPercentage
-                    is_pmem_compatible = $_.IsPMEMCompatible
-                    logical_sector_size = $_.LogicalSectorSize
-                    number = $_.Number
-                    physical_sector_size = $_.PhysicalSectorSize
-                    vhd_format = $_.VhdFormat
-                    vhd_type = $_.VhdType
+        try {
+            Get-VHD -VMId $_.VMId | ForEach-Object {
+                $hard_drive = @{
+                    attached = $_.Attached
+                    computer_name = $_.ComputerName
+                    disk_identifier = $_.DiskIdentifier
+                    file_size = $_.FileSize
+                    minimum_size = $_.MinimumSize
+                    parent_path = $_.ParentPath
+                    path = $_.Path
+                    size = $_.Size
                 }
-            }
 
-            $vm.hard_drives += $hard_drive
+                if ($extended_data) {
+                    $hard_drive += @{
+                        address_abstraction_type = $_.AddressAbstractionType
+                        alignment = $_.Alignment
+                        block_size = $_.BlockSize
+                        disk_number = $_.DiskNumber
+                        fragmentation_percentage = $_.FragmentationPercentage
+                        is_pmem_compatible = $_.IsPMEMCompatible
+                        logical_sector_size = $_.LogicalSectorSize
+                        number = $_.Number
+                        physical_sector_size = $_.PhysicalSectorSize
+                        vhd_format = $_.VhdFormat
+                        vhd_type = $_.VhdType
+                    }
+                }
+
+                $vm.hard_drives += $hard_drive
+            }
+        }
+        catch {
+            $module.warn("An error occurred gathering the information of a Hyper-V disk: $($_.Exception.Message)")
         }
 
         foreach ($network_adapter in $vm.network_adapters) {
