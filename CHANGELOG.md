@@ -1,6 +1,12 @@
 # 1.12.0
 
+## Features
+
 - New `Filebeat` software discovery.
+
+## Fixed
+
+- Avoid crash when a Hyper-V VM disk is not available.
 
 # 1.11.0
 
