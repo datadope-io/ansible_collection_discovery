@@ -22,7 +22,6 @@ Following pip packages must be installed in this virtual env. You can choose ans
 higher than the minimum supported version:
   * `ansible`
   * `pytest`
-  * `pytest-lazy-fixture`
   * `pytest-ansible-units`
 
 ## Prepare for ansible collection development
