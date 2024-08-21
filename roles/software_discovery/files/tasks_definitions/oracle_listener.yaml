@@ -44,11 +44,13 @@
     extra_data: "<< (__instance__.extra_data | default({})) | combine({
       'name': __instance__._name
       }) >>"
+  when: __instance__._name is defined
 - name: Add bin file to files
   add_file_info:
     path: "<< __instance__._bin_file >>"
     type: binary
     subtype: process_bin_file
+  when: __instance__._bin_file is defined
 - name: Block to execute command lsnrctl
   block:
     - name: Execute lsnrctl

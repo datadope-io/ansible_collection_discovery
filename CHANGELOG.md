@@ -1,3 +1,9 @@
+# 1.12.1
+
+## Fixed
+
+- Avoid unexpected error for oracle listener processing.
+
 # 1.12.0
 
 ## Features
