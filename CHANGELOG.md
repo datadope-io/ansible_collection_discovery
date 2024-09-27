@@ -1,3 +1,9 @@
+# 1.12.2
+
+## Fixed
+
+- Fix logic errors on tomcat config file search.
+
 # 1.12.1
 
 ## Fixed

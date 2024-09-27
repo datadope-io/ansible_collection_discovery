@@ -377,28 +377,14 @@ expected_result:
   - number: 7.0.76
     type: package
 expected_tasks_calls:
-  Check if server file in base is accessible: 1
-  Check if server file in home is accessible: 1
-  Check if xml_file is accessible: 1
   Get config from cmdline: 1
   Get config_file: 1
+  Check if temporary config file exists: 1
   Read config file: 1
   Read file version 1: 1
   Read file version 2: 1
   Read process environment: 1
 mocked_plugin_tasks:
-  Check if server file in base is accessible:
-    number_of_calls: 1
-    plugin_result:
-      failed: false
-  Check if server file in home is accessible:
-    number_of_calls: 1
-    plugin_result:
-      failed: false
-  Check if xml_file is accessible:
-    number_of_calls: 1
-    plugin_result:
-      failed: false
   Get config from cmdline:
     expected_exception:
       message: '''NoneType'' object is not iterable'
@@ -407,6 +393,10 @@ mocked_plugin_tasks:
     expected_exception:
       message: '''NoneType'' object is not iterable'
     number_of_calls: 1
+  Check if temporary config file exists:
+    number_of_calls: 1
+    plugin_result:
+      failed: false
   Read config file:
     number_of_calls: 1
     plugin_result:

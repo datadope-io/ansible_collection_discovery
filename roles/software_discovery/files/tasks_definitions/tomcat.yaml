@@ -79,10 +79,25 @@
       set_instance_fact:
         _conf_file: "<<__instance__._config_file>>"
       when: __instance__._config_file is defined
-    - name: Set config_file if is not defined
-      set_instance_fact:
-        _conf_file: "<< (__instance__._config_base, 'conf/server.xml') | datadope.discovery.path_join >>"
-      when: __instance__._config_file is not defined
+    - name: Search config_file if it is not defined
+      block:
+        - name: Set temporary config file
+          set_instance_fact:
+            _temp_conf_file: "<< (__item__, 'conf/server.xml') | datadope.discovery.path_join >>"
+        - name: Check if temporary config file exists
+          stat:
+            path: "<< __instance__._temp_conf_file >>"
+          register: _temp_conf_file_stat
+        - name: Store temporary config file if found
+          set_instance_fact:
+            _conf_file: "<< __instance__._temp_conf_file >>"
+          when: _temp_conf_file_stat is not failed
+      when:
+        - __item__ | length > 0
+        - __instance__._conf_file is not defined
+      loop:
+        - << __instance__._config_base | default('') >>
+        - << __instance__._config_home | default('') >>
     - name: Get version from file 1
       block:
         - name: Get release_file to version 1 with container
@@ -236,51 +251,18 @@
 
 - name: Parse config
   block:
-    - name: Get server file in home
-      set_instance_fact:
-        _server_file_in_home: "<< (__instance__._config_home, 'conf/server.xml') | datadope.discovery.path_join >>"
-    - name: Get server file in base
-      set_instance_fact:
-        _server_file_in_base: "<< (__instance__._config_base, 'conf/server.xml') | datadope.discovery.path_join >>"
-    - name: Set server_xml file
-      set_instance_fact:
-        _server_xml_file: "<<__instance__._conf_file>>"
-    - name: Check if xml_file is accessible
-      stat:
-        path: "<< __instance__._server_xml_file>>"
-      register: result_xml
-    - name: Check if server file in base is accessible
-      stat:
-        path: "<< __instance__._server_file_in_base >>"
-      register: result
-    - name: Set server file if is base
-      set_instance_fact:
-        _server_xml_file: "<<__instance__._server_file_in_base>>"
-      when:
-        - result is not failed
-    - name: Check if server file in home is accessible
-      stat:
-        path: "<< __instance__._server_file_in_home >>"
-      register: result
-    - name: Set server file if is home
-      set_instance_fact:
-        _server_xml_file: "<<__instance__._server_file_in_home>>"
-      when:
-        - result is not failed
     - name: Read config file
       read_remote_file:
-        file_path: "<< __instance__._server_xml_file>>"
+        file_path: "<< __instance__._conf_file >>"
         parser: "xml"
       register: _xml_file
-      when:
-        - __instance__._server_xml_file is defined
-    - name: Save config file
+    - name: Store config file
       set_instance_fact:
-        _config_file_xml:  "<<_xml_file.parsed>>"
+        _config_file_xml:  "<< _xml_file.parsed >>"
       when:
         - _xml_file is defined
         - _xml_file is not failed
-    - name: Check config_file.xml
+    - name: Process config file
       block:
         - name: Check if exist Connector
           find_in_dict:
@@ -383,11 +365,9 @@
                   loop_control:
                     loop_var: connector_item
                   ignore_errors: yes
-              loop: "<<connectors.result>>"
+              loop: "<< connectors.result | default([]) >>"
               loop_control:
                 loop_var: connector
-              when:
-                - connectors is defined
           when:
             - __instance__._connector_http is not defined
         - name: If in port have a dollar
@@ -435,11 +415,9 @@
                   when:
                     - "'=' in line"
                     - __instance__._connector_http_var in line
-              loop: "<<__instance__._catalina_text>>"
+              loop: "<< __instance__._catalina_text | default([]) >>"
               loop_control:
                 loop_var: line
-              when:
-                - __instance__._catalina_text is defined
           when:
             - __instance__.connector_http is defined
             - __instance__.connector_http['attr-port'] is defined
@@ -473,9 +451,7 @@
             - __instance__._connector_ajp is defined
       when:
         - __instance__._config_file_xml is defined
-  when:
-    - __instance__._home_reg is defined
-    - env_vars is defined
+  when: __instance__._conf_file is defined
 
 - name: Set port jmx
   block:
@@ -586,4 +562,6 @@
     - _config_file
     - _version
     - _conf_file
+    - _temp_conf_file
+    - _temp_conf_file_stat
     - _connector
