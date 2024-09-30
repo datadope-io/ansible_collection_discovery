@@ -1,3 +1,9 @@
+# 1.12.3
+
+## Fixed
+
+- Fix logic error on Jolokia Proxy `jetty_base` processing.
+
 # 1.12.2
 
 ## Fixed
