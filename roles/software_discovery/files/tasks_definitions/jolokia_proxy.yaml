@@ -20,6 +20,7 @@
     extra_data: "<< (__instance__.extra_data | default({})) | combine({
       'jetty_base': __instance__._base_regex
     }) >>"
+  when: __instance__._base_regex is defined
 
 - name: Locate jolokia war if jetty base was found
   block:
