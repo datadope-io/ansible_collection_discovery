@@ -40,11 +40,11 @@ EXAMPLES = r'''
 - name: Gather Hyper-V facts
   datadope.discovery.win_hyperv_facts:
 
-- name: Gather full processes facts
+- name: Gather full Hyper-V facts
   datadope.discovery.win_hyperv_facts:
     extended_data: true
 
-- name: Gather full processes facts with only the year within the date fields
+- name: Gather full Hyper-V facts with only the year within the date fields
   datadope.discovery.win_hyperv_facts:
     extended_data: true
     date_format: '%Y'
