@@ -316,7 +316,7 @@
                     -c 'psql -d << __db_instance__ >> -w -t -A -c "select datname from pg_database;" -p << pg_port >>
                     << sql_connection_extra_params | default('') >>'
                 - >-
-                    "<< __instance__._raw_bin_file | regex_search('^.*bin\\?\\?') >>psql.exe" -U << __user_info__.username >> -d 
+                    "<< __instance__._raw_bin_file | default('') | regex_search('^.*bin\\?\\?') >>psql.exe" -U << __user_info__.username >> -d 
                     << __db_instance__ >> -w -t -A -c "select datname from pg_database;" -p << pg_port >>
                     << sql_connection_extra_params | default('') >>
               loop_control:

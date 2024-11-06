@@ -38,7 +38,7 @@
           set_instance_fact:
             _conf_file_path: "<< (__instance__._httpd_root, __instance__._conf_file_path) | datadope.discovery.path_join >>"
           when: accesible is failed
-      when: result is not failed
+      when: result.stdout is defined
   when:
     - __instance__._conf_file_path is not defined
     - __instance__._bin_file is defined
@@ -55,7 +55,7 @@
       add_version_info:
         version_type: "active"
         version_number: "<< result.stdout | regex_search('Apache/(\\d+(?:\\.\\d+)*)', '\\1') | first >>"
-      when: result is not failed
+      when: result.stdout is defined
       ignore_errors: yes
 
 - name: Read process environment
