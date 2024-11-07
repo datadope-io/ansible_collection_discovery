@@ -1,3 +1,10 @@
+# 1.12.4
+
+## Fixed
+
+- Support `Apache WebServer` binary file returning non-zero return codes.
+- Improve logic for `PostgreSQL` binary file commands.
+
 # 1.12.3
 
 ## Fixed
