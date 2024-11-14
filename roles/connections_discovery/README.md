@@ -1,5 +1,15 @@
 # datadope.discovery.connections_discovery
 
+This role automatically runs the corresponding connection facts module for the target host according to the operating
+system (Windows or Linux).
+The information gathered is provided as an ansible fact with key `connections` that will contain a list of connections
+and the following information per connection:
+  - Current listening ports
+  - Current established connections
+  - Command line of the process that opened the connection
+  - Hostname
+  - Process name
+
 ## Requirements
 
 ### Windows
