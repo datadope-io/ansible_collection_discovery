@@ -1,3 +1,11 @@
+# 1.13.0
+
+## Features
+
+- New `connection_facts` module.
+- New `win_connection_facts` module.
+- New `connection_discovery` role.
+
 # 1.12.4
 
 ## Fixed

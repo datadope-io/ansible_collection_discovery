@@ -1,0 +1,14 @@
+---
+galaxy_info:
+  role_name: connections_discovery
+  author: David Nieto
+  description: Role to get existing connections on linux and windows machines
+  company: Datadope
+  license: GPL-3.0-or-later
+  min_ansible_version: 2.9.8
+
+  galaxy_tags:
+    - discovery
+    - connections
+
+dependencies: []

@@ -1,0 +1,15 @@
+---
+- name: Run connection_facts if machine is Linux
+  connection_facts: {}
+  become: true
+  ignore_errors: yes
+  when:
+    - ansible_system is defined
+    - ansible_system | lower == 'linux'
+
+- name: Run win_connection_facts if machine is Windows
+  win_connection_facts: {}
+  register: result
+  when:
+    - ansible_system is defined
+    - ansible_system | lower == 'win32nt'

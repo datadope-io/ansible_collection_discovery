@@ -17,6 +17,7 @@ plugins/module_utils/file_parser/nginx/loader.py pylint!skip
 plugins/module_utils/file_parser/nginx/parser.py pylint!skip
 plugins/module_utils/file_parser/lex.py pylint!skip
 plugins/module_utils/file_parser/yacc.py pylint!skip
+plugins/module_utils/psutil_net.py pylint:disallowed-name
 plugins/action_utils/software_facts/compat/__init__.py pylint!skip
 plugins/action_utils/software_facts/compat/ansible/config/data.py pylint!skip
 plugins/action_utils/software_facts/compat/ansible/config/manager.py pylint!skip
@@ -92,6 +93,7 @@ plugins/module_utils/file_parser/keepalived/parser.py use-compat-six
 plugins/module_utils/file_parser/nginx/lexer.py use-compat-six
 plugins/module_utils/file_parser/nginx/loader.py use-compat-six
 plugins/module_utils/file_parser/nginx/parser.py use-compat-six
+plugins/modules/win_connection_facts.ps1 pslint:PSCustomUseLiteralPath
 plugins/modules/win_package_facts.ps1 pslint:PSCustomUseLiteralPath
 plugins/modules/snmp_facts.py validate-modules:undocumented-parameter
 plugins/modules/snmp_facts.py validate-modules:doc-default-does-not-match-spec
