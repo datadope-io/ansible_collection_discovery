@@ -6,9 +6,11 @@
   * [Modules](#modules)
     * [software_facts](#software_facts)
     * [process_facts](#process_facts)
+    * [connection_facts](#connection_facts)
     * [win_process_facts](#win_process_facts)
     * [win_package_facts](#win_package_facts)
     * [win_hyperv_facts](#win_hyperv_facts)
+    * [win_connection_facts](#win_connection_facts)
     * [sunos_listen_ports_facts](#sunos_listen_ports_facts)
     * [file_parser](#file_parser)
     * [check_connection](#check_connection)
@@ -18,6 +20,7 @@
     * [docker_containers](#docker_containers)
     * [hyperv_vms](#hyperv_vms)
     * [snmp_discovery](#snmp_discovery)
+    * [connections_discovery](#connections_discovery)
   * [Playbooks](#playbooks)
     * [software_discovery.yml](#software_discoveryyml)
   * [Other artifacts](#other-artifacts)
@@ -75,10 +78,16 @@ This module gets the list of processes that are being executed in the target hos
 
 See [implementation](plugins/modules/process_facts.py) and [doc](docs/modules/software_facts.md).
 
+### connection_facts
+
+This module provides information of the existing connections of a Linux machine, including PID, process name and
+commandline.
+
+See [implementation](plugins/modules/connection_facts.py) and [doc](docs/modules/connection_facts.md).
+
 ### win_process_facts
 
 This module provides the same information as [process_facts](#process_facts), but it supports Windows target hosts.
-
 
 Windows modules are implemented using PowerShell. But module definition must be provided in a python file.
 
@@ -104,6 +113,14 @@ Windows modules are implemented using PowerShell. But module definition must be 
 
 See [definition](plugins/modules/win_hyperv_facts.py), [implementation](plugins/modules/win_hyperv_facts.ps1) and
 [doc](docs/modules/win_hyperv_facts.md).
+
+### win_connection_facts
+
+This module provides information of the existing connections of a Windows machine, including PID, process name and
+commandline.
+
+See [definition](plugins/modules/win_connection_facts.py), [implementation](plugins/modules/win_connection_facts.ps1) and
+[doc](docs/modules/win_connection_facts.md).
 
 ### sunos_listen_ports_facts
 
@@ -177,6 +194,15 @@ using the IP and UDP port through the SNMP protocol and provide valuable informa
 the network devices.
 
 See [implementation](roles/snmp_discovery) and [doc](docs/roles/snmp_discovery.md).
+
+
+### connections_discovery
+
+This role automatically runs the corresponding connection facts module for the target host according to the operating
+system (Windows or Linux).
+The information gathered is provided as an ansible fact with key `connections` that will contain a list of connections.
+
+See [implementation](roles/connections_discovery) and [doc](docs/roles/connections_discovery.md).
 
 ## Playbooks
 
