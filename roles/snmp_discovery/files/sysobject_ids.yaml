@@ -1,7 +1,12 @@
 generic_template:
   3Com:
     NETWORKING:
+      '49': null
       '114': null
+      '559': null
+      '135': null
+      '429': null
+      '43': null
       114.1.3.2.1.1: CoreBuilder6012
       114.1.3.2.1.1.8: CoreBuilder6012
       114.1.3.2.1.2: CoreBuilder6012Chassis
@@ -27,13 +32,10 @@ generic_template:
       114.1.3.2.3.6: CoreBuilder6012BaTMM
       114.1.3.2.3.7: CoreBuilder6012BaFSM
       114.1.3.2.3.8: CoreBuilder6012BaFESM
-      '135': null
       '135.28': AccessBuilder6218-JX
-      '429': null
       429.2.13: ADSL-812
       429.2.19: HPARCcard
       429.2.23.1.0.3.64.63: CMTScard
-      '43': null
       43.1.12.1: CoreBuilder7000
       43.1.12.3.2: PathBuilderS600
       43.1.12.4: CoreBuilder7000
@@ -162,15 +164,12 @@ generic_template:
       43.1.8.65: Baseline S3524-PoE
       43.1.8.67: Baseline S2426 PWR Plus
       43.1.8.68: Baseline S2250-SFP Plus
-      43.1.8.69: OfficeConnect8
       43.1.8.70: OfficeConnectPoE
       43.1.9.13.3.1.1: S4007
       43.1.9.13.3.1.2: S4007R
       43.1.9.15.2: ATMExpansion
       43.48.1.1.5: VCX-7005
-      '49': null
       49.2.3.24: CoreBuilder5000
-      '559': null
       559.2.13.7: OfficeConnect 531S
     NETWORKING/Bridge/Extender:
       43.1.8.17: LinkBuilderFMS100LBridge
@@ -319,6 +318,7 @@ generic_template:
       43.1.8.45: S3848
       43.1.8.46: S3228
       43.1.8.47: S3252
+      43.1.8.69: OfficeConnect8
       43.1.8.52: OfficeConnect Managed Switch 9
       43.1.8.66: Baseline S2226-SFP Plus
       43.1.8.77: Baseline 2250-SFP Plus
@@ -353,7 +353,7 @@ generic_template:
     NETWORKING/Switch:
       21117.2.1: AMG9024GM-HP-VE
   APC:
-    NETWORKING:
+    NETWORKING/UPS:
       318.1.3.2: Smart-UPS
       318.1.3.2.12: Smart-UPS-3000 RM XL
       318.1.3.2.13: Smart-UPS-RT 5000 XL
@@ -4013,7 +4013,9 @@ generic_template:
       232.134.2.20.2.20: 3XDCE02
       232.160.5.1: HP 0x1x8 G3 KVM
       232.9.4: iLO
+    NETWORKING/Management Controller:
       232.9.4.10: iLO-P89
+      232.9.4.11: "Integrated Lights-Out 5"
   Compatible:
     NETWORKING:
       '255': null
@@ -4377,12 +4379,13 @@ generic_template:
       '10917.1': I-4604
   Dell:
     NETWORKING:
-      674.10892.2: iDRAC
-      674.10892.5: PowerEdge
-      '674.10895': PowerConnect
+      674.10895: PowerConnect
       674.10895.3053: N2024
       674.10895.3054: N2048
       674.10895.5032: PowerConnect W-IAP109
+    NETWORKING/Management Controller:
+      674.10892.2: iDRAC
+      674.10892.5: iDRAC 7 Modular
     NETWORKING/Layer 3 Switch:
       6027.1.3.12: Force10-S60
       6027.1.3.14: Force10-S4810
@@ -5531,6 +5534,9 @@ generic_template:
       12356.107.1.6004: FortiWeb 600D
       '12356.111': FortiDDoS 900B
       12356.113.100.101: FortiAuthenticator
+      12356.101.1.441: "FGT_40F"
+      12356.101.1.4010: "FGT_400F"
+      12356.101.1.80014: "FGT_VM64_HV"
     NETWORKING/Firewall, Router:
       '12356.1001': FortiNet 100A
       12356.101.1.1000: Fortigate 100
@@ -5712,6 +5718,9 @@ generic_template:
     NETWORKING/Switch:
       12356.106.1.1083: FortiSwitch 108E-POE
       12356.106.1.50030: FortiSwitch 5003A
+      12356.106.1.1484: "FSW_148F"
+    NETWORKING/Analyzer:
+      12356.103.3.64: Fortianalyzer
     NETWORKING/LoadBalancer, Firewall:
       '12356.10004': FortiWeb 1000D
       '12356.40004': FortiWeb 4000D
@@ -7331,6 +7340,18 @@ generic_template:
       25506.3.1.9.4.1066: SR07MPUA3
       '604': null
       604.10.26.1.1: S2024/S3025
+    NETWORKING/Router:
+      25506.11.2.136: "MSR930"
+      25506.1.230: "0235A395"
+    NETWORKING/Switch:
+      25506.11.1.288: "HPE 5710 48SFP+ 6QS+/2QS28 Switch"
+      25506.11.1.82: "HP V1910-24G Switch JE006A"
+      25506.11.1.83: "HP V1910-24G-PoE (365W) Switch"
+      25506.11.1.168: "HPE 1920-24G-PoE+ (370W) Switch JG926A"
+      25506.11.1.167: "HP 1920-24G-PoE+ (180W) Switch JG925A"
+      25506.11.1.28: "JD374A"
+      25506.11.1.9: "3CBLSF26PWRH"
+      25506.11.1.85: "HP V1910-48G Switch JE009A"
   HP:
     STORAGE:
       '12925': 3PAR
@@ -7505,7 +7526,7 @@ generic_template:
       11.2.3.7.11.181.22.1: Aruba 2930F-24G-4SFP Module
       11.2.3.7.11.181.23.1: Aruba 2930F-48G-4SFP Module
       11.2.3.7.11.181.24.1: Aruba 2930F-24G-PoE+-4SFP Module
-      11.2.3.7.11.181.25: Aruba 2930F-48G-PoE+-4SFP
+      # 11.2.3.7.11.181.25: Aruba 2930F-48G-PoE+-4SFP
       11.2.3.7.11.181.25.1: Aruba 2930F-48G-PoE+-4SFP Module
       11.2.3.7.11.181.276: Aruba 2930F-24G-PoE+-4SFP+-TAA
       11.2.3.7.11.181.276.1: Aruba 2930F-24G-PoE+-4SFP+-TAA Module
@@ -7728,7 +7749,6 @@ generic_template:
       25506.11.1.160: 5120-24G-PoE-Plus-4SFP-XI-TAA-2Slot
       25506.11.1.161: 5120-48G-PoE-Plus-4SFP-XI-TAA-2Slot
       25506.11.1.163: 1920-8G-PoE+(65W)
-      25506.11.1.167: 1920-24G-PoE+(180W)
       25506.11.1.170: 1920-48G-PoE+(370W)
       25506.11.1.171: FF 5700-40XG-2QSFP+ TAA
       25506.11.1.173: FF 5700-32XGT-8XG-2QSFP+ TAA
@@ -7849,7 +7869,6 @@ generic_template:
       25506.11.2.133: MSR954-W-LTE
       25506.11.2.134: MSR958
       25506.11.2.135: MSR958POE
-      25506.11.2.136: MSR930B
       25506.11.2.137: MSR930GB
       25506.11.2.138: MSR931B
       25506.11.2.140: MSR931DGB
@@ -8242,7 +8261,6 @@ generic_template:
       25506.11.1.164: 1920-8G-PoE+(180W)
       25506.11.1.165: 1920-16G
       25506.11.1.166: 1920-24G
-      25506.11.1.168: 1920-24G-PoE+(370W)
       25506.11.1.169: 1920-48G
       25506.11.1.172: FF 5700-40XG-2QSFP+
       25506.11.1.174: FF 5700-32XGT-8XG-2QSFP+
@@ -8276,7 +8294,6 @@ generic_template:
       25506.11.1.264: FlexFabric 5940 48SFP+ 6QSFP28 (JH390A)
       25506.11.1.27: A5500-48G-PoE+EI
       25506.11.1.270: FlexFabric 5940 4-slot (JH398A)
-      25506.11.1.28: A5500-24G-SFPEI
       25506.11.1.29: A5500-24G-SI
       25506.11.1.33: A5120-24G-EI
       25506.11.1.35: A5120-24G-PoE+EI
@@ -8311,6 +8328,9 @@ generic_template:
       47196.4.1.1.1.50: Aruba 8325-48Y8C (JL635A)
     NETWORKING/Management Controller:
       11.5.7.3.2: Server Management Processor
+      47196.4.1.1.1.272: "R8N87A"
+      47196.4.1.1.1.271: "R8N86A"
+      11.5.7.1.2: "Onboard Administrator"
     NETWORKING/Router:
       11.2.14.11.7.1: WAN
       11.2.14.11.7.1.1: WAN Secure Router 7001dl
@@ -8320,7 +8340,6 @@ generic_template:
       25506.1.193: SR6602
       25506.1.194: SR6608
       25506.1.229: MSR20-10
-      25506.1.230: MSR20-11
       25506.1.231: MSR20-13
       25506.1.232: MSR20-15
       25506.1.257: MSR20-12
@@ -8381,6 +8400,7 @@ generic_template:
       11.2.3.7.11.108: ProCurve 6120G/XG (498358-B21)
       11.2.3.7.11.11: ProCurve 2424M (J4122B)
       11.2.3.7.11.134: Procurve 1810-48G
+      11.2.3.7.11.181.25: "JL262A"
       11.2.3.7.11.140: 2530-24G
       11.2.3.7.11.141: 2530-8G
       11.2.3.7.11.143: 2530-24-PoE+
@@ -8809,9 +8829,6 @@ generic_template:
       25506.11.1.78: A5830AF-24XG
       25506.11.1.8: V1905-24
       25506.11.1.81: V1910-16G
-      25506.11.1.82: V1910-24G
-      25506.11.1.83: V1910-24G-PoE365W
-      25506.11.1.85: V1910-48G
       25506.11.1.88: 10508V
       25506.11.1.89: '10512'
       25506.11.1.9: V1905-24-PoE
@@ -8921,14 +8938,6 @@ generic_template:
       2011.10.1.119: S3928F-V6
       2011.10.1.130: S2008CT
       2011.10.1.131: S2008CP
-      2011.10.1.138: AR19-61
-      2011.10.1.139: AR19-62
-      2011.10.1.140: AR29-01
-      2011.10.1.141: AR29-21
-      2011.10.1.142: AR29-41
-      2011.10.1.143: AR29-61
-      2011.10.1.144: AR49-45
-      2011.10.1.145: AR49-65
       2011.10.1.148: S5228C
       2011.10.1.149: S5252C
       2011.10.1.150: S5228C-PWR
@@ -9185,6 +9194,14 @@ generic_template:
       2011.2.279.3: S12704
       2011.2.279.6: CloudEngine S12700E-4
     NETWORKING/Router:
+      2011.10.1.138: "AR19-61"
+      2011.10.1.139: AR19-62
+      2011.10.1.140: AR29-01
+      2011.10.1.141: AR29-21
+      2011.10.1.142: AR29-41
+      2011.10.1.143: AR29-61
+      2011.10.1.144: AR49-45
+      2011.10.1.145: AR49-65
       2011.1.1.1.12809: AR28-09
       2011.1.1.1.12811: AR28-11
       2011.1.1.1.12830: AR28-30
@@ -9779,14 +9796,11 @@ generic_template:
       3054.1.1.101: iBypass DUO (IBPDUO-2X10-SR)
   Juniper:
     NETWORKING:
-      '1411': null
-      '2636': null
       2636.1.1.1.2.16: IRM
       2636.1.1.1.4.30: EX3200
       2636.1.1.1.4.31: EX4200
       2636.1.1.1.4.32: EX8208
       2636.1.1.1.4.33: EX8216
-      '8239': null
     NETWORKING/Firewall, Router, Gateway:
       2636.1.1.1.2.26: SRX5800
       2636.1.1.1.2.28: SRX5600 Services Gateway
@@ -9865,6 +9879,9 @@ generic_template:
       2636.1.1.1.2.34: SRX3600
     NETWORKING/Switch:
       '1411.102': EX2500
+      "2636.1.1.1.4.132.1": "ex2300-24t"
+      2636.1.1.1.4.132.2: "ex2300-48t"
+      2636.1.1.1.2.63: "ex4300-48t"
     NETWORKING/Web Caching, WAN Accelerator:
       8239.1.2.1: WX 50
       8239.1.2.10: WX C590
@@ -10245,6 +10262,8 @@ generic_template:
     NETWORKING:
       244.1.10: SecureLinx SLM
       '244.20': EPS2
+    NETWORKING/Console Server:
+      '244.1.13': "Lantronix EDS2100"
     PRINTER:
       '244.12': LPS1
       '244.2': EPS2
@@ -10252,6 +10271,9 @@ generic_template:
     UNKNOWN:
       '1723': null
       '244': null
+  iXsystems:
+    STORAGE:
+      "50536.3.1": "TrueNAS"
   Lenovo:
     NETWORKING/Bridge/Extender:
       20301.1.18.17: Flex System Fabric SI4093 System Interconnect Module
@@ -10537,6 +10559,9 @@ generic_template:
       15983.1.1.7.2: MC1000
       15983.1.1.7.4: MC3000
       15983.1.1.7.6: MC5000
+  Mercury Security Corp.:
+    NETWORKING/Access Control:
+      40334.1.1: "LNL-2210"
   MiLAN Technology:
     NETWORKING:
       '835': null
@@ -10775,7 +10800,6 @@ generic_template:
       2636.1.1.1.4.131.3: EX3400-24P
       2636.1.1.1.4.131.4: EX3400-48P
       2636.1.1.1.4.132.1: EX2300-24T
-      2636.1.1.1.4.132.2: EX2300-48T
       2636.1.1.1.4.132.3: EX2300-24P
       2636.1.1.1.4.132.4: EX2300-48P
       2636.1.1.1.4.132.5: EX2300C-12T
@@ -11252,6 +11276,9 @@ generic_template:
       789.2.4: NetApp Node
       789.2.5: NetApp Cluster
       789.2.6: NetApp Vserver
+  NetBotz:
+    ENVIRONMENTAL/Monitor:
+      5528.100.20.10.2001: "APC NetBotz 420 Wall"
   NetScreen:
     NETWORKING:
       '3224': null
@@ -11364,6 +11391,7 @@ generic_template:
       4526.100.4.11: GS748TP
       4526.100.4.18: G108Tv2
       4526.100.4.20: FS728TPv2
+      4526.100.4.25: GS728TP
   Netopia:
     NETWORKING: {}
     NETWORKING/Router:
@@ -11898,6 +11926,10 @@ generic_template:
   PaxComm:
     NETWORKING:
       '4474': null
+  Phoenixtec Power Co., Ltd.:
+    NETWORKING/UPS:
+      "935": null
+      "935.1.1.1": null
   Peplink:
     NETWORKING/Router:
       '23695': Balance 305
@@ -12376,6 +12408,10 @@ generic_template:
     PRINTER:
       '236': null
       236.11.5.1: ML-371x
+      "2.1707072947.774779188.774778414.842020400.858796592.808465712.808530480.942551854.774976558": "SL-M4070FR"
+      "2.1706614200.775501361.774778414.842608689.808858424.808465716.808530480.825112622.959852846": "SL-M4070FR"
+      "2.1706548659.774780212.774778414.842020401.808988977.808465200.808530480.808334126.775238702": "SL-M4070FR"
+      "2.1756945848.842083892.774778425.859125041.909195314.808464690.808530480.825112622.825111601": "SL-M4072FD"
   Schneider Electric:
     NETWORKING/Gateway:
       3833.1.7.255.255: Link150 (EGX150)
@@ -12453,6 +12489,10 @@ generic_template:
       4329.6.1.2.1.2: SCALANCE XC216-4C G (6GK5 216-4GS00-2AC2)
     NETWORKING/Wireless LAN Controller:
       4329.20.2.1.2.1.1: SCALANCE WLC711
+    NETWORKING/Phone:
+      231.6.30.5.10: "optiPoint 410 phone"
+      231.6.30.5.12: "optiPoint 410 phone"
+      231.6.30.5.9: "optiPoint 410 phone"
   Silver Peak:
     NETWORKING/WAN Accelerator:
       23867.1.2.0: EdgeConnect S
@@ -12580,6 +12620,8 @@ generic_template:
     NETWORKING/Layer 3 Switch:
       11863.1.1.35: T1500-28PCT
       11863.5.29: T1600G-52TS
+    NETWORKING/Switch:
+      11863.1.1.8: "T1600G-52PS"
   Tandberg:
     VIDEO:
       '5596': null
@@ -12594,6 +12636,9 @@ generic_template:
       3174.1.7: '1200'
       3174.1.8: '1200'
       3174.1.9: Imux1450
+  TECNOSTEEL:
+    NETWORKING/OTHER:
+      "32137.5": "NPM-V"
   Teldat:
     NETWORKING/Router:
       2007.1.1.101: Atlas-250
@@ -13426,6 +13471,8 @@ generic_template:
       33.8.7.1.4: Network9000
       33.8.7.1.5: Network9000
       33.8.7.1.6: Network9000
+    NETWORKING/UPS:
+      1.3.6.1.2.1.33: "AM-P3-CN"
   Yamaha:
     NETWORKING:
       '1182': null
@@ -13518,3 +13565,4 @@ generic_template:
   radDataIP-mux16:
     NETWORKING:
       164.6.1.3.83: null
+  

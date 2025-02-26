@@ -1,3 +1,9 @@
+# 1.14.0
+
+## Features
+
+- Improvements and new devices added to the SNMP device identification file by sysObjectID.
+
 # 1.13.0
 
 ## Features
