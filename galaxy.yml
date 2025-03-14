@@ -8,7 +8,7 @@ namespace: datadope
 name: discovery
 
 # The version of the collection. Must be compatible with semantic versioning
-version: 1.14.0
+version: 1.14.1
 
 # The path to the Markdown (.md) readme file. This path is relative to the root of the collection
 readme: README.md
@@ -16,8 +16,7 @@ readme: README.md
 # A list of the collection's content authors. Can be just the name or in the format 'Full Name <email> (url)
 # @nicks:irc/im.site#channel'
 authors:
-- Datadope <info@datadope.io> (@datadope-io)
-
+  - Datadope <info@datadope.io> (@datadope-io)
 
 ### OPTIONAL but strongly recommended
 # A short summary description of the collection
@@ -43,8 +42,8 @@ tags:
 # L(specifiers,https://python-semanticversion.readthedocs.io/en/latest/#requirement-specification). Multiple version
 # range specifiers can be set and are separated by ','
 dependencies:
-  community.general: '*'
-  community.windows: '>=1.10.0'
+  community.general: "*"
+  community.windows: ">=1.10.0"
 
 # The URL of the originating SCM repository
 repository: https://github.com/datadope-io/ansible_collection_discovery
