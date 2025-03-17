@@ -1,3 +1,9 @@
+# 1.14.1
+
+## Fixed
+
+- SQL Server: each instance is considered a different software
+
 # 1.14.0
 
 ## Features
@@ -135,11 +141,11 @@
 - Improve `Nginx WebServer` ports processing.
 - Enhanced cmd regex for `Apache Tomcat` and `Apache WebServer` detection.
 - Attributes `class`, `type` and `subtype` refined for:
-    - `Apache ActiveMQ`
-    - `Apache WebServer`
-    - `JBoss Application Server`
-    - `Oracle DatabaseServer`
-    - `Oracle Listener`
+  - `Apache ActiveMQ`
+  - `Apache WebServer`
+  - `JBoss Application Server`
+  - `Oracle DatabaseServer`
+  - `Oracle Listener`
 
 ## Fixes
 
