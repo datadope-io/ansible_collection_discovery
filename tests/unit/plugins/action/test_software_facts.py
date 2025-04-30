@@ -9,6 +9,7 @@ from ansible.errors import AnsibleError, AnsibleRuntimeError
 from ansible.module_utils.six import iteritems
 
 from ansible_collections.community.internal_test_tools.tests.unit.compat.mock import call, patch, MagicMock, ANY
+from ansible_collections.datadope.discovery.plugins.action_utils.software_facts.compat.__init__ import _TEMPLAR_HAS_TEMPLATE_CACHE
 from ansible_collections.datadope.discovery.plugins.action.software_facts import ActionModule
 
 
@@ -2268,7 +2269,8 @@ def test_replace_vars(action_module, variables, expected_result):
     }
 
     def mocked_template(data, **kwargs):
-        assert 'cache' in kwargs and kwargs['cache'] is False, "Wrong template cache parameter"
+        if _TEMPLAR_HAS_TEMPLATE_CACHE:
+            assert 'cache' in kwargs and kwargs['cache'] is False, "Wrong template cache parameter"
         if isinstance(data, dict):
             new_dict = {}
             for k, v in iteritems(data):

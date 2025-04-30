@@ -48,3 +48,10 @@ try:
 except ImportError:
     from ansible_collections.datadope.discovery.plugins.action_utils.software_facts.compat.ansible.utils.unicode \
         import unicode_wrap
+
+# Determine if templar has template cache (source: ansible community.general collection)
+# The cache was removed for ansible-core 2.14 (https://github.com/ansible/ansible/pull/78419)
+from ansible.release import __version__ as ansible_version
+from ansible.module_utils.compat.version import LooseVersion
+
+_TEMPLAR_HAS_TEMPLATE_CACHE = LooseVersion(ansible_version) < LooseVersion('2.14.0')
