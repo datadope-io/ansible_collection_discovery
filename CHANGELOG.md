@@ -1,3 +1,9 @@
+# 1.14.2
+
+## Fixed
+
+- The Ansible collection.windows is pinned to a specific version range to avoid incompatibilities introduced in version 3.0.0.
+
 # 1.14.1
 
 ## Fixed
