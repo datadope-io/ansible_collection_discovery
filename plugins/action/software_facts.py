@@ -25,7 +25,7 @@ from ansible.plugins.action import ActionBase
 from ansible.utils.display import Display
 
 from ansible_collections.datadope.discovery.plugins.action_utils.software_facts.compat.__init__ \
-    import merge_hash, isidentifier, ArgumentSpecValidator
+    import merge_hash, isidentifier, ArgumentSpecValidator, _TEMPLAR_HAS_TEMPLATE_CACHE
 
 DEFAULT_LOOP_VAR = '__item__'
 
@@ -767,7 +767,10 @@ class ActionModule(ActionBase):
 
     def _replace_instance_vars(self, data):
         if isinstance(data, text_type):
-            return self._templar.template(data.replace('<<', '{{').replace('>>', '}}'), cache=False)
+            if _TEMPLAR_HAS_TEMPLATE_CACHE:
+                return self._templar.template(data.replace('<<', '{{').replace('>>', '}}'), cache=False)
+            else:
+                return self._templar.template(data.replace('<<', '{{').replace('>>', '}}'))
         elif isinstance(data, binary_type):
             return self._replace_instance_vars(to_text(data))
         elif isinstance(data, list):

@@ -31,6 +31,8 @@ from ansible.utils.display import Display  # noqa
 
 from ansible_collections.datadope.discovery.plugins.action_utils.software_facts.plugins.__init__ \
     import SoftwareFactsPlugin  # noqa: E402
+from ansible_collections.datadope.discovery.plugins.action_utils.software_facts.compat.__init__ \
+    import _TEMPLAR_HAS_TEMPLATE_CACHE
 
 display = Display()
 
@@ -51,11 +53,14 @@ class PrintVar(SoftwareFactsPlugin):
     def run(self, args=None, attributes=None, software_instance=None):
         var = args['var']
         try:
-            results = self._templar.template(var, convert_bare=True, fail_on_undefined=True, cache=False)
+            templar_args = dict(convert_bare=True, fail_on_undefined=True, cache=False)
+            if not _TEMPLAR_HAS_TEMPLATE_CACHE:
+                templar_args.pop('cache')
+
+            results = self._templar.template(var, **templar_args)
             if results == var:
                 # If var name is same as result, try to template it
-                results = self._templar.template("{{" + results + "}}", convert_bare=True,
-                                                 fail_on_undefined=True, cache=False)
+                results = self._templar.template("{{" + results + "}}", **templar_args)
         except AnsibleUndefinedVariable as e:
             results = u"VARIABLE IS NOT DEFINED!"
             if display.verbosity > 0:
