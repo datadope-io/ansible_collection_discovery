@@ -43,7 +43,7 @@ tags:
 # range specifiers can be set and are separated by ','
 dependencies:
   community.general: "*"
-  community.windows: ">=1.10.0"
+  community.windows: ">=1.10.0,<3.0.0"
 
 # The URL of the originating SCM repository
 repository: https://github.com/datadope-io/ansible_collection_discovery
