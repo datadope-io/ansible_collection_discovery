@@ -1,3 +1,9 @@
+# 1.14.3
+
+## Fixed
+
+- Add `LooseVersion` to the internal version compatibility system.
+
 # 1.14.2
 
 ## Fixed
