@@ -1,0 +1,62 @@
+---
+- name: Gather basic configuration
+  block:
+    - name: Extract entry regex
+      set_instance_fact:
+        extra_data: "<< __instance__.extra_data | default({}) | combine(
+          { __entry__.key : __instance__.process.cmdline | regex_search(__entry__.value, '\\1', multiline=True, ignorecase=True) | first }
+        )>>"
+      ignore_errors: true
+    - name: Define default value if no match is found
+      set_instance_fact:
+        extra_data: "<< __instance__.extra_data | default({}) | combine(
+          { __entry__.key : null }
+        )>>"
+      when: __entry__.key not in __instance__.extra_data | default({})
+  loop: >
+    << {
+      'instance_name': "-Dweblogic\.Name=([\w\.\-\d]*)",
+      'home': "-Dweblogic\.home=([\w\/\.\-\d]*)",
+      'wls_home': "-Dwls\.home=([\w\/\.\-\d]*)",
+      'root_directory': "-Dweblogic\.RootDirectory=([\w\/\.\-\d]*)", 
+      'boot_identity_file': "-Dweblogic\.system\.BootIdentityFile=([\w\/\.\-\d]*)",
+      'production_mode_enabled': "-Dweblogic\.ProductionModeEnabled=(\w+)",
+      'management_server': "-Dweblogic\.management\.server=([\w\/\.\-\d:]*)",
+    } | dict2items >>
+  loop_control:
+    loop_var: __entry__
+
+- name: Extract version
+  block:
+    - name: Get version from home
+      set_instance_fact:
+        _file_version: "<< __instance__.extra_data.home | regex_search('weblogic[-_]?(\\d+(?:\\.\\d+)*)', '\\1', i=True) | first >>"
+      ignore_errors: yes
+      when:
+        - __instance__.extra_data.home is defined
+        - __instance__.extra_data.home is not none
+
+    - name: Get version from wls_home
+      set_instance_fact:
+        _file_version: "<< __instance__.extra_data.wls_home | regex_search('weblogic[-_]?(\\d+(?:\\.\\d+)*)', '\\1', i=True) | first >>"
+      ignore_errors: yes
+      when:
+        - __instance__.extra_data.wls_home is defined
+        - __instance__.extra_data.wls_home is not none
+        - __instance__._file_version is not defined
+
+    - name: Store version from file
+      add_version_info:
+        version_type: 'file'
+        version_number: << __instance__._file_version >>
+      when:
+        - __instance__._file_version is defined
+  when:
+    - __instance__.extra_data.home is defined
+    - __instance__.extra_data.home is not none
+    - __instance__.extra_data.wls_home is defined
+    - __instance__.extra_data.wls_home is not none
+
+- name: Remove temporary vars
+  del_instance_fact:
+    - _file_version

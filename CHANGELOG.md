@@ -1,3 +1,9 @@
+# 1.15.0
+
+## Features
+
+- New `WebLogic Server` software discovery.
+
 # 1.14.3
 
 ## Fixed

@@ -1,0 +1,1705 @@
+dockers: {}
+expected_result:
+- bindings: []
+  discovery_time: '2025-05-30T13:00:34+02:00'
+  extra_data:
+    boot_identity_file: "/weblogic14/user_projects/base_project/servers/project1/security/boot.properties"
+    home: "/weblogic14/product/wlserver/server"
+    instance_name: project1
+    management_server: t3://10.0.0.1:14001
+    production_mode_enabled: 'true'
+    root_directory: "/weblogic14/user_projects/base_project/servers/project1"
+    wls_home: "/weblogic14/product/wlserver/server"
+  listening_ports: []
+  process:
+    cmdline: "/weblogic14/jdk-11.0.22.0.1/bin/java -server -Xms768m -Xmx768m -cp /weblogic14/product/wlserver/server/lib/weblogic-launcher.jar
+      -Dlaunch.use.env.classpath=true -Dweblogic.Name=project1 -Djava.security.policy=/weblogic14/product/wlserver/server/lib/weblogic.policy
+      -Djava.system.class.loader=com.oracle.classloader.weblogic.LaunchClassLoader
+      -javaagent:/weblogic14/product/wlserver/server/lib/debugpatch-agent.jar -Dweblogic.system.BootIdentityFile=/weblogic14/user_projects/base_project/servers/project1/security/boot.properties
+      -Dweblogic.RootDirectory=/weblogic14/user_projects/base_project/servers/project1
+      -Dweblogic.ProductionModeEnabled=true -da -Dwls.home=/weblogic14/product/wlserver/server
+      -Dweblogic.home=/weblogic14/product/wlserver/server -Dweblogic.management.server=t3://10.0.0.1:14001
+      weblogic.Server weblogic.Server"
+    cwd: "/weblogic14/user_projects/base_project"
+    pid: '19471'
+    ppid: '19405'
+    user: weblogic
+  type: WebLogic Application Server
+  version:
+  - number: '14'
+    type: file
+- bindings: []
+  discovery_time: '2025-05-30T13:00:34+02:00'
+  extra_data:
+    boot_identity_file: "/weblogic14/user_projects/base_project/servers/project2/security/boot.properties"
+    home: "/weblogic/product/wlserver/server"
+    instance_name: project2
+    management_server: t3://10.0.0.1:14001
+    production_mode_enabled: 'true'
+    root_directory: "/weblogic14/user_projects/base_project/servers/project2"
+    wls_home: "/weblogic-14/product/wlserver/server"
+  listening_ports: []
+  process:
+    cmdline: "/weblogic14/jdk-11.0.22.0.1/bin/java -server -Xms512m -Xmx512m -Xlog:gc=info:file=/logs/mydir/gc-project2.log:time,pid:filecount=7,filesize=1m
+      -cp /weblogic14/product/wlserver/server/lib/weblogic-launcher.jar -Dlaunch.use.env.classpath=true
+      -Dweblogic.Name=project2 -Djava.security.policy=/weblogic14/product/wlserver/server/lib/weblogic.policy
+      -Dweblogic.system.BootIdentityFile=/weblogic14/user_projects/base_project/servers/project2/security/boot.properties
+      -Dweblogic.RootDirectory=/weblogic14/user_projects/base_project/servers/project2
+      -Dfile.encoding=ISO-8859-1 -Djava.io.tmpdir=/logs/mydir -Dweblogic.ProductionModeEnabled=true
+      -XX:StartFlightRecording=delay=30s,dumponexit=true,disk=false,maxsize=100M,maxage=30m,name=project2,filename=/logs/mydir/fligh-recording-project2.jfr
+      -Djava.system.class.loader=com.oracle.classloader.weblogic.LaunchClassLoader
+      -javaagent:/weblogic14/product/wlserver/server/lib/debugpatch-agent.jar -da
+      -Dwls.home=/weblogic-14/product/wlserver/server -Dweblogic.home=/weblogic/product/wlserver/server
+      -Dweblogic.management.server=t3://10.0.0.1:14001 weblogic.Server"
+    cwd: "/weblogic14/user_projects/base_project/servers/project2"
+    pid: '259415'
+    ppid: '259349'
+    user: root
+  type: WebLogic Application Server
+  version:
+  - number: '14'
+    type: file
+- bindings: []
+  discovery_time: '2025-05-30T13:00:34+02:00'
+  extra_data:
+    boot_identity_file: "/weblogic14/user_projects/base_project/servers/project3/security/boot.properties"
+    home: "/weblogic/product/wlserver/server"
+    instance_name: project3
+    management_server: t3://10.0.0.1:14001
+    production_mode_enabled: 'true'
+    root_directory: "/weblogic14/user_projects/base_project/servers/project3"
+    wls_home: "/weblogic_14/product/wlserver/server"
+  listening_ports: []
+  process:
+    cmdline: "/weblogic14/jdk-11.0.22.0.1/bin/java -server -Xms1024m -Xmx1024m -Xlog:gc=info:file=/logs/heliointprep/gc-project3.log:time,pid:filecount=7,filesize=1m
+      -cp /weblogic14/product/wlserver/server/lib/weblogic-launcher.jar -Dlaunch.use.env.classpath=true
+      -Dweblogic.Name=project3 -Djava.security.policy=/weblogic14/product/wlserver/server/lib/weblogic.policy
+      -Dweblogic.system.BootIdentityFile=/weblogic14/user_projects/base_project/servers/project3/security/boot.properties
+      -Dweblogic.RootDirectory=/weblogic14/user_projects/base_project/servers/project3
+      -Dfile.encoding=ISO-8859-1 -Djava.io.tmpdir=/logs/heliointprep -Dweblogic.ProductionModeEnabled=true
+      -XX:StartFlightRecording=delay=30s,dumponexit=true,disk=false,maxsize=100M,maxage=30m,name=project3,filename=/logs/heliointprep/fligh-recording-project3.jfr
+      -Djava.system.class.loader=com.oracle.classloader.weblogic.LaunchClassLoader
+      -javaagent:/weblogic14/product/wlserver/server/lib/debugpatch-agent.jar -da
+      -Dwls.home=/weblogic_14/product/wlserver/server -Dweblogic.home=/weblogic/product/wlserver/server
+      -Dweblogic.management.server=t3://10.0.0.1:14001 weblogic.Server"
+    cwd: "/weblogic14/user_projects/base_project/servers/project3"
+    pid: '1452385'
+    ppid: '1452319'
+    user: root
+  type: WebLogic Application Server
+  version:
+  - number: '14'
+    type: file
+- bindings: []
+  discovery_time: '2025-05-30T13:00:34+02:00'
+  extra_data:
+    boot_identity_file: "/weblogic14/user_projects/base_project/servers/project4/security/boot.properties"
+    home: "/weblogic_14/product/wlserver/server"
+    instance_name: project4
+    management_server: t3://10.0.0.1:14001
+    production_mode_enabled: 'true'
+    root_directory: "/weblogic14/user_projects/base_project/servers/project4"
+    wls_home: "/weblogic/product/wlserver/server"
+  listening_ports: []
+  process:
+    cmdline: "/weblogic14/jdk-11.0.22.0.1/bin/java -server -Xms512m -Xmx512m -Xlog:gc=info:file=/logs/nbancprep/gc-project4.log:time,pid:filecount=7,filesize=1m
+      -cp /weblogic14/product/wlserver/server/lib/weblogic-launcher.jar -Dlaunch.use.env.classpath=true
+      -Dweblogic.Name=project4 -Djava.security.policy=/weblogic14/product/wlserver/server/lib/weblogic.policy
+      -Dweblogic.system.BootIdentityFile=/weblogic14/user_projects/base_project/servers/project4/security/boot.properties
+      -Dweblogic.RootDirectory=/weblogic14/user_projects/base_project/servers/project4
+      -Dfile.encoding=ISO-8859-1 -Djava.io.tmpdir=/logs/nbancprep -Dweblogic.ProductionModeEnabled=true
+      -XX:StartFlightRecording=delay=30s,dumponexit=true,disk=false,maxsize=100M,maxage=30m,name=project4,filename=/logs/nbancprep/fligh-recording-project4.jfr
+      -Dlog4j.configurationFile=/weblogic14/user_projects/base_project/servers/project4/log4j_config/log4j2.xml
+      -Djava.system.class.loader=com.oracle.classloader.weblogic.LaunchClassLoader
+      -javaagent:/weblogic14/product/wlserver/server/lib/debugpatch-agent.jar -da
+      -Dwls.home=/weblogic/product/wlserver/server -Dweblogic.home=/weblogic_14/product/wlserver/server
+      -Dweblogic.management.server=t3://10.0.0.1:14001 weblogic.Server"
+    cwd: "/weblogic14/user_projects/base_project/servers/project4"
+    pid: '2004177'
+    ppid: '2004110'
+    user: root
+  type: WebLogic Application Server
+  version:
+  - number: '14'
+    type: file
+mocked_plugin_tasks:
+  Get version from home:
+    calls:
+      - run
+      - expected_exception:
+          message: '''NoneType'' object is not iterable'
+      - expected_exception:
+          message: '''NoneType'' object is not iterable'
+      - run
+    number_of_calls: 4
+  Get version from wls_home:
+    calls:
+      - run
+      - run
+    number_of_calls: 2
+packages: {}
+processes:
+- pid: "1"
+  ppid: "0"
+  user: root
+  cmdline: "/usr/lib/systemd/systemd --switched-root --system --deserialize 17"
+  cwd: "/"
+- pid: "2"
+  ppid: "0"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "3"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "4"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "5"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "7"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "10"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "11"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "12"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "13"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "14"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "15"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "16"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "17"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "18"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "19"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "20"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "21"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "23"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "24"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "25"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "26"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "27"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "29"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "30"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "31"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "32"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "33"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "35"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "36"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "37"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "38"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "39"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "41"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "42"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "43"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "44"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "45"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "47"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "54"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "55"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "56"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "58"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "59"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "60"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "61"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "62"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "63"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "64"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "65"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "66"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "67"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "68"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "69"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "70"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "71"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "72"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "74"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "91"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "154"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "155"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "157"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "158"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "159"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "160"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "161"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "162"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "163"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "164"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "165"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "166"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "167"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "168"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "169"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "170"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "171"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "172"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "173"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "174"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "175"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "176"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "177"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "178"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "179"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "180"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "181"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "182"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "183"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "184"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "185"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "186"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "187"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "188"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "189"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "190"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "191"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "192"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "232"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "252"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "281"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "283"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "284"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "298"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "466"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "467"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "468"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "470"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "471"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "472"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "473"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "474"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "494"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "496"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "694"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "702"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "728"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "729"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "772"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "773"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "836"
+  ppid: "1"
+  user: root
+  cmdline: "/usr/lib/systemd/systemd-journald"
+  cwd: "/"
+- pid: "875"
+  ppid: "1"
+  user: root
+  cmdline: "/usr/lib/systemd/systemd-udevd"
+  cwd: "/"
+- pid: "883"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "884"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "927"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "928"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "1004"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "1005"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "1010"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "1011"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "1019"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "1032"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "1033"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "1034"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "1039"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "1040"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "1041"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "1043"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "1046"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "1047"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "1049"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "1054"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "1058"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "1059"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "1063"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "1066"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "1162"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "1165"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "1177"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "1180"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "1191"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "1194"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "1196"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "1197"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "1221"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "1226"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "1227"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "1230"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "1231"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "1232"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "1233"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "1237"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "1238"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "1239"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "1240"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "1241"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "1248"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "1249"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "1253"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "1256"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "1266"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "1267"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "1271"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "1272"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "1274"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "1275"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "1278"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "1279"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "1282"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "1283"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "1286"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "1287"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "1289"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "1290"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "1307"
+  ppid: "1"
+  user: rpc
+  cmdline: "/usr/bin/rpcbind -w -f"
+  cwd: "/"
+- pid: "1310"
+  ppid: "1"
+  user: root
+  cmdline: "/sbin/auditd"
+  cwd: "/"
+- pid: "1333"
+  ppid: "1"
+  user: root
+  cmdline: "/usr/sbin/irqbalance --foreground"
+  cwd: "/"
+- pid: "1334"
+  ppid: "1"
+  user: root
+  cmdline: "/usr/sbin/smartd -n -q never"
+  cwd: "/"
+- pid: "1335"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "1337"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "1339"
+  ppid: "1"
+  user: root
+  cmdline: "/usr/sbin/sssd -i --logger=files"
+  cwd: "/"
+- pid: "1343"
+  ppid: "1"
+  user: dbus
+  cmdline:
+    "/usr/bin/dbus-daemon --system --address=systemd: --nofork --nopidfile
+    --systemd-activation --syslog-only"
+  cwd: "/"
+- pid: "1345"
+  ppid: "1"
+  user: root
+  cmdline: "/usr/sbin/NetworkManager --no-daemon"
+  cwd: "/"
+- pid: "1346"
+  ppid: "1"
+  user: root
+  cmdline: "/usr/bin/VGAuthService -s"
+  cwd: "/"
+- pid: "1348"
+  ppid: "1"
+  user: root
+  cmdline: "/usr/bin/vmtoolsd"
+  cwd: "/"
+- pid: "1368"
+  ppid: "1"
+  user: root
+  cmdline: "/opt/IBM/ITM/zabbix/sbin/zabbix_agent2 -c /opt/IBM/ITM/zabbix/conf/zabbix_agent2.conf"
+  cwd: "/"
+- pid: "1370"
+  ppid: "1"
+  user: root
+  cmdline: "/usr/sbin/sshd -D"
+  cwd: "/"
+- pid: "1372"
+  ppid: "1"
+  user: root
+  cmdline: "/usr/bin/rhsmcertd"
+  cwd: "/"
+- pid: "1375"
+  ppid: "1"
+  user: root
+  cmdline: "/usr/libexec/platform-python -Es /usr/sbin/tuned -l -P"
+  cwd: "/"
+- pid: "1382"
+  ppid: "1339"
+  user: root
+  cmdline: "/usr/libexec/sssd/sssd_be --domain implicit_files --uid 0 --gid 0 --logger=files"
+  cwd: "/"
+- pid: "1383"
+  ppid: "1"
+  user: root
+  cmdline: "/usr/sbin/gssproxy -D"
+  cwd: "/"
+- pid: "1396"
+  ppid: "1"
+  user: root
+  cmdline: "/usr/lib/systemd/systemd-logind"
+  cwd: "/"
+- pid: "1401"
+  ppid: "1"
+  user: root
+  cmdline: "/usr/sbin/crond -n"
+  cwd: "/"
+- pid: "1408"
+  ppid: "1"
+  user: root
+  cmdline: "/sbin/agetty -o -p -- \\u --noclear tty1 linux"
+  cwd: "/"
+- pid: "1437"
+  ppid: "1"
+  user: root
+  cmdline: "/usr/sbin/rsyslogd -n"
+  cwd: "/"
+- pid: "2272"
+  ppid: "1"
+  user: root
+  cmdline: "/usr/lib/polkit-1/polkitd --no-debug"
+  cwd: "/"
+- pid: "10569"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "17817"
+  ppid: "1"
+  user: root
+  cmdline: "/usr/lib/systemd/systemd --user"
+  cwd: "/"
+- pid: "17819"
+  ppid: "17817"
+  user: root
+  cmdline: "(sd-pam)"
+  cwd: "/"
+- pid: "19405"
+  ppid: "1"
+  user: weblogic
+  cmdline: "/bin/sh ./startproject1.sh"
+  cwd: "/weblogic14/user_projects/base_project"
+- pid: "19471"
+  ppid: "19405"
+  user: weblogic
+  cmdline:
+    "/weblogic14/jdk-11.0.22.0.1/bin/java -server -Xms768m -Xmx768m -cp /weblogic14/product/wlserver/server/lib/weblogic-launcher.jar
+    -Dlaunch.use.env.classpath=true -Dweblogic.Name=project1 -Djava.security.policy=/weblogic14/product/wlserver/server/lib/weblogic.policy
+    -Djava.system.class.loader=com.oracle.classloader.weblogic.LaunchClassLoader -javaagent:/weblogic14/product/wlserver/server/lib/debugpatch-agent.jar
+    -Dweblogic.system.BootIdentityFile=/weblogic14/user_projects/base_project/servers/project1/security/boot.properties
+    -Dweblogic.RootDirectory=/weblogic14/user_projects/base_project/servers/project1
+    -Dweblogic.ProductionModeEnabled=true
+    -da -Dwls.home=/weblogic14/product/wlserver/server -Dweblogic.home=/weblogic14/product/wlserver/server
+    -Dweblogic.management.server=t3://10.0.0.1:14001 weblogic.Server
+    weblogic.Server"
+  cwd: "/weblogic14/user_projects/base_project"
+- pid: "21017"
+  ppid: "1"
+  user: weblogic
+  cmdline:
+    "/weblogic14/j2ee/telegraf/bin/telegraf -pidfile /weblogic14/j2ee/telegraf/logs/telegraf.pid
+    -config /weblogic14/j2ee/telegraf/conf/telegraf.conf -config-directory /weblogic14/j2ee/telegraf/conf/telegraf.d"
+  cwd: "/weblogic14/j2ee/telegraf"
+- pid: "52364"
+  ppid: "1370"
+  user: root
+  cmdline: "sshd: user [priv]"
+  cwd: "/"
+- pid: "52366"
+  ppid: "52364"
+  user: root
+  cmdline: "sshd: user@notty"
+  cwd: "/"
+- pid: "52367"
+  ppid: "52366"
+  user: root
+  cmdline: "/usr/libexec/openssh/sftp-server"
+  cwd: "/weblogic14/user_projects/base_project/servers/project2"
+- pid: "52368"
+  ppid: "1370"
+  user: root
+  cmdline: "sshd: user [priv]"
+  cwd: "/"
+- pid: "52370"
+  ppid: "52368"
+  user: root
+  cmdline: "sshd: user@notty"
+  cwd: "/"
+- pid: "52371"
+  ppid: "52370"
+  user: root
+  cmdline: "/usr/libexec/openssh/sftp-server"
+  cwd: "/weblogic14/user_projects/base_project/servers/project2"
+- pid: "52396"
+  ppid: "1370"
+  user: root
+  cmdline: "sshd: user [priv]"
+  cwd: "/"
+- pid: "52398"
+  ppid: "52396"
+  user: root
+  cmdline: "sshd: user@pts/4"
+  cwd: "/"
+- pid: "52399"
+  ppid: "52398"
+  user: root
+  cmdline: "-ksh"
+  cwd: "/weblogic14/user_projects/base_project/servers/project2"
+- pid: "132088"
+  ppid: "1"
+  user: root
+  cmdline: "/usr/lib/systemd/systemd --user"
+  cwd: "/"
+- pid: "132090"
+  ppid: "132088"
+  user: root
+  cmdline: "(sd-pam)"
+  cwd: "/"
+- pid: "132428"
+  ppid: "1"
+  user: root
+  cmdline: "/usr/lib/systemd/systemd --user"
+  cwd: "/"
+- pid: "132430"
+  ppid: "132428"
+  user: root
+  cmdline: "(sd-pam)"
+  cwd: "/"
+- pid: "168155"
+  ppid: "1"
+  user: root
+  cmdline: "/usr/lib/systemd/systemd --user"
+  cwd: "/"
+- pid: "168157"
+  ppid: "168155"
+  user: root
+  cmdline: "(sd-pam)"
+  cwd: "/"
+- pid: "168967"
+  ppid: "1"
+  user: root
+  cmdline: "/usr/lib/systemd/systemd --user"
+  cwd: "/"
+- pid: "168969"
+  ppid: "168967"
+  user: root
+  cmdline: "(sd-pam)"
+  cwd: "/"
+- pid: "169987"
+  ppid: "1"
+  user: root
+  cmdline:
+    "/gestion/ctmagent/bmcjava/bmcjava-V3/bin/java -Xmx256m -XX:+CrashOnOutOfMemoryError
+    -Djava.io.tmpdir=/tmp -Djava.net.preferIPv4Stack=true -Doverride.default.services=
+    -Dspring.profiles.active=tcp -DCTMAG.CONFIG.DBGLVL=0 -Dctm.logs.dir=/gestion/ctmagent/ctm/proclog
+    -Dlogging.config=/gestion/ctmagent/ctm/data/logback.xml -Dctm.data.dir=/gestion/ctmagent/ctm/data
+    -Dstdout=/gestion/ctmagent/ctm/proclog/agjstd_169253-2024-10-15.0.tmp -jar /gestion/ctmagent/ctm/exe/ag-app.jar"
+  cwd: "/gestion/ctmagent/ctm"
+- pid: "170131"
+  ppid: "1"
+  user: root
+  cmdline: "/gestion/ctmagent/ctm/exe/p_ctmag"
+  cwd: "/gestion/ctmagent/ctm"
+- pid: "170235"
+  ppid: "1"
+  user: root
+  cmdline: "/gestion/ctmagent/ctm/exe/p_ctmat"
+  cwd: "/gestion/ctmagent/ctm"
+- pid: "170237"
+  ppid: "170235"
+  user: root
+  cmdline: "/gestion/ctmagent/ctm/exe/p_ctmatw -ATW_NAME ATW000"
+  cwd: "/gestion/ctmagent/ctm"
+- pid: "224325"
+  ppid: "1"
+  user: root
+  cmdline:
+    "/usr/bin/telegraf -config /etc/telegraf/telegraf.conf -config-directory
+    /etc/telegraf/telegraf.d"
+  cwd: "/"
+- pid: "259349"
+  ppid: "1"
+  user: root
+  cmdline: "/bin/bash ./startproject2.sh"
+  cwd: "/weblogic14/user_projects/base_project/servers/project2"
+- pid: "259415"
+  ppid: "259349"
+  user: root
+  cmdline:
+    "/weblogic14/jdk-11.0.22.0.1/bin/java -server -Xms512m -Xmx512m -Xlog:gc=info:file=/logs/mydir/gc-project2.log:time,pid:filecount=7,filesize=1m
+    -cp /weblogic14/product/wlserver/server/lib/weblogic-launcher.jar -Dlaunch.use.env.classpath=true
+    -Dweblogic.Name=project2 -Djava.security.policy=/weblogic14/product/wlserver/server/lib/weblogic.policy
+    -Dweblogic.system.BootIdentityFile=/weblogic14/user_projects/base_project/servers/project2/security/boot.properties
+    -Dweblogic.RootDirectory=/weblogic14/user_projects/base_project/servers/project2
+    -Dfile.encoding=ISO-8859-1 -Djava.io.tmpdir=/logs/mydir -Dweblogic.ProductionModeEnabled=true
+    -XX:StartFlightRecording=delay=30s,dumponexit=true,disk=false,maxsize=100M,maxage=30m,name=project2,filename=/logs/mydir/fligh-recording-project2.jfr
+    -Djava.system.class.loader=com.oracle.classloader.weblogic.LaunchClassLoader -javaagent:/weblogic14/product/wlserver/server/lib/debugpatch-agent.jar
+    -da -Dwls.home=/weblogic-14/product/wlserver/server -Dweblogic.home=/weblogic/product/wlserver/server
+    -Dweblogic.management.server=t3://10.0.0.1:14001 weblogic.Server"
+  cwd: "/weblogic14/user_projects/base_project/servers/project2"
+- pid: "439345"
+  ppid: "3395381"
+  user: root
+  cmdline: "/opt/ds_agent/ds_am -g ../diag -v 5 -d /var/opt/ds_agent/am -P 1 -R"
+  cwd: "/var/opt/ds_agent/am"
+- pid: "1097018"
+  ppid: "1"
+  user: chrony
+  cmdline: "/usr/sbin/chronyd"
+  cwd: "/"
+- pid: "1245329"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "1245345"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "1245346"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "1452319"
+  ppid: "1"
+  user: root
+  cmdline: "/bin/bash ./startproject3.sh"
+  cwd: "/weblogic14/user_projects/base_project/servers/project3"
+- pid: "1452385"
+  ppid: "1452319"
+  user: root
+  cmdline:
+    "/weblogic14/jdk-11.0.22.0.1/bin/java -server -Xms1024m -Xmx1024m -Xlog:gc=info:file=/logs/heliointprep/gc-project3.log:time,pid:filecount=7,filesize=1m
+    -cp /weblogic14/product/wlserver/server/lib/weblogic-launcher.jar -Dlaunch.use.env.classpath=true
+    -Dweblogic.Name=project3 -Djava.security.policy=/weblogic14/product/wlserver/server/lib/weblogic.policy
+    -Dweblogic.system.BootIdentityFile=/weblogic14/user_projects/base_project/servers/project3/security/boot.properties
+    -Dweblogic.RootDirectory=/weblogic14/user_projects/base_project/servers/project3
+    -Dfile.encoding=ISO-8859-1 -Djava.io.tmpdir=/logs/heliointprep -Dweblogic.ProductionModeEnabled=true
+    -XX:StartFlightRecording=delay=30s,dumponexit=true,disk=false,maxsize=100M,maxage=30m,name=project3,filename=/logs/heliointprep/fligh-recording-project3.jfr
+    -Djava.system.class.loader=com.oracle.classloader.weblogic.LaunchClassLoader -javaagent:/weblogic14/product/wlserver/server/lib/debugpatch-agent.jar
+    -da -Dwls.home=/weblogic_14/product/wlserver/server -Dweblogic.home=/weblogic/product/wlserver/server
+    -Dweblogic.management.server=t3://10.0.0.1:14001 weblogic.Server"
+  cwd: "/weblogic14/user_projects/base_project/servers/project3"
+- pid: "1508084"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "1508692"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "1508693"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "1909253"
+  ppid: "1"
+  user: root
+  cmdline:
+    "/weblogic14/user_projects/base_project/servers/project3/mensajeria_app/jre1.8.0_191/bin/java
+    -Xmx1G -Dlog4j.configuration=file:/weblogic14/user_projects/base_project/servers/project3/mensajeria_app/conf/log4j.properties
+    -Dname=MensajeriaNeoPlus -cp ./conf:./lib/dbpool-7.0.1.jar:./lib/jsch-0.1.54.jar:./lib/log4j-1.2.17.jar:./lib/mensajeria-app-1.0.0.jar:./lib/ojdbc8.jar:./lib/quartz-2.3.0.jar:./lib/slf4j-api-1.7.21.jar:./lib/slf4j-log4j12-1.7.21.jar
+    com.hp.cms.mensajeria.ProcessData /weblogic14/user_projects/base_project/servers/project3/mensajeria_app/conf/config.props"
+  cwd: "/weblogic14/user_projects/base_project/servers/project3/mensajeria_app"
+- pid: "2004110"
+  ppid: "1"
+  user: root
+  cmdline: "/bin/bash ./startproject4.sh"
+  cwd: "/weblogic14/user_projects/base_project/servers/project4"
+- pid: "2004177"
+  ppid: "2004110"
+  user: root
+  cmdline:
+    "/weblogic14/jdk-11.0.22.0.1/bin/java -server -Xms512m -Xmx512m -Xlog:gc=info:file=/logs/nbancprep/gc-project4.log:time,pid:filecount=7,filesize=1m
+    -cp /weblogic14/product/wlserver/server/lib/weblogic-launcher.jar -Dlaunch.use.env.classpath=true
+    -Dweblogic.Name=project4 -Djava.security.policy=/weblogic14/product/wlserver/server/lib/weblogic.policy
+    -Dweblogic.system.BootIdentityFile=/weblogic14/user_projects/base_project/servers/project4/security/boot.properties
+    -Dweblogic.RootDirectory=/weblogic14/user_projects/base_project/servers/project4
+    -Dfile.encoding=ISO-8859-1 -Djava.io.tmpdir=/logs/nbancprep -Dweblogic.ProductionModeEnabled=true
+    -XX:StartFlightRecording=delay=30s,dumponexit=true,disk=false,maxsize=100M,maxage=30m,name=project4,filename=/logs/nbancprep/fligh-recording-project4.jfr
+    -Dlog4j.configurationFile=/weblogic14/user_projects/base_project/servers/project4/log4j_config/log4j2.xml
+    -Djava.system.class.loader=com.oracle.classloader.weblogic.LaunchClassLoader -javaagent:/weblogic14/product/wlserver/server/lib/debugpatch-agent.jar
+    -da -Dwls.home=/weblogic/product/wlserver/server -Dweblogic.home=/weblogic_14/product/wlserver/server
+    -Dweblogic.management.server=t3://10.0.0.1:14001 weblogic.Server"
+  cwd: "/weblogic14/user_projects/base_project/servers/project4"
+- pid: "2042110"
+  ppid: "1"
+  user: root
+  cmdline: "/opt/haxm/haxm_launcher"
+  cwd: "/opt/haxm"
+- pid: "2042260"
+  ppid: "2042110"
+  user: root
+  cmdline: "/opt/haxm/1.44.2/haxm"
+  cwd: "/opt/haxm"
+- pid: "2964164"
+  ppid: "1370"
+  user: root
+  cmdline: "sshd: helio_pr [priv]"
+  cwd: "/"
+- pid: "2964166"
+  ppid: "2964164"
+  user: root
+  cmdline: "sshd: helio_pr"
+  cwd: "/"
+- pid: "3142442"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "3149038"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "3155988"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "3156614"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "3156847"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "3156975"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "3157324"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "3157329"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "3162093"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "3162417"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "3162612"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "3162823"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "3163173"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "3163315"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "3163481"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "3163489"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "3164064"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "3168953"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "3169246"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "3169252"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "3169578"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "3169736"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "3169748"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "3169824"
+  ppid: "1370"
+  user: root
+  cmdline: "sshd: iometrics [priv]"
+  cwd: "/"
+- pid: "3169830"
+  ppid: "1"
+  user: iometrics
+  cmdline: "/usr/lib/systemd/systemd --user"
+  cwd: "/"
+- pid: "3169832"
+  ppid: "3169830"
+  user: iometrics
+  cmdline: "(sd-pam)"
+  cwd: "/"
+- pid: "3169833"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "3169834"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "3169840"
+  ppid: "3169824"
+  user: iometrics
+  cmdline: "sshd: iometrics@pts/0"
+  cwd: "/"
+- pid: "3169841"
+  ppid: "3169840"
+  user: iometrics
+  cmdline: "-bash"
+  cwd: "/homeuser/iometrics"
+- pid: "3169896"
+  ppid: "3169841"
+  user: iometrics
+  cmdline: sudo su -
+  cwd: "/homeuser/iometrics"
+- pid: "3169897"
+  ppid: "3169896"
+  user: root
+  cmdline: su -
+  cwd: "/"
+- pid: "3169898"
+  ppid: "3169897"
+  user: root
+  cmdline: "-bash"
+  cwd: "/root"
+- pid: "3169975"
+  ppid: "224325"
+  user: root
+  cmdline: "/usr/lib64/sa/sadc -S DISK 44 2 /tmp/sysstat-1748525811"
+  cwd: "/"
+- pid: "3170046"
+  ppid: "3169898"
+  user: root
+  cmdline: "/usr/bin/python3 ./script.py"
+  cwd: "/root"
+- pid: "3394665"
+  ppid: "1"
+  user: root
+  cmdline: "/opt/ds_agent/ds_agent -w /var/opt/ds_agent -b -i -e /opt/ds_agent/ext"
+  cwd: "/var/opt/ds_agent"
+- pid: "3395022"
+  ppid: "3394665"
+  user: root
+  cmdline: "/opt/ds_agent/ds_agent -w /var/opt/ds_agent -b -i -e /opt/ds_agent/ext"
+  cwd: "/var/opt/ds_agent"
+- pid: "3395053"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "3395054"
+  ppid: "2"
+  user: root
+  cmdline: ""
+  cwd: "/"
+- pid: "3395325"
+  ppid: "3395022"
+  user: root
+  cmdline:
+    "/opt/ds_agent/netagent/tm_netagent --metrics-file /var/opt/ds_agent/netagent/metrics.json
+    --log-folder /var/opt/ds_agent/netagent/logs --ptn-folder /opt/ds_agent/netagent/pattern
+    --jat-folder /opt/ds_agent/netagent/java/jattach --jex-folder /var/opt/ds_agent/netagentjava
+    --log-console=false --log-level 1 --tmCfg WyJTc2xMaW51eEphdmFCdWlsZEVuYWJsZWQiLCJKYXZhQXR0YWNoIiwiU3NsSW5ib3VuZCIsIlNzbE91dGJvdW5kIl0="
+  cwd: "/var/opt/ds_agent"
+- pid: "3395333"
+  ppid: "3395325"
+  user: root
+  cmdline:
+    "/opt/ds_agent/netagent/tm_netagent --metrics-file /var/opt/ds_agent/netagent/metrics.json
+    --log-folder /var/opt/ds_agent/netagent/logs --ptn-folder /opt/ds_agent/netagent/pattern
+    --jat-folder /opt/ds_agent/netagent/java/jattach --jex-folder /var/opt/ds_agent/netagentjava
+    --log-console=false --log-level 1 --tmCfg WyJTc2xMaW51eEphdmFCdWlsZEVuYWJsZWQiLCJKYXZhQXR0YWNoIiwiU3NsSW5ib3VuZCIsIlNzbE91dGJvdW5kIl0="
+  cwd: "/var/opt/ds_agent"
+- pid: "3395381"
+  ppid: "1"
+  user: root
+  cmdline: "/opt/ds_agent/ds_am -g ../diag -v 5 -d /var/opt/ds_agent/am -P 1 -R"
+  cwd: "/var/opt/ds_agent/am"
+- pid: "3736540"
+  ppid: "1"
+  user: root
+  cmdline:
+    "/usr/share/filebeat/bin/filebeat -e -c /etc/filebeat/filebeat.yml -path.home
+    /usr/share/filebeat -path.config /etc/filebeat -path.data /var/lib/filebeat -path.logs
+    /var/log/filebeat"
+  cwd: "/"
+- pid: "4190886"
+  ppid: "1"
+  user: root
+  cmdline: "/usr/lib/systemd/systemd --user"
+  cwd: "/"
+- pid: "4190888"
+  ppid: "4190886"
+  user: root
+  cmdline: "(sd-pam)"
+  cwd: "/"
+software_list:
+- name: WebLogic Application Server
+  cmd_regexp: 'weblogic-launcher'
+  pkg_regexp: weblogic
+  process_type: parent
+  return_children: false
+  return_packages: true
+  custom_tasks:
+    - name: Include WebLogic specific plugins
+      include_tasks:
+        file: "{{ software_discovery__custom_tasks_definition_files_path }}/weblogic.yaml"
+tcp_listen: []
+udp_listen: []
