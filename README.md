@@ -305,6 +305,7 @@ value of this var, and it is the one used by the role or playbook (if not explic
 - Sybase IQ
 - Sybase Replication Server
 - Telegraf
+- WebLogic Server
 - Xymon
 - Zabbix Server
 
