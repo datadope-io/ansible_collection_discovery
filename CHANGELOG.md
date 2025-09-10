@@ -1,3 +1,7 @@
+# 1.15.1
+
+- Improve `snmp_facts` module to handle more edge cases.
+
 # 1.15.0
 
 ## Features

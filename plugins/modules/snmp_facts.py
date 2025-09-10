@@ -56,7 +56,7 @@ options:
             - Authentication level.
             - Required if I(version) is C(v3).
         type: str
-        choices: [ noAuthnoPriv, authNoPriv, authPriv ]
+        choices: [ NoAuthNoPriv, noAuthNoPriv, NoAuthnoPriv, noAuthnoPriv, AuthNoPriv, authNoPriv, AuthnoPriv, authnoPriv, AuthPriv, authPriv ]
     username:
         description:
             - Username for SNMPv3.
@@ -67,7 +67,7 @@ options:
             - Hashing algorithm.
             - Required if I(version) is C(v3).
         type: str
-        choices: [ md5, sha ]
+        choices: [ MD5, md5, SHA, sha ]
     authkey:
         description:
             - Authentication key.
@@ -78,7 +78,7 @@ options:
             - Encryption algorithm.
             - Required if I(level) is C(authPriv).
         type: str
-        choices: [ aes, des ]
+        choices: [ AES, aes, DES, des ]
     privkey:
         description:
             - Encryption key.
@@ -220,14 +220,16 @@ def get_snmp_auth(module):
             'privKey': module.params.get('privkey')
         }
 
-        if module.params.get('privacy').lower() == "aes":
+        privacy = module.params.get('privacy') or ''
+        if privacy.lower() == "aes":
             v3_params['privProtocol'] = cmdgen.usmAesCfb128Protocol
-        elif module.params.get('privacy').lower() == "des":
+        elif privacy.lower() == "des":
             v3_params['privProtocol'] = cmdgen.usmDESPrivProtocol
 
-        if module.params.get('integrity').lower() == "sha":
+        integrity = module.params.get('integrity') or ''
+        if integrity.lower() == "sha":
             v3_params['authProtocol'] = cmdgen.usmHMACSHAAuthProtocol
-        elif module.params.get('integrity').lower() == "md5":
+        elif integrity.lower() == "md5":
             v3_params['authProtocol'] = cmdgen.usmHMACMD5AuthProtocol
 
         return cmdgen.UsmUserData(userName=module.params['username'], **v3_params)
@@ -351,11 +353,22 @@ def setup_module_object():
             retries=dict(type='int', required=False, default=1),
             version=dict(type='str', required=True, choices=['v2c', 'v2', '2c', '2', 'v3', '3']),
             community=dict(type='str', required=False, no_log=True),
-            security_level=dict(type='str', choices=['noAuthnoPriv', 'authNoPriv', 'authPriv']),
+            security_level=dict(type='str', choices=[
+                'NoAuthNoPriv',
+                'noAuthNoPriv',
+                'NoAuthnoPriv',
+                'noAuthnoPriv',
+                'AuthNoPriv',
+                'authNoPriv',
+                'AuthnoPriv',
+                'authnoPriv',
+                'AuthPriv',
+                'authPriv'
+            ]),
             username=dict(type='str', required=False),
-            integrity=dict(type='str', choices=['md5', 'sha']),
+            integrity=dict(type='str', choices=['MD5', 'md5', 'SHA', 'sha']),
             authkey=dict(type='str', required=False, no_log=True),
-            privacy=dict(type='str', required=False, choices=['aes', 'des']),
+            privacy=dict(type='str', required=False, choices=['AES', 'aes', 'DES', 'des']),
             privkey=dict(type='str', required=False, no_log=True),
             context_engine_id=dict(type='str', required=False, default=None),
             context_name=dict(type='str', required=False, default=None),
