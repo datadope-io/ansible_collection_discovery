@@ -10,7 +10,7 @@
     - name: Define default value if no match is found
       set_instance_fact:
         extra_data: "<< __instance__.extra_data | default({}) | combine(
-          { __entry__.key : null }
+          { __entry__.key : None }
         )>>"
       when: __entry__.key not in __instance__.extra_data | default({})
   loop: >
@@ -35,6 +35,7 @@
       when:
         - __instance__.extra_data.home is defined
         - __instance__.extra_data.home is not none
+        - __instance__.extra_data.home != ""
 
     - name: Get version from wls_home
       set_instance_fact:
@@ -43,6 +44,7 @@
       when:
         - __instance__.extra_data.wls_home is defined
         - __instance__.extra_data.wls_home is not none
+        - __instance__.extra_data.wls_home != ""
         - __instance__._file_version is not defined
 
     - name: Store version from file
@@ -54,8 +56,10 @@
   when:
     - __instance__.extra_data.home is defined
     - __instance__.extra_data.home is not none
+    - __instance__.extra_data.home != ""
     - __instance__.extra_data.wls_home is defined
     - __instance__.extra_data.wls_home is not none
+    - __instance__.extra_data.wls_home != ""
 
 - name: Remove temporary vars
   del_instance_fact:

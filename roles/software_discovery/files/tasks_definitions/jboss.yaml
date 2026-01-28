@@ -10,7 +10,7 @@
         loop_var: __regex__
     - name: Define default value if no match is found
       set_instance_fact:
-        "<< __entry__.key >>": null
+        "<< __entry__.key >>": "{{ None }}"
       when: __entry__.key not in __instance__
   loop: >
     << {
@@ -40,14 +40,14 @@
     extra_data: "<< __instance__.extra_data | default({}) | combine(
       {'heap_initial_allocation_memory': __instance__._heap_initial_allocation_memory}
     )>>"
-  when: __instance__._heap_initial_allocation_memory != None
+  when: __instance__._heap_initial_allocation_memory != None and __instance__._heap_initial_allocation_memory != ""
 
 - name: Save heap max memory
   set_instance_fact:
     extra_data: "<< __instance__.extra_data | default({}) | combine(
       {'heap_max_memory': __instance__._heap_max_memory}
     ) >>"
-  when: __instance__._heap_max_memory != None
+  when: __instance__._heap_max_memory != None and __instance__._heap_max_memory != ""
 
 #todo comprobar si lo que devuelve es una ruta completa o solo la ubicación de los logs
 - name: Save domain logs dir
@@ -55,32 +55,32 @@
     path: '<<__instance__._domain_log_dir>>'
     type: 'log'
     subtype: 'domain_logging_dir'
-  when: __instance__._domain_log_dir != None
+  when: __instance__._domain_log_dir != None and __instance__._domain_log_dir != ""
 
 - name: Save domain logs dir
   add_file_info:
     path: '<<__instance__._log_dir>>'
     type: 'log'
     subtype: 'logging_dir'
-  when: __instance__._log_dir != None
+  when: __instance__._log_dir != None and __instance__._log_dir != ""
 
 - name: Redefine server_name if necessary
   set_instance_fact:
     _server:
       name: "<< __instance__._server_name >>"
-  when: __instance__._server_name != None
+  when: __instance__._server_name != None and __instance__._server_name != ""
 
 - name: Save binding address
   add_binding_info:
     address: '<<__instance__._bind_address>>'
     class: 'bind_address'
-  when: __instance__._bind_address != None
+  when: __instance__._bind_address != None and __instance__._bind_address != ""
 
 - name: Save binding address management
   add_binding_info:
     address: '<<__instance__._bind_address_management>>'
     class: 'bind_address_management'
-  when: __instance__._bind_address_management != None
+  when: __instance__._bind_address_management != None and __instance__._bind_address_management != ""
 
 - name: Check instance running mode
   block:
@@ -237,7 +237,7 @@
     - name: Set standalone_xml_file if config_file is defined
       set_instance_fact:
         _standalone_xml_file: "<< (__instance__._base_dir, 'configuration', __instance__._config_file) | datadope.discovery.path_join >>"
-      when: __instance__._config_file != None
+      when: __instance__._config_file != None and __instance__._config_file != ""
     - name: Set standalone_xml_file if _config_file is undefined
       set_instance_fact:
         _standalone_xml_file: "<< (__instance__._base_dir, 'configuration/standalone.xml') | datadope.discovery.path_join >>"
@@ -544,21 +544,21 @@
     path: '<<__instance__._base_dir>>'
     type: 'data'
     subtype: 'base_dir'
-  when: __instance__._base_dir != None
+  when: __instance__._base_dir != None and __instance__._base_dir != ""
 
 - name: Save home dir
   add_file_info:
     path: '<<__instance__._home_dir>>'
     type: 'data'
     subtype: 'home_dir'
-  when: __instance__._home_dir != None
+  when: __instance__._home_dir != None and __instance__._home_dir != ""
 
 - name: Save config file
   add_file_info:
     path: '<<__instance__._config_file>>'
     type: 'config'
     subtype: 'config_file'
-  when: __instance__._config_file != None
+  when: __instance__._config_file != None and __instance__._config_file != ""
 
 - name: Save standole xml file
   add_file_info:
