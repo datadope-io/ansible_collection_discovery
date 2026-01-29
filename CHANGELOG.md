@@ -1,3 +1,9 @@
+# 1.15.2
+
+## Fixed
+
+- Avoid evaluating the null type as a var.
+
 # 1.15.1
 
 - Improve `snmp_facts` module to handle more edge cases.
