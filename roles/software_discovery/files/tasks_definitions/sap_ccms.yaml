@@ -41,7 +41,7 @@
           - name: Check http or https
             run_module:
               check_connection:
-                address: "<< ((__port__.address == '0.0.0.0') | ternary('127.0.0.1', __item__.address)) >>"
+                address: "<< ((__port__.address == '0.0.0.0') | ternary('127.0.0.1', __port__.address)) >>"
                 port: "<< __port__.port >>"
             register: response
           - name: Set icman type

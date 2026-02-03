@@ -1,3 +1,9 @@
+# 1.15.3
+
+## Fixed
+
+- Typo in the SAP CCMS port assignment.
+
 # 1.15.2
 
 ## Fixed
