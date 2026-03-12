@@ -7321,6 +7321,7 @@ software_list:
 task_vars:
   postgresql_monitor_pass: the_password
   postgresql_monitor_user: the_postgres_user
+  software_discovery__postgresql_command_timeout: 10
 tcp_listen:
 - address: 0.0.0.0
   name: sshd

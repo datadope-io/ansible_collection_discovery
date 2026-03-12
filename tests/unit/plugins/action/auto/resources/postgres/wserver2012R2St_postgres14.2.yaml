@@ -2,6 +2,7 @@ dockers: {}
 task_vars:
   ansible_facts:
     os_family: windows
+  software_discovery__postgresql_command_timeout: 10
 expected_result:
 - bindings:
   - address: '::'
