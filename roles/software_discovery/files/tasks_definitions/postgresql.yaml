@@ -297,7 +297,7 @@
                   run_command:
                     cmd: << __db_command__ >>
                   register: result
-                  timeout: "{{ software_discovery__postgresql_command_timeout | int }}"
+                  timeout: "{{ software_discovery__postgresql_command_timeout | int | default(10) }}"
                   environment:
                     PGPASSWORD: << __user_info__.password | default('') >>
                   ignore_errors: yes
