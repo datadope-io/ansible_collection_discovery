@@ -28,6 +28,8 @@ Use `all` to use the whole list.
 * `software_discovery__pre_tasks`: (list) Definition of tasks to be executed on every discovered software before custom tasks for each software type are executed
 * `software_discovery__post_tasks`: (list) Definition of tasks to be executed on every discovered software after custom tasks for each software type are executed
 * `software_discovery__software_list`: (list) Definition of the types of software that will be tried to be discovered in the target hosts.
+* `software_discovery__mysql_command_timeout`: (int) Definition of the MySQL command timeouts.
+* `software_discovery__postgresql_command_timeout`: (int) Definition of the PostgreSQL command timeouts.
 
 
 ## Example Playbook

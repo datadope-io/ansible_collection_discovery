@@ -738,6 +738,13 @@ class ActionModule(ActionBase):
             self._display_v("Enabled timeout of {0} seconds for task '{1}'{3}{2}".format(
                 timeout, desc, " with item index {0}".format(index) if item is not None else "",
                 " in block '{0}'".format(in_block) if in_block else ""))
+
+            if timeout is not None:
+                try:
+                    timeout = float(timeout)
+                except (TypeError, ValueError):
+                    timeout = None
+
             finished = wait_event.wait(timeout)
             if not finished:
                 raise_exception_in_thread(plugin_run_thread, SystemExit)
