@@ -1,3 +1,13 @@
+# 1.16.0
+
+## Features
+
+- Users can set timeouts for database discoveries.
+
+## Fixed
+
+- Cast wait timeout to float to avoid AnsibleUnicode TypeError.
+
 # 1.15.3
 
 ## Fixed

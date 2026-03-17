@@ -154,7 +154,7 @@
               cmd: "<< __instance__._command >> 'show databases'"
             environment: "<< environment.parsed | combine({'MYSQL_PWD': __user_info__.password}) >>"
             register: result
-            timeout: 10
+            timeout: "{{ software_discovery__mysql_command_timeout | int | default(10) }}"
           - name: Set databases
             set_instance_fact:
               _can_connect: true
@@ -169,7 +169,7 @@
                   cmd: "<< __instance__._command >> 'show slave status'"
                 environment: "<< environment.parsed | combine({'MYSQL_PWD': __user_info__.password}) >>"
                 register: result_slave
-                timeout: 10
+                timeout: "{{ software_discovery__mysql_command_timeout | int | default(10) }}"
               - name: Set slave status
                 set_instance_fact:
                   _gather_slave: "<< 'Slave_SQL_Running: Yes' in result_slave.stdout >>"
@@ -187,7 +187,7 @@
                   cmd: << __instance__._command >> 'show databases'
                 environment: "<< environment.parsed | combine({'MYSQL_PWD': __user_info__.password}) >>"
                 register: result
-                timeout: 10
+                timeout: "{{ software_discovery__mysql_command_timeout | int | default(10) }}"
               - name: Set databases for IPs
                 set_instance_fact:
                   _can_connect: true
@@ -202,7 +202,7 @@
                       cmd: "<< __instance__._command >> 'show slave status'"
                     environment: "<< environment.parsed | combine({'MYSQL_PWD': __user_info__.password}) >>"
                     register: result_slave
-                    timeout: 10
+                    timeout: "{{ software_discovery__mysql_command_timeout | int | default(10) }}"
                   - name: Set slave status for IP
                     set_instance_fact:
                       _gather_slave: "<< 'Slave_SQL_Running: Yes' in result_slave.stdout >>"

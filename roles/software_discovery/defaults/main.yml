@@ -527,3 +527,8 @@ software_discovery__software_list:
     process_type: parent
     return_children: true
     return_packages: true
+
+# (int) Definition of the MySQL command timeouts.
+software_discovery__mysql_command_timeout: 10
+# (int) Definition of the PostgreSQL command timeouts.
+software_discovery__postgresql_command_timeout: 10

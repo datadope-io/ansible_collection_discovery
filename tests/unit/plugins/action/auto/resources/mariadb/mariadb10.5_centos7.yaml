@@ -6710,6 +6710,7 @@ task_vars:
     username: user_a
   - password: password_b
     username: user_b
+  software_discovery__mysql_command_timeout: 10
 tcp_listen:
 - address: 0.0.0.0
   name: sshd
