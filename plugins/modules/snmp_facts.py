@@ -78,7 +78,7 @@ options:
             - Encryption algorithm.
             - Required if I(level) is C(authPriv).
         type: str
-        choices: [ AES, aes, DES, des ]
+        choices: [ AES, aes, DES, des, AES192, aes192, AES256, aes256, AES192C, aes192c, AES256C, aes256c ]
     privkey:
         description:
             - Encryption key.
@@ -225,6 +225,14 @@ def get_snmp_auth(module):
             v3_params['privProtocol'] = cmdgen.usmAesCfb128Protocol
         elif privacy.lower() == "des":
             v3_params['privProtocol'] = cmdgen.usmDESPrivProtocol
+        elif privacy.lower() == "aes192":
+            v3_params['privProtocol'] = getattr(cmdgen, 'usmAesBlumenthalCfb192Protocol', getattr(cmdgen, 'usmAesCfb192Protocol', cmdgen.usmAesCfb128Protocol))
+        elif privacy.lower() == "aes256":
+            v3_params['privProtocol'] = getattr(cmdgen, 'usmAesBlumenthalCfb256Protocol', getattr(cmdgen, 'usmAesCfb256Protocol', cmdgen.usmAesCfb128Protocol))
+        elif privacy.lower() == "aes192c":
+            v3_params['privProtocol'] = getattr(cmdgen, 'usmAesCfb192Protocol', cmdgen.usmAesCfb128Protocol)
+        elif privacy.lower() == "aes256c":
+            v3_params['privProtocol'] = getattr(cmdgen, 'usmAesCfb256Protocol', cmdgen.usmAesCfb128Protocol)
 
         integrity = module.params.get('integrity') or ''
         if integrity.lower() == "sha":
@@ -368,7 +376,10 @@ def setup_module_object():
             username=dict(type='str', required=False),
             integrity=dict(type='str', choices=['MD5', 'md5', 'SHA', 'sha']),
             authkey=dict(type='str', required=False, no_log=True),
-            privacy=dict(type='str', required=False, choices=['AES', 'aes', 'DES', 'des']),
+            privacy=dict(type='str', required=False, choices=[
+                'AES', 'aes', 'DES', 'des', 'AES192', 'aes192',
+                'AES256', 'aes256', 'AES192C', 'aes192c', 'AES256C', 'aes256c'
+            ]),
             privkey=dict(type='str', required=False, no_log=True),
             context_engine_id=dict(type='str', required=False, default=None),
             context_name=dict(type='str', required=False, default=None),
