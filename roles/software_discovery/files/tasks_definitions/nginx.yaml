@@ -77,8 +77,19 @@
               ignore_errors: true
             - name: Set config file
               set_instance_fact:
-                _conf_file: "<<version_command.stderr | regex_findall('--conf-path=(.*?) --.*', multiline=True) | first | default('')>>"
+                _conf_file: "<< (version_command.stderr | regex_findall('--conf-path=([^\\\\s]+)') | first | default('', true)) >>"
               ignore_errors: true
+            - name: Fallback to CWD config
+              block:
+                - name: Check conf/nginx.conf in CWD
+                  stat:
+                    path: "<< __instance__.process.cwd | default('') >>/conf/nginx.conf"
+                  register: cwd_conf
+                - name: Set CWD config file
+                  set_instance_fact:
+                    _conf_file: "<< __instance__.process.cwd | default('') >>/conf/nginx.conf"
+                  when: cwd_conf.stat.exists
+              when: __instance__._conf_file | length == 0
           when: version_command is not failed
     - name: Store config vars
       block:
