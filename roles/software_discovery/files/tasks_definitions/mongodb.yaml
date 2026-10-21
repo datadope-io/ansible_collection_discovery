@@ -17,17 +17,24 @@
     name: '<< __instance__._config_path | basename >>'
     type: 'config'
     subtype: 'generic'
-  when: result_config is not failed
+  when:
+    - result_config is not failed
+    - result_config.stat.exists
 - name: Read config file if accessible
   read_remote_file:
     file_path: "<< __instance__._config_path>>"
     parser: yaml
   register: _config_file
-  when: result_config is not failed
+  when:
+    - result_config is not failed
+    - result_config.stat.exists
 - name: Store config file if necessary
   set_instance_fact:
-    configuration: "<< _config_file.parsed >>"
-  when: _config_file is not failed
+    configuration: "<< _config_file.parsed | default({}) >>"
+  when:
+    - _config_file is not failed
+    - _config_file is not skipped
+    - _config_file.parsed is defined
 
 - name: Remove temporary variables
   del_instance_fact:
