@@ -21,7 +21,7 @@
         _config_path: "<< __item__ >>"
       when:
         - filebeat_config_stat is not failed
-        - filebeat_config_stat.stat.exists is defined
+        - filebeat_config_stat.stat is defined
         - filebeat_config_stat.stat.exists
   when: __instance__._config_path is not defined
   loop:

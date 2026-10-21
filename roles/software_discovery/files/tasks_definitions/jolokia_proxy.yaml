@@ -36,7 +36,7 @@
         }) >>"
       when:
         - jolokia_stat is not failed
-        - jolokia_stat.stat.exists is defined
+        - jolokia_stat.stat is defined
         - jolokia_stat.stat.exists
   when: __instance__._base_regex is defined
 

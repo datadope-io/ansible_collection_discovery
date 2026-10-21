@@ -116,7 +116,7 @@
             - _log_dir
           when:
             - __instance__._log_dir is defined
-            - stat_result is failed or not stat_result.stat.exists or not stat_result.stat.isdir
+            - stat_result is failed or stat_result.stat is not defined or not stat_result.stat.exists or not stat_result.stat.isdir
       when: result is not failed
     - name: Remove temporary vars
       del_instance_fact:
