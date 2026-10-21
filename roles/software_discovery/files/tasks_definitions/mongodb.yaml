@@ -19,6 +19,7 @@
     subtype: 'generic'
   when:
     - result_config is not failed
+    - result_config.stat is defined
     - result_config.stat.exists
 - name: Read config file if accessible
   read_remote_file:
@@ -27,6 +28,7 @@
   register: _config_file
   when:
     - result_config is not failed
+    - result_config.stat is defined
     - result_config.stat.exists
 - name: Store config file if necessary
   set_instance_fact:

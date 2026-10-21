@@ -88,7 +88,7 @@
                 - name: Set CWD config file
                   set_instance_fact:
                     _conf_file: "<< __instance__.process.cwd | default('') >>/conf/nginx.conf"
-                  when: cwd_conf.stat.exists
+                  when: cwd_conf.stat is defined and cwd_conf.stat.exists
               when: __instance__._conf_file | length == 0
           when: version_command is not failed
     - name: Store config vars
