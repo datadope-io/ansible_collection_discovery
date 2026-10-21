@@ -53,6 +53,8 @@ mocked_plugin_tasks:
   Check if _config_path is accessible:
     number_of_calls: 1
     plugin_result:
+      stat:
+        exists: true
       failed: false
   Read config file if accessible:
     number_of_calls: 1
