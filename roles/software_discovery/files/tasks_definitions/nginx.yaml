@@ -77,7 +77,7 @@
               ignore_errors: true
             - name: Set config file
               set_instance_fact:
-                _conf_file: "<< (version_command.stderr | regex_findall('--conf-path=([^\\\\s]+)') | first | default('', true)) >>"
+                _conf_file: "<< (version_command.stderr | regex_findall('--conf-path=([^\\s]+)') | first | default('', true)) >>"
               ignore_errors: true
             - name: Fallback to CWD config
               block:
