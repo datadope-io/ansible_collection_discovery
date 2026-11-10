@@ -1,3 +1,9 @@
+# 1.17.0
+
+## Features
+
+- Add support for AES192, AES256, AES192C and AES256C in snmp_facts.
+
 # 1.16.0
 
 ## Features

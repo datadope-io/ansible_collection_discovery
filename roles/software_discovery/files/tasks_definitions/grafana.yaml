@@ -42,6 +42,7 @@
       ignore_errors: true
       when:
         - conf_file is not failed
+        - conf_file.stat is defined
         - conf_file.stat.exists
         - conf_file.stat.readable
     - name: Save config file
@@ -74,6 +75,7 @@
           when: version.stdout is defined
       when:
         - dir is not failed
+        - dir.stat is defined
         - dir.stat.exists
         - dir.stat.executable
   when: __instance__._home is defined
